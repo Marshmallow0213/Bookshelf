@@ -1,0 +1,33 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ViewOrder
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "首頁";
+}
+
+<div class="container-fluid pb-5">
+    <h1>待辦事項清單</h1>
+    <p>你的待處理事項</p>
+    <div class="row">
+        <div class="col-4 px-1 my-1">
+            <div class="py-2" style="@(Model.OrdersCount["待確認"] > 0 ? "background-color: #80808050;" : "background-color: #80808025;")">
+                <p class="text-center" style="@(@Model.OrdersCount["待確認"] > 0 ? "color: red;" : "")">@Model.OrdersCount["待確認"]</p>
+                <p class="text-center">待確認訂單</p>
+            </div>
+        </div>
+        <div class="col-4 px-1 my-1">
+            <div class="py-2" style="background-color: #80808025;">
+                <p class="text-center">@Model.OrdersCount["已完成"]</p>
+                <p class="text-center">已處理訂單</p>
+            </div>
+        </div>
+        <div class="col-4 px-1 my-1">
+            <div class="py-2" style="@(Model.OrdersCount["待取消"] > 0 ? "background-color: #80808050;" : "background-color: #80808025;")">
+                <p class="text-center" style="@(@Model.OrdersCount["待取消"] > 0 ? "color: red;" : "")">@Model.OrdersCount["待取消"]</p>
+                <p class="text-center">待取消訂單</p>
+            </div>
+        </div>
+    </div>
+</div>

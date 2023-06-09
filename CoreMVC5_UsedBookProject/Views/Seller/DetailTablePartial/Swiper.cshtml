@@ -1,0 +1,46 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ProductViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string[] list = { Model.Image2, Model.Image3, Model.Image4, Model.Image5, Model.Image6, Model.Image7, Model.Image8, Model.Image9 };
+    list = list.Where(w => w != "無圖片").ToArray();
+}
+<div class="mb-3" style="max-width: 200px;">
+    <!-- Swiper -->
+    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide p-2" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
+                <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@Model.Title" />
+            </div>
+            @if (list.Length > 0)
+            {
+                @foreach (string item in list)
+                {
+                    <div class="swiper-slide" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
+                        <img src="../Images/@Model.ProductId/@item" class="m-auto d-block" onload="imgMaxAuto(this)" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                    </div>
+                }
+            }
+        </div>
+        <div class="swiper-button-next" style="color: black;"></div>
+        <div class="swiper-button-prev" style="color: black;"></div>
+    </div>
+    <div thumbsSlider="" class="swiper mySwiper" style="height: 64px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@Model.Title" />
+            </div>
+            @if (list.Length > 0)
+            {
+                @foreach (var item in list)
+                {
+                    <div class="swiper-slide">
+                        <img src="../Images/@Model.ProductId/@item" class="m-auto d-block" onload="imgMaxAuto(this)" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

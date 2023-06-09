@@ -1,0 +1,38 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ProductEditViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "編輯商品";
+}
+
+<div class="container-fluid">
+    <h1>編輯商品</h1>
+    <form action="~/Seller/Edit" method="post" enctype="multipart/form-data">
+        <partial name="~/Views/Seller/EditTablePartial/ProductInformation.cshtml" />
+        <partial name="~/Views/Seller/EditTablePartial/ProductImage.cshtml" />
+        <partial name="~/Views/Seller/EditTablePartial/SaleInformation.cshtml" />
+        <input type="hidden" name="ProductId" class="form-control"  value="@Model.ProductId" readonly />
+        <div id="Test_Image_div" class="d-none">
+            Test_Image_div
+        </div>
+        <br />
+        <div class="gap-2">
+            <button type="submit" name="Status" class="btn btn-success disable-onbeforeunload" value="已上架"><i class="bi bi-save"></i> 儲存並上架</button>
+            <button type="submit" name="Status" class="btn btn-outline-green disable-onbeforeunload" value="未上架"><i class="bi bi-save"></i> 儲存並下架</button>
+            <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
+        </div>
+    </form>
+    <div id="test_div" class="d-none">
+        <img src="" alt="test" id="test">
+        <p id="test_p"></p>
+    </div>
+</div>
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Seller/EditTablePartial.css" />
+}
+@section endJS{
+    <script src="~/js/Seller/EditTablePartial.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,37 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ProductViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@functions {
+    public string price()
+    {
+        return Model.UnitPrice.ToString("N0");
+    }
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2"><h2>銷售資訊</h2></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Status)</td>
+            <td>@Html.DisplayFor(model => model.Status)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Trade)</td>
+            <td>@Html.DisplayFor(model => model.Trade)</td>
+        </tr>
+        @if (@Model.Trade == "金錢")
+        {
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.UnitPrice)</td>
+                <td>NT$@price()</td>
+            </tr>
+        }
+    </tbody>
+</table>

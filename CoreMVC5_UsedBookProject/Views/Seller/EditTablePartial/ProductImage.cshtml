@@ -1,0 +1,172 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ProductEditViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"].ToString();
+    string action = route.Values["action"].ToString();
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2"><h2>商品圖片</h2><p>限(jpg|jpeg|png|gif)</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Image1)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image1" class="form-control d-block flex-grow-1" value="@(Model.Image1 == null ? "無圖片" : Model.Image1)" id="Image1" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image1-clear" disabled>X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file1" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    @if (action == "Create")
+                    {
+                        <input type="file" asp-for="File1" class="w-1px" accept="image/*" id="file1" />
+                    }
+                    else
+                    {
+                        <input type="file" asp-for="File1" class="w-1px" accept="image/*" id="file1" />
+                    }
+                    <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+                <span asp-validation-for="File1" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image2)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image2" class="form-control d-block flex-grow-1" value="@(Model.Image2 == null ? "無圖片" : Model.Image2)" id="Image2" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image2-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file2" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file2" accept="image/*" id="file2" />
+                    <p id="p-file2" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image3)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image3" class="form-control d-block flex-grow-1" value="@(Model.Image3 == null ? "無圖片" : Model.Image3)" id="Image3" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image3-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file3" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file3" accept="image/*" id="file3" />
+                    <p id="p-file3" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image4)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image4" class="form-control d-block flex-grow-1" value="@(Model.Image4 == null ? "無圖片" : Model.Image4)" id="Image4" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image4-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file4" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file4" accept="image/*" id="file4" />
+                    <p id="p-file4" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image5)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image5" class="form-control d-block flex-grow-1" value="@(Model.Image5 == null ? "無圖片" : Model.Image5)" id="Image5" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image5-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file5" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file5" accept="image/*" id="file5" />
+                    <p id="p-file5" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image6)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image6" class="form-control d-block flex-grow-1" value="@(Model.Image6 == null ? "無圖片" : Model.Image6)" id="Image6" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image6-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file6" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file6" accept="image/*" id="file6" />
+                    <p id="p-file6" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image7)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image7" class="form-control d-block flex-grow-1" value="@(Model.Image7 == null ? "無圖片" : Model.Image7)" id="Image7" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image7-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file7" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file7" accept="image/*" id="file7" />
+                    <p id="p-file7" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image8)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image8" class="form-control d-block flex-grow-1" value="@(Model.Image8 == null ? "無圖片" : Model.Image8)" id="Image8" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image8-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file8" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file8" accept="image/*" id="file8" />
+                    <p id="p-file8" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Image9)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="text" name="Image9" class="form-control d-block flex-grow-1" value="@(Model.Image9 == null ? "無圖片" : Model.Image9)" id="Image9" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image9-clear">X</button>
+                </div>
+                <div class="d-flex align-items-end mt-2">
+                    <label for="file9" class="btn btn-primary">
+                        選擇檔案
+                    </label>
+                    <input type="file" class="w-1px" name="file9" accept="image/*" id="file9" />
+                    <p id="p-file9" class="d-block ml-3">未選擇任何檔案</p>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

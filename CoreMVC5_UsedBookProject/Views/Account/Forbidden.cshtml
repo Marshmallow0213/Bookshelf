@@ -1,0 +1,17 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Forbidden";
+}
+
+<h1>Forbidden</h1>
+
+<h2>@(User.Identity.Name)雖通過帳密驗證</h2>
+但你所屬群組是@(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role))
+<ul>
+    @foreach (var roleClaim in User.Claims.Where(c => c.Type == ClaimTypes.Role))
+    {
+        <li>@roleClaim.Value</li>
+    }
+</ul>
+<p>本報表僅限Administrator群組存取</p>

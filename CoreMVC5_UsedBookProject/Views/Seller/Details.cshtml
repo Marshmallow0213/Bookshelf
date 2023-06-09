@@ -1,0 +1,44 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ProductViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "商品詳情";
+}
+<div class="container-fluid">
+    <h1>商品詳情</h1>
+    <partial name="~/Views/Seller/DetailTablePartial/Swiper.cshtml" />
+    <form action="~/Seller/Edit" method="post">
+        <partial name="~/Views/Seller/DetailTablePartial/ProductInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailTablePartial/SaleInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailTablePartial/OtherInformation.cshtml" />
+        <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
+        <br />
+        <div class="gap-2">
+            @if (Model.Status == "已上架" || Model.Status == "未上架")
+            {
+                <a href="@Url.Action("Edit", "Seller", new {ProductId = Model.ProductId})" class="btn btn-warning"><i class="bi bi-pencil-square"></i> 編輯</a>
+            }
+            <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
+        </div>
+    </form>
+</div>
+@section topCSS{
+    <link rel="stylesheet" href="~/css/Seller/DetailTablePartial.css" />
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+    <!-- Demo styles -->
+    <link rel="stylesheet" href="~/css/Swiper/Swiper.css" />
+}
+@section topJS{
+    <script src="~/js/Seller/img-max-auto.js"></script>
+}
+@section endJS{
+    <!-- Swiper JS -->
+    <script src="~/lib//Swiper/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script src="~/js/Swiper/Swiper.js"></script>
+    <script src="~/js/Seller/DetailTablePartial.js"></script>
+}

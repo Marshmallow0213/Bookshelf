@@ -1,0 +1,44 @@
+﻿table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    flex-grow: 1;
+    width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
+}
+tr > td:first-of-type{
+    width: 75px;
+}
+td {
+    border: 1px solid black;
+    padding: 5px;
+}
+.product-card {
+    background-color: #80808025;
+}
+.action{
+    width: 100%;
+}
+.gap-5px{
+    gap: 5px;
+}
+.status > li > a {
+    font-size: 18px;
+    color: black;
+}
+@media (min-width:576px) {
+}
+@media (min-width:768px) {
+    .action {
+        min-width: 100px;
+        max-width: 100px;
+    }
+    table{
+        width: auto;
+    }
+}
+@media (min-width:992px) {
+}
+@media (min-width:1200px) {
+}

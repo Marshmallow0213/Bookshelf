@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 二手書平台</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/Seller/topbtn.css" />
+    <link rel="stylesheet" href="~/css/Seller/modified-page.css" />
+    @RenderSection("topCSS",required:false)
+    @RenderSection("topJS", required: false)
+</head>
+<body>
+    <header>
+        <partial name="_NavbarPartial"></partial>
+    </header>
+    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+    <noscript>
+        <h1 class="text-center">此網頁需要支援 JavaScript 才能正確運行，請先至你的瀏覽器設定中開啟 JavaScript。</h1>
+        <style>
+            main {
+                display: none;
+            }
+        </style>
+    </noscript>
+
+    <div class="container-fluid">
+        <main role="main" class="pb-3 row">
+            <div class="col-12 col-md-2">
+                <partial name="_SellerAsidePartial"></partial>
+            </div>
+            <div class="col-12 col-md-10">
+                <div class="container-fluid d-block">
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("endCSS", required: false)
+    @RenderSection("endJS", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/Seller/topbtn.js"></script>
+    <script src="~/js/Seller/shownickname.js"></script>
+</body>
+</html>

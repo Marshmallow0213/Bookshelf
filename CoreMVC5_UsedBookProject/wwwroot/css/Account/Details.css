@@ -1,0 +1,27 @@
+﻿table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    flex-grow: 1;
+    width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
+}
+tr > td:first-of-type{
+    width: 100px;
+}
+td {
+    border: 1px solid black;
+    padding: 5px;
+}
+@media (min-width:576px) {
+}
+@media (min-width:768px) {
+    table{
+        width: auto;
+    }
+}
+@media (min-width:992px) {
+}
+@media (min-width:1200px) {
+}

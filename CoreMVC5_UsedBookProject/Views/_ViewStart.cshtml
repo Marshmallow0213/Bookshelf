@@ -1,3 +1,13 @@
 ﻿@{
-    Layout = "_Layout";
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+    if (controller == "Seller" || controller == "Account")
+    {
+        Layout = "_LayoutSeller";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }

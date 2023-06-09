@@ -1,0 +1,97 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ProductCreateViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"].ToString();
+    string action = route.Values["action"].ToString();
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2"><h2>商品資訊</h2></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (controller == "Seller" && action == "Edit")
+        {
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.ProductId)</td>
+                <td>@Html.DisplayFor(model => model.ProductId)</td>
+            </tr>
+        }
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Title)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Title" class="form-control show-length focus" placeholder="輸入書名"></textarea>
+                    <p id="Title_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ISBN)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="ISBN" class="form-control show-length focus" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
+                    <p id="ISBN_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Author)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Author" class="form-control show-length focus" placeholder="輸入作者"></textarea>
+                    <p id="Author_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Publisher)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Publisher" class="form-control show-length focus" placeholder="輸入出版商"></textarea>
+                    <p id="Publisher_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.PublicationDate)</td>
+            <td>
+                <div class="d-flex">
+                    <input type="date" asp-for="PublicationDate" class="form-control focus" />
+                    <p class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="PublicationDate" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Degree)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Degree" class="form-control show-length focus" placeholder="輸入新舊程度"></textarea>
+                    <p id="Degree_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Degree" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ContentText)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="ContentText" class="form-control show-length focus" placeholder="輸入內文"></textarea>
+                    <p id="ContentText_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="ContentText" class="text-danger"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

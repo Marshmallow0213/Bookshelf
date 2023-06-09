@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+}
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+        @switch (controller)
+        {
+            case "Home":
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">二手書平台</a>
+                break;
+            case "Seller":
+                <a class="navbar-brand" asp-area="" asp-controller="Seller" asp-action="Index">二手書平台-賣家中心</a>
+                break;
+            case "Account":
+                <a class="navbar-brand" asp-area="" asp-controller="Seller" asp-action="Index">二手書平台-賣家中心</a>
+                break;
+            default:
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">二手書平台</a>
+                break;
+        }
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                @if (controller == "Home")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="Index" style="width: fit-content;" target="_blank">賣家中心</a>
+                    </li>
+                }
+                
+            </ul>
+            @*<partial name="_LoginPartial" />*@
+            <partial name="_LoginStatusPartial" />
+        </div>
+    </div>
+</nav>

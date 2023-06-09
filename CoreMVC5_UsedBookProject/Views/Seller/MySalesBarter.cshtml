@@ -1,0 +1,71 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model ViewOrder
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "我的銷售(以物易物)";
+}
+
+<div class="container-fluid pb-5 gap-2">
+    <h1>我的銷售(以物易物)</h1>
+    <ul class="nav nav-pills my-3 gap-10px status">
+        <li class="nav-item d-flex">
+            <a href="@Url.Action("MySalesBarter", "Seller", new {status = "全部"})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
+            <span style="color: red;">@Model.OrdersCount["全部"] </span>
+        </li>
+        <li class="nav-item d-flex">
+            <a href="@Url.Action("MySalesBarter", "Seller", new {status = "待確認"})" class="text-decoration-none" style="@(Model.StatusPage == "待確認" ? "color: red; border-bottom: 2px solid red;" : "")">待確認</a>
+            <span style="color: red;">@Model.OrdersCount["待確認"] </span>
+        </li>
+        <li class="nav-item d-flex">
+            <a href="@Url.Action("MySalesBarter", "Seller", new {status = "已完成"})" class="text-decoration-none" style="@(Model.StatusPage == "已完成" ? "color: red; border-bottom: 2px solid red;" : "")">已完成</a>
+            <span style="color: red;">@Model.OrdersCount["已完成"] </span>
+        </li>
+        <li class="nav-item d-flex">
+            <a href="@Url.Action("MySalesBarter", "Seller", new {status = "待取消"})" class="text-decoration-none" style="@(Model.StatusPage == "待取消" ? "color: red; border-bottom: 2px solid red;" : "")">待取消</a>
+            <span style="color: red;">@Model.OrdersCount["待取消"] </span>
+        </li>
+    </ul>
+    @if (Model.Orders.Count > 0)
+    {
+        @foreach (var item in Model.Orders)
+        {
+            <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
+                <div class="m-auto" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
+                    <img src="../Images/@item.ProductId/@item.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@item.Title" />
+                </div>
+                <table class="container-fluid">
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.SellerId)</td><td>@item.SellerId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.BuyerId)</td><td>@item.BuyerId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.ProductId)</td><td>@item.ProductId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>以物易物</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
+                </table>
+                <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
+                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 詳情</a>
+                    @*@if (item.Status == "已上架" || item.Status == "未上架")
+                    {
+                        <a href="@Url.Action("Edit", "Seller", new {ProductId = item._ProductId})" class="btn btn-warning mt-2"><i class="bi bi-pencil-square"></i> 編輯</a>
+                    }
+                    @if (item.Status == "已上架" || item.Status == "未上架")
+                    {
+                        <a href="@Url.Action("Delete", "Seller", new {ProductId = item._ProductId})" class="btn btn-danger mt-2"><i class="bi bi-trash"></i> 刪除</a>
+                    }*@
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h2 class="text-center my-5">沒有符合的商品</h2>
+    }
+    <partial name="_NowPageMySales" />
+</div>
+@section topCSS{
+    <link href="~/css/seller/mysales.css" rel="stylesheet" />
+}
+@section topJS{
+    <script src="~/js/Seller/img-max-auto.js"></script>
+}
