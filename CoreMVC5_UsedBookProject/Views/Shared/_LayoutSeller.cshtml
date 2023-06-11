@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/Seller/topbtn.css" />
-    <link rel="stylesheet" href="~/css/Seller/modified-page.css" />
+    <link href="~/css/seller/topbtn.css" rel="stylesheet" />
+    <link href="~/css/seller/modifiedpage.css" rel="stylesheet" />
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
@@ -25,17 +25,19 @@
             }
         </style>
     </noscript>
-
-    <div class="container-fluid">
-        <main role="main" class="pb-3 row">
-            <div class="col-12 col-md-2">
-                <partial name="_SellerAsidePartial"></partial>
+    
+    <div class="d-flex" style="position: relative;">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="px-3" id="drop-login-status" style="max-height: 0px; height: fit-content; position: absolute; top: 0px; right: 0px; overflow: hidden; background-color: white; z-index: 1; transition: .5s; border-left: 1px solid black;">
+                <p class="px-1 mb-0 py-3" id="nickname" style="border-bottom: 1px solid black; font-size: 20px;">@User.Claims.FirstOrDefault(c => c.Type.Contains("email")).Value</p>
+                <a href="@Url.Action("Details", "Account")" class="px-1 text-dark me-2 d-block py-3" style="border-bottom: 1px solid black; font-size: 20px;"><i class="bi bi-gear"></i> 設定</a>
+                <a href="@Url.Action("SignOut", "Account")" class="px-1 text-dark d-block py-3" style="font-size: 20px;"><i class="bi bi-box-arrow-right"></i> 登出</a>
             </div>
-            <div class="col-12 col-md-10">
-                <div class="container-fluid d-block">
-                    @RenderBody()
-                </div>
-            </div>
+        }
+        <partial name="_SellerAsidePartial"></partial>
+        <main role="main" class="p-2 container flex-grow-1">
+            @RenderBody()
         </main>
     </div>
 
@@ -50,7 +52,8 @@
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)
-    <script src="~/js/Seller/topbtn.js"></script>
-    <script src="~/js/Seller/shownickname.js"></script>
+    <script src="~/js/seller/topbtn.js"></script>
+    <script src="~/js/seller/shownickname.js"></script>
+    <script src="~/js/seller/focus.js"></script>
 </body>
 </html>

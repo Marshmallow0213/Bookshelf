@@ -1,15 +1,10 @@
 ﻿//for Create and Edit
 window.onload = function () {
     if (document.querySelector("h1").innerText == "新增商品") {
-        let noEmpty = document.querySelectorAll(".no-empty");
-        noEmpty.forEach(element => {
-            let length = element.value.length == null ? 0 : element.value.length;
-            element.nextElementSibling.innerText = `${length}/${element.getAttribute('maxlength')}`;
-        });
         document.getElementById("flexRadioTrade1").addEventListener("click", Money);
         document.getElementById("flexRadioTrade2").addEventListener("click", Barter);
     }
-    let showLength = document.querySelectorAll(".show-length");
+    var showLength = document.querySelectorAll(".show-length");
     showLength.forEach(element => {
         ShowLength(element);
     });
@@ -32,7 +27,7 @@ function Barter() {
 }
 //end
 //start check empty and show length
-let showLength = document.querySelectorAll(".show-length");
+var showLength = document.querySelectorAll(".show-length");
 showLength.forEach(element => {
     element.addEventListener("input", () => {
         ShowLength(element);
@@ -45,15 +40,6 @@ function ShowLength(element) {
     let length = element.value.length;
     element.nextElementSibling.innerText = `${length}/${element.getAttribute('maxlength')}`;
 }
-let focus = document.querySelectorAll(".focus");
-focus.forEach(element => {
-    element.addEventListener("focus", () => {
-        element.style.border = "1px solid green";
-    })
-    element.addEventListener("blur", () => {
-        element.style.border = "1px solid #80808050";
-    })
-});
 //end
 //start check img value valid
 for (let i = 1; i <= 9; i++) {

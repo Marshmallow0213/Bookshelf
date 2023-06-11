@@ -1,16 +1,15 @@
-﻿<ul class="navbar-nav">
-    @if(User.Identity.IsAuthenticated)
-    {
-        @*已登入*@
-        //顯示使用者名稱+登出按鈕
-        <li class="nav-item p-1"><a href="@Url.Action("Details", "Account")" class="nav-link text-dark me-2" id="nickname">@User.Claims.FirstOrDefault(c => c.Type.Contains("email")).Value</a></li>
-        <li class="nav-item p-1"><a href="@Url.Action("SignOut", "Account")" class="nav-link text-dark">登出</a></li>
-    }
-    else
-    {
-        @*未登入*@
-        //登入按鈕+註冊
-        <li class="nav-item p-1"><a href="@Url.Action("Login", "Account")" class="nav-link text-dark me-2">登入</a></li>
-        <li class="nav-item p-1"><a href="@Url.Action("Register", "Account")" class="nav-link text-dark">註冊</a></li>
-    }
-</ul>
+﻿@if (User.Identity.IsAuthenticated)
+{
+    @*已登入*@
+    //顯示使用者名稱+登出按鈕
+    <a class="text-dark d-inline-block p-1" id="drop-login-btn" style="font-size: 20px; width: fit-content; overflow: hidden;">
+        <i class="bi bi-file-person-fill"></i> 個人資訊
+    </a>
+}
+else
+{
+    @*未登入*@
+    //登入按鈕+註冊
+    <a href="@Url.Action("Login", "Account")" class="p-1 text-dark me-2" style="font-size: 20px;">登入</a>
+    <a href="@Url.Action("Register", "Account")" class="p-1 text-dark" style="font-size: 20px;">註冊</a>
+}

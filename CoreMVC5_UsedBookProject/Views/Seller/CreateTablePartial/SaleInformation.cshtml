@@ -49,7 +49,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">NT$</span>
                     </div>
-                    <input type="text" asp-for="UnitPrice" maxlength="5" pattern="\d*" class="form-control focus" id="UnitPrice" value="@(decimal.Round(Model.UnitPrice,0) == 0 ? "" : decimal.Round(Model.UnitPrice,0))" id="UnitPrice" placeholder="輸入價格" oninput="process(this)" />
+                    <input type="text" asp-for="UnitPrice" maxlength="5" pattern="\d*" class="form-control" id="UnitPrice" value="@(decimal.Round(Model.UnitPrice,0) == 0 ? "" : decimal.Round(Model.UnitPrice,0))" id="UnitPrice" placeholder="輸入價格" oninput="process(this)" />
                     <p class="d-none"></p>
                 </div>
                 <span asp-validation-for="UnitPrice" class="text-danger"></span>

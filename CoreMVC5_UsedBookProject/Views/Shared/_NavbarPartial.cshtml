@@ -6,39 +6,14 @@
     string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
 }
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-        @switch (controller)
-        {
-            case "Home":
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">二手書平台</a>
-                break;
-            case "Seller":
-                <a class="navbar-brand" asp-area="" asp-controller="Seller" asp-action="Index">二手書平台-賣家中心</a>
-                break;
-            case "Account":
-                <a class="navbar-brand" asp-area="" asp-controller="Seller" asp-action="Index">二手書平台-賣家中心</a>
-                break;
-            default:
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">二手書平台</a>
-                break;
-        }
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                @if (controller == "Home")
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="Index" style="width: fit-content;" target="_blank">賣家中心</a>
-                    </li>
-                }
-                
-            </ul>
-            @*<partial name="_LoginPartial" />*@
-            <partial name="_LoginStatusPartial" />
-        </div>
+<nav class="bg-white border-bottom box-shadow d-flex p-3" style="position: relative;">
+    @if (controller == "Seller" || (controller == "Account" && (action == "Details" || action == "ChangePassword" || action == "ChangeUserInfo")))
+    {
+        <i class="bi bi-list mr-2" id="hamber" style="font-size: 26px;"></i>
+    }
+    <a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Seller" asp-action="Index" style="font-size: 20px;"><strong>二手書平台-賣家中心</strong></a>
+    <p class="flex-grow-1"></p>
+    <div>
+        <partial name="_LoginStatusPartial" />
     </div>
 </nav>

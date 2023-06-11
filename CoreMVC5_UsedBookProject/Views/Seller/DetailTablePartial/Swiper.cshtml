@@ -12,14 +12,14 @@
     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
         <div class="swiper-wrapper">
             <div class="swiper-slide p-2" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@Model.Title" />
+                <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" alt="@Model.Title" />
             </div>
             @if (list.Length > 0)
             {
                 @foreach (string item in list)
                 {
                     <div class="swiper-slide" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                        <img src="../Images/@Model.ProductId/@item" class="m-auto d-block" onload="imgMaxAuto(this)" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                        <img src="../Images/@Model.ProductId/@item" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" onerror="this.parentNode.remove();" alt="@Model.Title" />
                     </div>
                 }
             }
@@ -30,14 +30,14 @@
     <div thumbsSlider="" class="swiper mySwiper" style="height: 64px;">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@Model.Title" />
+                <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" alt="@Model.Title" />
             </div>
             @if (list.Length > 0)
             {
                 @foreach (var item in list)
                 {
                     <div class="swiper-slide">
-                        <img src="../Images/@Model.ProductId/@item" class="m-auto d-block" onload="imgMaxAuto(this)" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                        <img src="../Images/@Model.ProductId/@item" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" onerror="this.parentNode.remove();" alt="@Model.Title" />
                     </div>
                 }
             }

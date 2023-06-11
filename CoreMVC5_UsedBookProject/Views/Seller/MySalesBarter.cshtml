@@ -33,7 +33,7 @@
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
                 <div class="m-auto" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/@item.ProductId/@item.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@item.Title" />
+                    <img src="../Images/@item.ProductId/@item.Image1" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" alt="@item.Title" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.Order.SellerId)</td><td>@item.SellerId</td></tr>
@@ -67,5 +67,8 @@
     <link href="~/css/seller/mysales.css" rel="stylesheet" />
 }
 @section topJS{
-    <script src="~/js/Seller/img-max-auto.js"></script>
+    <script src="~/js/seller/imgmaauto.js"></script>
+}
+@section endJS{
+    <script src="~/js/seller/reloadbydatetime.js"></script>
 }

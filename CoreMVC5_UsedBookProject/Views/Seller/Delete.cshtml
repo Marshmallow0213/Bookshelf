@@ -10,7 +10,7 @@
     <h1>刪除商品</h1>
     <div class="row">
         <div class="mb-3 p-2" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
-            <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block" onload="imgMaxAuto(this)" alt="@Model.Title" />
+            <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" alt="@Model.Title" />
         </div>
     </div>
     <form action="~/Seller/Delete" method="post">
@@ -26,11 +26,12 @@
     </form>
 </div>
 @section topCSS{
-    <link rel="stylesheet" href="~/css/Seller/DetailTablePartial.css" />
+    <link href="~/css/seller/detailtablepartial.css" rel="stylesheet" />
 }
 @section topJS{
-    <script src="~/js/Seller/img-max-auto.js"></script>
+    <script src="~/js/seller/imgmaauto.js"></script>
 }
 @section endJS{
-    <script src="~/js/Seller/DetailTablePartial.js"></script>
+    <script src="~/js/seller/detailtablepartial.js"></script>
+    <script src="~/js/seller/reloadbydatetime.js"></script>
 }

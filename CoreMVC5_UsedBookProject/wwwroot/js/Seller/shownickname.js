@@ -1,10 +1,10 @@
 ﻿window.onload = function(){
-    try{
-    document.getElementById("nickname").innerText = readCookie("Nickname");
+    try {
+        document.getElementById("nickname").innerText = readCookie("Nickname");
     }
-catch{
-    console.log("");
-    }
+    catch{
+        console.log("");
+        }
 }
 function readCookie(name) {
     var nameEQ = name + "=";
