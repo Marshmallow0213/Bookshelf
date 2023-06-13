@@ -15,9 +15,9 @@ namespace CoreMVC5_UsedBookProject.Services
 {
     public class AccountService
     {
-        private readonly AccountContext _ctx;
+        private readonly ProductContext _ctx;
         private readonly IHashService _hashService;
-        public AccountService(AccountContext ctx, IHashService hashService)
+        public AccountService(ProductContext ctx, IHashService hashService)
         {
             _ctx = ctx;
             _hashService = hashService;

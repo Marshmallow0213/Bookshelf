@@ -14,7 +14,7 @@ namespace CoreMVC5_UsedBookProject.Data
         }
 
         public DbSet<AdministratorUser> Users { get; set; }
-        public DbSet<AdminRole> Roles { get; set; }
+        public DbSet<AdministratorRole> Roles { get; set; }
         public DbSet<AdministratorUserRoles> UserRoles  { get; set; }
 
         
@@ -35,9 +35,9 @@ namespace CoreMVC5_UsedBookProject.Data
                 new AdministratorUser { Id = "B003", Name = "Neverloses@bookshelf.com", Password = _hashService.MD5Hash("MBpassword003"), Nickname = "甲甲志" }
                 );
 
-            modelBuilder.Entity<AdminRole>().HasData(
-            new AdminRole { Id = "R001", Name = "Administrator" },
-                new AdminRole { Id = "R002", Name = "common user" }
+            modelBuilder.Entity<AdministratorRole>().HasData(
+            new AdministratorRole { Id = "R001", Name = "Administrator" },
+                new AdministratorRole { Id = "R002", Name = "common user" }
                 );
 
             modelBuilder.Entity<AdministratorUserRoles>()

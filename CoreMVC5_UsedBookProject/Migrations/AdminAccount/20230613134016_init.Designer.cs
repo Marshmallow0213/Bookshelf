@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CoreMVC5_UsedBookProject.Migrations
+namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 {
-    [DbContext(typeof(AccountContext))]
-    [Migration("20230612131447_init")]
+    [DbContext(typeof(AdminAccountContext))]
+    [Migration("20230613134016_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Role", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -41,21 +41,11 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         new
                         {
                             Id = "R002",
-                            Name = "Sales"
-                        },
-                        new
-                        {
-                            Id = "R003",
-                            Name = "RD"
-                        },
-                        new
-                        {
-                            Id = "R004",
-                            Name = "Operation"
+                            Name = "common user"
                         });
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.User", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -64,15 +54,12 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nickname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
@@ -85,34 +72,28 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "U001",
-                            Email = "kevinxi@gmail.com",
-                            Name = "Admin0001",
-                            Nickname = "Admin0001",
-                            Password = "$2a$11$mqOdtqjWe55qhO6GAIVOI.12UNUaI7u/Hvv8Q6BBsHV7ObA7CW3v.",
-                            PhoneNo = "0925-155222"
+                            Id = "B001",
+                            Name = "Potatodog@bookshelf.com",
+                            Nickname = "馬鈴薯狗",
+                            Password = "d5e10bd206b5f1aca583f37be2566e70"
                         },
                         new
                         {
-                            Id = "U002",
-                            Email = "marylee@gmail.com",
-                            Name = "Admin0002",
-                            Nickname = "Admin0002",
-                            Password = "$2a$11$n4yAo6X3afNGC23GzUynmukvBV.8UyDitRKwN6Mw7S/Bh155kd1f2",
-                            PhoneNo = "0935-123123"
+                            Id = "B002",
+                            Name = "Tony@bookshelf.com",
+                            Nickname = "Tony",
+                            Password = "213ffb90868d8b9c58aae64988f642f1"
                         },
                         new
                         {
-                            Id = "U003",
-                            Email = "johnwei@gmail.com",
-                            Name = "Admin0003",
-                            Nickname = "Admin0003",
-                            Password = "$2a$11$Vx0u.FyOFAH2ZKwI1H59I.eJQO47.YjWpfGQ7usz.sdNaIIccaL26",
-                            PhoneNo = "0955-456456"
+                            Id = "B003",
+                            Name = "Neverloses@bookshelf.com",
+                            Nickname = "甲甲志",
+                            Password = "b70d01e0fac31e93a760021e7cf970d4"
                         });
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.UserRoles", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUserRoles", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -129,36 +110,26 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "U001",
+                            UserId = "B001",
                             RoleId = "R001"
                         },
                         new
                         {
-                            UserId = "U002",
+                            UserId = "B002",
                             RoleId = "R002"
-                        },
-                        new
-                        {
-                            UserId = "U003",
-                            RoleId = "R003"
-                        },
-                        new
-                        {
-                            UserId = "U003",
-                            RoleId = "R004"
                         });
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.UserRoles", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUserRoles", b =>
                 {
-                    b.HasOne("CoreMVC5_UsedBookProject.Models.Role", "Role")
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.AdministratorRole", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
-                        .WithMany("UserRoles")
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.AdministratorUser", "User")
+                        .WithMany("AdministratorRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -168,14 +139,14 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Role", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorRole", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.User", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUser", b =>
                 {
-                    b.Navigation("UserRoles");
+                    b.Navigation("AdministratorRoles");
                 });
 #pragma warning restore 612, 618
         }

@@ -20,16 +20,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             string name = User.Identity.Name;
             var count = _sellerService.OrdersAllCountList(name);
-            ViewOrder mymodel = new()
-            {
-                OrdersCount = count
-            };
-            return View(mymodel);
+            return View(count);
         }
         public IActionResult MySales(String status, int now_page, string trade)
         {
             string name = User.Identity.Name;
-            ViewOrder mymodel = new();
+            MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
             {
@@ -49,7 +45,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public IActionResult MyProducts(String status, int now_page, string trade)
         {
             string name = User.Identity.Name;
-            ViewProduct mymodel = new();
+            MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
             {

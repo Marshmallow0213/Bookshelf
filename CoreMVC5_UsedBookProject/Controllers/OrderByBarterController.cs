@@ -10,86 +10,90 @@ using CoreMVC5_UsedBookProject.Models;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    public class MoneyOrderController : Controller
+    public class OrderByBarterController : Controller
     {
-        private readonly OrderContext _context;
+        private readonly ProductContext _context;
 
-        public MoneyOrderController(OrderContext context)
+        public OrderByBarterController(ProductContext context)
         {
             _context = context;
         }
 
-        // GET: MoneyOrder
+        // GET: OrderByBarter
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MoneyOrder.ToListAsync());
+            var ProductContext = _context.OrderByBarters.Include(o => o.Product);
+            return View(await ProductContext.ToListAsync());
         }
 
-        // GET: MoneyOrder/Details/5
-        public async Task<IActionResult> MoneyOrderResult(string id)
+        // GET: OrderByBarter/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var moneyOrder = await _context.MoneyOrder
-                .FirstOrDefaultAsync(m => m.MoneyOrderId == id);
-            if (moneyOrder == null)
+            var orderByBarter = await _context.OrderByBarters
+                .Include(o => o.Product)
+                .FirstOrDefaultAsync(m => m.OrderByBarterId == id);
+            if (orderByBarter == null)
             {
                 return NotFound();
             }
 
-            return View(moneyOrder);
+            return View(orderByBarter);
         }
 
-        // GET: MoneyOrder/Create
+        // GET: OrderByBarter/Create
         public IActionResult Create()
         {
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId");
             return View();
         }
 
-        // POST: MoneyOrder/Create
+        // POST: OrderByBarter/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MoneyOrderId,ProductId,UnitPrice,denyreason,Buyer,Seller")] MoneyOrder moneyOrder)
+        public async Task<IActionResult> Create([Bind("OrderByBarterId,SellerId,BuyerId,DenyReason,ProductId,Status,CreateDate")] OrderByBarter orderByBarter)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(moneyOrder);
+                _context.Add(orderByBarter);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(moneyOrder);
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId", orderByBarter.ProductId);
+            return View(orderByBarter);
         }
 
-        // GET: MoneyOrder/Edit/5
+        // GET: OrderByBarter/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            id = "M1";
             if (id == null)
             {
                 return NotFound();
             }
 
-            var moneyOrder = await _context.MoneyOrder.FindAsync(id);
-            if (moneyOrder == null)
+            var orderByBarter = await _context.OrderByBarters.FindAsync(id);
+            if (orderByBarter == null)
             {
                 return NotFound();
             }
-            return View(moneyOrder);
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId", orderByBarter.ProductId);
+            return View(orderByBarter);
         }
 
-        // POST: MoneyOrder/Edit/5
+        // POST: OrderByBarter/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MoneyOrderId,ProductId,UnitPrice,denyreason,Buyer,Seller")] MoneyOrder moneyOrder)
+        public async Task<IActionResult> Edit(string id, [Bind("OrderByBarterId,SellerId,BuyerId,DenyReason,ProductId,Status,CreateDate")] OrderByBarter orderByBarter)
         {
-            if (id != moneyOrder.MoneyOrderId)
+            if (id != orderByBarter.OrderByBarterId)
             {
                 return NotFound();
             }
@@ -98,12 +102,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 try
                 {
-                    _context.Update(moneyOrder);
+                    _context.Update(orderByBarter);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MoneyOrderExists(moneyOrder.MoneyOrderId))
+                    if (!OrderByBarterExists(orderByBarter.OrderByBarterId))
                     {
                         return NotFound();
                     }
@@ -114,10 +118,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(moneyOrder);
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId", orderByBarter.ProductId);
+            return View(orderByBarter);
         }
 
-        // GET: MoneyOrder/Delete/5
+        // GET: OrderByBarter/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -125,30 +130,31 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return NotFound();
             }
 
-            var moneyOrder = await _context.MoneyOrder
-                .FirstOrDefaultAsync(m => m.MoneyOrderId == id);
-            if (moneyOrder == null)
+            var orderByBarter = await _context.OrderByBarters
+                .Include(o => o.Product)
+                .FirstOrDefaultAsync(m => m.OrderByBarterId == id);
+            if (orderByBarter == null)
             {
                 return NotFound();
             }
 
-            return View(moneyOrder);
+            return View(orderByBarter);
         }
 
-        // POST: MoneyOrder/Delete/5
+        // POST: OrderByBarter/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var moneyOrder = await _context.MoneyOrder.FindAsync(id);
-            _context.MoneyOrder.Remove(moneyOrder);
+            var orderByBarter = await _context.OrderByBarters.FindAsync(id);
+            _context.OrderByBarters.Remove(orderByBarter);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MoneyOrderExists(string id)
+        private bool OrderByBarterExists(string id)
         {
-            return _context.MoneyOrder.Any(e => e.MoneyOrderId == id);
+            return _context.OrderByBarters.Any(e => e.OrderByBarterId == id);
         }
     }
 }

@@ -3,7 +3,7 @@ using CoreMVC5_UsedBookProject.Models;
 
 namespace CoreMVC5_UsedBookProject.ViewModel
 {
-    public class ViewOrder
+    public class MySalesViewModel
     {
         public OrderViewModel Order { get; set; }
         public List<OrderViewModel> Orders { get; set; }

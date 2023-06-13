@@ -2,7 +2,7 @@
 
 namespace CoreMVC5_UsedBookProject.Models
 {
-    public class AdminRole
+    public class AdministratorRole
     {
         public string Id { get; set; }
         public string Name { get; set; }

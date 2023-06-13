@@ -1,11 +1,5 @@
-﻿add-migration init -context AccountContext
-update-database -context AccountContext
-
-add-migration init -context ProductContext
+﻿add-migration init -context ProductContext
 update-database -context ProductContext
-
-add-migration init -context OrderContext
-update-database -context OrderContext
 
 add-migration init -context AdminAccountContext
 update-database -context AdminAccountContext

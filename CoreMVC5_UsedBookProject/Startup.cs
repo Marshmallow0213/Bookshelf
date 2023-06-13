@@ -44,10 +44,6 @@ namespace CoreMVC5_UsedBookProject
                 });
             services.AddDbContext<ProductContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));
-            services.AddDbContext<AccountContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
-            services.AddDbContext<OrderContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("OrderContext")));
             services.AddDbContext<AdminAccountContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AdminAccountContext")));
             services.AddTransient<AccountService>();

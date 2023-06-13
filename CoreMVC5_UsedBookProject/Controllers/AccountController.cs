@@ -18,10 +18,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AccountContext _ctx;
+        private readonly ProductContext _ctx;
         private readonly AccountService _accountService;
         private readonly IHashService _hashService;
-        public AccountController(AccountContext ctx, AccountService accountService, IHashService hashService)
+        public AccountController(ProductContext ctx, AccountService accountService, IHashService hashService)
         {
             _ctx = ctx;
             _accountService = accountService;

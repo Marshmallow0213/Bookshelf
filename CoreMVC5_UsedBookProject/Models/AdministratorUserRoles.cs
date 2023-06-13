@@ -12,6 +12,6 @@ namespace CoreMVC5_UsedBookProject.Models
         public AdministratorUser User { get; set; } //Navigation property for Users
 
         public string RoleId { get; set; }
-        public AdminRole Role { get; set; } //Navigation property for Roles
+        public AdministratorRole Role { get; set; } //Navigation property for Roles
     }
 }

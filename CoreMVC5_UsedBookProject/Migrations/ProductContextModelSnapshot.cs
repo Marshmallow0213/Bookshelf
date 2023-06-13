@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CoreMVC5_UsedBookProject.Migrations.Product
+namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
     partial class ProductContextModelSnapshot : ModelSnapshot
@@ -64,7 +64,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         {
                             OrderByBarterId = "OB001",
                             BuyerId = "U003",
-                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 645, DateTimeKind.Local).AddTicks(4056),
+                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 489, DateTimeKind.Local).AddTicks(8984),
                             DenyReason = "none",
                             ProductId = "P003",
                             SellerId = "U001",
@@ -120,7 +120,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         {
                             OrderByMoneyId = "OM001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 645, DateTimeKind.Local).AddTicks(2012),
+                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 489, DateTimeKind.Local).AddTicks(6900),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
@@ -131,7 +131,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         {
                             OrderByMoneyId = "OM002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 645, DateTimeKind.Local).AddTicks(2288),
+                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 489, DateTimeKind.Local).AddTicks(7171),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
@@ -226,9 +226,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 641, DateTimeKind.Local).AddTicks(5327),
+                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 487, DateTimeKind.Local).AddTicks(837),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 12, 21, 15, 7, 643, DateTimeKind.Local).AddTicks(9568),
+                            EditDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5319),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -245,9 +245,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(247),
+                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5945),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(252),
+                            EditDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5950),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -264,9 +264,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(259),
+                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5955),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(260),
+                            EditDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5956),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -276,6 +276,145 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Title = "Book3",
                             Trade = "以物易物",
                             UnitPrice = -1m
+                        });
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Role", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "R001",
+                            Name = "Seller"
+                        },
+                        new
+                        {
+                            Id = "R002",
+                            Name = "Buyer"
+                        },
+                        new
+                        {
+                            Id = "R003",
+                            Name = ""
+                        },
+                        new
+                        {
+                            Id = "R004",
+                            Name = ""
+                        });
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "U001",
+                            Email = "kevinxi@gmail.com",
+                            Name = "Admin0001",
+                            Nickname = "Admin0001",
+                            Password = "$2a$11$rUCCNkgne2Z1vSFHzlobJuAovuqe9R35dh0BlqT6oRQFpkW1wH.X6",
+                            PhoneNo = "0925-155222"
+                        },
+                        new
+                        {
+                            Id = "U002",
+                            Email = "marylee@gmail.com",
+                            Name = "Admin0002",
+                            Nickname = "Admin0002",
+                            Password = "$2a$11$8Jm5ZNl6bqIvn4kgw0O.p.dA7ELZRpJ3U1.oh9ii6MpaH0ga39gne",
+                            PhoneNo = "0935-123123"
+                        },
+                        new
+                        {
+                            Id = "U003",
+                            Email = "johnwei@gmail.com",
+                            Name = "Admin0003",
+                            Nickname = "Admin0003",
+                            Password = "$2a$11$pWRDWPAhli.b8wFUajZQeeCMsHHXnVp/RC9Vm5JECPjJ7L6xHw79K",
+                            PhoneNo = "0955-456456"
+                        });
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.UserRoles", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "U001",
+                            RoleId = "R001"
+                        },
+                        new
+                        {
+                            UserId = "U002",
+                            RoleId = "R001"
+                        },
+                        new
+                        {
+                            UserId = "U003",
+                            RoleId = "R001"
+                        },
+                        new
+                        {
+                            UserId = "U001",
+                            RoleId = "R002"
+                        },
+                        new
+                        {
+                            UserId = "U002",
+                            RoleId = "R002"
+                        },
+                        new
+                        {
+                            UserId = "U003",
+                            RoleId = "R002"
                         });
                 });
 
@@ -299,6 +438,35 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.UserRoles", b =>
+                {
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

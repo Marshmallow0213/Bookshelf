@@ -18,7 +18,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdminRole", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -120,7 +120,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUserRoles", b =>
                 {
-                    b.HasOne("CoreMVC5_UsedBookProject.Models.AdminRole", "Role")
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.AdministratorRole", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -137,7 +137,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdminRole", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorRole", b =>
                 {
                     b.Navigation("UserRoles");
                 });
