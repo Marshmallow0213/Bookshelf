@@ -50,34 +50,6 @@ namespace CoreMVC5_UsedBookProject.Models
         //
         [Required]
         [MaxLength(200)]
-        public string Image3 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
-        public string Image4 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
-        public string Image5 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
-        public string Image6 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
-        public string Image7 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
-        public string Image8 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
-        public string Image9 { get; set; }
-        //
-        [Required]
-        [MaxLength(200)]
         public string Status { get; set; }
         //
         [Required]

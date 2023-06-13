@@ -4,11 +4,11 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = "我的商品(金錢)";
+    ViewBag.Title = $"我的商品({ViewBag.trade})";
 }
 
 <div class="container-fluid pb-5 gap-10px">
-    <h1>我的商品(金錢)</h1>
+    <h1>我的商品(@ViewBag.trade)</h1>
     <p class="my-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
     <div class="d-flex my-3 gap-10px">
         <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-secondary" : "btn-primary")" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
@@ -16,31 +16,31 @@
     </div>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "全部"})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
             <span style="color: red;">@Model.ProductsCount["全部"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "未上架"})" class="text-decoration-none" style="@(Model.StatusPage == "未上架" ? "color: red; border-bottom: 2px solid red;" : "")">未上架</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "未上架", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "未上架" ? "color: red; border-bottom: 2px solid red;" : "")">未上架</a>
             <span style="color: red;">@Model.ProductsCount["未上架"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "待審核"})" class="text-decoration-none" style="@(Model.StatusPage == "待審核" ? "color: red; border-bottom: 2px solid red;" : "")">審核中</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "待審核", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待審核" ? "color: red; border-bottom: 2px solid red;" : "")">審核中</a>
             <span style="color: red;">@Model.ProductsCount["待審核"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "已上架"})" class="text-decoration-none" style="@(Model.StatusPage == "已上架" ? "color: red; border-bottom: 2px solid red;" : "")">架上商品</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "已上架", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已上架" ? "color: red; border-bottom: 2px solid red;" : "")">架上商品</a>
             <span style="color: red;">@Model.ProductsCount["已上架"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "已售完"})" class="text-decoration-none" style="@(Model.StatusPage == "已售完" ? "color: red; border-bottom: 2px solid red;" : "")">已售完</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "已售完", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已售完" ? "color: red; border-bottom: 2px solid red;" : "")">已售完</a>
             <span style="color: red;">@Model.ProductsCount["已售完"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "封禁"})" class="text-decoration-none" style="@(Model.StatusPage == "封禁" ? "color: red; border-bottom: 2px solid red;" : "")">違規</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "封禁", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "封禁" ? "color: red; border-bottom: 2px solid red;" : "")">違規</a>
             <span style="color: red;">@Model.ProductsCount["封禁"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProductsMoney", "Seller", new {status = "刪除"})" class="text-decoration-none" style="@(Model.StatusPage == "刪除" ? "color: red; border-bottom: 2px solid red;" : "")">刪除</a>
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "刪除", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "刪除" ? "color: red; border-bottom: 2px solid red;" : "")">刪除</a>
             <span style="color: red;">@Model.ProductsCount["刪除"] </span>
         </li>
     </ul>
@@ -57,7 +57,7 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@($"NT${item.UnitPrice.ToString("N0")}")</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>以物易物</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
                 </table>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">

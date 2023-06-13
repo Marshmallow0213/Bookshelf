@@ -4,26 +4,26 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = "我的銷售(金錢)";
+    ViewBag.Title = $"我的銷售({ViewBag.trade})";
 }
 
 <div class="container-fluid pb-5 gap-2">
-    <h1>我的銷售(金錢)</h1>
+    <h1>我的銷售(@ViewBag.trade)</h1>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySalesMoney", "Seller", new {status = "全部"})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
+            <a href="@Url.Action("MySales", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
             <span style="color: red;">@Model.OrdersCount["全部"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySalesMoney", "Seller", new {status = "待確認"})" class="text-decoration-none" style="@(Model.StatusPage == "待確認" ? "color: red; border-bottom: 2px solid red;" : "")">待確認</a>
+            <a href="@Url.Action("MySales", "Seller", new {status = "待確認", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待確認" ? "color: red; border-bottom: 2px solid red;" : "")">待確認</a>
             <span style="color: red;">@Model.OrdersCount["待確認"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySalesMoney", "Seller", new {status = "已完成"})" class="text-decoration-none" style="@(Model.StatusPage == "已完成" ? "color: red; border-bottom: 2px solid red;" : "")">已完成</a>
+            <a href="@Url.Action("MySales", "Seller", new {status = "已完成", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已完成" ? "color: red; border-bottom: 2px solid red;" : "")">已完成</a>
             <span style="color: red;">@Model.OrdersCount["已完成"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySalesMoney", "Seller", new {status = "待取消"})" class="text-decoration-none" style="@(Model.StatusPage == "待取消" ? "color: red; border-bottom: 2px solid red;" : "")">待取消</a>
+            <a href="@Url.Action("MySales", "Seller", new {status = "待取消", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待取消" ? "color: red; border-bottom: 2px solid red;" : "")">待取消</a>
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>
     </ul>
@@ -40,7 +40,7 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Order.BuyerId)</td><td>@item.BuyerId</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.ProductId)</td><td>@item.ProductId</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@($"NT${item.UnitPrice.ToString("N0")}")</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>以物易物</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
                 </table>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">

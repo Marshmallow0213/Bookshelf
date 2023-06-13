@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    [Migration("20230609085527_init")]
+    [Migration("20230612131447_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "kevinxi@gmail.com",
                             Name = "Admin0001",
                             Nickname = "Admin0001",
-                            Password = "$2a$11$0IiJfH5DcQ.Ci9ch.vfOVOp2HDPtc1Nu.7Yo0MGirOkp1vb06UBYa",
+                            Password = "$2a$11$mqOdtqjWe55qhO6GAIVOI.12UNUaI7u/Hvv8Q6BBsHV7ObA7CW3v.",
                             PhoneNo = "0925-155222"
                         },
                         new
@@ -98,7 +98,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "marylee@gmail.com",
                             Name = "Admin0002",
                             Nickname = "Admin0002",
-                            Password = "$2a$11$i6Gje44vYxwvTMI05Uyrj.tMOP6xOAa1LcrvwqCtB4g.UweGTuO8a",
+                            Password = "$2a$11$n4yAo6X3afNGC23GzUynmukvBV.8UyDitRKwN6Mw7S/Bh155kd1f2",
                             PhoneNo = "0935-123123"
                         },
                         new
@@ -107,7 +107,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "johnwei@gmail.com",
                             Name = "Admin0003",
                             Nickname = "Admin0003",
-                            Password = "$2a$11$gpzePp0/Xq9IzWccymARD.8FhckYJtBQaHd0myLD5cYGCF2T/q9sW",
+                            Password = "$2a$11$Vx0u.FyOFAH2ZKwI1H59I.eJQO47.YjWpfGQ7usz.sdNaIIccaL26",
                             PhoneNo = "0955-456456"
                         });
                 });

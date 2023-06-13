@@ -217,9 +217,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Details()
         {
-            var user = (from p in _ctx.Users
-                        where p.Id == User.Identity.Name
-                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+            var name = User.Identity.Name;
+            var user = _accountService.GetUser(name);
             return View(user);
         }
         public IActionResult ChangePassword()
@@ -236,7 +235,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
                 var user = (from p in _ctx.Users
                             where p.Id == $"{name}"
-                            select new User { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                if (!_hashService.Verify(userPasswordChangeViewModel.OldPassword, user.Password))
+                {
+                    ViewBag.Error = "舊密碼不符";
+                    return View(userPasswordChangeViewModel);
+                }
                 _ctx.Entry(user).State = EntityState.Modified;
                 user.Password = password;
                 _ctx.SaveChanges();
@@ -249,9 +253,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult ChangeUserInfo()
         {
-            var user = (from p in _ctx.Users
-                        where p.Id == User.Identity.Name
-                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+            var name = User.Identity.Name;
+            var user = _accountService.GetUser(name);
             return View(user);
         }
         [HttpPost]
@@ -261,9 +264,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (ModelState.IsValid)
             {
                 var name = User.Identity.Name;
-                var user = (from p in _ctx.Users
-                               where p.Id == $"{name}"
-                               select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                var user = _accountService.GetUser(name);
                 _ctx.Entry(user).State = EntityState.Modified;
                 user.Nickname = userViewModel.Nickname;
                 user.Email = userViewModel.Email;

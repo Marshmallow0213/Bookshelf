@@ -17,19 +17,19 @@
             <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("Index", "Seller", new {})">待辦事項清單</a>
         </li>
         <li class="list-unstyled py-3">
-            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MySalesMoney", "Seller", new {})">我的銷售(金錢)</a>
+            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MySales", "Seller", new {trade = "金錢"})">我的銷售(金錢)</a>
         </li>
         <li class="list-unstyled py-3">
-            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MySalesBarter", "Seller", new {})">我的銷售(以物易物)</a>
+            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MySales", "Seller", new {trade = "以物易物"})">我的銷售(以物易物)</a>
         </li>
         <li class="list-unstyled py-3" style=" background-color: #80808050;">
             <p class="text-dark text-center mb-0" style="font-size: 18px;"><strong>商品管理</strong></p>
         </li>
         <li class="list-unstyled py-3">
-            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MyProductsMoney", "Seller", new {})">我的商品(金錢)</a>
+            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MyProducts", "Seller", new {trade = "金錢"})">我的商品(金錢)</a>
         </li>
         <li class="list-unstyled py-3">
-            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MyProductsBarter", "Seller", new {})">我的商品(以物易物)</a>
+            <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("MyProducts", "Seller", new {trade = "以物易物"})">我的商品(以物易物)</a>
         </li>
         <li class="list-unstyled py-3">
             <a class="text-dark text-center d-block mb-0 text-decoration-none" style="font-size: 18px;" href="@Url.Action("Create", "Seller", new {})">新增商品</a>

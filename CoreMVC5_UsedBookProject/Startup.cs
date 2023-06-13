@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Services;
+using CoreMVC5_UsedBookProject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CoreMVC5_UsedBookProject
@@ -47,7 +48,8 @@ namespace CoreMVC5_UsedBookProject
               options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
 
             services.AddTransient<AccountService>();
-
+            services.AddScoped<SellerService>();
+            services.AddScoped<SellerRepository>();
             services.AddSingleton<IHashService, HashService>();
         }
 

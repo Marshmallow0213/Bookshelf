@@ -74,9 +74,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo" },
                 values: new object[,]
                 {
-                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$0IiJfH5DcQ.Ci9ch.vfOVOp2HDPtc1Nu.7Yo0MGirOkp1vb06UBYa", "0925-155222" },
-                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$i6Gje44vYxwvTMI05Uyrj.tMOP6xOAa1LcrvwqCtB4g.UweGTuO8a", "0935-123123" },
-                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$gpzePp0/Xq9IzWccymARD.8FhckYJtBQaHd0myLD5cYGCF2T/q9sW", "0955-456456" }
+                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$mqOdtqjWe55qhO6GAIVOI.12UNUaI7u/Hvv8Q6BBsHV7ObA7CW3v.", "0925-155222" },
+                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$n4yAo6X3afNGC23GzUynmukvBV.8UyDitRKwN6Mw7S/Bh155kd1f2", "0935-123123" },
+                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$Vx0u.FyOFAH2ZKwI1H59I.eJQO47.YjWpfGQ7usz.sdNaIIccaL26", "0955-456456" }
                 });
 
             migrationBuilder.InsertData(

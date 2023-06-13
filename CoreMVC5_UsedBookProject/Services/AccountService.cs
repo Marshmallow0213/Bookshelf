@@ -9,6 +9,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using CoreMVC5_UsedBookProject.Models;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -64,6 +65,13 @@ namespace CoreMVC5_UsedBookProject.Services
                 return null;
             }
         }
-        
+        public UserViewModel GetUser(string name)
+        {
+            var user = (from p in _ctx.Users
+                        where p.Id == name
+                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+            return user;
+        }
+
     }
 }

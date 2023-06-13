@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations.Product
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230609085603_init")]
+    [Migration("20230612131508_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         {
                             OrderByBarterId = "OB001",
                             BuyerId = "U003",
-                            CreateDate = new DateTime(2023, 6, 9, 16, 56, 2, 557, DateTimeKind.Local).AddTicks(3971),
+                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 645, DateTimeKind.Local).AddTicks(4056),
                             DenyReason = "none",
                             ProductId = "P003",
                             SellerId = "U001",
@@ -122,7 +122,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         {
                             OrderByMoneyId = "OM001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 9, 16, 56, 2, 557, DateTimeKind.Local).AddTicks(1789),
+                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 645, DateTimeKind.Local).AddTicks(2012),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
@@ -133,7 +133,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         {
                             OrderByMoneyId = "OM002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 9, 16, 56, 2, 557, DateTimeKind.Local).AddTicks(2079),
+                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 645, DateTimeKind.Local).AddTicks(2288),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
@@ -189,41 +189,6 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Image3")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Image4")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Image5")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Image6")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Image7")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Image8")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Image9")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("PublicationDate")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -263,19 +228,12 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 9, 16, 56, 2, 553, DateTimeKind.Local).AddTicks(1099),
+                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 641, DateTimeKind.Local).AddTicks(5327),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 9, 16, 56, 2, 555, DateTimeKind.Local).AddTicks(8480),
+                            EditDate = new DateTime(2023, 6, 12, 21, 15, 7, 643, DateTimeKind.Local).AddTicks(9568),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
-                            Image2 = "無圖片",
-                            Image3 = "無圖片",
-                            Image4 = "無圖片",
-                            Image5 = "無圖片",
-                            Image6 = "無圖片",
-                            Image7 = "無圖片",
-                            Image8 = "無圖片",
-                            Image9 = "無圖片",
+                            Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
                             PublicationDate = "2023-01-01",
                             Publisher = "出版社",
                             Status = "未上架",
@@ -289,19 +247,12 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 9, 16, 56, 2, 555, DateTimeKind.Local).AddTicks(9209),
+                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(247),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 9, 16, 56, 2, 555, DateTimeKind.Local).AddTicks(9214),
+                            EditDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(252),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
-                            Image2 = "無圖片",
-                            Image3 = "無圖片",
-                            Image4 = "無圖片",
-                            Image5 = "無圖片",
-                            Image6 = "無圖片",
-                            Image7 = "無圖片",
-                            Image8 = "無圖片",
-                            Image9 = "無圖片",
+                            Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
                             PublicationDate = "2023-01-01",
                             Publisher = "出版社",
                             Status = "未上架",
@@ -315,19 +266,12 @@ namespace CoreMVC5_UsedBookProject.Migrations.Product
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 9, 16, 56, 2, 555, DateTimeKind.Local).AddTicks(9222),
+                            CreateDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(259),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 9, 16, 56, 2, 555, DateTimeKind.Local).AddTicks(9223),
+                            EditDate = new DateTime(2023, 6, 12, 21, 15, 7, 644, DateTimeKind.Local).AddTicks(260),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
-                            Image2 = "無圖片",
-                            Image3 = "無圖片",
-                            Image4 = "無圖片",
-                            Image5 = "無圖片",
-                            Image6 = "無圖片",
-                            Image7 = "無圖片",
-                            Image8 = "無圖片",
-                            Image9 = "無圖片",
+                            Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
                             PublicationDate = "2023-01-01",
                             Publisher = "出版社",
                             Status = "未上架",
