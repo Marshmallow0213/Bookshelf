@@ -1,0 +1,18 @@
+﻿<ul class="navbar-nav flex-grow-1 button-cover">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @*已登入*@
+        <li>
+            <div class="login-info">
+                <a href="#" class="login-name">@User.Identity.Name</a>
+                <span class="spacer"></span>
+                @Html.ActionLink("登出", "SignOut", "AdministratorLogin", null, new { @class = "btn btn-danger btn-logout" })
+            </div>
+        </li>
+    }
+    else
+    {
+        @*未登入*@
+        <li><a href="@Url.Action("Login", "AdministratorLogin")" class="btn btn-login">登入</a></li>
+    }
+</ul>

@@ -1,0 +1,129 @@
+﻿.nav-item,
+.nav-item *,
+.nav-item :after,
+.nav-item :before,
+.nav-item:after,
+.nav-item:before {
+    border: 0 solid;
+    box-sizing: border-box;
+}
+
+.nav-item {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: button;
+    -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+    box-shadow: inset 0 0 0 2px #fff;
+    box-sizing: border-box;
+    display: inline-block;
+    font-weight: 900;
+    position: relative;
+    transition: color 0.1s linear;
+    background-color: white;
+    color: black;
+    margin: 0px 5px;
+    padding: 10px 20px;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+}
+
+    .nav-item:after,
+    .nav-item:before {
+        content: "";
+        position: absolute;
+        z-index: -1; /* Add this line */
+    }
+
+    .nav-item:before {
+        border-bottom: var(--border);
+        border-top: var(--border);
+        height: 100%;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+    }
+
+    .nav-item:hover:before,
+    .nav-item.clicked:before {
+        --border: 1.5px solid #a0cfff;
+        width: 100%;
+        z-index: 0;
+        animation: border-top-and-bottom 1s forwards;
+    }
+
+    .nav-item:after {
+        border-left: var(--border);
+        border-right: var(--border);
+        bottom: 50%;
+        right: 0;
+        transform: translateY(50%);
+        width: 100%;
+    }
+
+    .nav-item:hover:after,
+    .nav-item.clicked:after {
+        --border: 1.5px solid #a0cfff;
+        height: 100%;
+        animation: border-right-and-left 1s forwards;
+    }
+
+@keyframes border-top-and-bottom {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes border-right-and-left {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 100%;
+    }
+}
+.login-info {
+    display: flex;
+    align-items: center;
+}
+
+login-name {
+    margin-right: 5px;
+}
+
+.spacer {
+    width: 5px;
+}
+.btn-login {
+    color: white;
+    background-color: blue;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-login:hover {
+    border: 1px solid blue;
+    background-color: transparent;
+    color: blue;
+}
+
+.btn-logout {
+    color: white;
+    background-color: red;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-logout:hover {
+    border: 1px solid red;
+    background-color: transparent;
+    color: red;
+}
+.logintext {
+    font-size: 24px;
+}
+.button-cover {
+    position: relative;
+}

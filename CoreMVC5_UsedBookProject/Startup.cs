@@ -48,9 +48,12 @@ namespace CoreMVC5_UsedBookProject
               options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
             services.AddDbContext<OrderContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("OrderContext")));
+            services.AddDbContext<AdminAccountContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("AdminAccountContext")));
             services.AddTransient<AccountService>();
             services.AddScoped<SellerService>();
             services.AddScoped<SellerRepository>();
+            services.AddScoped<AdminAccountService>();
             services.AddSingleton<IHashService, HashService>();
         }
 

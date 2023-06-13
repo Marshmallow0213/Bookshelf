@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "管理員控制中心";
+}
+<h1>管理員控制中心</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>您的帳號已通過驗證:@User.Identity.Name</h2>
+}
