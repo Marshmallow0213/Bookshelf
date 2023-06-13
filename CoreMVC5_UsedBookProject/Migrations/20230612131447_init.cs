@@ -63,10 +63,8 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "R001", "Administrator" },
-                    { "R002", "Sales" },
-                    { "R003", "RD" },
-                    { "R004", "Operation" }
+                    { "R001", "Seller" },
+                    { "R002", "Buyer" }
                 });
 
             migrationBuilder.InsertData(
@@ -85,9 +83,11 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 values: new object[,]
                 {
                     { "R001", "U001" },
+                    { "R001", "U002" },
+                    { "R001", "U003" },
+                    { "R002", "U001" },
                     { "R002", "U002" },
-                    { "R003", "U003" },
-                    { "R004", "U003" }
+                    { "R002", "U003" }
                 });
 
             migrationBuilder.CreateIndex(

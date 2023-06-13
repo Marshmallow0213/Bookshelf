@@ -201,6 +201,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 };
 
                 _ctx.Users.Add(user);
+                UserRoles userRoles1 = new UserRoles
+                {
+                    UserId = Id,
+                    RoleId  = "R001",
+                };
+                UserRoles userRoles2 = new UserRoles
+                {
+                    UserId = Id,
+                    RoleId = "R002",
+                };
+                _ctx.UserRoles.Add(userRoles1);
+                _ctx.UserRoles.Add(userRoles2);
                 await _ctx.SaveChangesAsync();
 
                 ViewData["Title"] = "帳號註冊";

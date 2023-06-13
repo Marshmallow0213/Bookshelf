@@ -36,18 +36,20 @@ namespace CoreMVC5_UsedBookProject.Data
                 );
 
             modelBuilder.Entity<Role>().HasData(
-                new Role { Id = "R001", Name = "Administrator" },
-                new Role { Id = "R002", Name = "Sales" },
-                new Role { Id = "R003", Name = "RD" },
-                new Role { Id = "R004", Name = "Operation" }
+                new Role { Id = "R001", Name = "Seller" },
+                new Role { Id = "R002", Name = "Buyer" },
+                new Role { Id = "R003", Name = "" },
+                new Role { Id = "R004", Name = "" }
                 );
 
             modelBuilder.Entity<UserRoles>()
                 .HasData(
                 new UserRoles { UserId = "U001", RoleId = "R001" },
+                new UserRoles { UserId = "U002", RoleId = "R001" },
+                new UserRoles { UserId = "U003", RoleId = "R001" },
+                new UserRoles { UserId = "U001", RoleId = "R002" },
                 new UserRoles { UserId = "U002", RoleId = "R002" },
-                new UserRoles { UserId = "U003", RoleId = "R003" },
-                new UserRoles { UserId = "U003", RoleId = "R004" }
+                new UserRoles { UserId = "U003", RoleId = "R002" }
                 );
         }
     }

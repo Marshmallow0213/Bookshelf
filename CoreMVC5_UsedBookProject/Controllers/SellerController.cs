@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Seller")]
     public class SellerController : Controller
     {
         private readonly SellerService _sellerService;

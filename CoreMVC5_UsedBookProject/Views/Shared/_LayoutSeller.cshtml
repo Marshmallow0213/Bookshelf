@@ -27,7 +27,7 @@
     </noscript>
     
     <div class="d-flex" style="position: relative;">
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
         {
             <div class="px-3" id="drop-login-status" style="max-height: 0px; height: fit-content; position: absolute; top: 0px; right: 0px; overflow: hidden; background-color: white; z-index: 1; transition: .5s; border-left: 1px solid black;">
                 <p class="px-1 mb-0 py-3" id="nickname" style="border-bottom: 1px solid black; font-size: 20px;">@User.Claims.FirstOrDefault(c => c.Type.Contains("email")).Value</p>
