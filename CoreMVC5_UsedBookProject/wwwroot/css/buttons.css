@@ -31,7 +31,7 @@
     .nav-item:before {
         content: "";
         position: absolute;
-        z-index: -1; /* Add this line */
+        z-index: -1;
     }
 
     .nav-item:before {
@@ -86,44 +86,133 @@
         height: 100%;
     }
 }
+
+.btn-login-view {
+    color: white;
+    background-color: blue;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-login-view:hover {
+        border: 1px solid blue;
+        background-color: transparent;
+        color: blue;
+    }
+
+.btn-logout-view {
+    color: white;
+    background-color: red;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-logout-view:hover {
+        border: 1px solid red;
+        background-color: transparent;
+        color: red;
+    }
+
 .login-info {
     display: flex;
     align-items: center;
 }
 
-login-name {
+.login-name {
     margin-right: 5px;
 }
 
 .spacer {
     width: 5px;
 }
-.btn-login {
-    color: white;
-    background-color: blue;
-    transition: background-color 0.3s, color 0.3s;
+
+.btn-login{
+    border-color: blue;
+    background-color: white;
+    color: blue;
+    transition: background-color 1.5s, color 1.5s, border-color 1.5s;
+    opacity: 0;
 }
 
-.btn-login:hover {
-    border: 1px solid blue;
-    background-color: transparent;
-    color: blue;
-}
+    .btn-login.show {
+        opacity: 1;
+        background-color: white;
+        color: blue;
+        border-color: blue;
+    }
+
+    .btn-login:hover {
+        border-color: blue;
+        background-color: white;
+        color: blue;
+    }
 
 .btn-logout {
     color: white;
     background-color: red;
-    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid transparent;
+    transition: background-color 1.5s, color 1.5s, border-color 1.5s;
+    opacity: 0;
 }
 
-.btn-logout:hover {
-    border: 1px solid red;
-    background-color: transparent;
-    color: red;
-}
+    .btn-logout.show {
+        opacity: 1;
+        background-color: white;
+        color: red;
+        border-color: red;
+    }
+
 .logintext {
     font-size: 24px;
 }
-.button-cover {
+
+.button-cover,
+.button-cover-nav {
     position: relative;
+}
+
+.buttonpartial .btn-login,
+.buttonpartial .btn-logout {
+    transition-delay: 1.5s;
+    cursor: default;
+}
+
+.nav-item-btn {
+    display: inline-block;
+    margin-left: auto;
+    cursor: default;
+}
+
+.nav-item {
+    position: relative;
+}
+
+    .nav-item .btn-login,
+    .nav-item .btn-logout {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .nav-item.hovered .btn-login,
+    .nav-item.hovered .btn-logout {
+        opacity: 0;
+    }
+
+        .nav-item.hovered .btn-login.show {
+            opacity: 1;
+            transition-delay: 0s;
+        }
+
+        .nav-item.hovered .btn-logout.show {
+            opacity: 1;
+            transition-delay: 0s;
+        }
+
+    .nav-item:hover .btn-login,
+    .nav-item:hover .btn-logout {
+        opacity: 1;
+        transition-delay: 1.5s;
+    }
+.container-footer{
+    display:flex;
+    padding-right:0.3%;
 }
