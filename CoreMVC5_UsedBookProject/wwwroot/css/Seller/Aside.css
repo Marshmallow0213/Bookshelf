@@ -1,10 +1,100 @@
 ﻿#menu {
+    width: 200px;
+    height: fit-content;
+}
+#login-btn {
+    font-size: 20px;
+    width: 150px;
+    height: 100%;
+    overflow: hidden;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#login-btn:hover {
+    background-color: #282B2E;
+    color: white !important;
+}
+.aside-text {
+    background-color: #80808050;
+}
+.aside-text > p {
+    font-size: 18px;
+}
+.aside-link > a {
+    color: black;
+    font-size: 18px;
+}
+.aside-link:hover {
+    background-color: #282B2E;
+}
+    .aside-link:hover > a {
+        color: white !important;
+    }
+#hamber {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+#hamber-a {
+    width: fit-content;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#hamber-a:hover {
+    background-color: #282B2E;
+    border-radius: 50%;
+}
+    #hamber-a:hover > i {
+        color: white !important;
+    }
+.account-p {
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    resize: none;
+    width: 100%;
+    height: auto;
+    word-break: break-word;
+}
+.account-a {
+    color: black;
+    text-align: center;
+    font-size: 20px;
+}
+    .account-a:hover {
+        color: white !important;
+        background-color: #282B2E;
+    }
+img {
+    width: 100%;
+    object-fit: scale-down;
+}
+.aside-menu {
+    border: 1px solid black;
     position: absolute;
     top: 0;
-    left: -1000px;
-    z-index: 1;
+    left: -10000px;
     background-color: white;
+    z-index: 1;
+}
+.login-menu {
+    border: 1px solid black;
+    position: absolute;
+    top: 0;
+    right: 10000px;
+    background-color: white;
+    z-index: 1;
     width: 200px;
+}
+.aside-menu-open {
+    left: 0;
+}
+.login-menu-open {
+    right: 0;
 }
 @media (min-width:576px) {
 }

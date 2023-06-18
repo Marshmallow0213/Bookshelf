@@ -1,18 +1,9 @@
 ﻿//for Create and Edit
-window.onload = function () {
-    if (document.querySelector("h1").innerText == "新增商品") {
-        document.getElementById("flexRadioTrade1").addEventListener("click", Money);
-        document.getElementById("flexRadioTrade2").addEventListener("click", Barter);
-    }
-    var showLength = document.querySelectorAll(".show-length");
-    showLength.forEach(element => {
-        ShowLength(element);
-    });
-    textarea = document.querySelectorAll("textarea");
-    textarea.forEach(element => {
-        autoresizing(element);
-    });
-}
+var showLength = document.querySelectorAll(".show-length");
+showLength.forEach(element => {
+    ShowLength(element);
+});
+
 //start check trade is money or barter
 
 function Money() {
@@ -106,17 +97,5 @@ function process(input) {
     let value = input.value;
     let numbers = value.replace(/[^0-9]/g, "");
     input.value = numbers;
-}
-//end
-//start autoresizing
-textarea = document.querySelectorAll("textarea");
-textarea.forEach(element => {
-    element.addEventListener("input", () => {
-        autoresizing(element);
-    })
-});
-function autoresizing(element) {
-    element.style.height = 'auto';
-    element.style.height = element.scrollHeight + 'px';
 }
 //end

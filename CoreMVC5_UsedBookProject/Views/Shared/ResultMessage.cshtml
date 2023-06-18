@@ -2,12 +2,14 @@
     string title = ViewData["Title"].ToString();
 }
 
-@if (!String.IsNullOrEmpty(ViewData["Title"].ToString()))
-{
-    <h1 class="text-bg-danger p-3">@ViewData["Title"]</h1>
-}
+<div class="container-fluid">
+    @if (!String.IsNullOrEmpty(ViewData["Title"].ToString()))
+    {
+        <h1 class="text-bg-danger">@ViewData["Title"]</h1>
+    }
 
-@if (!String.IsNullOrEmpty(ViewData["Message"].ToString()))
-{
-    <p>@ViewData["Message"]</p>
-}
+    @if (!String.IsNullOrEmpty(ViewData["Message"].ToString()))
+    {
+        <p>@ViewData["Message"]</p>
+    }
+</div>

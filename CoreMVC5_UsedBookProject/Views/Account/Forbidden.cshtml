@@ -4,7 +4,7 @@
     ViewData["Title"] = "Forbidden";
 }
 
-<h1>Forbidden</h1>
+<h1>拒絕存取</h1>
 
 <h2>@(User.Identity.Name)雖通過帳密驗證</h2>
 但你所屬群組是@(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role))
@@ -14,7 +14,12 @@
         <li>@roleClaim.Value</li>
     }
 </ul>
-<p>本網站限Seller群組存取</p>
+@if (!User.IsInRole("Seller")){
+    <p>本網站限Seller群組存取</p>
+}
+@if (!User.IsInRole("Administrator")){
+    <p>本網站限Administrator群組存取</p>
+}
 
 <div>
     <a asp-action="Index" asp-controller="Home">回首頁</a>

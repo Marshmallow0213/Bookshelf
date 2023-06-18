@@ -1,0 +1,41 @@
+﻿@model CoreMVC5_UsedBookProject.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container-fluid">
+    <h1>註冊</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="RegisterUserName">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger d-block"></span>
+                    @if (ViewBag.Error != null)
+                    {
+                        <span class="text-danger">@ViewBag.Error</span>
+                    }
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="下一步" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" asp-controller="Home">回首頁</a>
+    </div>
+</div>
+
+@section endJS
+{
+@*    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+*@
+    <partial name="_ValidationScriptsPartial" />
+}

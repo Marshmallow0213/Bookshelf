@@ -9,8 +9,8 @@
 <div class="container-fluid">
     <h1>刪除商品</h1>
     <div class="row">
-        <div class="mb-3 p-2" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
-            <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto d-block reload-by-datetime" onload="imgMaxAuto(this)" alt="@Model.Title" />
+        <div class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
+            <img src="../Images/@Model.ProductId/@Model.Image1" class="m-auto" alt="@Model.Title" />
         </div>
     </div>
     <form action="~/Seller/Delete" method="post">
@@ -27,9 +27,6 @@
 </div>
 @section topCSS{
     <link href="~/css/seller/detailtablepartial.css" rel="stylesheet" />
-}
-@section topJS{
-    <script src="~/js/seller/imgmaauto.js"></script>
 }
 @section endJS{
     <script src="~/js/seller/detailtablepartial.js"></script>

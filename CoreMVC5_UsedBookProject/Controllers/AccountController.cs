@@ -13,6 +13,8 @@ using System.Linq;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -107,7 +109,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 ApplicationUser user = await _accountService.AuthenticateUser(loginVM);
                 
                 //失敗
-                if (user == null)
+                if (user.Id == "noExist")
+                {
+                    ModelState.AddModelError(string.Empty, "帳號不存在!!!");
+                    return View(loginVM);
+                }
+                if (user.Id == "error")
                 {
                     ModelState.AddModelError(string.Empty, "帳號密碼有錯!!!");
                     return View(loginVM);
@@ -117,8 +124,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id),
                     new Claim(ClaimTypes.Email, user.Nickname),
-                    new Claim(ClaimTypes.Role, user.Role) // 如果要有「群組、角色、權限」，可以加入這一段  
+                    //new Claim(ClaimTypes.Role, user.Role) // 如果要有「群組、角色、權限」，可以加入這一段
                 };
+                foreach (var item in user.Roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, item));
+                }
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
@@ -164,10 +175,30 @@ namespace CoreMVC5_UsedBookProject.Controllers
             HttpContext.Response.Cookies.Delete("Nickname");
             return LocalRedirect("/");
         }
-
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult RegisterUserName()
         {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RegisterUserName(RegisterViewModel registerVM)
+        {
+            var checkAccountExist = (from p in _ctx.Users
+                                     where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
+                                     select new { p.Id }).FirstOrDefault();
+            if (checkAccountExist == null)
+            {
+                return RedirectToAction("Register", new { UserName = registerVM.UserName });
+            }
+            ViewBag.Error = "使用者名稱已存在";
+            return View(registerVM);
+        }
+        [HttpGet]
+        public IActionResult Register(string username)
+        {
+            ViewBag.UserName = username;
             return View();
         }
 
@@ -177,6 +208,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if(ModelState.IsValid)
             {
+                var checkAccountExist = (from p in _ctx.Users
+                                         where p.Name == $"{registerVM.UserName}"
+                                         select new { p.Id }).FirstOrDefault();
+                if (checkAccountExist != null)
+                {
+                    ViewBag.Error = "使用者名稱已存在";
+                    return View(registerVM);
+                }
                 string Id = Guid.NewGuid().ToString();
                 var checkProductExist = (from p in _ctx.Users
                                          where p.Id == $"{Id}"
@@ -227,16 +266,19 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Seller")]
         public IActionResult Details()
         {
             var name = User.Identity.Name;
             var user = _accountService.GetUser(name);
             return View(user);
         }
+        [Authorize(Roles = "Seller")]
         public IActionResult ChangePassword()
         {
             return View();
         }
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
@@ -263,12 +305,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(userPasswordChangeViewModel);
         }
+        [Authorize(Roles = "Seller")]
         public IActionResult ChangeUserInfo()
         {
             var name = User.Identity.Name;
             var user = _accountService.GetUser(name);
             return View(user);
         }
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangeUserInfo(UserViewModel userViewModel)
@@ -276,7 +320,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (ModelState.IsValid)
             {
                 var name = User.Identity.Name;
-                var user = _accountService.GetUser(name);
+                var user = _accountService.GetUserRaw(name);
                 _ctx.Entry(user).State = EntityState.Modified;
                 user.Nickname = userViewModel.Nickname;
                 user.Email = userViewModel.Email;
@@ -290,6 +334,64 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return View("~/Views/Shared/ResultMessage.cshtml");
             }
             return View(userViewModel);
+        }
+        [Authorize(Roles = "Seller")]
+        [HttpGet]
+        public IActionResult ForgotPasswordUserName()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Seller")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ForgotPasswordUserName(RegisterViewModel registerVM)
+        {
+            var checkAccountExist = (from p in _ctx.Users
+                                     where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
+                                     select new { p.Id }).FirstOrDefault();
+            if (checkAccountExist != null)
+            {
+                return RedirectToAction("ForgotPassword", new { UserName = registerVM.UserName });
+            }
+            ViewBag.Error = "使用者名稱不存在";
+            return View(registerVM);
+        }
+        [Authorize(Roles = "Administrator,Seller")]
+        [HttpGet]
+        public IActionResult ForgotPassword(string username)
+        {
+            ViewBag.UserName = username;
+            return View();
+        }
+        [Authorize(Roles = "Administrator,Seller")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ForgotPassword(RegisterViewModel registerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var checkAccountExist = (from p in _ctx.Users
+                                         where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
+                                         select new { p.Id }).FirstOrDefault();
+                if (checkAccountExist == null)
+                {
+                    ViewBag.Error = "使用者名稱不存在";
+                    return View(registerVM);
+                }
+                string password = _hashService.HashPassword(registerVM.Password);
+                var user = (from p in _ctx.Users
+                            where p.Name == $"{registerVM.UserName}"
+                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                _ctx.Entry(user).State = EntityState.Modified;
+                user.Password = password;
+                _ctx.SaveChanges();
+                ViewData["Title"] = "密碼變更";
+                ViewData["Message"] = "使用者密碼變更成功!";  //顯示訊息
+
+                return View("~/Views/Shared/ResultMessage.cshtml");
+            }
+
+            return View(registerVM);
         }
     }
 }

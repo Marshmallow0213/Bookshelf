@@ -25,8 +25,16 @@ namespace CoreMVC5_UsedBookProject.Services
 
         public  async Task<ApplicationUser> AuthenticateUser(LoginViewModel loginVM)
         {
-            var password = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName).Select(s => s.Password)
+            var password = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName.ToUpper()).Select(s => s.Password)
                 .FirstOrDefaultAsync();
+            if (password == null)
+            {
+                var userInfo = new ApplicationUser
+                {
+                    Id = "noExist"
+                };
+                return userInfo;
+            }
             bool isPassword = _hashService.Verify(loginVM.Password, password);
             var user = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName)
                 .FirstOrDefaultAsync();
@@ -62,7 +70,11 @@ namespace CoreMVC5_UsedBookProject.Services
             }
             else
             {
-                return null;
+                var userInfo = new ApplicationUser
+                {
+                    Id = "error"
+                };
+                return userInfo;
             }
         }
         public UserViewModel GetUser(string name)
@@ -70,6 +82,13 @@ namespace CoreMVC5_UsedBookProject.Services
             var user = (from p in _ctx.Users
                         where p.Id == name
                         select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+            return user;
+        }
+        public User GetUserRaw(string name)
+        {
+            var user = (from p in _ctx.Users
+                        where p.Id == name
+                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
             return user;
         }
 

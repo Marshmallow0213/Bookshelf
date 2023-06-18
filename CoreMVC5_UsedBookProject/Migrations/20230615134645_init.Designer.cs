@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230613134001_init")]
+    [Migration("20230615134645_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,36 +24,30 @@ namespace CoreMVC5_UsedBookProject.Migrations
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.OrderByBarter", b =>
                 {
                     b.Property<string>("OrderByBarterId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuyerId")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DenyReason")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SellerId")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderByBarterId");
 
@@ -66,7 +60,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderByBarterId = "OB001",
                             BuyerId = "U003",
-                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 489, DateTimeKind.Local).AddTicks(8984),
+                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 373, DateTimeKind.Local).AddTicks(844),
                             DenyReason = "none",
                             ProductId = "P003",
                             SellerId = "U001",
@@ -77,36 +71,30 @@ namespace CoreMVC5_UsedBookProject.Migrations
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.OrderByMoney", b =>
                 {
                     b.Property<string>("OrderByMoneyId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuyerId")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DenyReason")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SellerId")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
@@ -122,7 +110,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderByMoneyId = "OM001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 489, DateTimeKind.Local).AddTicks(6900),
+                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 372, DateTimeKind.Local).AddTicks(8587),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
@@ -133,7 +121,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderByMoneyId = "OM002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 489, DateTimeKind.Local).AddTicks(7171),
+                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 372, DateTimeKind.Local).AddTicks(8997),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
@@ -145,79 +133,68 @@ namespace CoreMVC5_UsedBookProject.Migrations
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Product", b =>
                 {
                     b.Property<string>("ProductId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentText")
                         .IsRequired()
-                        .HasMaxLength(3000)
-                        .HasColumnType("nvarchar(3000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreateBy")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Degree")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EditDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image1")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image2")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PublicationDate")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Publisher")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Trade")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("CreateBy");
 
                     b.ToTable("Products");
 
@@ -228,9 +205,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 487, DateTimeKind.Local).AddTicks(837),
+                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 370, DateTimeKind.Local).AddTicks(1376),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5319),
+                            EditDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(6715),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -247,9 +224,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5945),
+                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7345),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5950),
+                            EditDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7350),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -266,9 +243,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5955),
+                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7356),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 13, 21, 40, 0, 488, DateTimeKind.Local).AddTicks(5956),
+                            EditDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7357),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -287,6 +264,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -307,7 +285,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         new
                         {
                             Id = "R003",
-                            Name = ""
+                            Name = "Administrator"
                         },
                         new
                         {
@@ -326,7 +304,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nickname")
                         .IsRequired()
@@ -341,6 +319,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Users");
 
                     b.HasData(
@@ -350,7 +331,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "kevinxi@gmail.com",
                             Name = "Admin0001",
                             Nickname = "Admin0001",
-                            Password = "$2a$11$rUCCNkgne2Z1vSFHzlobJuAovuqe9R35dh0BlqT6oRQFpkW1wH.X6",
+                            Password = "$2a$11$gPeRYmGmZjO4N/83DnXi1.9EFFL7CRuBqSwtAagF8TsZVtrtJwA/i",
                             PhoneNo = "0925-155222"
                         },
                         new
@@ -359,7 +340,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "marylee@gmail.com",
                             Name = "Admin0002",
                             Nickname = "Admin0002",
-                            Password = "$2a$11$8Jm5ZNl6bqIvn4kgw0O.p.dA7ELZRpJ3U1.oh9ii6MpaH0ga39gne",
+                            Password = "$2a$11$yvmxtozWSWMqi5zwY2ktiujByTZM8s1mBT2ng.jeXwWHQzEozeBWG",
                             PhoneNo = "0935-123123"
                         },
                         new
@@ -368,7 +349,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "johnwei@gmail.com",
                             Name = "Admin0003",
                             Nickname = "Admin0003",
-                            Password = "$2a$11$pWRDWPAhli.b8wFUajZQeeCMsHHXnVp/RC9Vm5JECPjJ7L6xHw79K",
+                            Password = "$2a$11$jsVlTkqZLFGQpyjMNo135.BphADoefJaM3SKcDtO7lxWMLGn7aefi",
                             PhoneNo = "0955-456456"
                         });
                 });
@@ -417,6 +398,21 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             UserId = "U003",
                             RoleId = "R002"
+                        },
+                        new
+                        {
+                            UserId = "U001",
+                            RoleId = "R003"
+                        },
+                        new
+                        {
+                            UserId = "U002",
+                            RoleId = "R003"
+                        },
+                        new
+                        {
+                            UserId = "U003",
+                            RoleId = "R003"
                         });
                 });
 
@@ -440,6 +436,17 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Product", b =>
+                {
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreateBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.UserRoles", b =>

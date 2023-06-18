@@ -29,13 +29,13 @@
             <td>
                 <input type="hidden" class="form-control" required readonly id="Trade" value="@Model.Trade" />
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Trade" id="flexRadioTrade1" value="金錢" @(Trade == "金錢" || Trade == null ? "checked" : "")>
+                    <input class="form-check-input" type="radio" name="Trade" id="flexRadioTrade1" value="金錢" @(Trade == "金錢" || Trade == null ? "checked" : "") onclick="Money()">
                     <label class="form-check-label" for="flexRadioTrade1">
                         金錢
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Trade" id="flexRadioTrade2" value="以物易物" @(Trade == "以物易物" ? "checked" : "")>
+                    <input class="form-check-input" type="radio" name="Trade" id="flexRadioTrade2" value="以物易物" @(Trade == "以物易物" ? "checked" : "") onclick="Barter()">
                     <label class="form-check-label" for="flexRadioTrade2">
                         以物易物
                     </label>

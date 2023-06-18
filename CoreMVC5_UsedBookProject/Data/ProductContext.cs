@@ -28,7 +28,15 @@ namespace CoreMVC5_UsedBookProject.Data
             modelBuilder.Entity<Product>().HasKey(ur => new { ur.ProductId });
             modelBuilder.Entity<OrderByMoney>().HasKey(ur => new { ur.OrderByMoneyId });
             modelBuilder.Entity<OrderByBarter>().HasKey(ur => new { ur.OrderByBarterId });
+            modelBuilder.Entity<User>().HasKey(ur => new { ur.Id });
+            modelBuilder.Entity<Role>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                   .WithMany()
+                   .HasForeignKey(d => d.CreateBy);
+            });
             modelBuilder.Entity<OrderByMoney>(entity =>
             {
                 entity.HasOne(d => d.Product)
@@ -41,6 +49,9 @@ namespace CoreMVC5_UsedBookProject.Data
                    .WithMany()
                    .HasForeignKey(d => d.ProductId);
             });
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Product>().HasData(
             new Product
@@ -154,7 +165,7 @@ namespace CoreMVC5_UsedBookProject.Data
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = "R001", Name = "Seller" },
                 new Role { Id = "R002", Name = "Buyer" },
-                new Role { Id = "R003", Name = "" },
+                new Role { Id = "R003", Name = "Administrator" },
                 new Role { Id = "R004", Name = "" }
                 );
 
@@ -165,7 +176,10 @@ namespace CoreMVC5_UsedBookProject.Data
                 new UserRoles { UserId = "U003", RoleId = "R001" },
                 new UserRoles { UserId = "U001", RoleId = "R002" },
                 new UserRoles { UserId = "U002", RoleId = "R002" },
-                new UserRoles { UserId = "U003", RoleId = "R002" }
+                new UserRoles { UserId = "U003", RoleId = "R002" },
+                new UserRoles { UserId = "U001", RoleId = "R003" },
+                new UserRoles { UserId = "U002", RoleId = "R003" },
+                new UserRoles { UserId = "U003", RoleId = "R003" }
                 );
         }
     }

@@ -1,39 +1,39 @@
 ﻿window.addEventListener("resize", function() {
     if (window.innerWidth >= "768") {
-        document.querySelector("#menu").style.position = "relative";
-        document.querySelector("#menu").style.left = "0";
         document.querySelector("#hamber").style.display = "none";
+        document.querySelector("#aside_main").style.display = "flex";
+        if ($('.aside-menu').hasClass('aside-menu-open')) {
+            $('.aside-menu').toggleClass('aside-menu-open');
+        }
     } else {
-        document.querySelector("#menu").style.transition = ".5s";
-        document.querySelector("#menu").style.position = "absolute";
-        document.querySelector("#menu").style.left = "-1000px";
-        document.querySelector("#hamber").style.display = "block";
+        document.querySelector("#hamber").style.display = "flex";
+        document.querySelector("#aside_main").style.display = "none";
     }
 });
 window.addEventListener("load", function () {
     if (window.innerWidth >= "768") {
-        document.querySelector("#menu").style.position = "relative";
-        document.querySelector("#menu").style.left = "0";
         document.querySelector("#hamber").style.display = "none";
+        document.querySelector("#aside_main").style.display = "flex";
     } else {
-        document.querySelector("#menu").style.position = "absolute";
-        document.querySelector("#menu").style.left = "-1000px";
-        document.querySelector("#hamber").style.display = "block";
+        document.querySelector("#hamber").style.display = "flex";
+        document.querySelector("#aside_main").style.display = "none";
     }
 });
-document.querySelector("#hamber").addEventListener("click", () => {
-    if (document.querySelector("#menu").style.left == "0px") {
-        document.querySelector("#menu").style.left = "-1000px";
-    } else {
-        document.querySelector("#menu").style.left = "0px";
-    }
-})
-document.querySelector("#drop-login-btn").addEventListener("click", () => {
-    if (document.querySelector("#drop-login-status").style.maxHeight == "0px") {
-        document.querySelector("#drop-login-status").style.maxHeight = "10000px";
-        document.querySelector("#drop-login-status").style.borderBottom = "1px solid black";
-    } else {
-        document.querySelector("#drop-login-status").style.maxHeight = "0px";
-        document.querySelector("#drop-login-status").style.borderBottom = "1px solid #80808025";
-    }
-})
+$('body').on('click', function (e) {
+    if (!$('.no-hide').is(e.target)
+    ) {
+        if ($('.aside-menu').hasClass('aside-menu-open')) {
+            $('.aside-menu').toggleClass('aside-menu-open');
+        }
+        if ($('.login-menu').hasClass('login-menu-open')) {
+            $('.login-menu').toggleClass('login-menu-open');
+        }
+    };
+    console.log(e.target);
+});
+$('#hamber').on('click', function (event) {
+    $('.aside-menu').toggleClass('aside-menu-open');
+});
+$('#login-btn').on('click', function (event) {
+    $('.login-menu').toggleClass('login-menu-open');
+});
