@@ -4,23 +4,24 @@
     ViewData["Title"] = "登入";
 }
 
-<div class="row">
-    <div class="col-md-4">
+<div class="login-bg">
+    <img src="~/adminimg/loginbg.jpg" />
+</div>
+    <div class="login-container">
         <h1>管理員登入</h1>
         <hr />
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label logintext">帳號</label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control" placeholder="帳號" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label logintext">密碼</label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" placeholder="密碼" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <hr>
+            <div class="form-group"> 
                 <input type="submit" value="登入" class="btn btn-primary btn-login-view" />
             </div>
         </form>
@@ -28,29 +29,16 @@
         {
             <div class="error-message">@ViewBag.ErrorMessage</div>
         }
-        <div>
+        <hr />
+        <div class="back-to-home">
             <a asp-action="Index" asp-controller="Home">回主頁面</a>
         </div>
     </div>
-        <div class="col-md-8">
-        <div class="d-flex justify-content-center">
-                <div class="text-center">
-                    <h1>管理員登入注意事項</h1>
-                    <hr />
-                        <p>監控登入活動，記錄登入時間等。</p>
-                        <p>定期審查使用者權限，撤銷不需要的權限。</p>
-                        <p>定期更新和維護管理員登入系統。</p>
-                        <p>培訓和教育管理員，確保了解安全措施和風險。</p>
-                        <p>實施安全存取控制，限制存取範圍。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+

@@ -132,19 +132,11 @@
     opacity: 0;
 }
 
-    .btn-login.show {
-        opacity: 1;
-        background-color: white;
-        color: blue;
-        border-color: blue;
-    }
-
-    .btn-login:hover {
-        border-color: blue;
-        background-color: white;
-        color: blue;
-    }
-
+.btn-login:hover {
+    border-color: blue;
+    background-color: white;
+    color: blue;
+}
 .btn-logout {
     color: white;
     background-color: red;
@@ -225,3 +217,70 @@
     cursor:default;
     margin:5px 0px;
 }
+.login-bg {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: gray;
+}
+
+    .login-bg img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(50%) blur(3px);
+        opacity: 0.7;
+    }
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+    .login-container form {
+        margin-bottom: 20px;
+    }
+
+    .login-container .form-group {
+        margin-bottom: 10px;
+    }
+
+        .login-container .form-group label {
+            display: none;
+        }
+
+    .login-container .form-control {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        box-shadow: none;
+        padding-left: 0;
+        color: white;
+    }
+        .login-container .form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: #000;
+        }
+
+    .login-container .btn-login-view {
+        width: 100%;
+    }
+
+    .login-container .separation-line {
+        border-top: 1px solid #ccc;
+        margin: 10px 0;
+    }
+
+    .login-container .back-to-home {
+        text-align: center;
+    }
