@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+
 namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class HomeController : Controller
@@ -43,7 +44,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

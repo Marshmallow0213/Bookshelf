@@ -105,9 +105,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 //失敗
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "帳號密碼錯誤!!!");
+                    string errorMessage = "帳號密碼錯誤!!!";
+
+                    ViewBag.ErrorMessage = errorMessage; // 将错误消息存储在 ViewBag 中
+
                     return View(loginVM);
                 }
+
 
                 //成功,通過帳比對,以下開始建授權
                 var claims = new List<Claim>
