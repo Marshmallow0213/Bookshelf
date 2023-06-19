@@ -4,10 +4,10 @@
     ViewData["Title"] = "登入";
 }
 
-<h1>管理員登入</h1>
-<hr />
 <div class="row">
     <div class="col-md-4">
+        <h1>管理員登入</h1>
+        <hr />
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -24,11 +24,29 @@
                 <input type="submit" value="登入" class="btn btn-primary btn-login-view" />
             </div>
         </form>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="error-message">@ViewBag.ErrorMessage</div>
+        }
+        <div>
+            <a asp-action="Index" asp-controller="Home">回主頁面</a>
+        </div>
     </div>
-</div>
+        <div class="col-md-8">
+        <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h1>管理員登入注意事項</h1>
+                    <hr />
+                        <p>監控登入活動，記錄登入時間等。</p>
+                        <p>定期審查使用者權限，撤銷不需要的權限。</p>
+                        <p>定期更新和維護管理員登入系統。</p>
+                        <p>培訓和教育管理員，確保了解安全措施和風險。</p>
+                        <p>實施安全存取控制，限制存取範圍。</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <a asp-action="Index" asp-controller="Home">回主頁面</a>
 </div>
 
 @section Scripts {
@@ -36,4 +54,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
