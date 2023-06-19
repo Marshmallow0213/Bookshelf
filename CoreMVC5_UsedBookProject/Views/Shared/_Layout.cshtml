@@ -36,9 +36,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark button-cover-nav" asp-area="" asp-controller="Seller" asp-action="Index">賣家中心</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark button-cover-nav" asp-area="" asp-controller="Account" asp-action="Login">登入</a>
-                        </li>
+                        
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Buyer"))
+                            {
+                                <li class="nav-item">  <p class="nav-link text-dark button-cover-nav" id="nickname">@User.Claims.FirstOrDefault(c => c.Type.Contains("email")).Value</p></li>
+                                <li class="nav-item">  <a href="@Url.Action("SignOut", "BuyerAccount")" class="nav-link text-dark button-cover-nav"><i class="bi bi-box-arrow-right"></i> 登出</a></li>
+                            }
+                        }
+                        else
+                        {
+                            @*未登入*@
+                            //登入按鈕+註冊
+                            <li class="nav-item">  <a href="@Url.Action("Login", "BuyerAccount")" class="nav-link text-dark button-cover-nav">登入</a></li>
+                            <li class="nav-item">  <a href="@Url.Action("RegisterUserName", "BuyerAccount")" class="nav-link text-dark button-cover-nav">註冊</a></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -56,9 +69,22 @@
             <div class="container">
                 &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">隱私中心</a>
             </div>
-            <div class="nav-item-btn buttonpartial">
-                <partial name="_AdminLoginStatusPartial" />
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (!User.IsInRole("Buyer") && !User.IsInRole("Seller"))
+                {
+                    <div class="nav-item-btn buttonpartial">
+                        <partial name="_AdminLoginStatusPartial" />
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="nav-item-btn buttonpartial">
+                    <partial name="_AdminLoginStatusPartial" />
+                </div>
+            }
+            
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

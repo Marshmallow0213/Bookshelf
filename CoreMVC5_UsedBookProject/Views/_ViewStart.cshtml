@@ -2,7 +2,7 @@
     var route = ViewContext.RouteData;
     string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
-    if (controller == "Seller" || controller == "Account")
+    if (controller == "Seller" || controller == "SellerAccount")
     {
         Layout = "_LayoutSeller";
     }

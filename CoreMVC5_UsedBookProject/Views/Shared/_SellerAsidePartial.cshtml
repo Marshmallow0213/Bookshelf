@@ -44,25 +44,25 @@
         </li>
     </ul>
 }
-else if (controller == "Account" && (action == "Details" || action == "ChangePassword" || action == "ChangeUserInfo" || action == "ForgotPasswordUserName" || action == "ForgotPassword"))
+else if (controller == "SellerAccount" && (action == "Details" || action == "ChangePassword" || action == "ChangeUserInfo" || action == "ForgotPasswordUserName" || action == "ForgotPassword"))
 {
     <ul class="pl-0" id="menu">
         <li class="list-unstyled aside-text">
             <p class="text-center py-3 mb-0 no-hide"><strong class="no-hide">個人管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Details", "Account", new {})">我的資訊</a>
+            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Details", "SellerAccount", new {})">我的資訊</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserInfo", "Account", new {})">變更資訊</a>
+            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserInfo", "SellerAccount", new {})">變更資訊</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "Account", new {})">變更密碼</a>
+            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "SellerAccount", new {})">變更密碼</a>
         </li>
         @if (User.IsInRole("Administrator"))
         {
             <li class="list-unstyled aside-link">
-                <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ForgotPasswordUserName", "Account", new {})">忘記密碼</a>
+                <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ForgotPasswordUserName", "SellerAccount", new {})">忘記密碼</a>
             </li>
         }
     </ul>

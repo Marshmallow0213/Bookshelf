@@ -14,8 +14,8 @@
                 <div class="login-menu">
                     <div id="login-status">
                         <p class="mb-0 p-3 text-center account-p no-hide" id="nickname">@User.Claims.FirstOrDefault(c => c.Type.Contains("email")).Value</p>
-                        <a href="@Url.Action("Details", "Account")" class="d-block p-3 account-a text-decoration-none"><i class="bi bi-gear"></i> 設定</a>
-                        <a href="@Url.Action("SignOut", "Account")" class="d-block p-3 account-a text-decoration-none"><i class="bi bi-box-arrow-right"></i> 登出</a>
+                        <a href="@Url.Action("Details", "SellerAccount")" class="d-block p-3 account-a text-decoration-none"><i class="bi bi-gear"></i> 設定</a>
+                        <a href="@Url.Action("SignOut", "SellerAccount")" class="d-block p-3 account-a text-decoration-none"><i class="bi bi-box-arrow-right"></i> 登出</a>
                     </div>
                 </div>
             </div>
@@ -23,13 +23,13 @@
     }
     else
     {
-        <a href="@Url.Action("SignOut", "Account")" class="p-1 account-a text-decoration-none"><i class="bi bi-box-arrow-right"></i> 登出</a>
+        <a href="@Url.Action("SignOut", "SellerAccount")" class="p-1 account-a text-decoration-none"><i class="bi bi-box-arrow-right"></i> 登出</a>
     }
 }
 else
 {
     @*未登入*@
     //登入按鈕+註冊
-    <a href="@Url.Action("Login", "Account")" class="p-1 account-a text-decoration-none">登入</a>
-    <a href="@Url.Action("RegisterUserName", "Account")" class="p-1 account-a text-decoration-none">註冊</a>
+    <a href="@Url.Action("Login", "SellerAccount")" class="p-1 account-a text-decoration-none">登入</a>
+    <a href="@Url.Action("RegisterUserName", "SellerAccount")" class="p-1 account-a text-decoration-none">註冊</a>
 }

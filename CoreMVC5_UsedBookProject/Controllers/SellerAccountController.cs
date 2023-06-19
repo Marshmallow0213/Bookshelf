@@ -18,12 +18,12 @@ using System.Data;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    public class AccountController : Controller
+    public class SellerAccountController : Controller
     {
         private readonly ProductContext _ctx;
         private readonly AccountService _accountService;
         private readonly IHashService _hashService;
-        public AccountController(ProductContext ctx, AccountService accountService, IHashService hashService)
+        public SellerAccountController(ProductContext ctx, AccountService accountService, IHashService hashService)
         {
             _ctx = ctx;
             _accountService = accountService;

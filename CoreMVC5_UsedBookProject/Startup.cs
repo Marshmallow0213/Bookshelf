@@ -16,6 +16,7 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreMVC5_UsedBookProject
 {
@@ -37,10 +38,10 @@ namespace CoreMVC5_UsedBookProject
                 .AddCookie(options =>
                 {
                     //預設登入驗證網址為Account/Login, 若想變更才需要設定LoginPath
-                    //options.LoginPath = new PathString("/Account/Login/");
+                    options.LoginPath = new PathString("/SellerAccount/Login/");
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                     options.SlidingExpiration = true;
-                    options.AccessDeniedPath = "/Account/Forbidden/";
+                    options.AccessDeniedPath = "/SellerAccount/Forbidden/";
                 });
             services.AddDbContext<ProductContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));

@@ -1,8 +1,45 @@
-﻿@{
+﻿@using CoreMVC5_UsedBookProject.ViewModel;
+@model MyProductsViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (Model.Products.Count > 0)
+    {
+    @foreach (var item in Model.Products)
+    {
+        <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@item.Title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
+                    <img src="../Images/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" />
+                </div>
+                <table class="container-fluid">
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>以物易物</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
+                </table>
+        <div class="card-body " >
+            <a href="#" class="card-link">購買</a>
+            <a href="#" class="card-link">交換</a>
+        </div>
+    </div>
+    }
+    }
+    
 </div>
+@section topCSS{
+    <link href="~/css/seller/myproducts.css" rel="stylesheet" />
+}
+@section endJS{
+    <script src="~/js/seller/reloadbydatetime.js"></script>
+}
