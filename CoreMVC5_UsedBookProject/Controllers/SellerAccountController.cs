@@ -274,6 +274,47 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(user);
         }
         [Authorize(Roles = "Seller")]
+        [HttpGet]
+        public IActionResult ChangeUserName()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Seller")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangeUserName(UserNameChangeViewModel userNameChangeVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userNameChangeVM);
+            }
+            var name = User.Identity.Name;
+            string password = _hashService.HashPassword(userNameChangeVM.Password);
+            var user = (from p in _ctx.Users
+                        where p.Id == $"{name}"
+                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+            if (!_hashService.Verify(userNameChangeVM.Password, user.Password))
+            {
+                ViewBag.Error1 = "密碼不符";
+                return View(userNameChangeVM);
+            }
+            var checkAccountExist = (from p in _ctx.Users
+                                     where p.Name.ToUpper() == $"{userNameChangeVM.UserName.ToUpper()}"
+                                     select new { p.Id }).FirstOrDefault();
+            if (checkAccountExist == null)
+            {
+                _ctx.Entry(user).State = EntityState.Modified;
+                user.Name = userNameChangeVM.UserName;
+                _ctx.SaveChanges();
+                ViewData["Title"] = "使用者名稱變更";
+                ViewData["Message"] = "使用者名稱變更成功!";  //顯示訊息
+
+                return View("~/Views/Shared/ResultMessage.cshtml");
+            }
+            ViewBag.Error2 = "使用者名稱已存在";
+            return View(userNameChangeVM);
+        }
+        [Authorize(Roles = "Seller")]
         public IActionResult ChangePassword()
         {
             return View();

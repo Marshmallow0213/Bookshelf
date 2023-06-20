@@ -5,7 +5,7 @@ let navbar = document.getElementById("navbar");
 window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    if (document.body.scrollTop > 75 || document.documentElement.scrollTop > 75) {
         topbutton.style.display = "block";
         navbar.style.position = "fixed";
     } else {

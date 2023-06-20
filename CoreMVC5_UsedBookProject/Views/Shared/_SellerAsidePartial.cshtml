@@ -44,7 +44,7 @@
         </li>
     </ul>
 }
-else if (controller == "SellerAccount" && (action == "Details" || action == "ChangePassword" || action == "ChangeUserInfo" || action == "ForgotPasswordUserName" || action == "ForgotPassword"))
+else if (controller == "SellerAccount" && (action != "Login" && action != "RegisterUserName" && action != "Register"))
 {
     <ul class="pl-0" id="menu">
         <li class="list-unstyled aside-text">
@@ -58,6 +58,9 @@ else if (controller == "SellerAccount" && (action == "Details" || action == "Cha
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "SellerAccount", new {})">變更密碼</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserName", "SellerAccount", new {})">變更使用者名稱</a>
         </li>
         @if (User.IsInRole("Administrator"))
         {

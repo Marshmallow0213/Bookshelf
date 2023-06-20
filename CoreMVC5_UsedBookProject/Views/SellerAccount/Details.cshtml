@@ -1,4 +1,5 @@
-﻿@using CoreMVC5_UsedBookProject.ViewModels;
+﻿@using System.Security.Claims
+@using CoreMVC5_UsedBookProject.ViewModels;
 @model UserViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,6 +15,13 @@
         <tr><td>@Html.DisplayNameFor(model => model.Email)</td><td>@Html.DisplayFor(model => model.Email)</td></tr>
         <tr><td>@Html.DisplayNameFor(model => model.PhoneNo)</td><td>@Html.DisplayFor(model => model.PhoneNo)</td></tr>
     </table>
+    <p>你所屬群組是</p>
+    <ul>
+        @foreach (var roleClaim in User.Claims.Where(c => c.Type == ClaimTypes.Role))
+        {
+            <li>@roleClaim.Value</li>
+        }
+    </ul>
 </div>
 @section topCSS{
     <link href="~/css/account/details.css" rel="stylesheet" />
