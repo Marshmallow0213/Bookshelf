@@ -24,8 +24,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _logger = logger;
             _context = productContext;
         }
-
         public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult SearchProductbyName()
         {
             string trade = "金錢";
             var product = (from p in _context.Products
@@ -40,7 +43,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(mymodel);
         }
         [HttpPost]
-        public IActionResult Index(string name)
+        public IActionResult SearchProductbyName(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
