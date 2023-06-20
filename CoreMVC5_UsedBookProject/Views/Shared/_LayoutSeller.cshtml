@@ -54,7 +54,7 @@
     <script src="~/js/seller/topbtn.js"></script>
     <script src="~/js/seller/shownickname.js"></script>
     <script src="~/js/seller/focus.js"></script>
-    @if (controller == "Seller" || (controller == "SellerAccount" && (action == "Details" || action == "ChangePassword" || action == "ChangeUserInfo" || action == "ForgotPasswordUserName" || action == "ForgotPassword")))
+    @if (controller == "Seller" || (controller == "SellerAccount" && (action != "Login" && action != "RegisterUserName" && action != "Register")))
     {
         <script src="~/js/seller/aside.js"></script>
     }
