@@ -1,25 +1,39 @@
 ﻿$(document).ready(function () {
-    var buttonpartial = $('.button-cover');
-    var btnLogin = buttonpartial.find('.btn-login');
-    var btnLogout = buttonpartial.find('.btn-logout');
-    var interval;
+    var buttonPartial = $('.button-cover');
+    var btnLogin = buttonPartial.find('.btn-hide');
+    var btnLogout = buttonPartial.find('.btn-logout');
+    var timeoutIn;
+    var timeoutOut;
+    var animationDurationIn = 500;
+    var animationDurationOut = 300;
 
-    buttonpartial.hover(
+    function showAnimation() {
+        buttonPartial.addClass('hovered');
+        btnLogin.stop().animate({ opacity: 1 }, animationDurationIn);
+        btnLogout.stop().animate({ opacity: 1 }, animationDurationIn);
+    }
+
+    function hideAnimation() {
+        buttonPartial.removeClass('hovered');
+        btnLogin.stop().animate({ opacity: 0 }, animationDurationOut);
+        btnLogout.stop().animate({ opacity: 0 }, animationDurationOut);
+    }
+
+    buttonPartial.hover(
         function () {
-            clearInterval(interval);
-            var self = this;
-            interval = setInterval(function () {
-                $(self).addClass('hovered');
-                btnLogin.stop().animate({ opacity: 1 }, 1000);
-                btnLogout.stop().animate({ opacity: 1 }, 1000);
-                clearInterval(interval);
+            clearTimeout(timeoutOut);
+            timeoutIn = setTimeout(function () {
+                showAnimation();
             }, 1500);
         },
         function () {
-            clearInterval(interval);
-            buttonpartial.removeClass('hovered');
-            btnLogin.stop().animate({ opacity: 0 }, 500);
-            btnLogout.stop().animate({ opacity: 0 }, 500);
+            clearTimeout(timeoutIn);
+            timeoutOut = setTimeout(function () {
+                hideAnimation();
+            }, 500);
         }
     );
+
+    // 初始化隐藏按钮
+    hideAnimation();
 });
