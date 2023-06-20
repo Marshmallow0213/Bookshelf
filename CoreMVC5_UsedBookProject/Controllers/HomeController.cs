@@ -39,7 +39,32 @@ namespace CoreMVC5_UsedBookProject.Controllers
             };
             return View(mymodel);
         }
+        [HttpPost]
+        public IActionResult Index(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return Content("name不得為空字串!");
+            }
 
+
+            var products = (from p in _context.Products
+                            where p.Status == "已上架" && p.Title.Contains(name)
+                            orderby p.CreateDate descending
+                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
+
+            //判斷集合是否有資料
+            if (products.Count == 0)
+            {
+                return Content($"找不到任何的{name}資料記錄");
+            }
+            MyProductsViewModel mymodel = new()
+            {
+                Products = products
+            };
+            //指派使用ListTable.cshtml
+            return View(mymodel);
+        }
         public IActionResult Privacy()
         {
             return View();
