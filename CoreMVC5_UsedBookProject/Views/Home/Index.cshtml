@@ -12,7 +12,6 @@
     @foreach (var item in Model.Products)
     {
         <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -21,7 +20,7 @@
                     <img src="../Images/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" />
                 </div>
                 <table class="container-fluid">
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
+                    
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
