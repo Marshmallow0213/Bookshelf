@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CoreMVC5_UsedBookProject.Models.OrderByMoney>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "金錢訂單";
 }
 
 <h1>Index</h1>
@@ -48,9 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BuyerId)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DenyReason)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
@@ -61,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.Product.ProductId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderByMoneyId">Edit</a> |
+               
                 <a asp-action="Details" asp-route-id="@item.OrderByMoneyId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.OrderByMoneyId">Delete</a>
             </td>
