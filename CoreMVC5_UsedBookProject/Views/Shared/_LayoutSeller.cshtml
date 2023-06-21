@@ -31,14 +31,9 @@
             }
         </style>
     </noscript>
-    <div class="d-flex">
-        <div id="aside_main">
-            <partial name="_SellerAsidePartial"></partial>
-        </div>
-        <main class="flex-grow-1 p-3" role="main">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main" id="main" style="padding-top: 75px;">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -54,9 +49,5 @@
     <script src="~/js/seller/topbtn.js"></script>
     <script src="~/js/seller/shownickname.js"></script>
     <script src="~/js/seller/focus.js"></script>
-    @if (controller == "Seller" || (controller == "SellerAccount" && (action != "Login" && action != "RegisterUserName" && action != "Register")))
-    {
-        <script src="~/js/seller/aside.js"></script>
-    }
 </body>
 </html>

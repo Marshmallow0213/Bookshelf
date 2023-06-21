@@ -6,59 +6,40 @@
     <title>二手書交換平台</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
     <link href="~/css/buttons.css" rel="stylesheet" />
+    <link href="~/css/seller/aside.css" rel="stylesheet" />
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">中華大學二手書交換平台</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav d-flex flex-row flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark button-cover-nav" asp-area="" asp-controller="Home" asp-action="Index">主頁面</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark button-cover-nav" asp-area="" asp-controller="Home" asp-action="Privacy">隱私中心</a>
-                        </li>
-
-                        <form class="form-inline my-2 my-lg-0" action="~/Home/SearchProductbyName" method="post">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="name">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark button-cover-nav" asp-area="" asp-controller="Seller" asp-action="Index">賣家中心</a>
-                        </li>
-                        
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole("Buyer"))
-                            {
-                                <li class="nav-item">  <p class="nav-link text-dark button-cover-nav" id="nickname">@User.Claims.FirstOrDefault(c => c.Type.Contains("email")).Value</p></li>
-                                <li class="nav-item">  <a href="@Url.Action("SignOut", "BuyerAccount")" class="nav-link text-dark button-cover-nav"><i class="bi bi-box-arrow-right"></i> 登出</a></li>
-                            }
-                        }
-                        else
-                        {
-                            @*未登入*@
-                            //登入按鈕+註冊
-                            <li class="nav-item">  <a href="@Url.Action("Login", "BuyerAccount")" class="nav-link text-dark button-cover-nav">登入</a></li>
-                            <li class="nav-item">  <a href="@Url.Action("RegisterUserName", "BuyerAccount")" class="nav-link text-dark button-cover-nav">註冊</a></li>
-                        }
-                    </ul>
+        <nav class="bg-white border-bottom box-shadow d-flex px-3 flex-wrap" id="navbar">
+            <div class="d-flex align-items-center justify-content-center">
+                <label for="switch-aside" class="mb-0 hamber"><i class="bi bi-list hamber-i"></i></label><!--漢堡按鈕圖示-->
+                <input type="checkbox" id="switch-aside" class="d-none" style="position: absolute; top: 0; left: 0;">
+                <div class="aside-menu">
+                    <partial name="_SellerAsidePartial"></partial>
                 </div>
             </div>
+            <div class="d-flex align-items-center px-2"><a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 20px;"><strong>二手書平台</strong></a></div>
+            
+            <p class="flex-grow-1"></p>
+            <div class="d-flex align-items-center justify-content-center">
+                <label for="switch-search" class="mb-0 hamber"><i class="bi bi-search hamber-i"></i></label><!--漢堡按鈕圖示-->
+                <input type="checkbox" id="switch-search" class="d-none" style="position: absolute; top: 0; left: 0;">
+                <div class="search-menu">
+                    <form class="form-inline my-2 my-lg-0 flex-grow-1 px-2" action="~/Home/SearchProductbyName" method="post">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="name">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <partial name="_LoginStatusPartial" />
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-5" style="padding-top: 75px;">
             @RenderBody()
         </main>
     </div>

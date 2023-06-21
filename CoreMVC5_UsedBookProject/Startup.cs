@@ -38,10 +38,10 @@ namespace CoreMVC5_UsedBookProject
                 .AddCookie(options =>
                 {
                     //預設登入驗證網址為Account/Login, 若想變更才需要設定LoginPath
-                    options.LoginPath = new PathString("/SellerAccount/Login/");
+                    options.LoginPath = new PathString("/Account/Login/");
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                     options.SlidingExpiration = true;
-                    options.AccessDeniedPath = "/SellerAccount/Forbidden/";
+                    options.AccessDeniedPath = "/Account/Forbidden/";
                 });
             services.AddDbContext<ProductContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));

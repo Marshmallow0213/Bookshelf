@@ -6,22 +6,14 @@
     string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
 }
-<nav class="bg-white border-bottom box-shadow d-flex" id="navbar">
-    @if (controller == "Seller" || (controller == "SellerAccount" && (action != "Login" && action != "RegisterUserName" && action != "Register")))
-    {
-        <div class="d-block">
-            <div class="no-hide" id="hamber">
-                <a class="btn no-hide" id="hamber-a" href="#">
-                    <i class="bi bi-list no-hide" id="hamber-i" style="font-size: 26px; color: black;"></i>
-                </a>
-            </div>
-            <div style="position: relative;">
-                <div class="aside-menu">
-                    <partial name="_SellerAsidePartial"></partial>
-                </div>
-            </div>
+<nav class="bg-white border-bottom box-shadow d-flex px-3" id="navbar">
+    <div class="d-flex align-items-center justify-content-center">
+        <label for="switch-aside" class="mb-0 hamber"><i class="bi bi-list hamber-i"></i></label><!--漢堡按鈕圖示-->
+        <input type="checkbox" id="switch-aside" class="d-none" style="position: absolute; top: 0; left: 0;">
+        <div class="aside-menu">
+            <partial name="_SellerAsidePartial"></partial>
         </div>
-    }
+    </div>
     <div class="d-flex align-items-center px-2"><a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Seller" asp-action="Index" style="font-size: 20px;"><strong>二手書平台-賣家中心</strong></a></div>
     <p class="flex-grow-1"></p>
     <partial name="_LoginStatusPartial" />

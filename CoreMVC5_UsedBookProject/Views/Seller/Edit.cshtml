@@ -13,7 +13,7 @@
         <partial name="~/Views/Seller/EditTablePartial/ProductInformation.cshtml" />
         <partial name="~/Views/Seller/EditTablePartial/ProductImage.cshtml" />
         <partial name="~/Views/Seller/EditTablePartial/SaleInformation.cshtml" />
-        <input type="hidden" name="ProductId" class="form-control"  value="@Model.ProductId" readonly />
+        <input type="hidden" name="ProductId" class="form-control" id="ProductId" value="@Model.ProductId" readonly />
         <div id="Test_Image_div" class="d-none">
             Test_Image_div
         </div>
@@ -24,10 +24,6 @@
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
         </div>
     </form>
-    <div id="test_div" class="d-none">
-        <img src="" alt="test" id="test">
-        <p id="test_p"></p>
-    </div>
 </div>
 @section topCSS{
     <link href="~/css/seller/edittablepartial.css" rel="stylesheet" />

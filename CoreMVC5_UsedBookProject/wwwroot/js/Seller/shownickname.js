@@ -1,6 +1,7 @@
 ﻿window.onload = function(){
     try {
         if (document.cookie.indexOf('Nickname') != -1) {
+            document.getElementById("login").innerText = readCookie("Nickname");
             document.getElementById("nickname").innerText = readCookie("Nickname");
         }
     }

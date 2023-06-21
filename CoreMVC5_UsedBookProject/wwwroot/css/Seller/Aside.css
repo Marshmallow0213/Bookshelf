@@ -1,18 +1,19 @@
 ﻿#menu {
-    width: 200px;
+    width: 100%;
     height: fit-content;
 }
-#login-btn {
-    font-size: 20px;
+#login {
     width: 150px;
     height: 100%;
+    word-break: break-word;
     overflow: hidden;
     color: black;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
-#login-btn:hover {
+#login:hover {
     background-color: #282B2E;
     color: white !important;
 }
@@ -32,26 +33,27 @@
     .aside-link:hover > a {
         color: white !important;
     }
-#hamber {
+.hamber {
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    z-index: 1;
 }
-#hamber-a {
-    width: fit-content;
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#hamber-a:hover {
-    background-color: #282B2E;
-    border-radius: 50%;
-}
-    #hamber-a:hover > i {
-        color: white !important;
+    .hamber:hover {
+        border-radius: 50%;
+        background-color: #282B2E;
     }
+.hamber-i {
+    cursor: pointer;
+    color: black;
+    font-size: 26px;
+}
+    .hamber:hover > i {
+        color: white;
+    }
+
 .account-p {
     border-bottom: 1px solid black;
     font-size: 20px;
@@ -71,34 +73,70 @@
     }
 img {
     width: 100%;
-    object-fit: scale-down;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
 }
 .aside-menu {
     border: 1px solid black;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 50px;
     left: -10000px;
     background-color: white;
     z-index: 1;
+    width: 200px;
+    height: 90%;
+    overflow-y: auto;
+}
+.search-menu {
+    position: absolute;
+    top: 50px;
+    left: -10000px;
+    background-color: white;
+    z-index: 1;
+    width: 100%;
 }
 .login-menu {
     border: 1px solid black;
     position: absolute;
-    top: 0;
+    top: 50px;
     right: 10000px;
     background-color: white;
     z-index: 1;
     width: 200px;
 }
-.aside-menu-open {
+#switch-aside:checked + .aside-menu {
     left: 0;
 }
-.login-menu-open {
+#switch-search:checked + .search-menu {
+    left: 0;
+}
+#switch-login:checked + .login-menu {
     right: 0;
+}
+#navbar {
+    position: fixed;
+    z-index: 1;
+    height: 50px;
+    width: 100%;
 }
 @media (min-width:576px) {
 }
 @media (min-width:768px) {
+    main, footer {
+        margin-left: 200px;
+    }
+    .aside-menu {
+        left: 0;
+    }
+    .search-menu {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .hamber {
+        display: none;
+    }
 }
 @media (min-width:992px) {
 }

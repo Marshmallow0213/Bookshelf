@@ -347,13 +347,21 @@ namespace CoreMVC5_UsedBookProject.Services
             _context.SaveChanges();
             UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);
         }
-        public void DeleteProduct(ProductEditViewModel productEditViewModel, string name)
+        public void DeleteProduct(string ProductId, string name)
         {
-            var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId, name);
+            var product = _sellerRepository.GetProductRaw(ProductId, name);
             _context.Entry(product).State = EntityState.Modified;
             product.Status = "刪除";
             product.EditDate = DateTime.Now;
             _context.Update(product);
+            _context.SaveChanges();
+        }
+        public void PermanentDeleteProduct(string ProductId, string name)
+        {
+            var product = _sellerRepository.GetProductRaw(ProductId, name);
+            _context.Remove(product);
+            string folderPath = $@"Images\{ProductId}";
+            Directory.Delete(folderPath, true);
             _context.SaveChanges();
         }
     }

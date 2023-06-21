@@ -68,10 +68,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             //指派使用ListTable.cshtml
             return View(mymodel);
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
