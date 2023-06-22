@@ -17,9 +17,3 @@
 #topBtn:hover {
     background-color: #555; /* Add a dark-grey background on hover */
 }
-
-#navbar {
-    width: 100%;
-    background-color: white;
-    z-index: 1;
-}

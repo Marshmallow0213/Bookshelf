@@ -157,9 +157,9 @@ namespace CoreMVC5_UsedBookProject.Data
 
             //Password以MD5加密
             modelBuilder.Entity<User>().HasData(
-                new User { Id = "U001", Name = "Admin0001", Email = "kevinxi@gmail.com", Password = _hashService.HashPassword("CHU147896301"), Nickname = "Admin0001", PhoneNo = "0925-155222" },
-                new User { Id = "U002", Name = "Admin0002", Email = "marylee@gmail.com", Password = _hashService.HashPassword("CHU147896302"), Nickname = "Admin0002", PhoneNo = "0935-123123" },
-                new User { Id = "U003", Name = "Admin0003", Email = "johnwei@gmail.com", Password = _hashService.HashPassword("CHU147896303"), Nickname = "Admin0003", PhoneNo = "0955-456456" }
+                new User { Id = "U001", Name = "Admin0001", Email = "kevinxi@gmail.com", Password = _hashService.HashPassword("CHU147896301"), Nickname = "Admin0001", PhoneNo = "0925-155222", UserIcon = "無圖片" },
+                new User { Id = "U002", Name = "Admin0002", Email = "marylee@gmail.com", Password = _hashService.HashPassword("CHU147896302"), Nickname = "Admin0002", PhoneNo = "0935-123123", UserIcon = "無圖片" },
+                new User { Id = "U003", Name = "Admin0003", Email = "johnwei@gmail.com", Password = _hashService.HashPassword("CHU147896303"), Nickname = "Admin0003", PhoneNo = "0955-456456", UserIcon = "無圖片" }
                 );
 
             modelBuilder.Entity<Role>().HasData(

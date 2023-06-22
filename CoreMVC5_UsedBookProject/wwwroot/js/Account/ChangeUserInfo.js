@@ -1,39 +1,5 @@
-﻿//for Create and Edit
-var showLength = document.querySelectorAll(".show-length");
-showLength.forEach(element => {
-    ShowLength(element);
-});
-
-//start check trade is money or barter
-
-function Money() {
-    document.getElementById('UnitPrice_div').classList.remove("d-none");
-}
-
-function Barter() {
-    document.getElementById('UnitPrice_div').classList.add("d-none");
-    if (document.getElementById('UnitPrice').value == "") {
-        document.getElementById('UnitPrice').value = "0";
-    }
-}
-//end
-//start check empty and show length
-var showLength = document.querySelectorAll(".show-length");
-showLength.forEach(element => {
-    element.addEventListener("input", () => {
-        ShowLength(element);
-    })
-    element.addEventListener("blur", () => {
-        ShowLength(element);
-    })
-});
-function ShowLength(element) {
-    let length = element.value.length;
-    element.nextElementSibling.innerText = `${length}/${element.getAttribute('maxlength')}`;
-}
-//end
-//start check img value valid
-for (let i = 1; i <= 9; i++) {
+﻿//start check img value valid
+for (let i = 1; i <= 1; i++) {
     document.getElementById(`file${i}`).addEventListener("click", () => {
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
         let preImg = document.getElementById(`Image${i}`).value;
@@ -45,7 +11,7 @@ for (let i = 1; i <= 9; i++) {
     document.getElementById(`file${i}`).addEventListener("input", () => {
         let file = document.getElementById(`file${i}`);
         let p_file = document.getElementById(`p-file${i}`);
-        if (file.files[0].size > 2097152 ) {
+        if (file.files[0].size > 2097152) {
             alert("檔案過大!");
             file.value = "";
             p_file.innerText = "未選擇任何檔案";
@@ -89,36 +55,5 @@ function testError(i) {
     document.getElementById(`file${i}`).value = "";
     document.getElementById(`p-file${i}`).innerText = "無法取得圖片訊息!";
     document.getElementById(`img${i}Div`).innerHTML = `<div class="m-auto"><i class="bi bi-images text-center m-auto d-block" style="font-size: 50px;"></i><p>No image</p></div>`;
-}
-//end
-//start detect leave page
-let inputLeave = document.querySelectorAll("input");
-let textareaLeave = document.querySelectorAll("textarea");
-inputLeave.forEach(element => {
-    element.addEventListener("focus", () => {
-        window.onbeforeunload = function () {
-            return "You have attempted to leave this page. Are you sure?";
-        };
-    })
-});
-textareaLeave.forEach(element => {
-    element.addEventListener("focus", () => {
-        window.onbeforeunload = function () {
-            return "You have attempted to leave this page. Are you sure?";
-        };
-    })
-});
-let submit = document.querySelectorAll(".disable-onbeforeunload");
-submit.forEach(element => {
-    element.addEventListener("click", () => {
-        window.onbeforeunload = null;
-    })
-});
-//end
-//start only number
-function process(input) {
-    let value = input.value;
-    let numbers = value.replace(/[^0-9]/g, "");
-    input.value = numbers;
 }
 //end

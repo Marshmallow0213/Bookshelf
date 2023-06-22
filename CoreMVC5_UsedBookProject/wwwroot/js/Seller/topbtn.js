@@ -15,3 +15,11 @@ function scrollFunction() {
 function topFunction() {
     $("html, body").animate({ scrollTop: 0 }, "slow");
 }
+$('body').on('click', function (e) {
+    let header = document.querySelector('header');
+    if (!header.contains(e.target)) {
+        $('#switch-aside').prop("checked", false);
+        $('#switch-search').prop("checked", false);
+        $('#switch-login').prop("checked", false);
+    };
+});

@@ -8,18 +8,18 @@
 }
 <ul class="pl-0" id="menu">
     <li class="list-unstyled aside-text">
-        <p class="text-center py-3 mb-0 no-hide"><strong class="no-hide">首頁</strong></p>
-    </li>
-    <li class="list-unstyled aside-link">
-        <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">賣家中心</a>
+        <p class="text-center py-3 mb-0"><strong>首頁</strong></p>
     </li>
     <li class="list-unstyled aside-link">
         <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Home", new {})">主首頁</a>
     </li>
+    <li class="list-unstyled aside-link">
+        <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">賣家中心</a>
+    </li>
     @if (controller == "Seller")
     {
         <li class="list-unstyled aside-text">
-            <p class="text-center py-3 mb-0 no-hide"><strong class="no-hide">訂單管理</strong></p>
+            <p class="text-center py-3 mb-0"><strong>訂單管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">待辦事項清單</a>
@@ -31,7 +31,7 @@
             <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "以物易物"})">我的銷售(以物易物)</a>
         </li>
         <li class="list-unstyled aside-text">
-            <p class="text-center py-3 mb-0 no-hide"><strong class="no-hide">商品管理</strong></p>
+            <p class="text-center py-3 mb-0"><strong>商品管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "金錢"})">我的商品(金錢)</a>
@@ -46,7 +46,7 @@
     else if (controller == "Account" && (action != "Login" && action != "RegisterUserName" && action != "Register"))
     {
         <li class="list-unstyled aside-text">
-            <p class="text-center py-3 mb-0 no-hide"><strong class="no-hide">個人管理</strong></p>
+            <p class="text-center py-3 mb-0"><strong>個人管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Details", "Account", new {})">我的資訊</a>
@@ -70,7 +70,7 @@
     else if (controller == "Home" || controller == "OrderByMoney")
     {
         <li class="list-unstyled aside-text">
-            <p class="text-center py-3 mb-0 no-hide"><strong class="no-hide">訂單管理</strong></p>
+            <p class="text-center py-3 mb-0"><strong>訂單管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "OrderByMoney", new {})">我的資訊</a>

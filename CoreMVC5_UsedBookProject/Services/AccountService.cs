@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -81,16 +82,43 @@ namespace CoreMVC5_UsedBookProject.Services
         {
             var user = (from p in _ctx.Users
                         where p.Id == name
-                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
             return user;
         }
         public User GetUserRaw(string name)
         {
             var user = (from p in _ctx.Users
                         where p.Id == name
-                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
             return user;
         }
-
+        public void UploadImages(IFormFile filename, string Image, string UserId)
+        {
+            string folderPath = $@"Images\Users\{UserId}";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            int i = 1;
+            if (Image == "無圖片")
+            {
+                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
+                foreach (string f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+            }
+            if (filename != null)
+            {
+                string[] files = System.IO.Directory.GetFiles(folderPath, $"{i}.*");
+                foreach (string f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+                var path = $@"{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
+                using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
+                filename.CopyTo(stream);
+            }
+        }
     }
 }

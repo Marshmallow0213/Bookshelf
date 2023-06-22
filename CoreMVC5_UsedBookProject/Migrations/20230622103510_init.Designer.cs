@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230615134645_init")]
+    [Migration("20230622103510_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderByBarterId = "OB001",
                             BuyerId = "U003",
-                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 373, DateTimeKind.Local).AddTicks(844),
+                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(8436),
                             DenyReason = "none",
                             ProductId = "P003",
                             SellerId = "U001",
@@ -110,7 +110,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderByMoneyId = "OM001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 372, DateTimeKind.Local).AddTicks(8587),
+                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6297),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
@@ -121,7 +121,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderByMoneyId = "OM002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 372, DateTimeKind.Local).AddTicks(8997),
+                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6587),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
@@ -205,9 +205,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 370, DateTimeKind.Local).AddTicks(1376),
+                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 955, DateTimeKind.Local).AddTicks(9388),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(6715),
+                            EditDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(3992),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -224,9 +224,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7345),
+                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4692),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7350),
+                            EditDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4697),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -243,9 +243,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7356),
+                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4704),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7357),
+                            EditDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4705),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -317,6 +317,10 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserIcon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -331,8 +335,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "kevinxi@gmail.com",
                             Name = "Admin0001",
                             Nickname = "Admin0001",
-                            Password = "$2a$11$gPeRYmGmZjO4N/83DnXi1.9EFFL7CRuBqSwtAagF8TsZVtrtJwA/i",
-                            PhoneNo = "0925-155222"
+                            Password = "$2a$11$xBwl7sf6jXKknzq54gaZ0.PcNG13RhiaNP04AlMma.EItNyvbvElC",
+                            PhoneNo = "0925-155222",
+                            UserIcon = "無圖片"
                         },
                         new
                         {
@@ -340,8 +345,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "marylee@gmail.com",
                             Name = "Admin0002",
                             Nickname = "Admin0002",
-                            Password = "$2a$11$yvmxtozWSWMqi5zwY2ktiujByTZM8s1mBT2ng.jeXwWHQzEozeBWG",
-                            PhoneNo = "0935-123123"
+                            Password = "$2a$11$qIxo9QEyzth2iuY/no/KXeObz80PkFJ6OApBOCcM5GLeNV3BjWFNm",
+                            PhoneNo = "0935-123123",
+                            UserIcon = "無圖片"
                         },
                         new
                         {
@@ -349,8 +355,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "johnwei@gmail.com",
                             Name = "Admin0003",
                             Nickname = "Admin0003",
-                            Password = "$2a$11$jsVlTkqZLFGQpyjMNo135.BphADoefJaM3SKcDtO7lxWMLGn7aefi",
-                            PhoneNo = "0955-456456"
+                            Password = "$2a$11$q/.wFi9M031jdZRSXxRdyeS6nbwpT9KRyTvocGRUQEJ7dU/KhFTgW",
+                            PhoneNo = "0955-456456",
+                            UserIcon = "無圖片"
                         });
                 });
 

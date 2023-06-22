@@ -3,7 +3,7 @@
     height: fit-content;
 }
 #login {
-    width: 150px;
+    width: fit-content;
     height: 100%;
     word-break: break-word;
     overflow: hidden;
@@ -45,6 +45,19 @@
         border-radius: 50%;
         background-color: #282B2E;
     }
+.search {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+    .search:hover {
+        border-radius: 50%;
+        background-color: #282B2E;
+    }
 .hamber-i {
     cursor: pointer;
     color: black;
@@ -83,7 +96,7 @@ img {
     top: 50px;
     left: -10000px;
     background-color: white;
-    z-index: 1;
+    z-index: 999;
     width: 200px;
     height: 90%;
     overflow-y: auto;
@@ -93,7 +106,7 @@ img {
     top: 50px;
     left: -10000px;
     background-color: white;
-    z-index: 1;
+    z-index: 3;
     width: 100%;
 }
 .login-menu {
@@ -102,7 +115,7 @@ img {
     top: 50px;
     right: 10000px;
     background-color: white;
-    z-index: 1;
+    z-index: 3;
     width: 200px;
 }
 #switch-aside:checked + .aside-menu {
@@ -116,11 +129,22 @@ img {
 }
 #navbar {
     position: fixed;
-    z-index: 1;
+    z-index: 999;
     height: 50px;
     width: 100%;
 }
+#login-nickname {
+    display: none;
+}
 @media (min-width:576px) {
+    .search-menu {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .search {
+        display: none;
+    }
 }
 @media (min-width:768px) {
     main, footer {
@@ -129,13 +153,11 @@ img {
     .aside-menu {
         left: 0;
     }
-    .search-menu {
-        position: relative;
-        top: 0;
-        left: 0;
-    }
     .hamber {
         display: none;
+    }
+    #login-nickname {
+        display: block;
     }
 }
 @media (min-width:992px) {
