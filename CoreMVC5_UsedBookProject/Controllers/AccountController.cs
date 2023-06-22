@@ -15,6 +15,8 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -291,7 +293,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             string password = _hashService.HashPassword(userNameChangeVM.Password);
             var user = (from p in _ctx.Users
                         where p.Id == $"{name}"
-                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
             if (!_hashService.Verify(userNameChangeVM.Password, user.Password))
             {
                 ViewBag.Error1 = "密碼不符";
@@ -329,7 +331,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
                 var user = (from p in _ctx.Users
                             where p.Id == $"{name}"
-                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
                 if (!_hashService.Verify(userPasswordChangeViewModel.OldPassword, user.Password))
                 {
                     ViewBag.Error = "舊密碼不符";
@@ -365,7 +367,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 user.Nickname = userViewModel.Nickname;
                 user.Email = userViewModel.Email;
                 user.PhoneNo = userViewModel.PhoneNo;
+                if (userViewModel.UserIcon == "無圖片")
+                {
+                    user.UserIcon = "無圖片";
+                }
+                if (userViewModel.File1 != null)
+                {
+                    user.UserIcon = String.Concat($"UserIcon", Path.GetExtension(Convert.ToString(userViewModel.File1.FileName)));
+                }
                 _ctx.SaveChanges();
+                _accountService.UploadImages(userViewModel.File1, userViewModel.UserIcon, user.Id);
                 HttpContext.Response.Cookies.Delete("Nickname");
                 HttpContext.Response.Cookies.Append("Nickname", user.Nickname);
                 ViewData["Title"] = "資訊變更";
@@ -421,7 +432,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 string password = _hashService.HashPassword(registerVM.Password);
                 var user = (from p in _ctx.Users
                             where p.Name == $"{registerVM.UserName}"
-                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
                 _ctx.Entry(user).State = EntityState.Modified;
                 user.Password = password;
                 _ctx.SaveChanges();

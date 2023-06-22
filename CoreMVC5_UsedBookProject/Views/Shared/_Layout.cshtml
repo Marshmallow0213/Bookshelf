@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
     <link href="~/css/buttons.css" rel="stylesheet" />
+    <link href="~/css/seller/topbtn.css" rel="stylesheet" />
     <link href="~/css/seller/aside.css" rel="stylesheet" />
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
@@ -25,8 +26,8 @@
             <div class="d-flex align-items-center px-2"><a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 20px;"><strong>二手書平台</strong></a></div>
             
             <p class="flex-grow-1"></p>
-            <div class="d-flex align-items-center justify-content-center">
-                <label for="switch-search" class="mb-0 hamber"><i class="bi bi-search hamber-i"></i></label><!--漢堡按鈕圖示-->
+            <div class="d-flex align-items-center justify-content-center px-1">
+                <label for="switch-search" class="mb-0 search"><i class="bi bi-search hamber-i"></i></label><!--漢堡按鈕圖示-->
                 <input type="checkbox" id="switch-search" class="d-none" style="position: absolute; top: 0; left: 0;">
                 <div class="search-menu">
                     <form class="form-inline my-2 my-lg-0 flex-grow-1 px-2" action="~/Home/SearchProductbyName" method="get">
@@ -42,6 +43,7 @@
             <partial name="_LoginStatusPartial" />
         </nav>
     </header>
+    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
     <div class="container">
         <main role="main" class="pb-5" style="padding-top: 75px;">
             @RenderBody()
@@ -76,6 +78,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/buttons.js"></script>
+    <script src="~/js/seller/topbtn.js"></script>
+    <script src="~/js/seller/shownickname.js"></script>
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)

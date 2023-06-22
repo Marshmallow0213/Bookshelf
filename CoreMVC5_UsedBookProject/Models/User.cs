@@ -15,6 +15,8 @@ namespace CoreMVC5_UsedBookProject.Models
 
         public string Email { get; set; }
         public string PhoneNo { get; set; }
+        [Required]
+        public string UserIcon { get; set; }
 
         public ICollection<UserRoles> UserRoles { get; set; }
     }

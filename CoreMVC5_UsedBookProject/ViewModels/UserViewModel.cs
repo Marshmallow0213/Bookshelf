@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.ViewModels
@@ -11,7 +12,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string Name { get; set; }
         [Display(Name = "暱稱")]
         [Required(ErrorMessage = "{0}不可為空!")]
-        [MaxLength(30, ErrorMessage = "{0}至多30個字。")]
+        [MaxLength(15, ErrorMessage = "{0}至多15個字。")]
         public string Nickname { get; set; }
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage = "{0}格式不正確!")]
@@ -21,5 +22,8 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Phone(ErrorMessage = "{0}格式不正確!")]
         [MaxLength(20, ErrorMessage = "{0}至多20個字。")]
         public string PhoneNo { get; set; }
+        [Display(Name = "使用者Icon")]
+        public string UserIcon { get; set; }
+        public IFormFile File1 { get; set; }
     }
 }

@@ -28,7 +28,8 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nickname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserIcon = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,12 +152,12 @@ namespace CoreMVC5_UsedBookProject.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo" },
+                columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo", "UserIcon" },
                 values: new object[,]
                 {
-                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$gPeRYmGmZjO4N/83DnXi1.9EFFL7CRuBqSwtAagF8TsZVtrtJwA/i", "0925-155222" },
-                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$yvmxtozWSWMqi5zwY2ktiujByTZM8s1mBT2ng.jeXwWHQzEozeBWG", "0935-123123" },
-                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$jsVlTkqZLFGQpyjMNo135.BphADoefJaM3SKcDtO7lxWMLGn7aefi", "0955-456456" }
+                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$xBwl7sf6jXKknzq54gaZ0.PcNG13RhiaNP04AlMma.EItNyvbvElC", "0925-155222", "無圖片" },
+                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$qIxo9QEyzth2iuY/no/KXeObz80PkFJ6OApBOCcM5GLeNV3BjWFNm", "0935-123123", "無圖片" },
+                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$q/.wFi9M031jdZRSXxRdyeS6nbwpT9KRyTvocGRUQEJ7dU/KhFTgW", "0955-456456", "無圖片" }
                 });
 
             migrationBuilder.InsertData(
@@ -164,9 +165,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 columns: new[] { "ProductId", "Author", "ContentText", "CreateBy", "CreateDate", "Degree", "EditDate", "ISBN", "Image1", "Image2", "PublicationDate", "Publisher", "Status", "Title", "Trade", "UnitPrice" },
                 values: new object[,]
                 {
-                    { "P001", "作者", "Context1", "U001", new DateTime(2023, 6, 15, 21, 46, 44, 370, DateTimeKind.Local).AddTicks(1376), "二手", new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(6715), "9876543210", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book1", "金錢", 500m },
-                    { "P002", "作者", "Context2", "U001", new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7345), "二手", new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7350), "9876543211", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book2", "金錢", 500m },
-                    { "P003", "作者", "Context3", "U001", new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7356), "二手", new DateTime(2023, 6, 15, 21, 46, 44, 371, DateTimeKind.Local).AddTicks(7357), "9876543212", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book3", "以物易物", -1m }
+                    { "P001", "作者", "Context1", "U001", new DateTime(2023, 6, 22, 18, 35, 9, 955, DateTimeKind.Local).AddTicks(9388), "二手", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(3992), "9876543210", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book1", "金錢", 500m },
+                    { "P002", "作者", "Context2", "U001", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4692), "二手", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4697), "9876543211", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book2", "金錢", 500m },
+                    { "P003", "作者", "Context3", "U001", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4704), "二手", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4705), "9876543212", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book3", "以物易物", -1m }
                 });
 
             migrationBuilder.InsertData(
@@ -188,17 +189,17 @@ namespace CoreMVC5_UsedBookProject.Migrations
             migrationBuilder.InsertData(
                 table: "OrderByBarters",
                 columns: new[] { "OrderByBarterId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status" },
-                values: new object[] { "OB001", "U003", new DateTime(2023, 6, 15, 21, 46, 44, 373, DateTimeKind.Local).AddTicks(844), "none", "P003", "U001", "待確認" });
+                values: new object[] { "OB001", "U003", new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(8436), "none", "P003", "U001", "待確認" });
 
             migrationBuilder.InsertData(
                 table: "OrderByMoneys",
                 columns: new[] { "OrderByMoneyId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "UnitPrice" },
-                values: new object[] { "OM002", "U002", new DateTime(2023, 6, 15, 21, 46, 44, 372, DateTimeKind.Local).AddTicks(8997), "none", "P002", "U001", "待確認", 500m });
+                values: new object[] { "OM002", "U002", new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6587), "none", "P002", "U001", "待確認", 500m });
 
             migrationBuilder.InsertData(
                 table: "OrderByMoneys",
                 columns: new[] { "OrderByMoneyId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "UnitPrice" },
-                values: new object[] { "OM001", "U002", new DateTime(2023, 6, 15, 21, 46, 44, 372, DateTimeKind.Local).AddTicks(8587), "none", "P001", "U001", "待確認", 500m });
+                values: new object[] { "OM001", "U002", new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6297), "none", "P001", "U001", "待確認", 500m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderByBarters_ProductId",
