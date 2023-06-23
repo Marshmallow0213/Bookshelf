@@ -2,6 +2,7 @@
 using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,6 +25,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             _logger = logger;
             _context = productContext;
+        }
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            var NickName = HttpContext.Request.Cookies["NickName"];
+            ViewBag.NickName = NickName;
+            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
+            ViewBag.UserIcon = UserIcon;
         }
         public IActionResult Index()
         {

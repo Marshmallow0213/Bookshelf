@@ -153,7 +153,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public int[] ProductNewLimit(string name)
         {
             Dictionary<string, int> countList = new();
-            countList = _context.Products.Where(w => w.CreateBy == name && w.Status == "未上架" || w.Status == "已上架").GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
+            countList = _context.Products.Where(w => w.CreateBy == name && (w.Status == "未上架" || w.Status == "已上架")).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
             Dictionary<string, int> count = new()
             {
                 { "未上架", 0 },
@@ -360,8 +360,11 @@ namespace CoreMVC5_UsedBookProject.Services
         {
             var product = _sellerRepository.GetProductRaw(ProductId, name);
             _context.Remove(product);
-            string folderPath = $@"Images\{ProductId}";
-            Directory.Delete(folderPath, true);
+            string folderPath = $@"Images\Products\{ProductId}";
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+            }
             _context.SaveChanges();
         }
     }

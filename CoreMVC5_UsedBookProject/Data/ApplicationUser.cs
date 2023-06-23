@@ -9,5 +9,6 @@
         public string PhoneNo { get; set; }
         public string Role { get; set; }
         public string[] Roles { get; set; }
+        public string UserIcon { get; set; }
     }
 }

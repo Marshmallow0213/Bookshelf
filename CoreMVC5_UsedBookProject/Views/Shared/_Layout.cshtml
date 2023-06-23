@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
     <link href="~/css/buttons.css" rel="stylesheet" />
-    <link href="~/css/seller/topbtn.css" rel="stylesheet" />
-    <link href="~/css/seller/aside.css" rel="stylesheet" />
+    <link href="~/css/seller/all.css" asp-append-version="true" rel="stylesheet" />
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
@@ -78,8 +77,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/buttons.js"></script>
-    <script src="~/js/seller/topbtn.js"></script>
-    <script src="~/js/seller/shownickname.js"></script>
+    <script src="~/js/seller/all.js" asp-append-version="true"></script>
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)

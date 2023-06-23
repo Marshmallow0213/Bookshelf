@@ -37,11 +37,8 @@ for (let i = 1; i <= 1; i++) {
         document.getElementById(`Image${i}`).value = '無圖片';
         document.getElementById(`file${i}`).value = '';
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
-        document.getElementById(`img${i}Div`).innerHTML = `<div class="m-auto"><i class="bi bi-images text-center m-auto d-block" style="font-size: 50px;"></i><p>No image</p></div>`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='../Images/Users/Shared/empty.png' alt='img${i}' id='img${i}'>`;
     });
-    if (document.getElementById(`Image${i}`).value == '無圖片') {
-        document.getElementById(`img${i}Div`).innerHTML = `<div class="m-auto"><i class="bi bi-images text-center m-auto d-block" style="font-size: 50px;"></i><p>No image</p></div>`;
-    }
 }
 function testLoad(i) {
     let _img = document.getElementById(`img${i}`);

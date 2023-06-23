@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.Filters;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CoreMVC5_UsedBookProject.Controllers
@@ -34,7 +35,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             //HttpContext.Request.Cookies["key"];
             //HttpContext.Response.Cookies.Delete("key");
         }
-
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            var NickName = HttpContext.Request.Cookies["NickName"];
+            ViewBag.NickName = NickName;
+            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
+            ViewBag.UserIcon = UserIcon;
+        }
         [HttpGet]
         public IActionResult Login()
         {
@@ -158,6 +166,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     // redirect response value.
                 };
                 HttpContext.Response.Cookies.Append("Nickname", user.Nickname);
+                HttpContext.Response.Cookies.Append("UserIcon", user.UserIcon);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
@@ -237,10 +246,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     Name = registerVM.UserName,
                     //Password = _hashService.MD5Hash(registerVM.Password),
                     Password = password,
-                    Nickname = registerVM.UserName
+                    Nickname = registerVM.UserName,
+                    UserIcon = "empty.png"
                 };
 
                 _ctx.Users.Add(user);
+                string folderPath = $@"Images\Users\{Id}";
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
+                fi.CopyTo($@"{folderPath}\empty.png", true);
                 UserRoles userRoles1 = new UserRoles
                 {
                     UserId = Id,
@@ -369,7 +386,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 user.PhoneNo = userViewModel.PhoneNo;
                 if (userViewModel.UserIcon == "無圖片")
                 {
-                    user.UserIcon = "無圖片";
+                    user.UserIcon = "empty.png";
                 }
                 if (userViewModel.File1 != null)
                 {
@@ -379,6 +396,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 _accountService.UploadImages(userViewModel.File1, userViewModel.UserIcon, user.Id);
                 HttpContext.Response.Cookies.Delete("Nickname");
                 HttpContext.Response.Cookies.Append("Nickname", user.Nickname);
+                HttpContext.Response.Cookies.Delete("UserIcon");
+                HttpContext.Response.Cookies.Append("UserIcon", user.UserIcon);
                 ViewData["Title"] = "資訊變更";
                 ViewData["Message"] = "使用者資訊變更成功!";  //顯示訊息
 

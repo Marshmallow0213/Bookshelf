@@ -5,6 +5,7 @@ using CoreMVC5_UsedBookProject.ViewModel;
 using CoreMVC5_UsedBookProject.Services;
 using System.Diagnostics;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -16,6 +17,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public SellerController(SellerService sellerService)
         {
             _sellerService = sellerService;
+        }
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            var NickName = HttpContext.Request.Cookies["NickName"];
+            ViewBag.NickName = NickName;
+            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
+            ViewBag.UserIcon = UserIcon;
         }
         public IActionResult Index()
         {

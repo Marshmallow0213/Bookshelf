@@ -12,14 +12,14 @@
     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
         <div class="swiper-wrapper">
             <div class="swiper-slide p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                <img src="../Images/Products/@Model.ProductId/@Model.Image1" class="m-auto" alt="@Model.Title" />
+                <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="errorLoad(this)" />
             </div>
             @if (list.Length > 0)
             {
                 @foreach (string item in list)
                 {
                     <div class="swiper-slide d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                        <img src="../Images/Products/@Model.ProductId/@item" class="m-auto" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.parentNode.remove();" alt="@Model.Title" />
                     </div>
                 }
             }
@@ -30,14 +30,14 @@
     <div thumbsSlider="" class="swiper mySwiper" style="height: 64px;">
         <div class="swiper-wrapper">
             <div class="swiper-slide d-flex align-items-center">
-                <img src="../Images/Products/@Model.ProductId/@Model.Image1" class="m-auto" alt="@Model.Title" />
+                <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.style.backgroundColor = 'gray'" />
             </div>
             @if (list.Length > 0)
             {
                 @foreach (var item in list)
                 {
                     <div class="swiper-slide d-flex align-items-center">
-                        <img src="../Images/Products/@Model.ProductId/@item" class="m-auto" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.parentNode.remove();" alt="@Model.Title" />
                     </div>
                 }
             }

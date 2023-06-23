@@ -6,11 +6,10 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using CoreMVC5_UsedBookProject.Interfaces;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System;
 using CoreMVC5_UsedBookProject.Models;
 using Microsoft.AspNetCore.Http;
+using System.Data;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -64,7 +63,8 @@ namespace CoreMVC5_UsedBookProject.Services
                     Nickname = user.Nickname,
                     PhoneNo = user.PhoneNo,
                     Role = roleName ?? "",
-                    Roles = roleNames.ToArray()
+                    Roles = roleNames.ToArray(),
+                    UserIcon = user.UserIcon
                 };
 
                 return userInfo;
@@ -99,18 +99,9 @@ namespace CoreMVC5_UsedBookProject.Services
             {
                 Directory.CreateDirectory(folderPath);
             }
-            int i = 1;
-            if (Image == "無圖片")
-            {
-                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
-                foreach (string f in files)
-                {
-                    System.IO.File.Delete(f);
-                }
-            }
             if (filename != null)
             {
-                string[] files = System.IO.Directory.GetFiles(folderPath, $"{i}.*");
+                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
                 foreach (string f in files)
                 {
                     System.IO.File.Delete(f);
@@ -118,6 +109,16 @@ namespace CoreMVC5_UsedBookProject.Services
                 var path = $@"{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
                 using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
                 filename.CopyTo(stream);
+            }
+            else if (Image == "無圖片" && filename == null)
+            {
+                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
+                foreach (string f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
+                fi.CopyTo($@"{folderPath}\empty.png", true);
             }
         }
     }

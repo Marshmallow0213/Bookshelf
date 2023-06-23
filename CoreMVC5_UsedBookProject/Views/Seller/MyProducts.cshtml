@@ -50,7 +50,7 @@
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
                 <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto" alt="@item.Title" />
+                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
@@ -70,7 +70,7 @@
                     {
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#staticBackdrop">
-                            <i class="bi bi-trash"></i> 普通刪除
+                            <i class="bi bi-trash"></i> 刪除
                         </button>
 
                         <!-- Modal -->
@@ -132,8 +132,5 @@
     <partial name="_NowPageMyProducts" />
 </div>
 @section topCSS{
-    <link href="~/css/seller/myproducts.css" rel="stylesheet" />
-}
-@section endJS{
-    <script src="~/js/seller/reloadbydatetime.js"></script>
+    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
 }
