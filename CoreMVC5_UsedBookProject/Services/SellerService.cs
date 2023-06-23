@@ -281,7 +281,7 @@ namespace CoreMVC5_UsedBookProject.Services
                     }
                     var path = $@"{folderPath}\{randomstrings[i - 1]}{i++}{Path.GetExtension(Convert.ToString(file.FileName))}";
                     using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
-                    file.CopyToAsync(stream);
+                    file.CopyTo(stream);
                 }
                 else
                 {
