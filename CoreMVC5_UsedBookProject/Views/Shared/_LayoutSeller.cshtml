@@ -12,9 +12,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
-    <link href="~/css/seller/topbtn.css" rel="stylesheet" />
-    <link href="~/css/seller/modifiedpage.css" rel="stylesheet" />
-    <link href="~/css/seller/aside.css" rel="stylesheet" />
+    <link href="~/css/seller/all.css" asp-append-version="true" rel="stylesheet" />
+    <script src="~/js/seller/errorimg.js" asp-append-version="true"></script>
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
@@ -31,14 +30,9 @@
             }
         </style>
     </noscript>
-    <div class="d-flex">
-        <div id="aside_main">
-            <partial name="_SellerAsidePartial"></partial>
-        </div>
-        <main class="flex-grow-1 p-3" role="main">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main" id="main" style="padding-top: 75px; padding-bottom: 75px;">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -51,12 +45,6 @@
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)
-    <script src="~/js/seller/topbtn.js"></script>
-    <script src="~/js/seller/shownickname.js"></script>
-    <script src="~/js/seller/focus.js"></script>
-    @if (controller == "Seller" || (controller == "SellerAccount" && (action != "Login" && action != "RegisterUserName" && action != "Register")))
-    {
-        <script src="~/js/seller/aside.js"></script>
-    }
+    <script src="~/js/seller/all.js" asp-append-version="true"></script>
 </body>
 </html>

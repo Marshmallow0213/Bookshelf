@@ -153,7 +153,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public int[] ProductNewLimit(string name)
         {
             Dictionary<string, int> countList = new();
-            countList = _context.Products.Where(w => w.CreateBy == name && w.Status == "未上架" || w.Status == "已上架").GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
+            countList = _context.Products.Where(w => w.CreateBy == name && (w.Status == "未上架" || w.Status == "已上架")).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
             Dictionary<string, int> count = new()
             {
                 { "未上架", 0 },
@@ -248,7 +248,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public void UploadImages(List<IFormFile> filenames, List<string> Images, string ProductId, List<string> randomstrings)
         {
-            string folderPath = $@"Images\{ProductId}";
+            string folderPath = $@"Images\Products\{ProductId}";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -347,13 +347,24 @@ namespace CoreMVC5_UsedBookProject.Services
             _context.SaveChanges();
             UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);
         }
-        public void DeleteProduct(ProductEditViewModel productEditViewModel, string name)
+        public void DeleteProduct(string ProductId, string name)
         {
-            var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId, name);
+            var product = _sellerRepository.GetProductRaw(ProductId, name);
             _context.Entry(product).State = EntityState.Modified;
             product.Status = "刪除";
             product.EditDate = DateTime.Now;
             _context.Update(product);
+            _context.SaveChanges();
+        }
+        public void PermanentDeleteProduct(string ProductId, string name)
+        {
+            var product = _sellerRepository.GetProductRaw(ProductId, name);
+            _context.Remove(product);
+            string folderPath = $@"Images\Products\{ProductId}";
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+            }
             _context.SaveChanges();
         }
     }

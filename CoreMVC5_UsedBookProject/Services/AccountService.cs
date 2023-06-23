@@ -6,10 +6,10 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using CoreMVC5_UsedBookProject.Interfaces;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Http;
+using System.Data;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -36,7 +36,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 return userInfo;
             }
             bool isPassword = _hashService.Verify(loginVM.Password, password);
-            var user = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName)
+            var user = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName.ToUpper())
                 .FirstOrDefaultAsync();
 
             if (user != null && isPassword)
@@ -63,7 +63,8 @@ namespace CoreMVC5_UsedBookProject.Services
                     Nickname = user.Nickname,
                     PhoneNo = user.PhoneNo,
                     Role = roleName ?? "",
-                    Roles = roleNames.ToArray()
+                    Roles = roleNames.ToArray(),
+                    UserIcon = user.UserIcon
                 };
 
                 return userInfo;
@@ -81,16 +82,44 @@ namespace CoreMVC5_UsedBookProject.Services
         {
             var user = (from p in _ctx.Users
                         where p.Id == name
-                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                        select new UserViewModel { Id = p.Id, Name = p.Name, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
             return user;
         }
         public User GetUserRaw(string name)
         {
             var user = (from p in _ctx.Users
                         where p.Id == name
-                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo }).FirstOrDefault();
+                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
             return user;
         }
-
+        public void UploadImages(IFormFile filename, string Image, string UserId)
+        {
+            string folderPath = $@"Images\Users\{UserId}";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            if (filename != null)
+            {
+                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
+                foreach (string f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+                var path = $@"{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
+                using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
+                filename.CopyTo(stream);
+            }
+            else if (Image == "無圖片" && filename == null)
+            {
+                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
+                foreach (string f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
+                fi.CopyTo($@"{folderPath}\empty.png", true);
+            }
+        }
     }
 }

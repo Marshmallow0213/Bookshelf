@@ -20,12 +20,65 @@
             {
                 <a href="@Url.Action("Edit", "Seller", new {ProductId = Model.ProductId})" class="btn btn-warning"><i class="bi bi-pencil-square"></i> 編輯</a>
             }
+            @if (Model.Status != "刪除")
+            {
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">
+                    <i class="bi bi-trash"></i> 刪除
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">確認刪除?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                確認移至刪除區?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <a href="@Url.Action("Delete", "Seller", new {ProductId = Model.ProductId, Trade = Model.Trade})" class="btn btn-danger mt-2"><i class="bi bi-trash"></i> 刪除</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop2">
+                <i class="bi bi-trash"></i> 永久刪除
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">確認刪除?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            確認永久刪除?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <a href="@Url.Action("PermanentDelete", "Seller", new {ProductId = Model.ProductId, Trade = Model.Trade})" class="btn btn-danger">確認刪除</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
         </div>
     </form>
 </div>
 @section topCSS{
-    <link href="~/css/seller/detailtablepartial.css" rel="stylesheet" />
+    <link href="~/css/seller/detailtablepartial.css" asp-append-version="true" rel="stylesheet" />
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
@@ -37,6 +90,5 @@
     <script src="~/lib//Swiper/swiper-bundle.min.js"></script>
     <!-- Initialize Swiper -->
     <script src="~/js/Swiper/Swiper.js"></script>
-    <script src="~/js/seller/detailtablepartial.js"></script>
-    <script src="~/js/seller/reloadbydatetime.js"></script>
+    <script src="~/js/seller/detailtablepartial.js" asp-append-version="true"></script>
 }

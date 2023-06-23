@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using CoreMVC5_UsedBookProject.ViewModel;
 using CoreMVC5_UsedBookProject.Services;
 using System.Diagnostics;
+using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -15,6 +17,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public SellerController(SellerService sellerService)
         {
             _sellerService = sellerService;
+        }
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            var NickName = HttpContext.Request.Cookies["NickName"];
+            ViewBag.NickName = NickName;
+            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
+            ViewBag.UserIcon = UserIcon;
         }
         public IActionResult Index()
         {
@@ -86,11 +96,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 _sellerService.CreateProduct(productCreateViewModel, name);
                 if (productCreateViewModel.Trade == "金錢")
                 {
-                    return RedirectToAction("MyProducts", new { trade = "金錢" });
+                    return RedirectToAction("MyProducts", new { trade = "金錢", status = productCreateViewModel.Status });
                 }
                 else
                 {
-                    return RedirectToAction("MyProducts", new { trade = "以物易物" });
+                    return RedirectToAction("MyProducts", new { trade = "以物易物", status = productCreateViewModel.Status });
                 }
             }
             else
@@ -131,11 +141,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 _sellerService.EditProduct(productEditViewModel, name);
                 if (productEditViewModel.Trade == "金錢")
                 {
-                    return RedirectToAction("MyProducts", new { trade = "金錢" });
+                    return RedirectToAction("MyProducts", new { trade = "金錢", status = productEditViewModel.Status });
                 }
                 else
                 {
-                    return RedirectToAction("MyProducts", new { trade = "以物易物" });
+                    return RedirectToAction("MyProducts", new { trade = "以物易物", status = productEditViewModel.Status });
                 }
             }
             else
@@ -164,39 +174,30 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
             }
         }
-        public IActionResult Delete(string ProductId)
+        public IActionResult Delete(string ProductId, string Trade)
         {
             var name = User.Identity.Name;
-            if (ProductId == null)
+            _sellerService.DeleteProduct(ProductId, name);
+            if (Trade == "金錢")
             {
-                return NotFound();
+                return RedirectToAction("MyProducts", new { trade = "金錢", status = "刪除" });
             }
             else
             {
-                var product = _sellerService.GetProduct(ProductId, name);
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return View(product);
-                }
+                return RedirectToAction("MyProducts", new { trade = "以物易物", status = "刪除" });
             }
         }
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public IActionResult Delete(ProductEditViewModel productEditViewModel)
+        public IActionResult PermanentDelete(string ProductId, string Trade)
         {
             var name = User.Identity.Name;
-            _sellerService.DeleteProduct(productEditViewModel, name);
-            if (productEditViewModel.Trade == "金錢")
+            _sellerService.PermanentDeleteProduct(ProductId, name);
+            if (Trade == "金錢")
             {
-                return RedirectToAction("MyProducts", new { trade = "金錢" });
+                return RedirectToAction("MyProducts", new { trade = "金錢", status = "刪除" });
             }
             else
             {
-                return RedirectToAction("MyProducts", new { trade = "以物易物" });
+                return RedirectToAction("MyProducts", new { trade = "以物易物", status = "刪除" });
             }
         }
         public IActionResult Error()

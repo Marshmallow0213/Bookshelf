@@ -1,0 +1,60 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model UserViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container-fluid pb-5">
+    <h1>我的資訊</h1>
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="ChangeUserInfo" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <div class="d-flex py-2">
+                        <label asp-for="UserIcon" class="control-label"></label>
+                        <input type="hidden" name="UserIcon" class="form-control" value="@(Model.UserIcon == null ? "無圖片" : Model.UserIcon)" id="Image1" readonly />
+                        <button type="button" class="btn btn-danger d-block ml-5" id="Image1-clear">X</button>
+                    </div>
+                    <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black; overflow: hidden;">
+                        <img src="../Images/Users/@Model.Id/@Model.UserIcon" alt="img1" id="img1" onerror="errorLoad(this)">
+                    </div>
+                    <div class="d-flex align-items-end mt-2">
+                        <label for="file1" class="btn btn-primary">
+                            選擇檔案
+                        </label>
+                        <input type="file" asp-for="File1" class="d-none" accept="image/*" id="file1" />
+                        <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="text-danger">*</span>
+                    <label asp-for="Nickname" class="control-label"></label>
+                    <input asp-for="Nickname" class="form-control" />
+                    <span asp-validation-for="Nickname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNo" class="control-label"></label>
+                    <input asp-for="PhoneNo" class="form-control" />
+                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="變更保存" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section topCss{
+    <link href="~/css/account/changeuserinfo.css" asp-append-version="true" rel="stylesheet" />
+}
+@section endJS{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/account/changeuserinfo.js" asp-append-version="true"></script>
+}

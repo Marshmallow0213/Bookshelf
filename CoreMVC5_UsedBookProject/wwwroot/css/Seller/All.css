@@ -1,0 +1,211 @@
+﻿/*aside*/
+#menu {
+    width: 100%;
+    height: fit-content;
+}
+#login {
+    width: fit-content;
+    height: 100%;
+    word-break: break-word;
+    overflow: hidden;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+#login:hover {
+    background-color: #282B2E;
+    color: white !important;
+}
+.aside-text {
+    background-color: #80808050;
+}
+.aside-text > p {
+    font-size: 18px;
+}
+.aside-link > a {
+    color: black;
+    font-size: 18px;
+}
+.aside-link:hover {
+    background-color: #282B2E;
+}
+    .aside-link:hover > a {
+        color: white !important;
+    }
+.hamber {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+    .hamber:hover {
+        border-radius: 50%;
+        background-color: #282B2E;
+    }
+.search {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+    .search:hover {
+        border-radius: 50%;
+        background-color: #282B2E;
+    }
+.hamber-i {
+    cursor: pointer;
+    color: black;
+    font-size: 26px;
+}
+    .hamber:hover > i {
+        color: white;
+    }
+
+.account-p {
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    resize: none;
+    width: 100%;
+    height: auto;
+    word-break: break-word;
+}
+.account-a {
+    color: black;
+    text-align: center;
+    font-size: 20px;
+}
+    .account-a:hover {
+        color: white !important;
+        background-color: #282B2E;
+    }
+img {
+    width: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+.aside-menu {
+    border: 1px solid black;
+    position: fixed;
+    top: 50px;
+    left: -10000px;
+    background-color: white;
+    z-index: 999;
+    width: 200px;
+    height: 90%;
+    overflow-y: auto;
+}
+.search-menu {
+    position: absolute;
+    top: 50px;
+    left: -10000px;
+    background-color: white;
+    z-index: 3;
+    width: 100%;
+}
+.login-menu {
+    border: 1px solid black;
+    position: absolute;
+    top: 50px;
+    right: 10000px;
+    background-color: white;
+    z-index: 3;
+    width: 200px;
+}
+#switch-aside:checked + .aside-menu {
+    left: 0;
+}
+#switch-search:checked + .search-menu {
+    left: 0;
+}
+#switch-login:checked + .login-menu {
+    right: 0;
+}
+#navbar {
+    position: fixed;
+    z-index: 999;
+    height: 50px;
+    width: 100%;
+}
+#login-nickname {
+    display: none;
+}
+@media (min-width:576px) {
+    .search-menu {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .search {
+        display: none;
+    }
+}
+@media (min-width:768px) {
+    main, footer {
+        margin-left: 200px;
+    }
+    .aside-menu {
+        left: 0;
+    }
+    .hamber {
+        display: none;
+    }
+    #login-nickname {
+        display: block;
+    }
+}
+@media (min-width:992px) {
+}
+@media (min-width:1200px) {
+}
+/*all*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.gap-10px {
+    gap: 10px;
+}
+/*top btn*/
+#topBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+    #topBtn:hover {
+        background-color: #555; /* Add a dark-grey background on hover */
+    }
