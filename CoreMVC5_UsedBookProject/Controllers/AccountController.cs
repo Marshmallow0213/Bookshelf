@@ -227,13 +227,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     return View(registerVM);
                 }
                 string Id = Guid.NewGuid().ToString();
-                var checkProductExist = (from p in _ctx.Users
+                var checkIdExist = (from p in _ctx.Users
                                          where p.Id == $"{Id}"
                                          select new { p.Id }).FirstOrDefault();
-                while (checkProductExist != null)
+                while (checkIdExist != null)
                 {
                     Id = Guid.NewGuid().ToString();
-                    checkProductExist = (from p in _ctx.Users
+                    checkIdExist = (from p in _ctx.Users
                                          where p.Id == $"{Id}"
                                          select new { p.Id }).FirstOrDefault();
                 };
@@ -462,6 +462,131 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
 
             return View(registerVM);
+        }
+        [Authorize(Roles = "Administrator,Seller")]
+        [HttpGet]
+        public IActionResult RegisterFromCSV()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Administrator,Seller")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RegisterFromCSV(RegisterFromCSV registerFromCSV, string submit)
+        {
+            if (ModelState.IsValid)
+            {
+                List<string> listA = new List<string>();
+                List<string> listB = new List<string>();
+                using (var reader = new StreamReader(registerFromCSV.File.OpenReadStream()))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+
+                        listA.Add(values[0]);
+                        listB.Add(values[1]);
+                    }
+                }
+                if (submit == "批量註冊")
+                {
+                    for (int i = 0; i < listA.Count(); i++)
+                    {
+                        var checkAccountExist = (from p in _ctx.Users
+                                                 where p.Name == $"{listA[i]}"
+                                                 select new { p.Id }).FirstOrDefault();
+                        if (checkAccountExist == null)
+                        {
+                            string Id = Guid.NewGuid().ToString();
+                            var checkIdExist = (from p in _ctx.Users
+                                                where p.Id == $"{Id}"
+                                                select new { p.Id }).FirstOrDefault();
+                            while (checkIdExist != null)
+                            {
+                                Id = Guid.NewGuid().ToString();
+                                checkIdExist = (from p in _ctx.Users
+                                                where p.Id == $"{Id}"
+                                                select new { p.Id }).FirstOrDefault();
+                            };
+                            //user => DB
+                            //ViewModel => Data Model
+                            string password = _hashService.HashPassword(listB[i]);
+                            User user = new User
+                            {
+                                Id = Id,
+                                Name = listA[i],
+                                //Password = _hashService.MD5Hash(registerVM.Password),
+                                Password = password,
+                                Nickname = listA[i],
+                                UserIcon = "empty.png"
+                            };
+
+                            _ctx.Users.Add(user);
+                            string folderPath = $@"Images\Users\{Id}";
+                            if (!Directory.Exists(folderPath))
+                            {
+                                Directory.CreateDirectory(folderPath);
+                            }
+                            FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
+                            fi.CopyTo($@"{folderPath}\empty.png", true);
+                            UserRoles userRoles1 = new UserRoles
+                            {
+                                UserId = Id,
+                                RoleId = "R001",
+                            };
+                            UserRoles userRoles2 = new UserRoles
+                            {
+                                UserId = Id,
+                                RoleId = "R002",
+                            };
+                            _ctx.UserRoles.Add(userRoles1);
+                            _ctx.UserRoles.Add(userRoles2);
+                            if (registerFromCSV.Role == "管理者")
+                            {
+                                UserRoles userRoles3 = new UserRoles
+                                {
+                                    UserId = Id,
+                                    RoleId = "R003",
+                                };
+                                _ctx.UserRoles.Add(userRoles3);
+                            }
+                            _ctx.SaveChanges();
+                        }
+                    }
+                    ViewData["Title"] = "帳號批量註冊";
+                    ViewData["Message"] = "使用者帳號批量註冊成功!";  //顯示訊息
+                }
+                else if (submit == "批量刪除")
+                {
+                    for (int i = 0; i < listA.Count(); i++)
+                    {
+                        var checkAccountExist = _ctx.Users.Where(w => w.Name.ToUpper() == $"{listA[i]}".ToUpper()).FirstOrDefault();
+                        List<string> noDeleteList = new()
+                        {
+                            // Adding elements to List
+                            "Admin0001",
+                            "Admin0002",
+                            "Admin0003"
+                        };
+                        if (checkAccountExist != null && noDeleteList.ConvertAll(d => d.ToUpper()).Contains(listA[i].ToUpper()) == false)
+                        {
+                            string Id = checkAccountExist.Id;
+                            _ctx.Users.Remove(checkAccountExist);
+                            string folderPath = $@"Images\Users\{Id}";
+                            if (Directory.Exists(folderPath))
+                            {
+                                Directory.Delete(folderPath, true);
+                            }
+                            _ctx.SaveChanges();
+                        }
+                        ViewData["Title"] = "帳號批量刪除";
+                        ViewData["Message"] = "使用者帳號批量刪除成功!";  //顯示訊息
+                    }
+                }
+                return View("~/Views/Shared/ResultMessage.cshtml");
+            }
+            return View(registerFromCSV);
         }
     }
 }

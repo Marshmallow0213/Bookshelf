@@ -65,6 +65,9 @@
             <li class="list-unstyled aside-link">
                 <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ForgotPasswordUserName", "Account", new {})">忘記密碼</a>
             </li>
+            <li class="list-unstyled aside-link">
+                <a class="text-center py-3 d-block mb-0 text-decoration-none" href="@Url.Action("RegisterFromCSV", "Account", new {})">批量註冊</a>
+            </li>
         }
     }
     else if (controller == "Home" || controller == "OrderByMoney")

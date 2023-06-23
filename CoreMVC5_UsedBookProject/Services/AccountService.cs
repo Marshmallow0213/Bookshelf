@@ -36,7 +36,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 return userInfo;
             }
             bool isPassword = _hashService.Verify(loginVM.Password, password);
-            var user = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName)
+            var user = await _ctx.Users.Where(w => w.Name.ToUpper() == loginVM.UserName.ToUpper())
                 .FirstOrDefaultAsync();
 
             if (user != null && isPassword)
