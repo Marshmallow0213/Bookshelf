@@ -10,10 +10,10 @@
     {
         @*已登入*@
         //顯示使用者名稱+登出按鈕
-        <div class="d-flex align-items-center justify-content-center" style="width:200px;">
+        <div class="d-flex align-items-center justify-content-center">
             <label for="switch-login" class="mb-0 px-2" id="login">
                 <img class="p-2" src="../Images/Users/@User.Claims.FirstOrDefault(c => c.Type.Contains("name")).Value/@ViewBag.UserIcon" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='../Images/Users/Shared/empty.png';">
-                <a id="login-nickname" class="px-2">
+                <a id="login-nickname" class="px-2" style="width: fit-content;">
                     @ViewBag.NickName
                 </a>
             </label><!--漢堡按鈕圖示-->
