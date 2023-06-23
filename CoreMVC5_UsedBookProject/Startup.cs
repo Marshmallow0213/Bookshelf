@@ -49,6 +49,8 @@ namespace CoreMVC5_UsedBookProject
                     options.UseSqlServer(Configuration.GetConnectionString("AdminAccountContext")));
             services.AddTransient<AccountService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<BuyerService>();
+
             services.AddScoped<SellerRepository>();
             services.AddScoped<AdminAccountService>();
             services.AddSingleton<IHashService, HashService>();
