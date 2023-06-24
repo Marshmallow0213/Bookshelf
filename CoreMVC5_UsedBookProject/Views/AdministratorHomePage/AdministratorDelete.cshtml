@@ -1,0 +1,50 @@
+﻿@model CoreMVC5_UsedBookProject.Models.AdministratorUser
+
+@{
+    ViewData["Title"] = "管理員資料刪除";
+}
+
+<h1>管理員資料刪除</h1>
+
+<h3>你確定要刪除這筆資料嗎</h3>
+<div>
+    <h4>管理員個人資料</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nickname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nickname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNo)
+        </dd>
+    </dl>
+    
+    <form asp-action="AdministratorDelete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="AdministratorHomePage">返回管理員控制中心</a>
+    </form>
+</div>
