@@ -19,7 +19,7 @@
                 <label for="switch-aside" class="mb-0 hamber"><i class="bi bi-list hamber-i"></i></label><!--漢堡按鈕圖示-->
                 <input type="checkbox" id="switch-aside" class="d-none" style="position: absolute; top: 0; left: 0;">
                 <div class="aside-menu">
-                    <partial name="_SellerAsidePartial"></partial>
+                    <partial name="_AsidePartial"></partial>
                 </div>
             </div>
             <div class="d-flex align-items-center px-2"><a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 20px;"><strong>二手書平台</strong></a></div>
@@ -42,7 +42,7 @@
             <partial name="_LoginStatusPartial" />
         </nav>
     </header>
-    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+    <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
     <div class="container">
         <main role="main" class="pb-5" style="padding-top: 75px;">
             @RenderBody()

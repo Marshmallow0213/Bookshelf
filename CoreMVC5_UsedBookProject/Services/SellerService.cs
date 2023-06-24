@@ -41,8 +41,8 @@ namespace CoreMVC5_UsedBookProject.Services
             List<OrderViewModel> orders = new();
             orders = (from o in _context.OrderByMoneys
             from p in _context.Products
-            where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && (o.SellerId == $"{name}" || o.BuyerId == $"{name}")
-            orderby o.CreateDate descending
+            where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}"
+                      orderby o.CreateDate descending
                       select new OrderViewModel { OrderId = o.OrderByMoneyId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
             MySalesViewModel mymodel = new()
             {
@@ -58,11 +58,11 @@ namespace CoreMVC5_UsedBookProject.Services
             Dictionary<string, int> countList = new();
             if (trade == "金錢")
             {
-                countList = _context.OrderByMoneys.Where(w => w.SellerId == name || w.BuyerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+                countList = _context.OrderByMoneys.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             }
             else if (trade == "以物易物")
             {
-                countList = _context.OrderByBarters.Where(w => w.SellerId == name || w.BuyerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+                countList = _context.OrderByBarters.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             }
             Dictionary<string, int> count = new()
             {
@@ -92,7 +92,7 @@ namespace CoreMVC5_UsedBookProject.Services
             List<OrderViewModel> orders = new();
             orders = (from o in _context.OrderByBarters
                       from p in _context.Products
-                      where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && (o.SellerId == $"{name}" || o.BuyerId == $"{name}")
+                      where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}"
                       orderby o.CreateDate descending
                       select new OrderViewModel { OrderId = o.OrderByBarterId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
             MySalesViewModel mymodel = new()
@@ -110,13 +110,13 @@ namespace CoreMVC5_UsedBookProject.Services
             status ??= "已上架";
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
-            var product = (from p in _context.Products
+            var products = (from p in _context.Products
                            where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade == $"{trade}"
                            orderby p.CreateDate descending
                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).Skip((now_page - 1) * 10).Take(10).ToList();
             MyProductsViewModel mymodel = new()
             {
-                Products = product,
+                Products = products,
                 PagesCount = new int[] { now_page, all_pages },
                 ProductsCount = count,
                 StatusPage = status,

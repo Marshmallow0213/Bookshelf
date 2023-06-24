@@ -12,6 +12,7 @@ using System;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.ViewModels;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -26,7 +27,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _accountService = accountService;
             _hashService = hashService;
         }
-
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            var NickName = HttpContext.Request.Cookies["NickName"];
+            ViewBag.NickName = NickName;
+            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
+            ViewBag.UserIcon = UserIcon;
+        }
         [HttpGet]
         public IActionResult Login()
         {

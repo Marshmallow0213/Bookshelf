@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+}
+<ul class="pl-0" id="menu">
+    <li class="list-unstyled aside-text">
+        <p class="text-left pl-2 py-3 mb-0"><strong>首頁</strong></p>
+    </li>
+    <li class="list-unstyled aside-link">
+        <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Home", new {})">主首頁</a>
+    </li>
+    <li class="list-unstyled aside-link">
+        <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Buyer", new {trade = "金錢"})">賣場(金錢)</a>
+    </li>
+    <li class="list-unstyled aside-link">
+        <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Buyer", new {trade = "以物易物"})">賣場(以物易物)</a>
+    </li>
+    <li class="list-unstyled aside-link">
+        <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">賣家中心</a>
+    </li>
+    @if (controller == "Seller")
+    {
+        <li class="list-unstyled aside-text">
+            <p class="text-left pl-2 py-3 mb-0"><strong>訂單管理</strong></p>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">待辦事項清單</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "金錢"})">我的銷售(金錢)</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "以物易物"})">我的銷售(以物易物)</a>
+        </li>
+        <li class="list-unstyled aside-text">
+            <p class="text-left pl-2 py-3 mb-0"><strong>商品管理</strong></p>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "金錢"})">我的商品(金錢)</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "以物易物"})">我的商品(以物易物)</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Create", "Seller", new {})">新增商品</a>
+        </li>
+    }
+    else if (controller == "Account" && (action != "Login" && action != "RegisterUserName" && action != "Register"))
+    {
+        <li class="list-unstyled aside-text">
+            <p class="text-left pl-2 py-3 mb-0"><strong>個人管理</strong></p>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Details", "Account", new {})">我的資訊</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserInfo", "Account", new {})">變更資訊</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "Account", new {})">變更密碼</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserName", "Account", new {})">變更使用者名稱</a>
+        </li>
+        @if (User.IsInRole("Administrator"))
+        {
+            <li class="list-unstyled aside-link">
+                <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ForgotPasswordUserName", "Account", new {})">忘記密碼</a>
+            </li>
+            <li class="list-unstyled aside-link">
+                <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("RegisterFromCSV", "Account", new {})">批量註冊</a>
+            </li>
+        }
+    }
+    else if (controller == "Home" || controller == "Buyer")
+    {
+        <li class="list-unstyled aside-text">
+            <p class="text-left pl-2 py-3 mb-0"><strong>訂單管理</strong></p>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "金錢"})">訂單紀錄(金錢)</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "以物易物"})">訂單紀錄(以物易物)</a>
+        </li>
+    }
+</ul>
+
+

@@ -1,21 +1,55 @@
-﻿using CoreMVC5_UsedBookProject.Services;
+﻿using CoreMVC5_UsedBookProject.Data;
+using CoreMVC5_UsedBookProject.Services;
+using CoreMVC5_UsedBookProject.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
+    [Authorize(Roles = "Buyer")]
     public class BuyerController : Controller
     {
         private readonly BuyerService _buyerService;
+        private readonly ProductContext _context;
 
-        public BuyerController(BuyerService buyerService)
+        public BuyerController(BuyerService buyerService, ProductContext productContext)
         {
             _buyerService = buyerService;
+            _context = productContext;
         }
-        public IActionResult Index()
+        [AllowAnonymous]
+        public IActionResult Index(int now_page, string trade)
         {
-            
-            return View();
+            MyProductsViewModel mymodel = new();
+            ViewBag.trade = trade;
+            if (trade == "金錢")
+            {
+                mymodel = _buyerService.GetProducts(now_page, trade);
+                return View(mymodel);
+            }
+            else if (trade == "以物易物")
+            {
+                mymodel = _buyerService.GetProducts(now_page, trade);
+                return View(mymodel);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            var NickName = HttpContext.Request.Cookies["NickName"];
+            ViewBag.NickName = NickName;
+            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
+            ViewBag.UserIcon = UserIcon;
+        }
+        [AllowAnonymous]
         public IActionResult Details(string ProductId)
         {
             var name = User.Identity.Name;
@@ -34,6 +68,26 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     return View(product);
                 }
+            }
+        }
+        public IActionResult MySales(String status, int now_page, string trade)
+        {
+            string name = User.Identity.Name;
+            MySalesViewModel mymodel = new();
+            ViewBag.trade = trade;
+            if (trade == "金錢")
+            {
+                mymodel = _buyerService.GetMoneyOrders(status, now_page, name);
+                return View(mymodel);
+            }
+            else if (trade == "以物易物")
+            {
+                mymodel = _buyerService.GetBarterOrders(status, now_page, name);
+                return View(mymodel);
+            }
+            else
+            {
+                return NotFound();
             }
         }
     }
