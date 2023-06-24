@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _ctx = ctx;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> AdministratorHomePage()
         {
             var model = await _ctx.Users.ToListAsync();
