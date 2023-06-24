@@ -99,7 +99,7 @@ img {
     background-color: white;
     z-index: 999;
     width: 200px;
-    height: calc(100% - 50px);
+    height: calc(100% - 110px);
     overflow-y: auto;
 }
 .search-menu {
@@ -147,6 +147,9 @@ img {
         display: none;
     }
 }
+footer {
+    height: 60px;
+}
 @media (min-width:768px) {
     main, footer {
         margin-left: 200px;
@@ -193,7 +196,7 @@ img {
 #topBtn {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
-    bottom: 20px; /* Place the button at the bottom of the page */
+    bottom: 80px; /* Place the button at the bottom of the page */
     right: 20px; /* Place the button 30px from the right */
     z-index: 99; /* Make sure it does not overlap */
     border: none; /* Remove borders */
