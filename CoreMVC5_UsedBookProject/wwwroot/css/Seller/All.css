@@ -147,11 +147,18 @@ img {
         display: none;
     }
 }
+header {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+}
 footer {
     height: 60px;
+    min-height: 60px;
+    max-height: 60px;
 }
 @media (min-width:768px) {
-    main, footer {
+    main {
         margin-left: 200px;
     }
     .aside-menu {
