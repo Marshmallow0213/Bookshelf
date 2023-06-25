@@ -19,7 +19,7 @@
                 @foreach (string item in list)
                 {
                     <div class="swiper-slide d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="errorLoad(this)" alt="@Model.Title" />
                     </div>
                 }
             }
@@ -37,7 +37,7 @@
                 @foreach (var item in list)
                 {
                     <div class="swiper-slide d-flex align-items-center">
-                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.parentNode.remove();" alt="@Model.Title" />
+                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="errorLoad(this)" alt="@Model.Title" />
                     </div>
                 }
             }
