@@ -7,23 +7,26 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
 using System.Xml.Linq;
+using CoreMVC5_UsedBookProject.Models;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
     public class BuyerService
     {
         private readonly ProductContext _context;
+        private readonly SellerRepository _sellerRepository;
 
-        public BuyerService(ProductContext productContext)
+        public BuyerService(ProductContext productContext, SellerRepository sellerRepository)
         {
             _context = productContext;
+            _sellerRepository = sellerRepository;
         }
         public ProductEditViewModel GetProduct(string id)
         {
             var product = _context.Products
             .Where(p => p.Status == "已上架"&&p.ProductId == id)
             .OrderByDescending(p => p.CreateDate)
-            .Select(p => new ProductEditViewModel
+            .Select(p => new Product
             {  ProductId=p.ProductId,
                 Title = p.Title,
                 ISBN = p.ISBN,
@@ -42,8 +45,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateBy = p.CreateBy
             })
            .FirstOrDefault();
-
-            return product;
+            var dm = _sellerRepository.DMToVM(product);
+            return dm;
         }
         public MyProductsViewModel GetProducts(int now_page, string trade)
         {
