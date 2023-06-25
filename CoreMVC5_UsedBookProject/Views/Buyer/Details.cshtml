@@ -15,8 +15,16 @@
         <partial name="~/Views/Seller/DetailTablePartial/OtherInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
         <br />
-        <button type="submit">購買</button>
-        <button type="submit">交換</button>
+        @if(Model.Trade == "金錢")
+        {
+            <button type="submit">購買</button>
+        }
+        else if (Model.Trade == "以物易物")
+        {
+            <button type="submit">交換</button>
+        }
+        
+        
          
            
     </form>

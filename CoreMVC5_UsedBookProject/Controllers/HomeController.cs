@@ -92,6 +92,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
 
             var products = _context.Products
+
                 .Where(p => p.Status == "已上架" && p.Title.Contains(name))
                 .OrderByDescending(p => p.CreateDate)
                 .Select(p => new ProductViewModel
@@ -114,13 +115,47 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     CreateBy = p.CreateBy
                 })
                 .ToList();
+           
+
             if (products.Count == 0)
             {
-                return Content($"找不到任何的{name}資料記錄");
+                products = _context.Products
+
+                .Where(p => p.Status == "已上架" && p.ISBN.Contains(name))
+                .OrderByDescending(p => p.CreateDate)
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    Title = p.Title,
+                    ISBN = p.ISBN,
+                    Author = p.Author,
+                    Publisher = p.Publisher,
+                    PublicationDate = p.PublicationDate,
+                    Degree = p.Degree,
+                    ContentText = p.ContentText,
+                    Image1 = p.Image1,
+                    Image2 = p.Image2,
+                    Status = p.Status,
+                    Trade = p.Trade,
+                    UnitPrice = p.UnitPrice,
+                    CreateDate = p.CreateDate,
+                    EditDate = p.EditDate,
+                    CreateBy = p.CreateBy
+                })
+                .ToList();
+                if(products.Count > 0) {
+                    //MyProductsViewModel mymodel = new MyProductsViewModel
+                    //{
+                    //    Products = products
+                    //};
+                    //return View(mymodel);
+                }
+               
+              
             }
 
             // 判断集合是否有数据
-            if (products.Count == 0)
+            if (products.Count == 0 )
             {
                 // 进行模糊匹配
                 var _products = _context.Products

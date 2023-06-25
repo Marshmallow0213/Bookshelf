@@ -15,8 +15,11 @@
                             <h5 class="card-title">@item.Title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                      
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                            <a href="Buyer/Details?ProductId=@item.ProductId"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" /></a>
+
+                            <a href="@Url.Action("Details", "Buyer", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" /></a>
+                          
                         </div>
                         <table class="container-fluid my-2">
 
@@ -39,5 +42,5 @@
     <link href="~/css/seller/myproducts.css" rel="stylesheet" />
 }
 @section endJS{
-    <script src="~/js/seller/reloadbydatetime.js"></script>
+    
 }
