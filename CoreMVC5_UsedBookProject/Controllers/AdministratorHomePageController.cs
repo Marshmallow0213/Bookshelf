@@ -29,14 +29,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             _ctx = ctx;
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-            var NickName = HttpContext.Request.Cookies["NickName"];
-            ViewBag.NickName = NickName;
-            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
-            ViewBag.UserIcon = UserIcon;
-        }
         [Authorize]
         public async Task<IActionResult> AdministratorHomePage()
         {

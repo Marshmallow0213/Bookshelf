@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
@@ -41,18 +42,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return NotFound();
             }
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-            var NickName = HttpContext.Request.Cookies["NickName"];
-            ViewBag.NickName = NickName;
-            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
-            ViewBag.UserIcon = UserIcon;
-        }
         [AllowAnonymous]
         public IActionResult Details(string ProductId)
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             if (ProductId == null)
             {
                 return NotFound();

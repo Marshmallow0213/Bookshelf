@@ -27,14 +27,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _logger = logger;
             _context = productContext;
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-            var NickName = HttpContext.Request.Cookies["NickName"];
-            ViewBag.NickName = NickName;
-            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
-            ViewBag.UserIcon = UserIcon;
-        }
         public IActionResult Index()
         {  
             var product = (from p in _context.Products
