@@ -45,10 +45,6 @@
         background-color: white;
         color: black;
     }
-.content table {
-    transform: scale(2);
-    transform-origin: top left;
-}
 .createtext{
     font-size:35px;
 }

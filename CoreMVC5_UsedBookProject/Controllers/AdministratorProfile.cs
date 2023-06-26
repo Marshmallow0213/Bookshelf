@@ -58,7 +58,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(administratorUser);
         }
-
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public IActionResult AdministratorCreate()
@@ -69,51 +68,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult>
-            Create([Bind("Name,Nickname,Email,PhoneNo")] AdministratorUser administratorUser)
+            AdministratorCreate([Bind("Id,Name,Nickname,Password,Email,PhoneNo")] AdministratorUser administratorUser)
         {
             if (ModelState.IsValid)
             {
-                _ctx.Users.Add(administratorUser);
-                await _ctx.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(administratorUser);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> AdministratorDelete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var administratorUser = await _ctx.Users.FirstOrDefaultAsync(m => m.Id == id);
-            if (administratorUser == null)
-            {
-                return NotFound();
+                    _ctx.Users.Add(administratorUser);
+                    await _ctx.SaveChangesAsync();
+                    return RedirectToAction("AdministratorData");
+                
             }
             return View(administratorUser);
         }
-        [HttpPost, ActionName("AdministratorDelete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var administratorUser = await _ctx.Users.FindAsync(id);
-            _ctx.Users.Remove(administratorUser);
-            await _ctx.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-
-
-
-
-
-
-
 
 
         [HttpGet]
@@ -141,12 +106,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    //_ctx.Users.Update(administratorUser);
-                    var user = _ctx.Users.Where(w=>w.Id == id).FirstOrDefault();
+                    var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
                     _ctx.Entry(user).State = EntityState.Modified;
                     user.Name = administratorUser.Name;
                     user.Nickname = administratorUser.Nickname;
@@ -154,22 +118,40 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     user.PhoneNo = administratorUser.PhoneNo;
                     await _ctx.SaveChangesAsync();
                 }
-                catch(DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException)
                 {
-                    //if (!AdministratorUserExists(administratorUser.Id))
-                    //{
-                    //    return NotFound();
-                    //}
-                    //else
-                    //{
-                    //    throw;
-                    //}
                 }
-                return RedirectToAction("AdministratorHomePage");
+                return RedirectToAction("AdministratorData");
             }
             return View(administratorUser);
         }
 
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> AdministratorDelete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var administratorUser = await _ctx.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (administratorUser == null)
+            {
+                return NotFound();
+            }
+            return View(administratorUser);
+        }
+        [HttpPost, ActionName("AdministratorDelete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var administratorUser = await _ctx.Users.FindAsync(id);
+            _ctx.Users.Remove(administratorUser);
+            await _ctx.SaveChangesAsync();
+            return RedirectToAction("AdministratorData");
+        }
         private bool AdministratorUserExists(string id)
         {
             throw new NotImplementedException();

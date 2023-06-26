@@ -4,6 +4,17 @@
     ViewData["Title"] = "AdministratorCreate";
 }
 
+<style>
+    .field-error {
+        color: red;
+        font-size: 12px;
+    }
+
+    .input-error {
+        border: 1px solid red;
+    }
+</style>
+
 <h1>新增管理員個人資料</h1>
 
 <h4>管理員個人資料</h4>
@@ -13,36 +24,42 @@
         <form asp-action="AdministratorCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" required />
+                <span asp-validation-for="Id" class="field-error"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="field-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" required />
+                <span asp-validation-for="Password" class="field-error"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nickname" class="control-label"></label>
-                <input asp-for="Nickname" class="form-control" />
-                <span asp-validation-for="Nickname" class="text-danger"></span>
+                <input asp-for="Nickname" class="form-control" required />
+                <span asp-validation-for="Nickname" class="field-error"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <input asp-for="Email" class="form-control" required />
+                <span asp-validation-for="Email" class="field-error"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNo" class="control-label"></label>
-                <input asp-for="PhoneNo" class="form-control" />
-                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                <input asp-for="PhoneNo" class="form-control" required />
+                <span asp-validation-for="PhoneNo" class="field-error"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="建立" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="AdministratorHomePage">返回管理員控制中心</a>
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData">返回管理員資料列表</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

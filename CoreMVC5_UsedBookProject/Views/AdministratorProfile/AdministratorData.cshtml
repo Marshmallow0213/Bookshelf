@@ -8,7 +8,7 @@
             <a asp-controller="AdministratorHomePage" asp-action="AdministratorHome" class="navtext">管理員人員名單</a>
         </li>
         <li class="menu-item">
-            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext" style="background-color: white; color:black;">管理員人員名單</a>
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext" style="background-color: white; color:black;">管理人員控管</a>
         </li>
         <li class="menu-item">
             <a href="#" class="navtext">按鈕3</a>
@@ -41,18 +41,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var m in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(x => m.Name)</td>
-                                <td>@Html.DisplayFor(x => m.Nickname)</td>
-                                <td>
-                                    <a asp-action="AdministratorEdit" asp-route-id="@m.Id" class="btn btn-info">編輯</a>
-                                    <a asp-action="AdministratorDetail" asp-route-id="@m.Id" class="btn btn-primary">詳細資料</a>
-                                    <a asp-action="AdministratorDelete" asp-route-id="@m.Id" class="btn btn-danger">刪除</a>
-                                </td>
-                            </tr>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        @{
+                            string name = m.Name.ToString();
+                            int atIndex = name.IndexOf('@');
+                            string firstName = name.Substring(0, atIndex);
                         }
+                        <td>@firstName</td>
+                        <td>@m.Nickname</td>
+                        <td>
+                            <a asp-action="AdministratorEdit" asp-route-id="@m.Id" class="btn btn-info">編輯</a>
+                            <a asp-action="AdministratorDetail" asp-route-id="@m.Id" class="btn btn-primary">詳細資料</a>
+                            <a asp-action="AdministratorDelete" asp-route-id="@m.Id" class="btn btn-danger">刪除</a>
+                        </td>
+                    </tr>
+                }
                     </tbody>
             <a asp-action="AdministratorCreate" class="btn btn-warning createtext table">新增管理員</a>
         </table>

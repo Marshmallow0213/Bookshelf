@@ -38,14 +38,14 @@
                 <span asp-validation-for="PhoneNo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="保存" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="AdministratorHomePage">返回管理員控制中心</a>
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData">返回管理員資料列表</a>
 </div>
 
 @section Scripts {
