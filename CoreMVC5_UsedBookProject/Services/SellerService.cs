@@ -334,6 +334,11 @@ namespace CoreMVC5_UsedBookProject.Services
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
             var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId, name);
+            decimal checkUnitPrice = -1;
+            if (productEditViewModel.Trade == "金錢")
+            {
+                checkUnitPrice = productEditViewModel.UnitPrice;
+            }
             _context.Entry(product).State = EntityState.Modified;
             product.ProductId = productEditViewModel.ProductId;
             product.Title = productEditViewModel.Title;
@@ -347,7 +352,7 @@ namespace CoreMVC5_UsedBookProject.Services
             product.Degree = productEditViewModel.Degree;
             product.Status = productEditViewModel.Status;
             product.Trade = productEditViewModel.Trade;
-            product.UnitPrice = productEditViewModel.UnitPrice;
+            product.UnitPrice = checkUnitPrice;
             product.EditDate = DateTime.Now;
             _context.SaveChanges();
             UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);
