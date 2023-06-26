@@ -1,14 +1,11 @@
-﻿using CoreMVC5_UsedBookProject.ViewModel;
-using Microsoft.EntityFrameworkCore;
+﻿using CoreMVC5_UsedBookProject.ViewModels;
 using System.Collections.Generic;
 using System;
 using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
-using System.Xml.Linq;
 using CoreMVC5_UsedBookProject.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -184,7 +181,7 @@ namespace CoreMVC5_UsedBookProject.Services
             };
             return mymodel;
         }
-        public void CreateOrder(string sellername, string buyername)
+        public void CreateOrder(string sellername, string buyername, string ProductId)
         {
             string Id = $"{_hashService.RandomString(16)}";
             var checkOrderExist = (from p in _context.OrderByMoneys
@@ -206,7 +203,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 SellerId = sellername,
                 BuyerId = buyername,
                 DenyReason = "",
-                ProductId = Id,
+                ProductId = ProductId,
                 Status = "待確認",
                 CreateDate = DateTime.Now
             };

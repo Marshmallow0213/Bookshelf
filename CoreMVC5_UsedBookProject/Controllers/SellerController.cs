@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Authorization;
-using CoreMVC5_UsedBookProject.ViewModel;
+using CoreMVC5_UsedBookProject.ViewModels;
 using CoreMVC5_UsedBookProject.Services;
 using System.Diagnostics;
 using CoreMVC5_UsedBookProject.Models;

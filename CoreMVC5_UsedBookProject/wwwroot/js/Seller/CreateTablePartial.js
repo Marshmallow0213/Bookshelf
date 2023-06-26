@@ -13,7 +13,7 @@ function Money() {
 function Barter() {
     document.getElementById('UnitPrice_div').classList.add("d-none");
     if (document.getElementById('UnitPrice').value == "") {
-        document.getElementById('UnitPrice').value = "0";
+        document.getElementById('UnitPrice').value = "-1";
     }
 }
 //end

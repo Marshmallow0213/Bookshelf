@@ -1,7 +1,7 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
-using CoreMVC5_UsedBookProject.ViewModel;
+using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -214,6 +214,11 @@ namespace CoreMVC5_UsedBookProject.Services
                                      orderby p.CreateDate descending
                                      select new { p.ProductId }).FirstOrDefault();
             };
+            decimal checkUnitPrice = -1;
+            if (productCreateViewModel.Trade == "金錢")
+            {
+                checkUnitPrice = productCreateViewModel.UnitPrice;
+            }
             Product product = new()
             {
                 ProductId = Id,
@@ -228,7 +233,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 Degree = productCreateViewModel.Degree,
                 Status = productCreateViewModel.Status,
                 Trade = productCreateViewModel.Trade,
-                UnitPrice = productCreateViewModel.UnitPrice,
+                UnitPrice = checkUnitPrice,
                 CreateDate = DateTime.Now,
                 EditDate = DateTime.Now,
                 CreateBy = name
@@ -329,6 +334,11 @@ namespace CoreMVC5_UsedBookProject.Services
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
             var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId, name);
+            decimal checkUnitPrice = -1;
+            if (productEditViewModel.Trade == "金錢")
+            {
+                checkUnitPrice = productEditViewModel.UnitPrice;
+            }
             _context.Entry(product).State = EntityState.Modified;
             product.ProductId = productEditViewModel.ProductId;
             product.Title = productEditViewModel.Title;
@@ -342,7 +352,7 @@ namespace CoreMVC5_UsedBookProject.Services
             product.Degree = productEditViewModel.Degree;
             product.Status = productEditViewModel.Status;
             product.Trade = productEditViewModel.Trade;
-            product.UnitPrice = productEditViewModel.UnitPrice;
+            product.UnitPrice = checkUnitPrice;
             product.EditDate = DateTime.Now;
             _context.SaveChanges();
             UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);

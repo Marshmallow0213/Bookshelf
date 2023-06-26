@@ -1,13 +1,10 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Services;
-using CoreMVC5_UsedBookProject.ViewModel;
+using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -64,7 +61,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult MySales(String status, int now_page, string trade)
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
@@ -87,7 +84,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (ProductId != null && Sellername != null)
             {
                 var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                _buyerService.CreateOrder(Sellername, buyername);
+                _buyerService.CreateOrder(Sellername, buyername, ProductId);
             }
             else
             {
