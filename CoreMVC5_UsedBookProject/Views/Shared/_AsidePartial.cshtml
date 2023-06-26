@@ -76,7 +76,7 @@
             </li>
         }
     }
-    else if (controller == "Home" || controller == "Buyer")
+    else if ((controller == "Home" || controller == "Buyer") && User.IsInRole("Buyer"))
     {
         <li class="list-unstyled aside-text">
             <p class="text-left pl-2 py-3 mb-0"><strong>訂單管理</strong></p>
