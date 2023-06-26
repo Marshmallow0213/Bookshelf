@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CoreMVC5_UsedBookProject.Models.AdministratorUser>
+
+@{
+    ViewData["Title"] = "管理員控制中心";
+}
+<div class="sidebar">
+    <ul class="menu">
+        <li class="menu-item">
+            <a asp-controller="AdministratorHomePage" asp-action="AdministratorHome" class="navtext" style="background-color: white; color:black;">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕3</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕4</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕5</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕6</a>
+        </li>
+    </ul>
+</div>
+
+<div style="display:flex;">
+    <div style="width: 30%; padding: 300px;">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="content">
+                <h1>管理員控制中心</h1>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    string email = User.Identity.Name;
+                    string[] segmentation = email.Split('@');
+                    string username = segmentation[0];
+
+                    <h2>你好: @username 歡迎來到管理員控制中心</h2>
+                }
+            </div>
+        </div>
+    </div>
+</div>

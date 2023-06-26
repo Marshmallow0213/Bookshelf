@@ -20,12 +20,12 @@ using static System.Net.WebRequestMethods;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    public class AdministratorHomePageController : Controller
+    public class AdministratorProfile : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AdminAccountContext _ctx;
 
-        public AdministratorHomePageController(AdminAccountContext ctx)
+        public AdministratorProfile(AdminAccountContext ctx)
         {
             _ctx = ctx;
         }
@@ -38,7 +38,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             ViewBag.UserIcon = UserIcon;
         }
         [Authorize]
-        public async Task<IActionResult> AdministratorHomePage()
+        public async Task<IActionResult> AdministratorData()
         {
             var model = await _ctx.Users.ToListAsync();
 

@@ -1,0 +1,54 @@
+﻿.container {
+    margin: 0;
+    max-width:1200px;
+}
+
+.row {
+    display: flex;
+}
+
+.sidebar {
+    left: 0;
+    width: 30%;
+    position: fixed;
+    background-color: gray;
+    padding: 10px;
+}
+
+.navtext {
+    font-size: 30px;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    gap: 5px;
+    justify-content: space-around;
+}
+.content{
+    width:800px;
+}
+.datalist {
+    width: 100%;
+}
+.menu-item a {
+    display: block;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+}
+    .menu-item a:hover {
+        background-color: white;
+        color: black;
+    }
+.content table {
+    transform: scale(2);
+    transform-origin: top left;
+}
+.createtext{
+    font-size:35px;
+}

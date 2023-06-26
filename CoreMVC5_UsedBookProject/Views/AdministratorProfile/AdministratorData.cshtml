@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CoreMVC5_UsedBookProject.Models.AdministratorUser>
+@{
+    ViewData["Title"] = "管理員控制中心";
+}
+<div class="sidebar">
+    <ul class="menu">
+        <li class="menu-item">
+            <a asp-controller="AdministratorHomePage" asp-action="AdministratorHome" class="navtext">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext" style="background-color: white; color:black;">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕3</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕4</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕5</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕6</a>
+        </li>
+    </ul>
+</div>
+
+<div style="display:flex;">
+    <div style="width: 30%; padding: 300px;">
+    </div>
+        <div class="content">
+        <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="text-center btn-info">管理員資料列表</th>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(m => m.Name)</th>
+                            <th>@Html.DisplayNameFor(m => m.Nickname)</th>
+                            <th>資料變更</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x => m.Name)</td>
+                                <td>@Html.DisplayFor(x => m.Nickname)</td>
+                                <td>
+                                    <a asp-action="AdministratorEdit" asp-route-id="@m.Id" class="btn btn-info">編輯</a>
+                                    <a asp-action="AdministratorDetail" asp-route-id="@m.Id" class="btn btn-primary">詳細資料</a>
+                                    <a asp-action="AdministratorDelete" asp-route-id="@m.Id" class="btn btn-danger">刪除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+            <a asp-action="AdministratorCreate" class="btn btn-warning createtext table">新增管理員</a>
+        </table>
+                
+         </div>
+</div>
