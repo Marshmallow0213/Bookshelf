@@ -214,6 +214,11 @@ namespace CoreMVC5_UsedBookProject.Services
                                      orderby p.CreateDate descending
                                      select new { p.ProductId }).FirstOrDefault();
             };
+            decimal checkUnitPrice = -1;
+            if (productCreateViewModel.Trade == "金錢")
+            {
+                checkUnitPrice = productCreateViewModel.UnitPrice;
+            }
             Product product = new()
             {
                 ProductId = Id,
@@ -228,7 +233,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 Degree = productCreateViewModel.Degree,
                 Status = productCreateViewModel.Status,
                 Trade = productCreateViewModel.Trade,
-                UnitPrice = productCreateViewModel.UnitPrice,
+                UnitPrice = checkUnitPrice,
                 CreateDate = DateTime.Now,
                 EditDate = DateTime.Now,
                 CreateBy = name
