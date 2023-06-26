@@ -8,6 +8,7 @@ using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
 using System.Xml.Linq;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -15,11 +16,13 @@ namespace CoreMVC5_UsedBookProject.Services
     {
         private readonly ProductContext _context;
         private readonly SellerRepository _sellerRepository;
+        private readonly IHashService _hashService;
 
-        public BuyerService(ProductContext productContext, SellerRepository sellerRepository)
+        public BuyerService(ProductContext productContext, SellerRepository sellerRepository, IHashService hashService)
         {
             _context = productContext;
             _sellerRepository = sellerRepository;
+            _hashService = hashService;
         }
         public ProductEditViewModel GetProduct(string id)
         {
@@ -180,6 +183,35 @@ namespace CoreMVC5_UsedBookProject.Services
                 StatusPage = status
             };
             return mymodel;
+        }
+        public void CreateOrder(string sellername, string buyername)
+        {
+            string Id = $"{_hashService.RandomString(16)}";
+            var checkOrderExist = (from p in _context.OrderByMoneys
+                                     where p.OrderByMoneyId == $"{Id}"
+                                     orderby p.CreateDate descending
+                                     select new { p.OrderByMoneyId }).FirstOrDefault();
+            while (checkOrderExist != null)
+            {
+                Id = $"{_hashService.RandomString(16)}";
+                checkOrderExist = (from p in _context.OrderByMoneys
+                                     where p.OrderByMoneyId == $"{Id}"
+                                     orderby p.CreateDate descending
+                                     select new { p.OrderByMoneyId }).FirstOrDefault();
+            };
+            OrderByMoney order = new()
+            {
+                OrderByMoneyId = Id,
+                UnitPrice = 0,
+                SellerId = sellername,
+                BuyerId = buyername,
+                DenyReason = "",
+                ProductId = Id,
+                Status = "待確認",
+                CreateDate = DateTime.Now
+            };
+            _context.Add(order);
+            _context.SaveChanges();
         }
     }
 }

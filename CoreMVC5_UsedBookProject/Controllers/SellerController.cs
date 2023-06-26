@@ -6,6 +6,7 @@ using CoreMVC5_UsedBookProject.Services;
 using System.Diagnostics;
 using CoreMVC5_UsedBookProject.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -18,23 +19,15 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             _sellerService = sellerService;
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-            var NickName = HttpContext.Request.Cookies["NickName"];
-            ViewBag.NickName = NickName;
-            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
-            ViewBag.UserIcon = UserIcon;
-        }
         public IActionResult Index()
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var count = _sellerService.OrdersAllCountList(name);
             return View(count);
         }
         public IActionResult MySales(String status, int now_page, string trade)
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
@@ -54,7 +47,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult MyProducts(String status, int now_page, string trade)
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
@@ -74,7 +67,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Create()
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             int[] checkLimit = _sellerService.ProductNewLimit(name);
             if (checkLimit[0] >= checkLimit[1])
             {
@@ -92,7 +85,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid && (productCreateViewModel.Status == "已上架" || productCreateViewModel.Status == "未上架"))
             {
-                var name = User.Identity.Name;
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 _sellerService.CreateProduct(productCreateViewModel, name);
                 if (productCreateViewModel.Trade == "金錢")
                 {
@@ -113,7 +106,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public IActionResult Edit(string ProductId)
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             if (ProductId == null)
             {
                 return NotFound();
@@ -137,7 +130,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var name = User.Identity.Name;
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 _sellerService.EditProduct(productEditViewModel, name);
                 if (productEditViewModel.Trade == "金錢")
                 {
@@ -156,7 +149,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         
         public IActionResult Details(string ProductId)
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             if (ProductId == null)
             {
                 return NotFound();
@@ -176,7 +169,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Delete(string ProductId, string Trade)
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             _sellerService.DeleteProduct(ProductId, name);
             if (Trade == "金錢")
             {
@@ -189,7 +182,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult PermanentDelete(string ProductId, string Trade)
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             _sellerService.PermanentDeleteProduct(ProductId, name);
             if (Trade == "金錢")
             {

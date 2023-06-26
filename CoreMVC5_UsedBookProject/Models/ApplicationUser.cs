@@ -1,4 +1,4 @@
-﻿namespace CoreMVC5_UsedBookProject.Data
+﻿namespace CoreMVC5_UsedBookProject.Models
 {
     public class ApplicationUser
     {

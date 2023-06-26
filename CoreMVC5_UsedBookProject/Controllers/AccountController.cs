@@ -35,14 +35,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             //HttpContext.Request.Cookies["key"];
             //HttpContext.Response.Cookies.Delete("key");
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-            var NickName = HttpContext.Request.Cookies["NickName"];
-            ViewBag.NickName = NickName;
-            var UserIcon = HttpContext.Request.Cookies["UserIcon"];
-            ViewBag.UserIcon = UserIcon;
-        }
         [HttpGet]
         public IActionResult Login()
         {
@@ -132,8 +124,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 //成功,通過帳比對,以下開始建授權
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.Id),
-                    new Claim(ClaimTypes.Email, user.Nickname),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(ClaimTypes.Name, user.Nickname),
+                    new Claim(ClaimTypes.GivenName, user.UserIcon),
                     //new Claim(ClaimTypes.Role, user.Role) // 如果要有「群組、角色、權限」，可以加入這一段
                 };
                 foreach (var item in user.Roles)
@@ -165,8 +158,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     // The full path or absolute URI to be used as an http 
                     // redirect response value.
                 };
-                HttpContext.Response.Cookies.Append("Nickname", user.Nickname);
-                HttpContext.Response.Cookies.Append("UserIcon", user.UserIcon);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
@@ -287,7 +278,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [Authorize(Roles = "Seller")]
         public IActionResult Details()
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var user = _accountService.GetUser(name);
             return View(user);
         }
@@ -306,7 +297,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return View(userNameChangeVM);
             }
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             string password = _hashService.HashPassword(userNameChangeVM.Password);
             var user = (from p in _ctx.Users
                         where p.Id == $"{name}"
@@ -344,7 +335,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var name = User.Identity.Name;
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
                 var user = (from p in _ctx.Users
                             where p.Id == $"{name}"
@@ -367,7 +358,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [Authorize(Roles = "Seller")]
         public IActionResult ChangeUserInfo()
         {
-            var name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var user = _accountService.GetUser(name);
             return View(user);
         }
@@ -378,7 +369,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var name = User.Identity.Name;
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 var user = _accountService.GetUserRaw(name);
                 _ctx.Entry(user).State = EntityState.Modified;
                 user.Nickname = userViewModel.Nickname;
@@ -394,10 +385,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 _ctx.SaveChanges();
                 _accountService.UploadImages(userViewModel.File1, userViewModel.UserIcon, user.Id);
-                HttpContext.Response.Cookies.Delete("Nickname");
-                HttpContext.Response.Cookies.Append("Nickname", user.Nickname);
-                HttpContext.Response.Cookies.Delete("UserIcon");
-                HttpContext.Response.Cookies.Append("UserIcon", user.UserIcon);
                 ViewData["Title"] = "資訊變更";
                 ViewData["Message"] = "使用者資訊變更成功!";  //顯示訊息
 
