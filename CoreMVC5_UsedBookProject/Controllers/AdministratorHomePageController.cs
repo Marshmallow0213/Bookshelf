@@ -1,7 +1,9 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
+using CoreMVC5_UsedBookProject.Repositories;
 using CoreMVC5_UsedBookProject.Services;
+using CoreMVC5_UsedBookProject.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,8 +12,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Net.WebRequestMethods;
 
 namespace CoreMVC5_UsedBookProject.Controllers
@@ -138,8 +142,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(string id,
-            [Bind("Name,Nickname,Email,PhoneNo")] AdministratorUser administratorUser)
+        public async Task<IActionResult> AdministratorEdit(string id,
+            [Bind("Id,Name,Nickname,Email,PhoneNo")] AdministratorUser administratorUser)
         {
             if (id != administratorUser.Id)
             {
@@ -149,21 +153,27 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 try
                 {
-                    _ctx.Users.Update(administratorUser);
+                    //_ctx.Users.Update(administratorUser);
+                    var user = _ctx.Users.Where(w=>w.Id == id).FirstOrDefault();
+                    _ctx.Entry(user).State = EntityState.Modified;
+                    user.Name = administratorUser.Name;
+                    user.Nickname = administratorUser.Nickname;
+                    user.Email = administratorUser.Email;
+                    user.PhoneNo = administratorUser.PhoneNo;
                     await _ctx.SaveChangesAsync();
                 }
                 catch(DbUpdateConcurrencyException)
                 {
-                    if (!AdministratorUserExists(administratorUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!AdministratorUserExists(administratorUser.Id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("AdministratorHomePage");
             }
             return View(administratorUser);
         }

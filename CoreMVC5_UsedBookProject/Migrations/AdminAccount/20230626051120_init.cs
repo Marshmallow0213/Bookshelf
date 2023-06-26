@@ -72,9 +72,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo" },
                 values: new object[,]
                 {
-                    { "B001", null, "Potatodog@bookshelf.com", "馬鈴薯狗", "d5e10bd206b5f1aca583f37be2566e70", null },
-                    { "B002", null, "Tony@bookshelf.com", "Tony", "213ffb90868d8b9c58aae64988f642f1", null },
-                    { "B003", null, "Neverloses@bookshelf.com", "甲甲志", "b70d01e0fac31e93a760021e7cf970d4", null }
+                    { "B001", "Potatodog@bookshelf.com", "Potatodog@bookshelf.com", "馬鈴薯狗", "d5e10bd206b5f1aca583f37be2566e70", "0976185786" },
+                    { "B002", "Tony@bookshelf.com", "Tony@bookshelf.com", "Tony", "213ffb90868d8b9c58aae64988f642f1", "0900000000" },
+                    { "B003", "Neverloses@bookshelf.com", "Neverloses@bookshelf.com", "甲甲志", "b70d01e0fac31e93a760021e7cf970d4", "0900000000" }
                 });
 
             migrationBuilder.InsertData(
@@ -85,7 +85,12 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "R002", "B002" });
+                values: new object[] { "R001", "B002" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "R001", "B003" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",

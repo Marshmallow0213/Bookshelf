@@ -4,19 +4,23 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="container-fluid">
+    <p>@ViewBag.Count</p>
     <div class="row py-2">
         @if (Model.Products.Count > 0)
         {
             @foreach (var item in Model.Products)
             {
                 <div class="col-12 col-sm-6 col-xl-4">
-                    <div class="card p-2 m-auto" style="width: 18rem;">
+                    <div class="card p-2 m-auto" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">@item.Title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                      
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                            <a href="Buyer/Details?ProductId=@item.ProductId"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" /></a>
+
+                            <a href="@Url.Action("Details", "Buyer", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" /></a>
+                          
                         </div>
                         <table class="container-fluid my-2">
 
@@ -39,5 +43,5 @@
     <link href="~/css/seller/myproducts.css" rel="stylesheet" />
 }
 @section endJS{
-    <script src="~/js/seller/reloadbydatetime.js"></script>
+    
 }
