@@ -13,9 +13,13 @@
         <dd class="col-sm-9">@Html.DisplayFor(m => m.Name)</dd>
         <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Nickname)</dt>
         <dd class="col-sm-9">@Html.DisplayFor(m => m.Nickname)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Email)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PhoneNo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.PhoneNo)</dd>
     </dl>
 </div>
 <div>
-    <a asp-action="AdminEdit" asp-route-id="@Model.Id" class="btn btn-info">編輯</a>
+    <a asp-action="AdministratorEdit" asp-route-id="@Model.Id" class="btn btn-info">編輯</a>
     <a asp-action="AdministratorHomePage">返回管理員控制中心</a>
 </div>
