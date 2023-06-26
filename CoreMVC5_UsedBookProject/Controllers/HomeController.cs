@@ -140,7 +140,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
             }
 
-             
+
 
             // 判断集合是否有数据
             //if (products.Count == 0 )
@@ -176,7 +176,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             //    // 指派使用ListTable.cshtml
             //    return View(mysearchproductmodel);
             //}
-
+            ViewBag.Count = $"find {products.Count} products";
             MyProductsViewModel mymodel = new MyProductsViewModel
             {
                 Products = products

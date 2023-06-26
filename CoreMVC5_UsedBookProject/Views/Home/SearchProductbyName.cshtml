@@ -4,8 +4,8 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="container-fluid">
+    <p>@ViewBag.Count</p>
     <div class="row py-2">
-        <p>find @Model.Products.Count products</p>
         @if (Model.Products.Count > 0)
         {
             @foreach (var item in Model.Products)
