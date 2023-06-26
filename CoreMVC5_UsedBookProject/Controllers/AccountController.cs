@@ -385,10 +385,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 _ctx.SaveChanges();
                 _accountService.UploadImages(userViewModel.File1, userViewModel.UserIcon, user.Id);
-                HttpContext.Response.Cookies.Delete("Nickname");
-                HttpContext.Response.Cookies.Append("Nickname", user.Nickname);
-                HttpContext.Response.Cookies.Delete("UserIcon");
-                HttpContext.Response.Cookies.Append("UserIcon", user.UserIcon);
                 ViewData["Title"] = "資訊變更";
                 ViewData["Message"] = "使用者資訊變更成功!";  //顯示訊息
 

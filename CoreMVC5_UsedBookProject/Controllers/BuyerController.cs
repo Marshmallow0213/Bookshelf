@@ -45,7 +45,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [AllowAnonymous]
         public IActionResult Details(string ProductId)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             if (ProductId == null)
             {
                 return NotFound();
@@ -82,6 +81,19 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
+        }
+        public IActionResult CreateOrder(string ProductId, string Sellername)
+        {
+            if (ProductId != null && Sellername != null)
+            {
+                var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                _buyerService.CreateOrder(Sellername, buyername);
+            }
+            else
+            {
+                return RedirectToAction("Details", new { ProductId = ProductId });
+            }
+            return RedirectToAction("Index", new { Trade = "金錢" });
         }
     }
 }

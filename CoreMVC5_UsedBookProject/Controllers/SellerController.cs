@@ -21,13 +21,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Index()
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var count = _sellerService.OrdersAllCountList(name);
             return View(count);
         }
         public IActionResult MySales(String status, int now_page, string trade)
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
@@ -47,7 +47,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult MyProducts(String status, int now_page, string trade)
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "金錢")
@@ -67,7 +67,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Create()
         {
-            string name = User.Identity.Name;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             int[] checkLimit = _sellerService.ProductNewLimit(name);
             if (checkLimit[0] >= checkLimit[1])
             {
