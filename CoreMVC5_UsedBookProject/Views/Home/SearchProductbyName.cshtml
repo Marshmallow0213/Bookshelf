@@ -5,12 +5,13 @@
 }
 <div class="container-fluid">
     <div class="row py-2">
+        <p>find @Model.Products.Count products</p>
         @if (Model.Products.Count > 0)
         {
             @foreach (var item in Model.Products)
             {
                 <div class="col-12 col-sm-6 col-xl-4">
-                    <div class="card p-2 m-auto" style="width: 18rem;">
+                    <div class="card p-2 m-auto" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">@item.Title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
