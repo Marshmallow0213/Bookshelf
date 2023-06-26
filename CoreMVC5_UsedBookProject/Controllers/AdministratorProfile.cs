@@ -1,22 +1,13 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
-using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
-using CoreMVC5_UsedBookProject.Repositories;
-using CoreMVC5_UsedBookProject.Services;
-using CoreMVC5_UsedBookProject.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Net.WebRequestMethods;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {

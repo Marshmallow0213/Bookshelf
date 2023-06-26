@@ -1,4 +1,4 @@
-﻿@using CoreMVC5_UsedBookProject.ViewModel;
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
 @model MyProductsViewModel
 @{
     ViewData["Title"] = "Home Page";
@@ -19,7 +19,7 @@
                       
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
 
-                            <a href="@Url.Action("Details", "Buyer", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" /></a>
+                            <a href="@Url.Action("Details", "Buyer", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="errorLoad(this)" /></a>
                           
                         </div>
                         @if (item.Trade == "金錢")

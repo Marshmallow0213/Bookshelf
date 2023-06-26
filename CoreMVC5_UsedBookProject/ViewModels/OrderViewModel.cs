@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using CoreMVC5_UsedBookProject.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CoreMVC5_UsedBookProject.ViewModel
+namespace CoreMVC5_UsedBookProject.ViewModels
 {
     public class OrderViewModel
     {
