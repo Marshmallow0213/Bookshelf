@@ -1,7 +1,6 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
-using CoreMVC5_UsedBookProject.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CoreMVC5_UsedBookProject.Repositories;
+using CoreMVC5_UsedBookProject.ViewModels;
+
 namespace CoreMVC5_UsedBookProject.Services
 {
     public class SellerService

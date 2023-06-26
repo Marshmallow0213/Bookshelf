@@ -1,12 +1,8 @@
-﻿using CoreMVC5_UsedBookProject.ViewModel;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using CoreMVC5_UsedBookProject.Data;
-using CoreMVC5_UsedBookProject.Interfaces;
-using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
-using System.Xml.Linq;
+using CoreMVC5_UsedBookProject.ViewModels;
 
 namespace CoreMVC5_UsedBookProject.Services
 {

@@ -93,7 +93,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     authProperties
                     );
 
-                return LocalRedirect("~/AdministratorHomePage/AdministratorHomePage");
+                return LocalRedirect("~/AdministratorHomePage/Home");
             }
 
             return View(loginVM);
@@ -160,7 +160,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     authProperties
                     );
 
-                return LocalRedirect("~/AdministratorHomePage/AdministratorHomePage");
+                return LocalRedirect("~/AdministratorHomePage/Home");
 
             }
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 {
     [DbContext(typeof(AdminAccountContext))]
-    [Migration("20230622103535_init")]
+    [Migration("20230626025036_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,23 +73,29 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         new
                         {
                             Id = "B001",
+                            Email = "Potatodog@bookshelf.com",
                             Name = "Potatodog@bookshelf.com",
                             Nickname = "馬鈴薯狗",
-                            Password = "d5e10bd206b5f1aca583f37be2566e70"
+                            Password = "d5e10bd206b5f1aca583f37be2566e70",
+                            PhoneNo = "0976185786"
                         },
                         new
                         {
                             Id = "B002",
+                            Email = "Tony@bookshelf.com",
                             Name = "Tony@bookshelf.com",
                             Nickname = "Tony",
-                            Password = "213ffb90868d8b9c58aae64988f642f1"
+                            Password = "213ffb90868d8b9c58aae64988f642f1",
+                            PhoneNo = "0900000000"
                         },
                         new
                         {
                             Id = "B003",
+                            Email = "Neverloses@bookshelf.com",
                             Name = "Neverloses@bookshelf.com",
                             Nickname = "甲甲志",
-                            Password = "b70d01e0fac31e93a760021e7cf970d4"
+                            Password = "b70d01e0fac31e93a760021e7cf970d4",
+                            PhoneNo = "0900000000"
                         });
                 });
 
@@ -116,7 +122,12 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         new
                         {
                             UserId = "B002",
-                            RoleId = "R002"
+                            RoleId = "R001"
+                        },
+                        new
+                        {
+                            UserId = "B003",
+                            RoleId = "R001"
                         });
                 });
 

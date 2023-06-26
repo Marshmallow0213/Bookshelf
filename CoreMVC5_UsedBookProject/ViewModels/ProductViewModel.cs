@@ -7,7 +7,7 @@ using CoreMVC5_UsedBookProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace CoreMVC5_UsedBookProject.ViewModel
+namespace CoreMVC5_UsedBookProject.ViewModels
 {
     public class ProductViewModel
     {

@@ -29,22 +29,22 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nickname)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNo)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNo)
-        </dd>
     </dl>
     
     <form asp-action="AdministratorDelete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="AdministratorHomePage">返回管理員控制中心</a>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-controller="AdministratorHomePage" asp-action="Home">返回管理員控制中心</a>
     </form>
 </div>
