@@ -5,7 +5,7 @@
         @*已登入*@
         <li class="nav-item button-cover-nav">
             <div class="login-info">
-                <a class="login-name button-cover" asp-controller="AdministratorHomePage" asp-action="Home">@User.Identity.Name</a>
+                <a class="login-name button-cover" asp-controller="AdministratorHomePage" asp-action="AdministratorHomePage">@User.Identity.Name</a>
                 <span class="spacer"></span>
                 @Html.ActionLink("登出", "SignOut", "AdministratorLogin", null, new { @class = "btn btn-danger btn-logout-view button-cover" })
             </div>

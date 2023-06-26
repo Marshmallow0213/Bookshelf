@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CoreMVC5_UsedBookProject.Models;
 
-namespace CoreMVC5_UsedBookProject.ViewModels
+namespace CoreMVC5_UsedBookProject.ViewModel
 {
     public class MyProductsViewModel
     {

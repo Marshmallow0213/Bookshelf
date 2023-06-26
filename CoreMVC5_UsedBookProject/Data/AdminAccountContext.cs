@@ -36,7 +36,7 @@ namespace CoreMVC5_UsedBookProject.Data
                 );
 
             modelBuilder.Entity<AdministratorRole>().HasData(
-                new AdministratorRole { Id = "R001", Name = "Administrator" },
+            new AdministratorRole { Id = "R001", Name = "Administrator" },
                 new AdministratorRole { Id = "R002", Name = "common user" }
                 );
 

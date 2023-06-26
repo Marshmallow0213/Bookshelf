@@ -1,7 +1,7 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
-using CoreMVC5_UsedBookProject.ViewModels;
+using CoreMVC5_UsedBookProject.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using CoreMVC5_UsedBookProject.Models;
 
-namespace CoreMVC5_UsedBookProject.ViewModels
+namespace CoreMVC5_UsedBookProject.ViewModel
 {
     public class OrderViewModel
     {
