@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using CoreMVC5_UsedBookProject.ViewModels;
+using CoreMVC5_UsedBookProject.Models;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
