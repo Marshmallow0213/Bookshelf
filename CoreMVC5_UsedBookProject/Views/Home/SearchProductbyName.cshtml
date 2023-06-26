@@ -37,12 +37,17 @@
                         else if (item.Trade == "以物易物")
                         {
                             <table class="container-fluid my-2">
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                          
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
+
+                                <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
+                                <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
+                                <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
+                                <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
+                                <tr><td>@Html.DisplayNameFor(model => model.Product.ContentText)</td><td>@item.ContentText</td></tr>
+
+
+
                             </table>
+                            
                         }
 
                     </div>
