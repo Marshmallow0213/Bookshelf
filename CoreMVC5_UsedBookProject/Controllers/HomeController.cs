@@ -1,5 +1,6 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Models;
+using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -21,11 +22,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductContext _context;
+        private readonly BuyerService _buyerService;
 
-        public HomeController(ILogger<HomeController> logger, ProductContext productContext)
+        public HomeController(ILogger<HomeController> logger, ProductContext productContext, BuyerService buyerService)
         {
             _logger = logger;
             _context = productContext;
+            _buyerService = buyerService;
         }
         public IActionResult Index()
         {  
@@ -175,7 +178,44 @@ namespace CoreMVC5_UsedBookProject.Controllers
             };
             return View(mymodel);
         }
-         
+        public IActionResult Details(string ProductId)
+        {
+            if (ProductId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var product = _buyerService.GetProduct(ProductId);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(product);
+                }
+            }
+        }
+        public IActionResult ProductsList(int now_page, string trade)
+        {
+            MyProductsViewModel mymodel = new();
+            ViewBag.trade = trade;
+            if (trade == "金錢")
+            {
+                mymodel = _buyerService.GetProducts(now_page, trade);
+                return View(mymodel);
+            }
+            else if (trade == "以物易物")
+            {
+                mymodel = _buyerService.GetProducts(now_page, trade);
+                return View(mymodel);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
