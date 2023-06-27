@@ -109,18 +109,18 @@ namespace CoreMVC5_UsedBookProject.Services
             count["全部"] = all;
             return count;
         }
-        public MySalesViewModel GetMoneyOrders(string status, int now_page, string name)
+        public MySalesViewModel GetOrders(string trade, string status, int now_page, string name)
         {
             Dictionary<string, int> count = OrdersCountList("金錢", name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
             List<OrderViewModel> orders = new();
-            orders = (from o in _context.OrderByMoneys
+            orders = (from o in _context.Orders
                       from p in _context.Products
-                      where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}"
+                      where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}" && o.Trade == trade
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderByMoneyId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -133,19 +133,13 @@ namespace CoreMVC5_UsedBookProject.Services
         public Dictionary<string, int> OrdersCountList(string trade, string name)
         {
             Dictionary<string, int> countList = new();
-            if (trade == "金錢")
-            {
-                countList = _context.OrderByMoneys.Where(w => w.BuyerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
-            }
-            else if (trade == "以物易物")
-            {
-                countList = _context.OrderByBarters.Where(w => w.BuyerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
-            }
+            countList = _context.Orders.Where(w => w.BuyerId == name && w.Trade == trade).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },
                 { "待確認", 0 },
-                { "已完成", 0 },
+                { "已成立", 0 },
+                { "不成立", 0 },
                 { "待取消", 0 }
             };
             foreach (var item in countList.Keys)
@@ -160,51 +154,31 @@ namespace CoreMVC5_UsedBookProject.Services
             count["全部"] = all;
             return count;
         }
-        public MySalesViewModel GetBarterOrders(string status, int now_page, string name)
-        {
-            Dictionary<string, int> count = OrdersCountList("以物易物", name);
-            status ??= "待確認";
-            now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
-            List<OrderViewModel> orders = new();
-            orders = (from o in _context.OrderByBarters
-                      from p in _context.Products
-                      where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}"
-                      orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderByBarterId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
-            MySalesViewModel mymodel = new()
-            {
-                Orders = orders,
-                PagesCount = new int[] { now_page, all_pages },
-                OrdersCount = count,
-                StatusPage = status
-            };
-            return mymodel;
-        }
-        public void CreateOrder(string sellername, string buyername, string ProductId)
+        public void CreateOrder(string trade, string sellername, string buyername, string ProductId)
         {
             string Id = $"{_hashService.RandomString(16)}";
-            var checkOrderExist = (from p in _context.OrderByMoneys
-                                     where p.OrderByMoneyId == $"{Id}"
+            var checkOrderExist = (from p in _context.Orders
+                                     where p.OrderId == $"{Id}"
                                      orderby p.CreateDate descending
-                                     select new { p.OrderByMoneyId }).FirstOrDefault();
+                                     select new { p.OrderId }).FirstOrDefault();
             while (checkOrderExist != null)
             {
                 Id = $"{_hashService.RandomString(16)}";
-                checkOrderExist = (from p in _context.OrderByMoneys
-                                     where p.OrderByMoneyId == $"{Id}"
+                checkOrderExist = (from p in _context.Orders
+                                     where p.OrderId == $"{Id}"
                                      orderby p.CreateDate descending
-                                     select new { p.OrderByMoneyId }).FirstOrDefault();
+                                     select new { p.OrderId }).FirstOrDefault();
             };
-            OrderByMoney order = new()
+            Order order = new()
             {
-                OrderByMoneyId = Id,
+                OrderId = Id,
                 UnitPrice = 0,
                 SellerId = sellername,
                 BuyerId = buyername,
                 DenyReason = "",
                 ProductId = ProductId,
                 Status = "待確認",
+                Trade = trade,
                 CreateDate = DateTime.Now
             };
             _context.Add(order);

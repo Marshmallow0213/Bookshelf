@@ -17,6 +17,8 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string DenyReason { get; set; }
         [Display(Name = "訂單狀態")]
         public string Status { get; set; }
+        [Display(Name = "交易方式")]
+        public string Trade { get; set; }
         [Display(Name = "商品ID")]
         public string ProductId { get; set; }
         [Display(Name = "書名")]

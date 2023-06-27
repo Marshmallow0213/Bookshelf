@@ -43,33 +43,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
-            {
-                mymodel = _buyerService.GetMoneyOrders(status, now_page, name);
-                return View(mymodel);
-            }
-            else if (trade == "以物易物")
-            {
-                mymodel = _buyerService.GetBarterOrders(status, now_page, name);
-                return View(mymodel);
-            }
-            else
-            {
-                return NotFound();
-            }
+            mymodel = _buyerService.GetOrders(trade, status, now_page, name);
+            return View(mymodel);
         }
-        public IActionResult CreateOrder(string ProductId, string Sellername)
+        public IActionResult CreateOrder(string ProductId, string Sellername, string trade)
         {
             if (ProductId != null && Sellername != null)
             {
                 var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                _buyerService.CreateOrder(Sellername, buyername, ProductId);
+                _buyerService.CreateOrder(trade, Sellername, buyername, ProductId);
             }
-            else
-            {
-                return RedirectToAction("Details", new { ProductId = ProductId });
-            }
-            return RedirectToAction("Index", new { Trade = "金錢" });
+            return RedirectToAction("MySales", new { Trade = trade });
         }
     }
 }

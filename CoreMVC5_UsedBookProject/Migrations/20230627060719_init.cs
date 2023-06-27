@@ -93,46 +93,24 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderByBarters",
+                name: "Orders",
                 columns: table => new
                 {
-                    OrderByBarterId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SellerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BuyerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DenyReason = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderByBarters", x => x.OrderByBarterId);
-                    table.ForeignKey(
-                        name: "FK_OrderByBarters_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderByMoneys",
-                columns: table => new
-                {
-                    OrderByMoneyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "money", nullable: false),
                     SellerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BuyerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DenyReason = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Trade = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderByMoneys", x => x.OrderByMoneyId);
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_OrderByMoneys_Products_ProductId",
+                        name: "FK_Orders_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
@@ -155,9 +133,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo", "UserIcon" },
                 values: new object[,]
                 {
-                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$xBwl7sf6jXKknzq54gaZ0.PcNG13RhiaNP04AlMma.EItNyvbvElC", "0925-155222", "無圖片" },
-                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$qIxo9QEyzth2iuY/no/KXeObz80PkFJ6OApBOCcM5GLeNV3BjWFNm", "0935-123123", "無圖片" },
-                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$q/.wFi9M031jdZRSXxRdyeS6nbwpT9KRyTvocGRUQEJ7dU/KhFTgW", "0955-456456", "無圖片" }
+                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$gqqQeOXK/fP8xkbUTH6R2.X/4gw2mNrO/GL4Bfknj8MMsSpuBITPC", "0925-155222", "無圖片" },
+                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$LdmaiDaEho9qyJKv9hUQTO8yJVvNFtRypEg4LI/rCv2UltrA/sN8i", "0935-123123", "無圖片" },
+                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$WY8c4aOEUuKx0bVGCqsmWO9Nv79FkEKqbCtA2DreAhbdr1vzJSDne", "0955-456456", "無圖片" }
                 });
 
             migrationBuilder.InsertData(
@@ -165,9 +143,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 columns: new[] { "ProductId", "Author", "ContentText", "CreateBy", "CreateDate", "Degree", "EditDate", "ISBN", "Image1", "Image2", "PublicationDate", "Publisher", "Status", "Title", "Trade", "UnitPrice" },
                 values: new object[,]
                 {
-                    { "P001", "作者", "Context1", "U001", new DateTime(2023, 6, 22, 18, 35, 9, 955, DateTimeKind.Local).AddTicks(9388), "二手", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(3992), "9876543210", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book1", "金錢", 500m },
-                    { "P002", "作者", "Context2", "U001", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4692), "二手", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4697), "9876543211", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book2", "金錢", 500m },
-                    { "P003", "作者", "Context3", "U001", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4704), "二手", new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4705), "9876543212", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book3", "以物易物", -1m }
+                    { "P001", "作者", "Context1", "U001", new DateTime(2023, 6, 27, 14, 7, 18, 681, DateTimeKind.Local).AddTicks(380), "二手", new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6099), "9876543210", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book1", "金錢", 500m },
+                    { "P002", "作者", "Context2", "U001", new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6919), "二手", new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6924), "9876543211", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book2", "金錢", 500m },
+                    { "P003", "作者", "Context3", "U001", new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6931), "二手", new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6934), "9876543212", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book3", "以物易物", -1m }
                 });
 
             migrationBuilder.InsertData(
@@ -187,28 +165,23 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "OrderByBarters",
-                columns: new[] { "OrderByBarterId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status" },
-                values: new object[] { "OB001", "U003", new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(8436), "none", "P003", "U001", "待確認" });
+                table: "Orders",
+                columns: new[] { "OrderId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "Trade", "UnitPrice" },
+                values: new object[] { "O001", "U002", new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1062), "none", "P001", "U001", "待確認", "金錢", 500m });
 
             migrationBuilder.InsertData(
-                table: "OrderByMoneys",
-                columns: new[] { "OrderByMoneyId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "UnitPrice" },
-                values: new object[] { "OM002", "U002", new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6587), "none", "P002", "U001", "待確認", 500m });
+                table: "Orders",
+                columns: new[] { "OrderId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "Trade", "UnitPrice" },
+                values: new object[] { "O002", "U002", new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1412), "none", "P002", "U001", "待確認", "金錢", 500m });
 
             migrationBuilder.InsertData(
-                table: "OrderByMoneys",
-                columns: new[] { "OrderByMoneyId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "UnitPrice" },
-                values: new object[] { "OM001", "U002", new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6297), "none", "P001", "U001", "待確認", 500m });
+                table: "Orders",
+                columns: new[] { "OrderId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "Trade", "UnitPrice" },
+                values: new object[] { "O003", "U002", new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1418), "none", "P003", "U001", "待確認", "以物易物", -1m });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderByBarters_ProductId",
-                table: "OrderByBarters",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderByMoneys_ProductId",
-                table: "OrderByMoneys",
+                name: "IX_Orders_ProductId",
+                table: "Orders",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
@@ -231,10 +204,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderByBarters");
-
-            migrationBuilder.DropTable(
-                name: "OrderByMoneys");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");

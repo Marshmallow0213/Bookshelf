@@ -1,11 +1,7 @@
 ﻿using CoreMVC5_UsedBookProject.Models;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
-using System.Diagnostics;
-using System.Security.Policy;
 using System;
 using CoreMVC5_UsedBookProject.Interfaces;
-using CoreMVC5_UsedBookProject.Services;
 
 namespace CoreMVC5_UsedBookProject.Data
 {
@@ -17,8 +13,7 @@ namespace CoreMVC5_UsedBookProject.Data
             _hashService = hashService;
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<OrderByMoney> OrderByMoneys { get; set; }
-        public DbSet<OrderByBarter> OrderByBarters { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
@@ -26,8 +21,7 @@ namespace CoreMVC5_UsedBookProject.Data
         {
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵
             modelBuilder.Entity<Product>().HasKey(ur => new { ur.ProductId });
-            modelBuilder.Entity<OrderByMoney>().HasKey(ur => new { ur.OrderByMoneyId });
-            modelBuilder.Entity<OrderByBarter>().HasKey(ur => new { ur.OrderByBarterId });
+            modelBuilder.Entity<Order>().HasKey(ur => new { ur.OrderId });
             modelBuilder.Entity<User>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<Role>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
@@ -37,13 +31,7 @@ namespace CoreMVC5_UsedBookProject.Data
                    .WithMany()
                    .HasForeignKey(d => d.CreateBy);
             });
-            modelBuilder.Entity<OrderByMoney>(entity =>
-            {
-                entity.HasOne(d => d.Product)
-                   .WithMany()
-                   .HasForeignKey(d => d.ProductId);
-            });
-            modelBuilder.Entity<OrderByBarter>(entity =>
+            modelBuilder.Entity<Order>(entity =>
             {
                 entity.HasOne(d => d.Product)
                    .WithMany()
@@ -112,39 +100,41 @@ namespace CoreMVC5_UsedBookProject.Data
                 CreateBy = "U001"
             }
             );
-            modelBuilder.Entity<OrderByMoney>().HasData(
-            new OrderByMoney
+            modelBuilder.Entity<Order>().HasData(
+            new Order
             {
-                OrderByMoneyId = "OM001",
+                OrderId = "O001",
                 SellerId = "U001",
                 BuyerId = "U002",
                 DenyReason = "none",
                 ProductId = "P001",
                 UnitPrice = 500,
                 Status = "待確認",
+                Trade = "金錢",
                 CreateDate = DateTime.Now
             },
-            new OrderByMoney
+            new Order
             {
-                OrderByMoneyId = "OM002",
+                OrderId = "O002",
                 SellerId = "U001",
                 BuyerId = "U002",
                 DenyReason = "none",
                 ProductId = "P002",
                 UnitPrice = 500,
                 Status = "待確認",
+                Trade = "金錢",
                 CreateDate = DateTime.Now
-            }
-            );
-            modelBuilder.Entity<OrderByBarter>().HasData(
-            new OrderByBarter
+            },
+            new Order
             {
-                OrderByBarterId = "OB001",
+                OrderId = "O003",
                 SellerId = "U001",
-                BuyerId = "U003",
+                BuyerId = "U002",
                 DenyReason = "none",
                 ProductId = "P003",
+                UnitPrice = -1,
                 Status = "待確認",
+                Trade = "以物易物",
                 CreateDate = DateTime.Now
             }
             );

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CoreMVC5_UsedBookProject.Repositories;
+using System.Xml.Linq;
+
 namespace CoreMVC5_UsedBookProject.Services
 {
     public class SellerService
@@ -32,18 +34,18 @@ namespace CoreMVC5_UsedBookProject.Services
             List<Dictionary<string, int>> count = new() { countM, countB };
             return count;
         }
-        public MySalesViewModel GetMoneyOrders(string status, int now_page, string name)
+        public MySalesViewModel GetOrders(string status, string trade, int now_page, string name)
         {
-            Dictionary<string, int> count = OrdersCountList("金錢", name);
+            Dictionary<string, int> count = OrdersCountList(trade, name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
             List<OrderViewModel> orders = new();
-            orders = (from o in _context.OrderByMoneys
+            orders = (from o in _context.Orders
             from p in _context.Products
-            where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}"
+            where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade == trade
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderByMoneyId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -56,19 +58,13 @@ namespace CoreMVC5_UsedBookProject.Services
         public Dictionary<string, int> OrdersCountList(string trade, string name)
         {
             Dictionary<string, int> countList = new();
-            if (trade == "金錢")
-            {
-                countList = _context.OrderByMoneys.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
-            }
-            else if (trade == "以物易物")
-            {
-                countList = _context.OrderByBarters.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
-            }
+            countList = _context.Orders.Where(w => w.SellerId == name && w.Trade == trade).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },
                 { "待確認", 0 },
-                { "已完成", 0 },
+                { "已成立", 0 },
+                { "不成立", 0 },
                 { "待取消", 0 }
             };
             foreach (var item in countList.Keys)
@@ -82,27 +78,6 @@ namespace CoreMVC5_UsedBookProject.Services
             }
             count["全部"] = all;
             return count;
-        }
-        public MySalesViewModel GetBarterOrders(string status, int now_page, string name)
-        {
-            Dictionary<string, int> count = OrdersCountList("以物易物", name);
-            status ??= "待確認";
-            now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
-            List<OrderViewModel> orders = new();
-            orders = (from o in _context.OrderByBarters
-                      from p in _context.Products
-                      where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}"
-                      orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderByBarterId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
-            MySalesViewModel mymodel = new()
-            {
-                Orders = orders,
-                PagesCount = new int[] { now_page, all_pages },
-                OrdersCount = count,
-                StatusPage = status
-            };
-            return mymodel;
         }
         public MyProductsViewModel GetProducts(string status, int now_page, string name, string trade)
         {
@@ -134,6 +109,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 { "未上架", 0 },
                 { "待審核", 0 },
                 { "已上架", 0 },
+                { "待確認", 0 },
                 { "已售完", 0 },
                 { "封禁", 0 },
                 { "刪除", 0 }
@@ -300,6 +276,16 @@ namespace CoreMVC5_UsedBookProject.Services
             var dm = _sellerRepository.DMToVM(product);
             return dm;
         }
+        public OrderViewModel GetOrder(string OrderId, string trade)
+        {
+            OrderViewModel order = new();
+            order = (from o in _context.Orders
+                     from p in _context.Products
+                     where o.ProductId == p.ProductId && o.OrderId == OrderId
+                     orderby o.CreateDate descending
+                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
+            return order;
+        }
         public void EditProduct(ProductEditViewModel productEditViewModel, string name)
         {
             List<string> randomstrings = new List<string>();
@@ -375,6 +361,20 @@ namespace CoreMVC5_UsedBookProject.Services
             {
                 Directory.Delete(folderPath, true);
             }
+            _context.SaveChanges();
+        }
+        public void AcceptOrder(string orderId)
+        {
+            var order = _context.Orders.Where(w=>w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "已成立";
+            _context.SaveChanges();
+        }
+        public void DenyOrder(string orderId)
+        {
+            var order = _context.Orders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "不成立";
             _context.SaveChanges();
         }
     }

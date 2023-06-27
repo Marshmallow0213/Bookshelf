@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230622103510_init")]
+    [Migration("20230627060719_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,9 +21,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.OrderByBarter", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Order", b =>
                 {
-                    b.Property<string>("OrderByBarterId")
+                    b.Property<string>("OrderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuyerId")
@@ -49,84 +49,55 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderByBarterId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderByBarters");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderByBarterId = "OB001",
-                            BuyerId = "U003",
-                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(8436),
-                            DenyReason = "none",
-                            ProductId = "P003",
-                            SellerId = "U001",
-                            Status = "待確認"
-                        });
-                });
-
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.OrderByMoney", b =>
-                {
-                    b.Property<string>("OrderByMoneyId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BuyerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DenyReason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SellerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("Trade")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
-                    b.HasKey("OrderByMoneyId");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderByMoneys");
+                    b.ToTable("Orders");
 
                     b.HasData(
                         new
                         {
-                            OrderByMoneyId = "OM001",
+                            OrderId = "O001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6297),
+                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1062),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
                             Status = "待確認",
+                            Trade = "金錢",
                             UnitPrice = 500m
                         },
                         new
                         {
-                            OrderByMoneyId = "OM002",
+                            OrderId = "O002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 958, DateTimeKind.Local).AddTicks(6587),
+                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1412),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
                             Status = "待確認",
+                            Trade = "金錢",
                             UnitPrice = 500m
+                        },
+                        new
+                        {
+                            OrderId = "O003",
+                            BuyerId = "U002",
+                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1418),
+                            DenyReason = "none",
+                            ProductId = "P003",
+                            SellerId = "U001",
+                            Status = "待確認",
+                            Trade = "以物易物",
+                            UnitPrice = -1m
                         });
                 });
 
@@ -205,9 +176,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 955, DateTimeKind.Local).AddTicks(9388),
+                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 681, DateTimeKind.Local).AddTicks(380),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(3992),
+                            EditDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6099),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -224,9 +195,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4692),
+                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6919),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4697),
+                            EditDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6924),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -243,9 +214,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4704),
+                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6931),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 22, 18, 35, 9, 957, DateTimeKind.Local).AddTicks(4705),
+                            EditDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6934),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -335,7 +306,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "kevinxi@gmail.com",
                             Name = "Admin0001",
                             Nickname = "Admin0001",
-                            Password = "$2a$11$xBwl7sf6jXKknzq54gaZ0.PcNG13RhiaNP04AlMma.EItNyvbvElC",
+                            Password = "$2a$11$gqqQeOXK/fP8xkbUTH6R2.X/4gw2mNrO/GL4Bfknj8MMsSpuBITPC",
                             PhoneNo = "0925-155222",
                             UserIcon = "無圖片"
                         },
@@ -345,7 +316,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "marylee@gmail.com",
                             Name = "Admin0002",
                             Nickname = "Admin0002",
-                            Password = "$2a$11$qIxo9QEyzth2iuY/no/KXeObz80PkFJ6OApBOCcM5GLeNV3BjWFNm",
+                            Password = "$2a$11$LdmaiDaEho9qyJKv9hUQTO8yJVvNFtRypEg4LI/rCv2UltrA/sN8i",
                             PhoneNo = "0935-123123",
                             UserIcon = "無圖片"
                         },
@@ -355,7 +326,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "johnwei@gmail.com",
                             Name = "Admin0003",
                             Nickname = "Admin0003",
-                            Password = "$2a$11$q/.wFi9M031jdZRSXxRdyeS6nbwpT9KRyTvocGRUQEJ7dU/KhFTgW",
+                            Password = "$2a$11$WY8c4aOEUuKx0bVGCqsmWO9Nv79FkEKqbCtA2DreAhbdr1vzJSDne",
                             PhoneNo = "0955-456456",
                             UserIcon = "無圖片"
                         });
@@ -423,18 +394,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.OrderByBarter", b =>
-                {
-                    b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.OrderByMoney", b =>
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Order", b =>
                 {
                     b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
                         .WithMany()

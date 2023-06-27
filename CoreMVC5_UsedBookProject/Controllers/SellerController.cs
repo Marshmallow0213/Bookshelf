@@ -7,6 +7,7 @@ using System.Diagnostics;
 using CoreMVC5_UsedBookProject.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -30,40 +31,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
-            {
-                mymodel = _sellerService.GetMoneyOrders(status, now_page, name);
-                return View(mymodel);
-            }
-            else if (trade == "以物易物")
-            {
-                mymodel = _sellerService.GetBarterOrders(status, now_page, name);
-                return View(mymodel);
-            }
-            else
-            {
-                return NotFound();
-            }
+            mymodel = _sellerService.GetOrders(status, trade, now_page, name);
+            return View(mymodel);
         }
         public IActionResult MyProducts(String status, int now_page, string trade)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
-            {
-                mymodel = _sellerService.GetProducts(status, now_page, name, trade);
-                return View(mymodel);
-            }
-            else if (trade == "以物易物")
-            {
-                mymodel = _sellerService.GetProducts(status, now_page, name, trade);
-                return View(mymodel);
-            }
-            else
-            {
-                return NotFound();
-            }
+            mymodel = _sellerService.GetProducts(status, now_page, name, trade);
+            return View(mymodel);
         }
         public IActionResult Create()
         {
@@ -167,6 +144,26 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
             }
         }
+        public IActionResult OrderDetails(string OrderId, string trade)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            OrderViewModel mymodel = new();
+            ViewBag.trade = trade;
+            if (trade == "金錢")
+            {
+                mymodel = _sellerService.GetOrder(OrderId, trade);
+                return View(mymodel);
+            }
+            else if (trade == "以物易物")
+            {
+                mymodel = _sellerService.GetOrder(OrderId, trade);
+                return View(mymodel);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         public IActionResult Delete(string ProductId, string Trade)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
@@ -192,6 +189,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return RedirectToAction("MyProducts", new { trade = "以物易物", status = "刪除" });
             }
+        }
+        public IActionResult AcceptOrder(string orderId, string trade)
+        {
+            _sellerService.AcceptOrder(orderId);
+            return RedirectToAction("MySales", new { status = "已成立", trade = trade });
+        }
+        public IActionResult DenyOrder(string orderId, string trade)
+        {
+            _sellerService.DenyOrder(orderId);
+            return RedirectToAction("MySales", new { status = "不成立", trade = trade });
         }
         public IActionResult Error()
         {

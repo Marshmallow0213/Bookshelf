@@ -38,7 +38,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy})" class="btn btn-primary">確認</a>
+                            <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy})" class="btn btn-primary">確認</a>
+                            <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
                         </div>
                     </div>
                 </div>

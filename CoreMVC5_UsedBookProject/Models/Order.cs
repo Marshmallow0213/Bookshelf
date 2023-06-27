@@ -7,10 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreMVC5_UsedBookProject.Models
 {
-    public class OrderByMoney
+    public class Order
     {
         [Required]
-        public string OrderByMoneyId { get; set; }
+        public string OrderId { get; set; }
         [Required]
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
@@ -24,6 +24,8 @@ namespace CoreMVC5_UsedBookProject.Models
         public string ProductId { get; set; }
         [Required]
         public string Status { get; set; }
+        [Required]
+        public string Trade { get; set; }
         [Required]
         public DateTime CreateDate { get; set; }
         public Product Product { get; set; }

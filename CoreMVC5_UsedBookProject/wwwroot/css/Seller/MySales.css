@@ -34,8 +34,8 @@ td {
 }
 @media (min-width:768px) {
     .action {
-        min-width: 100px;
-        max-width: 100px;
+        min-width: 150px;
+        max-width: 150px;
     }
 }
 @media (min-width:992px) {
