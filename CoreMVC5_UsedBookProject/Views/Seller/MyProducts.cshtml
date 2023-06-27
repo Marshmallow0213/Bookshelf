@@ -32,6 +32,10 @@
             <span style="color: red;">@Model.ProductsCount["已上架"] </span>
         </li>
         <li class="nav-item d-flex">
+            <a href="@Url.Action("MyProducts", "Seller", new {status = "待確認", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待確認" ? "color: red; border-bottom: 2px solid red;" : "")">待確認</a>
+            <span style="color: red;">@Model.ProductsCount["待確認"] </span>
+        </li>
+        <li class="nav-item d-flex">
             <a href="@Url.Action("MyProducts", "Seller", new {status = "已售完", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已售完" ? "color: red; border-bottom: 2px solid red;" : "")">已售完</a>
             <span style="color: red;">@Model.ProductsCount["已售完"] </span>
         </li>
@@ -98,7 +102,7 @@
                             </div>
                         </div>
                     }
-                    @if (item.Status != "已上架" && item.Status != "未上架")
+                    @if (item.Status != "已上架" && item.Status != "未上架" && item.Status != "待確認")
                     {
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#staticBackdrop2">

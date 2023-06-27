@@ -6,6 +6,7 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -182,6 +183,9 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateDate = DateTime.Now
             };
             _context.Add(order);
+            var product = _context.Products.Where(w => w.ProductId == order.ProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "待確認";
             _context.SaveChanges();
         }
     }

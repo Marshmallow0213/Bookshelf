@@ -173,7 +173,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public async Task<IActionResult> Signout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Response.Cookies.Delete("Nickname");
             return LocalRedirect("/");
         }
         [HttpGet]

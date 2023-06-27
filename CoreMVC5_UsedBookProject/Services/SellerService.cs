@@ -368,6 +368,9 @@ namespace CoreMVC5_UsedBookProject.Services
             var order = _context.Orders.Where(w=>w.OrderId == orderId).FirstOrDefault();
             _context.Entry(order).State = EntityState.Modified;
             order.Status = "已成立";
+            var product = _context.Products.Where(w => w.ProductId == order.ProductId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            product.Status = "已售完";
             _context.SaveChanges();
         }
         public void DenyOrder(string orderId)
@@ -375,6 +378,9 @@ namespace CoreMVC5_UsedBookProject.Services
             var order = _context.Orders.Where(w => w.OrderId == orderId).FirstOrDefault();
             _context.Entry(order).State = EntityState.Modified;
             order.Status = "不成立";
+            var product = _context.Products.Where(w => w.ProductId == order.ProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "已上架";
             _context.SaveChanges();
         }
     }
