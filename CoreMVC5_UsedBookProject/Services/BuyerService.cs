@@ -111,7 +111,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public MySalesViewModel GetOrders(string trade, string status, int now_page, string name)
         {
-            Dictionary<string, int> count = OrdersCountList("金錢", name);
+            Dictionary<string, int> count = OrdersCountList(trade, name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
