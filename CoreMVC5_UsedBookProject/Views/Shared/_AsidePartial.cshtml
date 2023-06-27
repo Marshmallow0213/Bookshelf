@@ -16,10 +16,10 @@
     @if (controller == "Home" || controller == "Buyer")
     {
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Buyer", new {trade = "金錢"})">賣場(金錢)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "金錢"})">賣場(金錢)</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Buyer", new {trade = "以物易物"})">賣場(以物易物)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "以物易物"})">賣場(以物易物)</a>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">賣家中心</a>

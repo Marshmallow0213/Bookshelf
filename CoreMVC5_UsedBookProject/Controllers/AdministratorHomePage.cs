@@ -3,7 +3,6 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.Repositories;
 using CoreMVC5_UsedBookProject.Services;
-using CoreMVC5_UsedBookProject.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

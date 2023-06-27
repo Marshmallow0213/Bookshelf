@@ -19,27 +19,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _buyerService = buyerService;
             _context = productContext;
         }
-        [AllowAnonymous]
-        public IActionResult Index(int now_page, string trade)
-        {
-            MyProductsViewModel mymodel = new();
-            ViewBag.trade = trade;
-            if (trade == "金錢")
-            {
-                mymodel = _buyerService.GetProducts(now_page, trade);
-                return View(mymodel);
-            }
-            else if (trade == "以物易物")
-            {
-                mymodel = _buyerService.GetProducts(now_page, trade);
-                return View(mymodel);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        [AllowAnonymous]
         public IActionResult Details(string ProductId)
         {
             if (ProductId == null)
