@@ -24,10 +24,6 @@
             <span style="color: red;">@Model.ProductsCount["未上架"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MyProducts", "Seller", new {status = "待審核", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待審核" ? "color: red; border-bottom: 2px solid red;" : "")">審核中</a>
-            <span style="color: red;">@Model.ProductsCount["待審核"] </span>
-        </li>
-        <li class="nav-item d-flex">
             <a href="@Url.Action("MyProducts", "Seller", new {status = "已上架", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已上架" ? "color: red; border-bottom: 2px solid red;" : "")">架上商品</a>
             <span style="color: red;">@Model.ProductsCount["已上架"] </span>
         </li>
@@ -61,10 +57,13 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
                     @if (item.Trade == "金錢")
                     {
                         <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
+                    }
+                    else if (item.Trade == "以物易物")
+                    {
+                        <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
                     }
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
                 </table>
@@ -74,7 +73,7 @@
                     {
                         <a href="@Url.Action("Edit", "Seller", new {ProductId = item.ProductId})" class="btn btn-warning mt-2"><i class="bi bi-pencil-square"></i> 編輯</a>
                     }
-                    @if (item.Status == "已上架" || item.Status == "未上架")
+                    @if (item.Status == "未上架")
                     {
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#staticBackdrop">
@@ -97,34 +96,6 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                         <a href="@Url.Action("Delete", "Seller", new {ProductId = item.ProductId, Trade = item.Trade})" class="btn btn-danger"><i class="bi bi-trash"></i> 刪除</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    @if (item.Status != "已上架" && item.Status != "未上架" && item.Status != "待確認")
-                    {
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#staticBackdrop2">
-                            <i class="bi bi-trash"></i> 永久刪除
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">確認刪除?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        確認永久刪除?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                        <a href="@Url.Action("PermanentDelete", "Seller", new {ProductId = item.ProductId, Trade = item.Trade})" class="btn btn-danger">確認刪除</a>
                                     </div>
                                 </div>
                             </div>

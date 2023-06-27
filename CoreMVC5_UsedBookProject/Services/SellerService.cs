@@ -45,7 +45,7 @@ namespace CoreMVC5_UsedBookProject.Services
             from p in _context.Products
             where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade == trade
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -107,7 +107,6 @@ namespace CoreMVC5_UsedBookProject.Services
             {
                 { "全部", 0 },
                 { "未上架", 0 },
-                { "待審核", 0 },
                 { "已上架", 0 },
                 { "待確認", 0 },
                 { "已售完", 0 },
@@ -283,7 +282,7 @@ namespace CoreMVC5_UsedBookProject.Services
                      from p in _context.Products
                      where o.ProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
+                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, UnitPrice = o.UnitPrice, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
             return order;
         }
         public void EditProduct(ProductEditViewModel productEditViewModel, string name)

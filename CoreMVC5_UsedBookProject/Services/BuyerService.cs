@@ -25,7 +25,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public ProductEditViewModel GetProduct(string id)
         {
             var product = _context.Products
-            .Where(p => p.Status == "已上架"&&p.ProductId == id)
+            .Where(p=>p.ProductId == id)
             .OrderByDescending(p => p.CreateDate)
             .Select(p => new Product
             {  ProductId=p.ProductId,
@@ -46,8 +46,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateBy = p.CreateBy
             })
            .FirstOrDefault();
-            var dm = _sellerRepository.DMToVM(product);
-            return dm;
+            var vm = _sellerRepository.DMToVM(product);
+            return vm;
         }
         public MyProductsViewModel GetProducts(int now_page, string trade)
         {
@@ -121,7 +121,7 @@ namespace CoreMVC5_UsedBookProject.Services
                       from p in _context.Products
                       where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}" && o.Trade == trade
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -170,10 +170,13 @@ namespace CoreMVC5_UsedBookProject.Services
                                      orderby p.CreateDate descending
                                      select new { p.OrderId }).FirstOrDefault();
             };
+            var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "待確認";
             Order order = new()
             {
                 OrderId = Id,
-                UnitPrice = 0,
+                UnitPrice = product.UnitPrice,
                 SellerId = sellername,
                 BuyerId = buyername,
                 DenyReason = "",
@@ -183,9 +186,6 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateDate = DateTime.Now
             };
             _context.Add(order);
-            var product = _context.Products.Where(w => w.ProductId == order.ProductId).FirstOrDefault();
-            _context.Entry(product).State = EntityState.Modified;
-            product.Status = "待確認";
             _context.SaveChanges();
         }
     }

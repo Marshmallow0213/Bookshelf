@@ -44,13 +44,10 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Order.BuyerId)</td><td>@item.BuyerId</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.ProductId)</td><td>@item.ProductId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
                     @if (item.Trade == "金錢")
                     {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@item.UnitPrice</td></tr>
-                    }
-                    else if (item.Trade == "以物易物")
-                    {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
+                        <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
                     }
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
                 </table>
