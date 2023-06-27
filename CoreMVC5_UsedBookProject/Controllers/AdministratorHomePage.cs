@@ -3,7 +3,7 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.Repositories;
 using CoreMVC5_UsedBookProject.Services;
-using CoreMVC5_UsedBookProject.ViewModel;
+using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,28 +34,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> DetailCard(string id)
+        [Authorize(Roles = "Administrator,common user")]
+        public async Task<IActionResult> DetailCard()
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                var msgObject = new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    error = "無效請求，必須提供ID喔!"
-                };
-                return new BadRequestObjectResult(msgObject);
-            }
-
-            var administratorUser = await _ctx.Users.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (administratorUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(administratorUser);
+            var Users = await _ctx.Users.ToListAsync();
+            return View(Users);
         }
+
 
     }
 }

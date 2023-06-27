@@ -6,16 +6,8 @@
 <h4 class="alert alert-danger">管理員個人資料明細</h4>
 
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.Name)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Nickname)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.Nickname)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.Email)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PhoneNo)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.PhoneNo)</dd>
-    </dl>
+
+<div class="row">
+    <Partial name="_AdminCardPartial" model="@Model"></Partial>
 </div>
+
