@@ -186,6 +186,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateDate = DateTime.Now
             };
             _context.Add(order);
+            var exist = _context.Shoppingcarts.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            _context.Shoppingcarts.Remove(exist);
             _context.SaveChanges();
         }
     }

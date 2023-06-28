@@ -17,6 +17,7 @@ namespace CoreMVC5_UsedBookProject.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<Shoppingcart> Shoppingcarts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵
@@ -25,6 +26,7 @@ namespace CoreMVC5_UsedBookProject.Data
             modelBuilder.Entity<User>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<Role>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<Shoppingcart>().HasKey(ur => new { ur.ShoppingcartId });
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasOne(d => d.User)
@@ -36,6 +38,18 @@ namespace CoreMVC5_UsedBookProject.Data
                 entity.HasOne(d => d.Product)
                    .WithMany()
                    .HasForeignKey(d => d.ProductId);
+            });
+            modelBuilder.Entity<Shoppingcart>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                   .WithMany()
+                   .HasForeignKey(d => d.ProductId);
+            });
+            modelBuilder.Entity<Shoppingcart>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                   .WithMany()
+                   .HasForeignKey(d => d.Id);
             });
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Name)

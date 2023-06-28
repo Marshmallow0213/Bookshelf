@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230628010103_init")]
+    [Migration("20230628032222_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderId = "O001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 610, DateTimeKind.Local).AddTicks(3087),
+                            CreateDate = new DateTime(2023, 6, 28, 11, 22, 21, 908, DateTimeKind.Local).AddTicks(8247),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
@@ -79,7 +79,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderId = "O002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 610, DateTimeKind.Local).AddTicks(3361),
+                            CreateDate = new DateTime(2023, 6, 28, 11, 22, 21, 908, DateTimeKind.Local).AddTicks(8501),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
@@ -91,7 +91,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderId = "O003",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 610, DateTimeKind.Local).AddTicks(3367),
+                            CreateDate = new DateTime(2023, 6, 28, 11, 22, 21, 908, DateTimeKind.Local).AddTicks(8506),
                             DenyReason = "none",
                             ProductId = "P003",
                             SellerId = "U001",
@@ -176,9 +176,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 607, DateTimeKind.Local).AddTicks(6563),
+                            CreateDate = new DateTime(2023, 6, 28, 11, 22, 21, 906, DateTimeKind.Local).AddTicks(8652),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1054),
+                            EditDate = new DateTime(2023, 6, 28, 11, 22, 21, 907, DateTimeKind.Local).AddTicks(7529),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -195,9 +195,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1691),
+                            CreateDate = new DateTime(2023, 6, 28, 11, 22, 21, 907, DateTimeKind.Local).AddTicks(8156),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1696),
+                            EditDate = new DateTime(2023, 6, 28, 11, 22, 21, 907, DateTimeKind.Local).AddTicks(8160),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -214,9 +214,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1701),
+                            CreateDate = new DateTime(2023, 6, 28, 11, 22, 21, 907, DateTimeKind.Local).AddTicks(8165),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1702),
+                            EditDate = new DateTime(2023, 6, 28, 11, 22, 21, 907, DateTimeKind.Local).AddTicks(8165),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -265,6 +265,29 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Shoppingcart", b =>
+                {
+                    b.Property<int>("ShoppingcartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ShoppingcartId");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Shoppingcarts");
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -306,7 +329,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "kevinxi@gmail.com",
                             Name = "Admin0001",
                             Nickname = "Admin0001",
-                            Password = "$2a$11$YNp1nVpY845sccXlkHq8Juzx/r2DXcNnH/dBOjrYXdTV.E71InqoO",
+                            Password = "$2a$11$78PEm4.90L9kcE42xREbWeI3PyNNxOkZCVeZ.fPSfgkppgm.KhniW",
                             PhoneNo = "0925-155222",
                             UserIcon = "empty.png"
                         },
@@ -316,7 +339,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "marylee@gmail.com",
                             Name = "Admin0002",
                             Nickname = "Admin0002",
-                            Password = "$2a$11$PBSXe9N4/DA0PeQfouY8muDx8/gWmZJWjg14Y9xkMj4LIVqQNPK26",
+                            Password = "$2a$11$VGoAXSC9/mkLVnaU/8OPOeZzygONAkZrHN0ORhAuiIdpFoau/E516",
                             PhoneNo = "0935-123123",
                             UserIcon = "empty.png"
                         },
@@ -326,7 +349,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "johnwei@gmail.com",
                             Name = "Admin0003",
                             Nickname = "Admin0003",
-                            Password = "$2a$11$2i7dH/vuRYoE7ua760Bhi.KwnCRE2S6EyJsryq7pWtOWHuZze/uoS",
+                            Password = "$2a$11$x8yIf3CLyZS/yqqjqF.6H.JfhcKy3tWtTWnV20kRax9ljL8tvmehO",
                             PhoneNo = "0955-456456",
                             UserIcon = "empty.png"
                         });
@@ -412,6 +435,23 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .HasForeignKey("CreateBy")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Shoppingcart", b =>
+                {
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Id");
+
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });
