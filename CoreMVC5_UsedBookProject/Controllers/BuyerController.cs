@@ -55,7 +55,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
             if (buyername == product.CreateBy)
             {
-                return NotFound();
+                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
             }
             if (ProductId != null && Sellername != null)
             {
@@ -105,7 +105,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var exist = _context.Shoppingcarts.Where(w=>w.ProductId == id && w.Id == name).FirstOrDefault();
             var product = _context.Products.Where(w => w.ProductId == id).FirstOrDefault();
-            if (exist == null && name != product.CreateBy)
+            if (name == product.CreateBy)
+            {
+                return "自己的商品";
+            }
+            if (exist == null)
             {
                 Shoppingcart shoppingcart = new()
                 {
