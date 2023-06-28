@@ -51,9 +51,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult CreateOrder(string ProductId, string Sellername, string trade)
         {
+            var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            if (buyername == product.CreateBy)
+            {
+                return NotFound();
+            }
             if (ProductId != null && Sellername != null)
             {
-                var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 _buyerService.CreateOrder(trade, Sellername, buyername, ProductId);
             }
             return RedirectToAction("MySales", new { Trade = trade });
@@ -95,11 +100,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
             };
             return View(mymodel);
         }
-        public bool AddToShoppingcart(string id)
+        public string AddToShoppingcart(string id)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var exist = _context.Shoppingcarts.Where(w=>w.ProductId == id && w.Id == name).FirstOrDefault();
-            if (exist == null)
+            var product = _context.Products.Where(w => w.ProductId == id).FirstOrDefault();
+            if (exist == null && name != product.CreateBy)
             {
                 Shoppingcart shoppingcart = new()
                 {
@@ -108,9 +114,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 };
                 _context.Shoppingcarts.Add(shoppingcart);
                 _context.SaveChanges();
-                return true;
+                return "成功";
             }
-            return false;
+            return "失敗";
         }
         public IActionResult DeleteFromShoppingcart(string ProductId)
         {
