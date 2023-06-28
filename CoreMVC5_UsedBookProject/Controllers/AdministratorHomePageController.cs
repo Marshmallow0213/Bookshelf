@@ -22,18 +22,19 @@ using static System.Net.WebRequestMethods;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    public class AdministratorHomePage : Controller
+    public class AdministratorHomePageController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AdminAccountContext _ctx;
 
-        public AdministratorHomePage(AdminAccountContext ctx)
+        public AdministratorHomePageController(AdminAccountContext ctx)
         {
             _ctx = ctx;
         }
         public IActionResult AdministratorHome()
         {
-            return View();
+            var Users = _ctx.Users.ToList();
+            return View(Users);
         }
         [Authorize(Roles = "Administrator,common user")]
         public async Task<IActionResult> DetailCard()
@@ -41,7 +42,5 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var Users = await _ctx.Users.ToListAsync();
             return View(Users);
         }
-
-
     }
 }

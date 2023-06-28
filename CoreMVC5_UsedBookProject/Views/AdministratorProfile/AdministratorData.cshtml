@@ -11,7 +11,7 @@
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext" style="background-color: white; color:black;">管理人員控管</a>
         </li>
         <li class="menu-item">
-            <a href="#" class="navtext">按鈕3</a>
+            <a asp-controller="AdminCharts" asp-action="AdminChartsView" class="navtext">書籍圖表占比</a>
         </li>
         <li class="menu-item">
             <a href="#" class="navtext">按鈕4</a>
@@ -55,6 +55,7 @@
                             <a asp-action="AdministratorEdit" asp-route-id="@m.Id" class="btn btn-info">編輯</a>
                             <a asp-action="AdministratorDetail" asp-route-id="@m.Id" class="btn btn-primary">詳細資料</a>
                             <a asp-action="AdministratorDelete" asp-route-id="@m.Id" class="btn btn-danger">刪除</a>
+                            <a asp-action="AdministratorSuspension" asp-route-id="@m.Id" class="btn btn-info">權限管理</a>
                         </td>
                     </tr>
                 }

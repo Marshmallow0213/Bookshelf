@@ -1,0 +1,31 @@
+﻿@model AdministratorUser
+@{
+    ViewData["Title"] = "管理員個人資料明細";
+}
+
+<h4 class="alert alert-danger">管理員個人資料明細</h4>
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+        @{
+            string email = User.Identity.Name;
+            string[] segmentation = email.Split('@');
+            string username = segmentation[0];
+        }
+        <dd class="col-sm-9">@Html.DisplayFor(model => username)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Nickname)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Nickname)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Email)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PhoneNo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.PhoneNo)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="AdministratorProfile" asp-action="DeactivateAdmin" asp-route-id="@Model.Id" class="btn btn-info">停用管理員權限</a>
+
+    <a asp-controller="AdministratorProfile" asp-action="OpenAdmin" asp-route-id="@Model.Id" class="btn btn-info">啟用管理員權限</a>
+</div>
