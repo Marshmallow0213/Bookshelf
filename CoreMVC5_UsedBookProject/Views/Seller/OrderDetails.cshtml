@@ -15,9 +15,12 @@
             <tr><td>@Html.DisplayNameFor(model => model.BuyerId)</td><td>@Model.BuyerId</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td>@Model.DenyReason</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.ProductId)</td><td>@Model.ProductId</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.UnitPrice)</td><td>@Model.UnitPrice</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.Status)</td><td>@Model.Status</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.Trade)</td><td>@Model.Trade</td></tr>
+            @if (Model.Trade == "金錢")
+            {
+                <tr><td>@Html.DisplayNameFor(model => model.UnitPrice)</td><td>@(decimal.Round(Model.UnitPrice, 0) == 0 ? "" : decimal.Round(Model.UnitPrice, 0))</td></tr>
+            }
+            <tr><td>@Html.DisplayNameFor(model => model.Status)</td><td>@Model.Status</td></tr>
         </table>
         <br />
         <div class="gap-2">

@@ -17,6 +17,7 @@ namespace CoreMVC5_UsedBookProject.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<Shoppingcart> Shoppingcarts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵
@@ -25,6 +26,7 @@ namespace CoreMVC5_UsedBookProject.Data
             modelBuilder.Entity<User>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<Role>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<Shoppingcart>().HasKey(ur => new { ur.ShoppingcartId });
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasOne(d => d.User)
@@ -36,6 +38,18 @@ namespace CoreMVC5_UsedBookProject.Data
                 entity.HasOne(d => d.Product)
                    .WithMany()
                    .HasForeignKey(d => d.ProductId);
+            });
+            modelBuilder.Entity<Shoppingcart>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                   .WithMany()
+                   .HasForeignKey(d => d.ProductId);
+            });
+            modelBuilder.Entity<Shoppingcart>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                   .WithMany()
+                   .HasForeignKey(d => d.Id);
             });
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Name)
@@ -147,9 +161,9 @@ namespace CoreMVC5_UsedBookProject.Data
 
             //Password以MD5加密
             modelBuilder.Entity<User>().HasData(
-                new User { Id = "U001", Name = "Admin0001", Email = "kevinxi@gmail.com", Password = _hashService.HashPassword("CHU147896301"), Nickname = "Admin0001", PhoneNo = "0925-155222", UserIcon = "無圖片" },
-                new User { Id = "U002", Name = "Admin0002", Email = "marylee@gmail.com", Password = _hashService.HashPassword("CHU147896302"), Nickname = "Admin0002", PhoneNo = "0935-123123", UserIcon = "無圖片" },
-                new User { Id = "U003", Name = "Admin0003", Email = "johnwei@gmail.com", Password = _hashService.HashPassword("CHU147896303"), Nickname = "Admin0003", PhoneNo = "0955-456456", UserIcon = "無圖片" }
+                new User { Id = "U001", Name = "Admin0001", Email = "kevinxi@gmail.com", Password = _hashService.HashPassword("CHU147896301"), Nickname = "Admin0001", PhoneNo = "0925-155222", UserIcon = "UserIcon.png" },
+                new User { Id = "U002", Name = "Admin0002", Email = "marylee@gmail.com", Password = _hashService.HashPassword("CHU147896302"), Nickname = "Admin0002", PhoneNo = "0935-123123", UserIcon = "UserIcon.png" },
+                new User { Id = "U003", Name = "Admin0003", Email = "johnwei@gmail.com", Password = _hashService.HashPassword("CHU147896303"), Nickname = "Admin0003", PhoneNo = "0955-456456", UserIcon = "UserIcon.png" }
                 );
 
             modelBuilder.Entity<Role>().HasData(

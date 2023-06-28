@@ -92,7 +92,7 @@ namespace CoreMVC5_UsedBookProject.Services
                         select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
             return user;
         }
-        public void UploadImages(IFormFile filename, string Image, string UserId)
+        public void UploadImages(IFormFile filename, string UserId)
         {
             string folderPath = $@"Images\Users\{UserId}";
             if (!Directory.Exists(folderPath))
@@ -109,16 +109,6 @@ namespace CoreMVC5_UsedBookProject.Services
                 var path = $@"{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
                 using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
                 filename.CopyTo(stream);
-            }
-            else if (Image == "無圖片" && filename == null)
-            {
-                string[] files = System.IO.Directory.GetFiles(folderPath, $"UserIcon.*");
-                foreach (string f in files)
-                {
-                    System.IO.File.Delete(f);
-                }
-                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
-                fi.CopyTo($@"{folderPath}\empty.png", true);
             }
         }
     }

@@ -44,27 +44,20 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Order.BuyerId)</td><td>@item.BuyerId</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.ProductId)</td><td>@item.ProductId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
                     @if (item.Trade == "金錢")
                     {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@item.UnitPrice</td></tr>
-                    }
-                    else if (item.Trade == "以物易物")
-                    {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
+                        <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
                     }
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
                 </table>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 詳情</a>
-                    <a href="@Url.Action("OrderDetails", "Seller", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 訂單確認</a>
-                    @*@if (item.Status == "已上架" || item.Status == "未上架")
+
+                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    @if (item.Status == "待確認")
                     {
-                        <a href="@Url.Action("Edit", "Seller", new {ProductId = item._ProductId})" class="btn btn-warning mt-2"><i class="bi bi-pencil-square"></i> 編輯</a>
+                        <a href="@Url.Action("OrderDetails", "Seller", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 訂單確認</a>
                     }
-                    @if (item.Status == "已上架" || item.Status == "未上架")
-                    {
-                        <a href="@Url.Action("Delete", "Seller", new {ProductId = item._ProductId})" class="btn btn-danger mt-2"><i class="bi bi-trash"></i> 刪除</a>
-                    }*@
                 </div>
             </div>
         }

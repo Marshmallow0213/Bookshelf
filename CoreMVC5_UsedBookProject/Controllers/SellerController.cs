@@ -107,16 +107,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (productEditViewModel.Trade != "金錢" && productEditViewModel.Trade != "以物易物")
+                {
+                    return NotFound();
+                }
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 _sellerService.EditProduct(productEditViewModel, name);
-                if (productEditViewModel.Trade == "金錢")
-                {
-                    return RedirectToAction("MyProducts", new { trade = "金錢", status = productEditViewModel.Status });
-                }
-                else
-                {
-                    return RedirectToAction("MyProducts", new { trade = "以物易物", status = productEditViewModel.Status });
-                }
+                return RedirectToAction("MyProducts", new { trade = productEditViewModel.Trade, status = productEditViewModel.Status });
             }
             else
             {
@@ -149,20 +146,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
-            {
-                mymodel = _sellerService.GetOrder(OrderId, trade);
-                return View(mymodel);
-            }
-            else if (trade == "以物易物")
-            {
-                mymodel = _sellerService.GetOrder(OrderId, trade);
-                return View(mymodel);
-            }
-            else
+            if (trade != "金錢" && trade != "以物易物")
             {
                 return NotFound();
             }
+            mymodel = _sellerService.GetOrder(OrderId, trade);
+            return View(mymodel);
         }
         public IActionResult Delete(string ProductId, string Trade)
         {
