@@ -3,7 +3,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         @*已登入*@
-        <li class="nav-item button-cover-nav">
+        <li class="nav-item-custom button-cover-nav">
             <div class="login-info">
                 <a class="login-name button-cover" asp-controller="AdministratorHomePage" asp-action="AdministratorHome">@User.Identity.Name</a>
                 <span class="spacer"></span>

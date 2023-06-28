@@ -1,14 +1,14 @@
-﻿.nav-item,
-.nav-item *,
-.nav-item :after,
-.nav-item :before,
-.nav-item:after,
-.nav-item:before {
+﻿.nav-item-custom,
+.nav-item-custom *,
+.nav-item-custom :after,
+.nav-item-custom :before,
+.nav-item-custom:after,
+.nav-item-custom:before {
     border: 0 solid;
     box-sizing: border-box;
 }
 
-.nav-item {
+.nav-item-custom {
     -webkit-tap-highlight-color: transparent;
     -webkit-appearance: button;
     -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
@@ -27,14 +27,14 @@
     text-align: center;
 }
 
-    .nav-item:after,
-    .nav-item:before {
+    .nav-item-custom:after,
+    .nav-item-custom:before {
         content: "";
         position: absolute;
         z-index: -1;
     }
 
-    .nav-item:before {
+    .nav-item-custom:before {
         border-bottom: var(--border);
         border-top: var(--border);
         height: 100%;
@@ -43,15 +43,15 @@
         transform: translateX(-50%);
     }
 
-    .nav-item:hover:before,
-    .nav-item.clicked:before {
+    .nav-item-custom:hover:before,
+    .nav-item-custom.clicked:before {
         --border: 1.5px solid #a0cfff;
         width: 100%;
         z-index: 0;
         animation: border-top-and-bottom 1s forwards;
     }
 
-    .nav-item:after {
+    .nav-item-custom:after {
         border-left: var(--border);
         border-right: var(--border);
         bottom: 50%;
@@ -60,8 +60,8 @@
         width: 100%;
     }
 
-    .nav-item:hover:after,
-    .nav-item.clicked:after {
+    .nav-item-custom:hover:after,
+    .nav-item-custom.clicked:after {
         --border: 1.5px solid #a0cfff;
         height: 100%;
         animation: border-right-and-left 1s forwards;
@@ -172,40 +172,40 @@
     cursor: default;
 }
 
-.nav-item-btn {
+.nav-item-custom-btn {
     display: inline-block;
     margin-left: auto;
     cursor: default;
 }
 
-.nav-item {
+.nav-item-custom {
     position: relative;
 }
 
-    .nav-item .btn-login,
-    .nav-item .btn-logout {
+    .nav-item-custom .btn-login,
+    .nav-item-custom .btn-logout {
         position: absolute;
         top: 0;
         left: 0;
     }
 
-    .nav-item.hovered,
-    .nav-item.hovered .btn-logout {
+    .nav-item-custom.hovered,
+    .nav-item-custom.hovered .btn-logout {
         opacity: 0;
     }
 
-        .nav-item.hovered .btn-login.show {
+        .nav-item-custom.hovered .btn-login.show {
             opacity: 1;
             transition-delay: 0s;
         }
 
-        .nav-item.hovered .btn-logout.show {
+        .nav-item-custom.hovered .btn-logout.show {
             opacity: 1;
             transition-delay: 0s;
         }
 
-    .nav-item:hover,
-    .nav-item:hover .btn-logout {
+    .nav-item-custom:hover,
+    .nav-item-custom:hover .btn-logout {
         opacity: 1;
         transition-delay: 1.5s;
     }

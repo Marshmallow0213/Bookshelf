@@ -45,7 +45,7 @@ namespace CoreMVC5_UsedBookProject.Services
             from p in _context.Products
             where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade == trade
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -88,7 +88,7 @@ namespace CoreMVC5_UsedBookProject.Services
             var products = (from p in _context.Products
                            where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade == $"{trade}"
                            orderby p.CreateDate descending
-                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).Skip((now_page - 1) * 10).Take(10).ToList();
+                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).Skip((now_page - 1) * 30).Take(30).ToList();
             MyProductsViewModel mymodel = new()
             {
                 Products = products,
