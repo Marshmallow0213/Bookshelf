@@ -6,7 +6,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
     public class ProductViewModel
     {
         //
-        [Display(Name = "商品ID")]
+        [Display(Name = "商品Id")]
         [MaxLength(200)]
         public string ProductId { get; set; }
         //

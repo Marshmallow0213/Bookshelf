@@ -19,7 +19,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string Status { get; set; }
         [Display(Name = "交易方式")]
         public string Trade { get; set; }
-        [Display(Name = "商品ID")]
+        [Display(Name = "商品Id")]
         public string ProductId { get; set; }
         [Display(Name = "書名")]
         public string Title { get; set; }

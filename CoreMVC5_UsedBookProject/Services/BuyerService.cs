@@ -6,6 +6,7 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -24,7 +25,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public ProductEditViewModel GetProduct(string id)
         {
             var product = _context.Products
-            .Where(p => p.Status == "已上架"&&p.ProductId == id)
+            .Where(p=>p.ProductId == id)
             .OrderByDescending(p => p.CreateDate)
             .Select(p => new Product
             {  ProductId=p.ProductId,
@@ -45,8 +46,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateBy = p.CreateBy
             })
            .FirstOrDefault();
-            var dm = _sellerRepository.DMToVM(product);
-            return dm;
+            var vm = _sellerRepository.DMToVM(product);
+            return vm;
         }
         public MyProductsViewModel GetProducts(int now_page, string trade)
         {
@@ -62,20 +63,12 @@ namespace CoreMVC5_UsedBookProject.Services
                 Title = p.Title,
                 ISBN = p.ISBN,
                 Author = p.Author,
-                Publisher = p.Publisher,
-                PublicationDate = p.PublicationDate,
-                Degree = p.Degree,
                 ContentText = p.ContentText,
                 Image1 = p.Image1,
-                Image2 = p.Image2,
-                Status = p.Status,
                 Trade = p.Trade,
-                UnitPrice = p.UnitPrice,
-                CreateDate = p.CreateDate,
-                EditDate = p.EditDate,
-                CreateBy = p.CreateBy
+                UnitPrice = p.UnitPrice
             })
-           .Skip((now_page - 1) * 10).Take(10).ToList();
+           .Skip((now_page - 1) * 30).Take(30).ToList();
             MyProductsViewModel mymodel = new()
             {
                 Products = products,
@@ -111,7 +104,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public MySalesViewModel GetOrders(string trade, string status, int now_page, string name)
         {
-            Dictionary<string, int> count = OrdersCountList("金錢", name);
+            Dictionary<string, int> count = OrdersCountList(trade, name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
@@ -120,7 +113,7 @@ namespace CoreMVC5_UsedBookProject.Services
                       from p in _context.Products
                       where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}" && o.Trade == trade
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 10).Take(10).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, UnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -169,10 +162,13 @@ namespace CoreMVC5_UsedBookProject.Services
                                      orderby p.CreateDate descending
                                      select new { p.OrderId }).FirstOrDefault();
             };
+            var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "待確認";
             Order order = new()
             {
                 OrderId = Id,
-                UnitPrice = 0,
+                UnitPrice = product.UnitPrice,
                 SellerId = sellername,
                 BuyerId = buyername,
                 DenyReason = "",
@@ -182,6 +178,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateDate = DateTime.Now
             };
             _context.Add(order);
+            var exist = _context.Shoppingcarts.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            _context.Shoppingcarts.Remove(exist);
             _context.SaveChanges();
         }
     }

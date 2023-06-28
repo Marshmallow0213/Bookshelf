@@ -30,7 +30,7 @@
     <div thumbsSlider="" class="swiper mySwiper" style="height: 64px;">
         <div class="swiper-wrapper">
             <div class="swiper-slide d-flex align-items-center">
-                <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.style.backgroundColor = 'gray'" />
+                <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="errorLoad(this)" />
             </div>
             @if (list.Length > 0)
             {

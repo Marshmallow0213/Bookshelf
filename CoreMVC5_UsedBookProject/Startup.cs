@@ -13,6 +13,7 @@ using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.CookiePolicy;
 
 namespace CoreMVC5_UsedBookProject
 {
@@ -29,15 +30,22 @@ namespace CoreMVC5_UsedBookProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //¥[¤JCookieÅçÃÒ, ¦P®É³]©w¿ï¶µ
+            services.AddCookiePolicy(options =>
+            {
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
+                options.HttpOnly = HttpOnlyPolicy.Always;
+                options.Secure = CookieSecurePolicy.Always;
+            });
+            //åŠ å…¥Cookieé©—è­‰, åŒæ™‚è¨­å®šé¸é …
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    //¹w³]µn¤JÅçÃÒºô§}¬°Account/Login, ­Y·QÅÜ§ó¤~»İ­n³]©wLoginPath
+                    //é è¨­ç™»å…¥é©—è­‰ç¶²å€ç‚ºAccount/Login, è‹¥æƒ³è®Šæ›´æ‰éœ€è¦è¨­å®šLoginPath
                     options.LoginPath = new PathString("/Account/Login/");
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                     options.SlidingExpiration = true;
                     options.AccessDeniedPath = "/Account/Forbidden/";
+                    options.LogoutPath = new PathString("/Home/Index");
                 });
             services.AddDbContext<ProductContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));
@@ -74,9 +82,9 @@ namespace CoreMVC5_UsedBookProject
             });
             app.UseRouting();
 
-            app.UseAuthentication(); //ÅçÃÒ
+            app.UseAuthentication(); //é©—è­‰
 
-            app.UseAuthorization();  //±ÂÅv
+            app.UseAuthorization();  //æˆæ¬Š
 
             app.UseEndpoints(endpoints =>
             {
