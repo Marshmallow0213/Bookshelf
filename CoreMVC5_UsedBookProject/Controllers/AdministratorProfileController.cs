@@ -7,18 +7,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    public class AdministratorProfile : Controller
+    [Authorize(Roles = "Administrator")]
+    public class AdministratorProfileController : Controller
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AdminAccountContext _ctx;
         private readonly IHashService _hashService;
 
-        public AdministratorProfile(AdminAccountContext ctx, IHashService hashService)
+        public AdministratorProfileController(AdminAccountContext ctx, IHashService hashService)
         {
             _ctx = ctx;
             _hashService = hashService;
@@ -30,7 +32,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(model);
         }
-        [Authorize(Roles = "Administrator")]
+       
         public async Task<IActionResult> AdministratorDetail(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -52,15 +54,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(administratorUser);
         }
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
+
         public IActionResult AdministratorCreate()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AdministratorCreate([Bind("Id,Name,Nickname,Password,Email,PhoneNo")] AdministratorUser administratorUser)
         {
             if (ModelState.IsValid)
@@ -76,10 +76,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(administratorUser);
         }
 
-
-
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AdministratorEdit(string id)
         {
             if (id == null)
@@ -95,7 +91,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AdministratorEdit(string id,
             [Bind("Id,Name,Nickname,Password,Email,PhoneNo")] AdministratorUser administratorUser)
         {
@@ -124,9 +119,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(administratorUser);
         }
 
-
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AdministratorDelete(string id)
         {
             if (id == null)
@@ -142,7 +134,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost, ActionName("AdministratorDelete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var administratorUser = await _ctx.Users.FindAsync(id);
@@ -150,6 +141,91 @@ namespace CoreMVC5_UsedBookProject.Controllers
             await _ctx.SaveChangesAsync();
             return RedirectToAction("AdministratorData");
         }
+
+        public async Task<IActionResult> AdministratorSuspension(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                var msgObject = new
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    error = "無效請求，必須提供ID喔!"
+                };
+                return new BadRequestObjectResult(msgObject);
+            }
+
+            var administratorUser = await _ctx.Users.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (administratorUser == null)
+            {
+                return NotFound();
+            }
+
+            return View(administratorUser);
+        }
+
+        public IActionResult DeactivateAdmin(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "common user").FirstOrDefault();
+                if (data != null && role != null)
+                {
+                    var newUserRole = new AdministratorUserRoles
+                    {
+                        UserId = id,
+                        RoleId = role.Id
+                    };
+                    _ctx.Remove(data);
+                    _ctx.UserRoles.Add(newUserRole);
+                    _ctx.SaveChanges();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.Data);
+            }
+
+            return RedirectToAction("AdministratorData");
+        }
+
+        public IActionResult OpenAdmin(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "Administrator").FirstOrDefault();
+                if (data != null && role != null)
+                {
+                    var newUserRole = new AdministratorUserRoles
+                    {
+                        UserId = id,
+                        RoleId = role.Id
+                    };
+                    _ctx.Remove(data);
+                    _ctx.UserRoles.Add(newUserRole);
+                    _ctx.SaveChanges();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.Data);
+            }
+
+            return RedirectToAction("AdministratorData");
+        }
+
         private bool AdministratorUserExists(string id)
         {
             throw new NotImplementedException();
