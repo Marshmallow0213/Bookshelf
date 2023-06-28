@@ -65,7 +65,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderId = "O001",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1062),
+                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 610, DateTimeKind.Local).AddTicks(3087),
                             DenyReason = "none",
                             ProductId = "P001",
                             SellerId = "U001",
@@ -77,7 +77,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderId = "O002",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1412),
+                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 610, DateTimeKind.Local).AddTicks(3361),
                             DenyReason = "none",
                             ProductId = "P002",
                             SellerId = "U001",
@@ -89,7 +89,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         {
                             OrderId = "O003",
                             BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 685, DateTimeKind.Local).AddTicks(1418),
+                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 610, DateTimeKind.Local).AddTicks(3367),
                             DenyReason = "none",
                             ProductId = "P003",
                             SellerId = "U001",
@@ -174,9 +174,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context1",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 681, DateTimeKind.Local).AddTicks(380),
+                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 607, DateTimeKind.Local).AddTicks(6563),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6099),
+                            EditDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1054),
                             ISBN = "9876543210",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -193,9 +193,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context2",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6919),
+                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1691),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6924),
+                            EditDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1696),
                             ISBN = "9876543211",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -212,9 +212,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Author = "作者",
                             ContentText = "Context3",
                             CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6931),
+                            CreateDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1701),
                             Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 27, 14, 7, 18, 683, DateTimeKind.Local).AddTicks(6934),
+                            EditDate = new DateTime(2023, 6, 28, 9, 1, 2, 609, DateTimeKind.Local).AddTicks(1702),
                             ISBN = "9876543212",
                             Image1 = "example.jpg",
                             Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
@@ -304,9 +304,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "kevinxi@gmail.com",
                             Name = "Admin0001",
                             Nickname = "Admin0001",
-                            Password = "$2a$11$gqqQeOXK/fP8xkbUTH6R2.X/4gw2mNrO/GL4Bfknj8MMsSpuBITPC",
+                            Password = "$2a$11$YNp1nVpY845sccXlkHq8Juzx/r2DXcNnH/dBOjrYXdTV.E71InqoO",
                             PhoneNo = "0925-155222",
-                            UserIcon = "無圖片"
+                            UserIcon = "empty.png"
                         },
                         new
                         {
@@ -314,9 +314,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "marylee@gmail.com",
                             Name = "Admin0002",
                             Nickname = "Admin0002",
-                            Password = "$2a$11$LdmaiDaEho9qyJKv9hUQTO8yJVvNFtRypEg4LI/rCv2UltrA/sN8i",
+                            Password = "$2a$11$PBSXe9N4/DA0PeQfouY8muDx8/gWmZJWjg14Y9xkMj4LIVqQNPK26",
                             PhoneNo = "0935-123123",
-                            UserIcon = "無圖片"
+                            UserIcon = "empty.png"
                         },
                         new
                         {
@@ -324,9 +324,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "johnwei@gmail.com",
                             Name = "Admin0003",
                             Nickname = "Admin0003",
-                            Password = "$2a$11$WY8c4aOEUuKx0bVGCqsmWO9Nv79FkEKqbCtA2DreAhbdr1vzJSDne",
+                            Password = "$2a$11$2i7dH/vuRYoE7ua760Bhi.KwnCRE2S6EyJsryq7pWtOWHuZze/uoS",
                             PhoneNo = "0955-456456",
-                            UserIcon = "無圖片"
+                            UserIcon = "empty.png"
                         });
                 });
 

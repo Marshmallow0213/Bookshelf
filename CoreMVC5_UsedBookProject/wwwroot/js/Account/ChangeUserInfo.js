@@ -4,7 +4,7 @@ for (let i = 1; i <= 1; i++) {
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
         let preImg = document.getElementById(`Image${i}`).value;
         let preId = document.getElementById(`ProductId`).value;
-        if (preImg != "無圖片") {
+        if (preImg != "empty.png") {
             document.getElementById(`img${i}Div`).innerHTML = `<img src='../Images/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
     });
@@ -34,7 +34,7 @@ for (let i = 1; i <= 1; i++) {
         };
     });
     document.getElementById(`Image${i}-clear`).addEventListener("click", () => {
-        document.getElementById(`Image${i}`).value = '無圖片';
+        document.getElementById(`Image${i}`).value = 'empty.png';
         document.getElementById(`file${i}`).value = '';
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
         document.getElementById(`img${i}Div`).innerHTML = `<img src='../Images/Users/Shared/empty.png' alt='img${i}' id='img${i}'>`;

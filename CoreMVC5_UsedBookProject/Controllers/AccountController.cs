@@ -374,10 +374,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 user.Nickname = userViewModel.Nickname;
                 user.Email = userViewModel.Email;
                 user.PhoneNo = userViewModel.PhoneNo;
-                if (userViewModel.UserIcon == "無圖片")
-                {
-                    user.UserIcon = "empty.png";
-                }
+                user.UserIcon = userViewModel.UserIcon;
                 if (userViewModel.File1 != null)
                 {
                     user.UserIcon = String.Concat($"UserIcon", Path.GetExtension(Convert.ToString(userViewModel.File1.FileName)));
