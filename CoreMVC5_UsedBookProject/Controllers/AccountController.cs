@@ -237,7 +237,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     //Password = _hashService.MD5Hash(registerVM.Password),
                     Password = password,
                     Nickname = registerVM.UserName,
-                    UserIcon = "empty.png"
+                    UserIcon = "UserIcon.png"
                 };
 
                 _ctx.Users.Add(user);
@@ -374,13 +374,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 user.Nickname = userViewModel.Nickname;
                 user.Email = userViewModel.Email;
                 user.PhoneNo = userViewModel.PhoneNo;
-                user.UserIcon = userViewModel.UserIcon;
                 if (userViewModel.File1 != null)
                 {
                     user.UserIcon = String.Concat($"UserIcon", Path.GetExtension(Convert.ToString(userViewModel.File1.FileName)));
                 }
                 _ctx.SaveChanges();
-                _accountService.UploadImages(userViewModel.File1, userViewModel.UserIcon, user.Id);
+                _accountService.UploadImages(userViewModel.File1, user.Id);
                 ViewData["Title"] = "資訊變更";
                 ViewData["Message"] = "使用者資訊變更成功!";  //顯示訊息
 
@@ -502,7 +501,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                                 //Password = _hashService.MD5Hash(registerVM.Password),
                                 Password = password,
                                 Nickname = listA[i],
-                                UserIcon = "empty.png"
+                                UserIcon = "UserIcon.png"
                             };
 
                             _ctx.Users.Add(user);
@@ -512,7 +511,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                                 Directory.CreateDirectory(folderPath);
                             }
                             FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
-                            fi.CopyTo($@"{folderPath}\empty.png", true);
+                            fi.CopyTo($@"{folderPath}\UserIcon.png", true);
                             UserRoles userRoles1 = new UserRoles
                             {
                                 UserId = Id,
