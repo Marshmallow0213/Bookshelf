@@ -1,0 +1,100 @@
+﻿@model List<int>
+@{
+    ViewData["Title"] = "管理員與使用者占比";
+    Layout = "_LayoutAdministratorCharts";
+}
+<div class="sidebar">
+    <ul class="menu">
+        <li class="menu-item">
+            <a asp-controller="AdministratorHomePage" asp-action="AdministratorHome" class="navtext">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext" style="background-color: white; color:black;">管理員與使用者占比</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕5</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕6</a>
+        </li>
+    </ul>
+</div>
+<div style="display:flex;">
+    <div style="width: 30%; padding: 300px;">
+    </div>
+    <div class="content">
+        <div style="display: flex;">
+            <div style="width: 800px; height: 500px; margin-right: 20px;">
+                <canvas id="AdminPermissionsChart"></canvas>
+            </div>
+            <div style="width: 800px; height: 500px;">
+                <canvas id="UserDataChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        var adminData = @Html.Raw(ViewBag.AdminData);
+        var userData = @Html.Raw(ViewBag.UserData);
+
+        var adminCtx = document.getElementById("AdminPermissionsChart");
+        var userCtx = document.getElementById("UserDataChart");
+
+        var adminChart = new Chart(adminCtx, {
+            type: "pie",
+            data: {
+                labels: ["一級管理員", "二級管理員", "已停權"],
+                datasets: [{
+                    data: adminData,
+                    backgroundColor: [
+                        "LightSkyBlue",
+                        "LightPink",
+                        "LightGray"
+                    ],
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                        boxWidth: 80
+                    }
+                }
+            }
+        });
+
+        var userChart = new Chart(userCtx, {
+            type: "pie",
+            data: {
+                labels: ["賣家", "買家", "管理員"],
+                datasets: [{
+                    data: userData,
+                    backgroundColor: [
+                        "LightSkyBlue",
+                        "LightPink",
+                        "LightGray"
+                    ],
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                        boxWidth: 80
+                    }
+                }
+            }
+        });
+    </script>
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
     <link href="~/css/seller/all.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/css/buttons.css" rel="stylesheet" />
     <script src="~/lib/chart.js/chart.min.js"></script>
     <script src="~/lib/Ch"></script>
     @RenderSection("topCSS",required:false)
@@ -51,7 +52,7 @@
             <div class="container">
                 &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Index">隱私中心</a>
             </div>
-            <link href="~/css/buttons.css" rel="stylesheet" />
+            
             @if (User.Identity.IsAuthenticated)
             {
                 @if (!User.IsInRole("Buyer") && !User.IsInRole("Seller"))

@@ -3,29 +3,42 @@ using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class AdminChartsController : Controller
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AdminAccountContext _ctx;
-        private readonly IHashService _hashService;
+        private readonly ProductContext _ctxc;
 
-        public AdminChartsController(AdminAccountContext ctx)
+        public AdminChartsController(AdminAccountContext ctx, ProductContext ctxc)
         {
             _ctx = ctx;
+            _ctxc = ctxc;
         }
-
-        public IActionResult AdminChartsView()
+        public IActionResult ChartsView()
         {
-            //var users = _ctx.Users.ToList();
-            string[] userName = _ctx.Users.Select(u => u.Name).ToArray();
-            string[] userData = _ctx.Users.Select(u => u.Nickname).ToArray();
+            var adminRoleCounts = _ctx.UserRoles
+                .Where(r => r.RoleId == "R001" ||
+                            r.RoleId == "R002" ||
+                            r.RoleId == "R003")
+                .GroupBy(r => r.RoleId)
+                .Select(g => g.Count())
+                .ToList();
 
-            ViewBag.UserName = userName;
-            ViewBag.UserData = userData;
+            var userRoleCounts = _ctxc.UserRoles
+                .Where(r => r.RoleId == "R001" ||
+                            r.RoleId == "R002" ||
+                            r.RoleId == "R003")
+                .GroupBy(r => r.RoleId)
+                .Select(g => g.Count())
+                .ToList();
+
+            ViewBag.AdminData = JsonSerializer.Serialize(adminRoleCounts);
+            ViewBag.UserData = JsonSerializer.Serialize(userRoleCounts);
 
             return View();
         }

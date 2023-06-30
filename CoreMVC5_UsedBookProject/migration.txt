@@ -3,4 +3,3 @@ update-database -context ProductContext
 
 add-migration init -context AdminAccountContext
 update-database -context AdminAccountContext
-dotnet ef database update -context AdminAccountContext

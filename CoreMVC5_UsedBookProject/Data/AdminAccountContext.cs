@@ -30,14 +30,15 @@ namespace CoreMVC5_UsedBookProject.Data
                 //);
             //Password未加密
             modelBuilder.Entity<AdministratorUser>().HasData(
-                new AdministratorUser { Id = "B001", Name = "Potatodog@bookshelf.com", Password = _hashService.MD5Hash("MBpassword001"), Nickname = "馬鈴薯狗", PhoneNo = "0976185786", Email = "Potatodog@bookshelf.com" },
-                new AdministratorUser { Id = "B002", Name = "Tony@bookshelf.com", Password = _hashService.MD5Hash("MBpassword002"), Nickname = "Tony", PhoneNo = "0900000000", Email = "Tony@bookshelf.com" },
-                new AdministratorUser { Id = "B003", Name = "Neverloses@bookshelf.com", Password = _hashService.MD5Hash("MBpassword003"), Nickname = "甲甲志", PhoneNo = "0900000000", Email = "Neverloses@bookshelf.com" }
+                new AdministratorUser { Id = "B001", Name = "Potatodog@bookshelf.com", Password = _hashService.MD5Hash("MBpassword001"), Nickname = "馬鈴薯狗", PhoneNo = "0900-951-456", Email = "Potatodog@bookshelf.com" },
+                new AdministratorUser { Id = "B002", Name = "Tony@bookshelf.com", Password = _hashService.MD5Hash("MBpassword002"), Nickname = "Tony", PhoneNo = "0933-941-941", Email = "Tony@bookshelf.com" },
+                new AdministratorUser { Id = "B003", Name = "Neverloses@bookshelf.com", Password = _hashService.MD5Hash("MBpassword003"), Nickname = "甲甲志", PhoneNo = "0987-587-587", Email = "Neverloses@bookshelf.com" }
                 );
 
             modelBuilder.Entity<AdministratorRole>().HasData(
-            new AdministratorRole { Id = "R001", Name = "Administrator" },
-                new AdministratorRole { Id = "R002", Name = "common user" }
+                new AdministratorRole { Id = "R001", Name = "Top Administrator" },
+                new AdministratorRole { Id = "R002", Name = "common Administrator" },
+                new AdministratorRole { Id = "R003", Name = "Suspended Administrator" }
                 );
 
             modelBuilder.Entity<AdministratorUserRoles>()

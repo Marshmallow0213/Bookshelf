@@ -29,6 +29,9 @@ namespace CoreMVC5_UsedBookProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
+            services.AddControllersWithViews();
             services.AddControllersWithViews();
             services.AddCookiePolicy(options =>
             {
@@ -85,6 +88,12 @@ namespace CoreMVC5_UsedBookProject
             app.UseAuthentication(); //驗證
 
             app.UseAuthorization();  //授權
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<CpuHub>("/CpuHub");
+
+            });
 
             app.UseEndpoints(endpoints =>
             {

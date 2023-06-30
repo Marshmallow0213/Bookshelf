@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CoreMVC5_UsedBookProject.Models.AdministratorUser>
 @{
-    ViewData["Title"] = "管理員控制中心";
+    ViewData["Title"] = "管理人員控管";
 }
 <div class="sidebar">
     <ul class="menu">
@@ -11,10 +11,10 @@
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext" style="background-color: white; color:black;">管理人員控管</a>
         </li>
         <li class="menu-item">
-            <a asp-controller="AdminCharts" asp-action="AdminChartsView" class="navtext">書籍圖表占比</a>
+            <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
         </li>
         <li class="menu-item">
-            <a href="#" class="navtext">按鈕4</a>
+            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
         </li>
         <li class="menu-item">
             <a href="#" class="navtext">按鈕5</a>
@@ -35,8 +35,8 @@
                             <th colspan="3" class="text-center btn-info">管理員資料列表</th>
                         </tr>
                         <tr>
+                            <th>@Html.DisplayNameFor(m => m.Id)</th>
                             <th>@Html.DisplayNameFor(m => m.Name)</th>
-                            <th>@Html.DisplayNameFor(m => m.Nickname)</th>
                             <th>資料變更</th>
                         </tr>
                     </thead>
@@ -49,8 +49,8 @@
                             int atIndex = name.IndexOf('@');
                             string firstName = name.Substring(0, atIndex);
                         }
+                        <td>@m.Id</td>
                         <td>@firstName</td>
-                        <td>@m.Nickname</td>
                         <td>
                             <a asp-action="AdministratorEdit" asp-route-id="@m.Id" class="btn btn-info">編輯</a>
                             <a asp-action="AdministratorDetail" asp-route-id="@m.Id" class="btn btn-primary">詳細資料</a>

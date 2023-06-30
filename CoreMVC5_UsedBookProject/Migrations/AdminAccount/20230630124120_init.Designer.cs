@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 {
     [DbContext(typeof(AdminAccountContext))]
-    [Migration("20230628064335_init")]
+    [Migration("20230630124120_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,12 +36,17 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         new
                         {
                             Id = "R001",
-                            Name = "Administrator"
+                            Name = "Top Administrator"
                         },
                         new
                         {
                             Id = "R002",
-                            Name = "common user"
+                            Name = "common Administrator"
+                        },
+                        new
+                        {
+                            Id = "R003",
+                            Name = "Suspended Administrator"
                         });
                 });
 
@@ -77,7 +82,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                             Name = "Potatodog@bookshelf.com",
                             Nickname = "馬鈴薯狗",
                             Password = "d5e10bd206b5f1aca583f37be2566e70",
-                            PhoneNo = "0976185786"
+                            PhoneNo = "0900-951-456"
                         },
                         new
                         {
@@ -86,7 +91,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                             Name = "Tony@bookshelf.com",
                             Nickname = "Tony",
                             Password = "213ffb90868d8b9c58aae64988f642f1",
-                            PhoneNo = "0900000000"
+                            PhoneNo = "0933-941-941"
                         },
                         new
                         {
@@ -95,7 +100,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                             Name = "Neverloses@bookshelf.com",
                             Nickname = "甲甲志",
                             Password = "b70d01e0fac31e93a760021e7cf970d4",
-                            PhoneNo = "0900000000"
+                            PhoneNo = "0987-587-587"
                         });
                 });
 

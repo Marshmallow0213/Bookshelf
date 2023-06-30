@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Top Administrator")]
     public class AdministratorProfileController : Controller
     {
         private readonly AdminAccountContext _ctx;
@@ -29,7 +29,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public async Task<IActionResult> AdministratorData()
         {
             var model = await _ctx.Users.ToListAsync();
-
             return View(model);
         }
        
@@ -65,16 +64,27 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                // 对密码进行加密
                 string hashedPassword = _hashService.MD5Hash(administratorUser.Password);
                 administratorUser.Password = hashedPassword;
 
                 _ctx.Users.Add(administratorUser);
                 await _ctx.SaveChangesAsync();
+
+                var userRole = new AdministratorUserRoles
+                {
+                    UserId = administratorUser.Id,
+                    RoleId = "R001"
+                };
+
+                _ctx.UserRoles.Add(userRole);
+                await _ctx.SaveChangesAsync();
+
                 return RedirectToAction("AdministratorData");
             }
+
             return View(administratorUser);
         }
+
 
         public async Task<IActionResult> AdministratorEdit(string id)
         {
@@ -164,7 +174,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(administratorUser);
         }
 
-        public IActionResult DeactivateAdmin(string id)
+        public IActionResult TopAdministrator(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -174,7 +184,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             try
             {
                 var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
-                var role = _ctx.Roles.Where(r => r.Name == "common user").FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "Top Administrator").FirstOrDefault();
                 if (data != null && role != null)
                 {
                     var newUserRole = new AdministratorUserRoles
@@ -195,7 +205,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return RedirectToAction("AdministratorData");
         }
 
-        public IActionResult OpenAdmin(string id)
+        public IActionResult commonAdministrator(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -205,7 +215,38 @@ namespace CoreMVC5_UsedBookProject.Controllers
             try
             {
                 var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
-                var role = _ctx.Roles.Where(r => r.Name == "Administrator").FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "common Administrator").FirstOrDefault();
+                if (data != null && role != null)
+                {
+                    var newUserRole = new AdministratorUserRoles
+                    {
+                        UserId = id,
+                        RoleId = role.Id
+                    };
+                    _ctx.Remove(data);
+                    _ctx.UserRoles.Add(newUserRole);
+                    _ctx.SaveChanges();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.Data);
+            }
+
+            return RedirectToAction("AdministratorData");
+        }
+
+        public IActionResult SuspendedAdministrator(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "Suspended Administrator").FirstOrDefault();
                 if (data != null && role != null)
                 {
                     var newUserRole = new AdministratorUserRoles

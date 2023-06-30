@@ -289,3 +289,24 @@
     .login-container .back-to-home {
         text-align: center;
     }
+.top-administrator {
+    background-color: red;
+}
+
+.common-administrator {
+    background-color: yellow;
+}
+
+.suspended-administrator {
+    background-color: green;
+}
+.card {
+    transition: transform 0.7s;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    }
+

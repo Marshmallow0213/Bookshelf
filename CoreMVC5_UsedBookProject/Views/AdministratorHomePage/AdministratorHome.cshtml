@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CoreMVC5_UsedBookProject.Models.AdministratorUser>
 
 @{
-    ViewData["Title"] = "管理員控制中心";
+    ViewData["Title"] = "管理員人員名單";
 }
 <div class="sidebar">
     <ul class="menu">
@@ -12,10 +12,10 @@
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
         </li>
         <li class="menu-item">
-            <a asp-controller="AdminCharts" asp-action="AdminChartsView" class="navtext">書籍圖表占比</a>
+            <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
         </li>
         <li class="menu-item">
-            <a href="#" class="navtext">按鈕4</a>
+            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
         </li>
         <li class="menu-item">
             <a href="#" class="navtext">按鈕5</a>
@@ -27,41 +27,43 @@
 </div>
 
 <div style="display:flex;">
-    <div style="width: 30%; padding: 300px;">
-    </div>
-    <div class="container">
+    <div style="width: 30%; padding: 300px;"></div>
+    <div class="container" style="display:flex; width:auto;">
         <div class="row">
             <div class="content">
                 <h1>管理員控制中心</h1>
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    string email = User.Identity.Name;
-                    string[] segmentation = email.Split('@');
-                    string username = segmentation[0];
+                    string name = User.Identity.Name;
+                    int atIndex = name.IndexOf('@');
+                    string firstName = name.Substring(0, atIndex);
 
-                    <h2>你好: @username 歡迎來到管理員控制中心</h2>
+                    <h2>你好: @firstName 歡迎來到管理員控制中心</h2>
                 }
-                @foreach (var Users in Model)
-                {
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                @{
-                                    string Name = User.Identity.Name;
-                                    string[] segmentation = Name.Split('@');
-                                    string username = segmentation[0];
-                                    string fullName = username;
-                                }
-                                <h5 class="card-title">@fullName</h5>
-                                <p class="card-text">@Users.Nickname</p>
-                                <p class="card-text">@Users.Email</p>
-                                <p class="card-text">@Users.PhoneNo</p>
+                <div class="card-container" style="display: flex; flex-wrap: wrap;">
+                    @foreach (var Users in Model)
+                    {
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" style="padding:0; margin:0;">
+                            <div class="card" style="flex: 0 0 100%; max-width: 100%; margin:10px; background-color: lightyellow; text-align:center;">
+                                <div class="card-body">
+                                    @{
+                                        string Name = Users.Name;
+                                        string[] segmentation = Name.Split('@');
+                                        string username = segmentation[0];
+                                        string fullName = username;
+                                    }
+                                    <h5 class="card-title" style="background-color: mistyrose;">@fullName</h5>
+                                    <p class="card-text" style="background-color: lightyellow;">@Users.Nickname</p>
+                                    <p class="card-text" style="background-color: lightyellow;">@Users.Email</p>
+                                    <p class="card-text" style="background-color: lightyellow;">@Users.PhoneNo</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
+<link href="~/css/buttons.css" rel="stylesheet" />
