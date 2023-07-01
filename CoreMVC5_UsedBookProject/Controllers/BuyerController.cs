@@ -130,5 +130,34 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Shoppingcart", new {});
         }
+        public IActionResult Wish()
+
+        {
+            var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN ,WishId=w.WishId,Id=w.Id}).ToList();
+               
+            return View(wishlist);
+        }
+        [HttpPost]
+        public IActionResult AddBook(WishViewModel book)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            Wish bookWish = new Wish { Title=book.Title,ISBN=book.ISBN,Id=name};
+
+
+            _context.Wishes.Add(bookWish);
+            _context.SaveChanges();
+            return RedirectToAction("Wish", new { });
+        }
+        public IActionResult DeleteBook(int Id)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var wish = _context.Wishes.Where(w => w.WishId == Id).FirstOrDefault();
+            
+
+            _context.Wishes.Remove(wish);
+            _context.SaveChanges();
+            return RedirectToAction("Wish", new { });
+        }
+
     }
 }

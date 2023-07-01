@@ -1,0 +1,39 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model List<WishViewModel>
+<div class="container-fluid">
+    <h2>願望清單</h2>
+    <form method="post" enctype="multipart/form-data" action="/Buyer/AddBook">
+        <div>
+            <label for="title">書名:</label>
+            <input type="text" id="title" name="title" required />
+        </div>
+        <div>
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" required />
+        </div>
+
+        <button type="submit">許願井</button>
+    </form>
+
+
+    @if (Model.Count > 0)
+    {
+        <ul>
+            @foreach (var book in Model)
+            {
+
+                <li>書名:@book.Title ISBN:@book.ISBN</li>
+                <a href="/Buyer/DeleteBook?Id=@book.WishId">刪除</a>
+
+            }
+        </ul>
+    }
+    else
+    {
+        <p>願望清單是空的</p>
+    }
+
+
+   
+
+</div>
