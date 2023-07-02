@@ -185,6 +185,31 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-       
+        private List<string> GetPredictionsFromData(string searchText)
+        {
+            var predictions =_context.Products
+                .Where(p => p.Title.Contains(searchText))
+                .Select(p => p.Title)
+                .ToList();
+            if(predictions.Count == 0)
+            {
+                 predictions = _context.Products.Where(p => p.ISBN.Contains(searchText))
+                .Select(p => p.ISBN)
+                .ToList();
+
+            }
+            return predictions;
+        }
+
+        public IActionResult GetPredictions(string searchText)
+        {
+            
+            var predictions = GetPredictionsFromData(searchText);
+
+            
+            return PartialView("GetPredictions", predictions);
+        }
+
+
     }
 }

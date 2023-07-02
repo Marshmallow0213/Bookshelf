@@ -33,7 +33,8 @@
                 <input type="checkbox" id="switch-search" class="d-none" style="position: absolute; top: 0; left: 0;">
                 <div class="search-menu">
                     <form class="form-inline flex-grow-1 px-2" action="~/Home/SearchProductbyName" method="get">
-                        <input class="form-control mr-sm-2" type="search" placeholder="輸入書名或ISBN" aria-label="Search" name="name">
+                        <input class="form-control mr-sm-2" type="search" placeholder="輸入書名或ISBN" id="searchInput" oninput="getPredictions()" aria-label="Search" name="name">
+                        <div id="predictionList"></div>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜尋</button>
                     </form>
                     
@@ -71,7 +72,26 @@
             }
             
         </div>
+
     </footer>
+    <script>
+        function getPredictions() {
+            var searchText = $('#searchInput').val();
+            if (searchText.length > 0) {
+                $.ajax({
+                    url: '/Home/GetPredictions',
+                    type: 'GET',
+                    data: { searchText: searchText },
+                    success: function (data) {
+                        $('#predictionList').html(data);
+                    }
+                });
+            } else {
+                $('#predictionList').empty();
+            }
+        }</script>
+   
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
