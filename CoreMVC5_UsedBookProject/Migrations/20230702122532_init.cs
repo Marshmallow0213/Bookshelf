@@ -172,59 +172,24 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     { "R001", "Seller" },
                     { "R002", "Buyer" },
                     { "R003", "Administrator" },
-                    { "R004", "" }
+                    { "R004", "Owner" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo", "UserIcon" },
-                values: new object[,]
-                {
-                    { "U001", "kevinxi@gmail.com", "Admin0001", "Admin0001", "$2a$11$1vyQSPQwBgY665N7lPYRg.Kxu.tGBSXBwn81tN9WlntsuNiyM2T/S", "0925-155222", "UserIcon.png" },
-                    { "U002", "marylee@gmail.com", "Admin0002", "Admin0002", "$2a$11$RkcXkUxnljVtfGFIqKHLae6skQxmOsHbVtpJ15rfHxt4K.OzDl/Lq", "0935-123123", "UserIcon.png" },
-                    { "U003", "johnwei@gmail.com", "Admin0003", "Admin0003", "$2a$11$T/kyWGbEdJEY.S5PGIbgJOsg8tXqxnxoAoqMXyiQq1eOOl0X/CSr.", "0955-456456", "UserIcon.png" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "ProductId", "Author", "ContentText", "CreateBy", "CreateDate", "Degree", "EditDate", "ISBN", "Image1", "Image2", "PublicationDate", "Publisher", "Status", "Title", "Trade", "UnitPrice" },
-                values: new object[,]
-                {
-                    { "P001", "作者", "Context1", "U001", new DateTime(2023, 7, 1, 21, 21, 9, 860, DateTimeKind.Local).AddTicks(5341), "二手", new DateTime(2023, 7, 1, 21, 21, 9, 861, DateTimeKind.Local).AddTicks(8740), "9876543210", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book1", "金錢", 500m },
-                    { "P002", "作者", "Context2", "U001", new DateTime(2023, 7, 1, 21, 21, 9, 861, DateTimeKind.Local).AddTicks(9658), "二手", new DateTime(2023, 7, 1, 21, 21, 9, 861, DateTimeKind.Local).AddTicks(9665), "9876543211", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book2", "金錢", 500m },
-                    { "P003", "作者", "Context3", "U001", new DateTime(2023, 7, 1, 21, 21, 9, 861, DateTimeKind.Local).AddTicks(9671), "二手", new DateTime(2023, 7, 1, 21, 21, 9, 861, DateTimeKind.Local).AddTicks(9673), "9876543212", "example.jpg", "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", "2023-01-01", "出版社", "未上架", "Book3", "以物易物", -1m }
-                });
+                values: new object[] { "Owner", "null", "uU7SkhR5UQ3sZA5B", "Owner", "$2a$11$i42.sChTRbo20x/XwN637Ogdcrx.GdhUCbopIXQp6rlgxjpxu8TPW", "null", "UserIcon.png" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "R001", "U001" },
-                    { "R002", "U001" },
-                    { "R003", "U001" },
-                    { "R001", "U002" },
-                    { "R002", "U002" },
-                    { "R003", "U002" },
-                    { "R001", "U003" },
-                    { "R002", "U003" },
-                    { "R003", "U003" }
+                    { "R001", "Owner" },
+                    { "R002", "Owner" },
+                    { "R003", "Owner" },
+                    { "R004", "Owner" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "Trade", "UnitPrice" },
-                values: new object[] { "O001", "U002", new DateTime(2023, 7, 1, 21, 21, 9, 863, DateTimeKind.Local).AddTicks(6227), "none", "P001", "U001", "待確認", "金錢", 500m });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "Trade", "UnitPrice" },
-                values: new object[] { "O002", "U002", new DateTime(2023, 7, 1, 21, 21, 9, 863, DateTimeKind.Local).AddTicks(6611), "none", "P002", "U001", "待確認", "金錢", 500m });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderId", "BuyerId", "CreateDate", "DenyReason", "ProductId", "SellerId", "Status", "Trade", "UnitPrice" },
-                values: new object[] { "O003", "U002", new DateTime(2023, 7, 1, 21, 21, 9, 863, DateTimeKind.Local).AddTicks(6618), "none", "P003", "U001", "待確認", "以物易物", -1m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ProductId",

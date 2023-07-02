@@ -41,64 +41,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> LoginHardCode(LoginViewModel loginVM)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //失敗
-        //        if (loginVM.UserName.ToUpper() != "Kevin".ToUpper() || loginVM.Password != "12345")
-        //        {
-        //            ModelState.AddModelError(string.Empty, "帳號密碼有錯!!!");
-        //            return View(loginVM);
-        //        }
-
-        //        //成功,通過帳比對,以下開始建授權
-        //        var claims = new List<Claim>
-        //        {
-        //            new Claim(ClaimTypes.Name, loginVM.UserName),
-        //            //new Claim(ClaimTypes.Role, "Administrator") // 如果要有「群組、角色、權限」，可以加入這一段  
-        //        };
-
-        //        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-        //        var authProperties = new AuthenticationProperties
-        //        {
-        //            //AllowRefresh = <bool>,
-        //            // Refreshing the authentication session should be allowed.
-
-        //            //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-        //            // The time at which the authentication ticket expires. A 
-        //            // value set here overrides the ExpireTimeSpan option of 
-        //            // CookieAuthenticationOptions set with AddCookie.
-
-        //            //IsPersistent = true,
-        //            // Whether the authentication session is persisted across 
-        //            // multiple requests. When used with cookies, controls
-        //            // whether the cookie's lifetime is absolute (matching the
-        //            // lifetime of the authentication ticket) or session-based.
-
-        //            //IssuedUtc = <DateTimeOffset>,
-        //            // The time at which the authentication ticket was issued.
-
-        //            //RedirectUri = <string>
-        //            // The full path or absolute URI to be used as an http 
-        //            // redirect response value.
-        //        };
-
-        //        await HttpContext.SignInAsync(
-        //            CookieAuthenticationDefaults.AuthenticationScheme,
-        //            new ClaimsPrincipal(claimsIdentity),
-        //            authProperties
-        //            );
-
-        //        return LocalRedirect("~/Home/Index");
-        //    }
-
-        //    return View(loginVM);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
@@ -175,101 +117,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return LocalRedirect("/");
         }
-        [HttpGet]
-        public IActionResult RegisterUserName()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult RegisterUserName(RegisterViewModel registerVM)
-        {
-            var checkAccountExist = (from p in _ctx.Users
-                                     where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
-                                     select new { p.Id }).FirstOrDefault();
-            if (checkAccountExist == null)
-            {
-                return RedirectToAction("Register", new { UserName = registerVM.UserName });
-            }
-            ViewBag.Error = "使用者名稱已存在";
-            return View(registerVM);
-        }
-        [HttpGet]
-        public IActionResult Register(string username)
-        {
-            ViewBag.UserName = username;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel registerVM)
-        {
-            if(ModelState.IsValid)
-            {
-                var checkAccountExist = (from p in _ctx.Users
-                                         where p.Name == $"{registerVM.UserName}"
-                                         select new { p.Id }).FirstOrDefault();
-                if (checkAccountExist != null)
-                {
-                    ViewBag.Error = "使用者名稱已存在";
-                    return View(registerVM);
-                }
-                string Id = Guid.NewGuid().ToString();
-                var checkIdExist = (from p in _ctx.Users
-                                         where p.Id == $"{Id}"
-                                         select new { p.Id }).FirstOrDefault();
-                while (checkIdExist != null)
-                {
-                    Id = Guid.NewGuid().ToString();
-                    checkIdExist = (from p in _ctx.Users
-                                         where p.Id == $"{Id}"
-                                         select new { p.Id }).FirstOrDefault();
-                };
-                //user => DB
-                //ViewModel => Data Model
-                string password = _hashService.HashPassword(registerVM.Password);
-                User user = new User
-                {
-                    Id = Id,
-                    Name = registerVM.UserName,
-                    //Password = _hashService.MD5Hash(registerVM.Password),
-                    Password = password,
-                    Nickname = registerVM.UserName,
-                    UserIcon = "UserIcon.png"
-                };
-
-                _ctx.Users.Add(user);
-                string folderPath = $@"Images\Users\{Id}";
-                if (!Directory.Exists(folderPath))
-                {
-                    Directory.CreateDirectory(folderPath);
-                }
-                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
-                fi.CopyTo($@"{folderPath}\empty.png", true);
-                UserRoles userRoles1 = new UserRoles
-                {
-                    UserId = Id,
-                    RoleId  = "R001",
-                };
-                UserRoles userRoles2 = new UserRoles
-                {
-                    UserId = Id,
-                    RoleId = "R002",
-                };
-                _ctx.UserRoles.Add(userRoles1);
-                _ctx.UserRoles.Add(userRoles2);
-                await _ctx.SaveChangesAsync();
-
-                ViewData["Title"] = "帳號註冊";
-                ViewData["Message"] = "使用者帳號註冊成功!";  //顯示訊息
-
-                return View("~/Views/Shared/ResultMessage.cshtml");
-            }
-
-            return View();
-        }
         public IActionResult Forbidden()
         {
             return View();
@@ -281,47 +129,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var user = _accountService.GetUser(name);
             return View(user);
         }
-        [Authorize(Roles = "Seller")]
-        [HttpGet]
-        public IActionResult ChangeUserName()
-        {
-            return View();
-        }
-        [Authorize(Roles = "Seller")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ChangeUserName(UserNameChangeViewModel userNameChangeVM)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(userNameChangeVM);
-            }
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-            string password = _hashService.HashPassword(userNameChangeVM.Password);
-            var user = (from p in _ctx.Users
-                        where p.Id == $"{name}"
-                        select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
-            if (!_hashService.Verify(userNameChangeVM.Password, user.Password))
-            {
-                ViewBag.Error1 = "密碼不符";
-                return View(userNameChangeVM);
-            }
-            var checkAccountExist = (from p in _ctx.Users
-                                     where p.Name.ToUpper() == $"{userNameChangeVM.UserName.ToUpper()}"
-                                     select new { p.Id }).FirstOrDefault();
-            if (checkAccountExist == null)
-            {
-                _ctx.Entry(user).State = EntityState.Modified;
-                user.Name = userNameChangeVM.UserName;
-                _ctx.SaveChanges();
-                ViewData["Title"] = "使用者名稱變更";
-                ViewData["Message"] = "使用者名稱變更成功!";  //顯示訊息
 
-                return View("~/Views/Shared/ResultMessage.cshtml");
-            }
-            ViewBag.Error2 = "使用者名稱已存在";
-            return View(userNameChangeVM);
-        }
         [Authorize(Roles = "Seller")]
         public IActionResult ChangePassword()
         {
@@ -387,13 +195,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(userViewModel);
         }
-        [Authorize(Roles = "Seller")]
+        [Authorize(Roles = "Administrator,Seller")]
         [HttpGet]
         public IActionResult ForgotPasswordUserName()
         {
             return View();
         }
-        [Authorize(Roles = "Seller")]
+        [Authorize(Roles = "Administrator,Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ForgotPasswordUserName(RegisterViewModel registerVM)
@@ -458,8 +266,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<string> listA = new List<string>();
-                List<string> listB = new List<string>();
+                List<string> listA = new();
+                List<string> listB = new();
                 using (var reader = new StreamReader(registerFromCSV.File.OpenReadStream()))
                 {
                     while (!reader.EndOfStream)
@@ -547,9 +355,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         List<string> noDeleteList = new()
                         {
                             // Adding elements to List
-                            "Admin0001",
-                            "Admin0002",
-                            "Admin0003"
+                            "uU7SkhR5UQ3sZA5B"
                         };
                         if (checkAccountExist != null && noDeleteList.ConvertAll(d => d.ToUpper()).Contains(listA[i].ToUpper()) == false)
                         {
