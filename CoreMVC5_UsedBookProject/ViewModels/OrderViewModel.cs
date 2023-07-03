@@ -13,7 +13,14 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string SellerId { get; set; }
         [Display(Name = "買家Id")]
         public string BuyerId { get; set; }
+        //
+        [Display(Name = "賣家Name")]
+        public string SellerName { get; set; }
+        [Display(Name = "買家Name")]
+        public string BuyerName { get; set; }
         [Display(Name = "取消原因")]
+        [Required(ErrorMessage = "{0}不可為空!")]
+        [MaxLength(200)]
         public string DenyReason { get; set; }
         [Display(Name = "訂單狀態")]
         public string Status { get; set; }

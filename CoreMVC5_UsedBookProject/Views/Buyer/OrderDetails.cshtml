@@ -8,14 +8,34 @@
 }
 <div class="container-fluid">
     <h1>訂單詳情</h1>
-    <form action="~/Seller/Edit" method="post">
+    <form action="~/Buyer/OrderDetails" method="post">
         <table class="container-fluid">
             <tr><td>@Html.DisplayNameFor(model => model.OrderId)</td><td>@Model.OrderId</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.SellerId)</td><td>@Model.SellerId</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.BuyerId)</td><td>@Model.BuyerId</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td>@Model.DenyReason</td></tr>
+            <tr><td>@Html.DisplayNameFor(model => model.SellerName)</td><td>@Model.SellerName</td></tr>
+            <tr><td>@Html.DisplayNameFor(model => model.BuyerName)</td><td>@Model.BuyerName</td></tr>
+            @if (Model.Status == "待確認" || Model.Status == "已成立")
+            {
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DenyReason)</td>
+                    <td>
+                        <div class="d-flex">
+                            <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
+                            <p id="DenyReason_length" class="text-right ml-4"></p>
+                        </div>
+                        <span asp-validation-for="DenyReason" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td>@Model.DenyReason</td></tr>
+            }
             <tr><td>@Html.DisplayNameFor(model => model.ProductId)</td><td>@Model.ProductId</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.Trade)</td><td>@Model.Trade</td></tr>
+            <input type="hidden" name="OrderId" class="form-control" id="OrderId" value="@Model.OrderId" readonly />
+            <input type="hidden" name="trade" class="form-control" id="trade" value="@Model.Trade" readonly />
             @if (Model.Trade == "金錢")
             {
                 <tr><td>@Html.DisplayNameFor(model => model.UnitPrice)</td><td>@(decimal.Round(Model.UnitPrice, 0) == 0 ? "" : decimal.Round(Model.UnitPrice, 0))</td></tr>
@@ -24,23 +44,15 @@
         </table>
         <br />
         <div class="gap-2">
-            <a href="@Url.Action("FinishOrder", "Seller", new {OrderId = Model.OrderId, trade = Model.Trade})" class="btn btn-primary">完成訂單</a>
+            @if (Model.Status == "已成立")
+            {
+                <a href="@Url.Action("FinishOrder", "Buyer", new {OrderId = Model.OrderId, trade = Model.Trade})" class="btn btn-primary">完成訂單</a>
+            }
+            @if (Model.Status == "待確認" || Model.Status == "已成立")
+            {
+                <button type="submit" class="btn btn-primary">取消訂單</button>
+            }
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
         </div>
     </form>
 </div>
-@section topCSS{
-    <link href="~/css/seller/detailtablepartial.css" asp-append-version="true" rel="stylesheet" />
-
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
-    <!-- Demo styles -->
-    <link rel="stylesheet" href="~/css/Swiper/Swiper.css" />
-}
-@section endJS{
-    <!-- Swiper JS -->
-    <script src="~/lib//Swiper/swiper-bundle.min.js"></script>
-    <!-- Initialize Swiper -->
-    <script src="~/js/Swiper/Swiper.js"></script>
-    <script src="~/js/seller/detailtablepartial.js" asp-append-version="true"></script>
-}

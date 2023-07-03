@@ -170,6 +170,24 @@ namespace CoreMVC5_UsedBookProject.Controllers
             mymodel = _buyerService.GetOrder(OrderId, trade);
             return View(mymodel);
         }
+        [HttpPost]
+        public IActionResult OrderDetails(OrderViewModel orderViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _buyerService.CancelOrder(orderViewModel.OrderId);
+                return RedirectToAction("MySales", new { status = "待取消", trade = orderViewModel.Trade });
+            }
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            OrderViewModel mymodel = new();
+            ViewBag.trade = orderViewModel.Trade;
+            if (orderViewModel.Trade != "金錢" && orderViewModel.Trade != "以物易物")
+            {
+                return NotFound();
+            }
+            mymodel = _buyerService.GetOrder(orderViewModel.OrderId, orderViewModel.Trade);
+            return View(mymodel);
+        }
         public IActionResult FinishOrder(string orderId, string trade)
         {
             _buyerService.FinishOrder(orderId);
