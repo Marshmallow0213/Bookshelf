@@ -10,19 +10,19 @@
     <h2>你的待處理事項<strong>(金錢)</strong></h2>
     <div class="row">
         <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[0]["待確認"] > 0 ? "background-color: #80808050;" : "background-color: #80808025;")">
+            <div class="py-2" style="@(Model[0]["待確認"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
                 <p class="text-center" style="@(@Model[0]["待確認"] > 0 ? "color: red;" : "")">@Model[0]["待確認"]</p>
                 <p class="text-center">待確認訂單</p>
             </div>
         </div>
         <div class="col-4 px-1 my-1">
-            <div class="py-2" style="background-color: #80808025;">
-                <p class="text-center">@Model[0]["已成立"]</p>
-                <p class="text-center">已處理訂單</p>
+            <div class="py-2" style="@(Model[0]["已成立"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
+                <p class="text-center" style="@(@Model[0]["已成立"] > 0 ? "color: red;" : "")">@Model[0]["已成立"]</p>
+                <p class="text-center">已成立訂單</p>
             </div>
         </div>
         <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[0]["待取消"] > 0 ? "background-color: #80808050;" : "background-color: #80808025;")">
+            <div class="py-2" style="@(Model[0]["待取消"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
                 <p class="text-center" style="@(@Model[0]["待取消"] > 0 ? "color: red;" : "")">@Model[0]["待取消"]</p>
                 <p class="text-center">待取消訂單</p>
             </div>
@@ -31,19 +31,19 @@
     <h2>你的待處理事項<strong>(以物易物)</strong></h2>
     <div class="row">
         <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[1]["待確認"] > 0 ? "background-color: #80808050;" : "background-color: #80808025;")">
+            <div class="py-2" style="@(Model[1]["待確認"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
                 <p class="text-center" style="@(@Model[1]["待確認"] > 0 ? "color: red;" : "")">@Model[1]["待確認"]</p>
                 <p class="text-center">待確認訂單</p>
             </div>
         </div>
         <div class="col-4 px-1 my-1">
-            <div class="py-2" style="background-color: #80808025;">
-                <p class="text-center">@Model[1]["已成立"]</p>
-                <p class="text-center">已處理訂單</p>
+            <div class="py-2" style="@(Model[1]["已成立"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
+                <p class="text-center" style="@(@Model[1]["已成立"] > 0 ? "color: red;" : "")">@Model[1]["已成立"]</p>
+                <p class="text-center">已成立訂單</p>
             </div>
         </div>
         <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[1]["待取消"] > 0 ? "background-color: #80808050;" : "background-color: #80808025;")">
+            <div class="py-2" style="@(Model[1]["待取消"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
                 <p class="text-center" style="@(@Model[1]["待取消"] > 0 ? "color: red;" : "")">@Model[1]["待取消"]</p>
                 <p class="text-center">待取消訂單</p>
             </div>

@@ -11,7 +11,7 @@
         <div class="col-12">
             <form asp-action="RegisterFromCSV" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <p>@Html.DisplayNameFor(model => model.File)</p>
+                <p>@Html.DisplayNameFor(model => model.File) 限2MB以內</p>
                 <div class="d-flex align-items-end">
                     <label for="file1" class="btn btn-primary">
                         選擇檔案
@@ -27,7 +27,7 @@
                         使用者
                     </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check mt-3">
                     <input class="form-check-input" type="radio" asp-for="Role" id="flexRadioTrade2" value="管理者">
                     <label class="form-check-label" for="flexRadioTrade2">
                         管理者

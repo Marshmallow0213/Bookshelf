@@ -66,9 +66,6 @@
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "Account", new {})">變更密碼</a>
         </li>
-        <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserName", "Account", new {})">變更使用者名稱</a>
-        </li>
         @if (User.IsInRole("Administrator"))
         {
             <li class="list-unstyled aside-link">
@@ -92,6 +89,9 @@
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Shoppingcart", "Buyer", new {})">購物車</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Wish", "Buyer", new {})">許願井</a>
         </li>
     }
 </ul>

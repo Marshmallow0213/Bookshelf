@@ -59,44 +59,6 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderId = "O001",
-                            BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 28, 14, 43, 18, 241, DateTimeKind.Local).AddTicks(9447),
-                            DenyReason = "none",
-                            ProductId = "P001",
-                            SellerId = "U001",
-                            Status = "待確認",
-                            Trade = "金錢",
-                            UnitPrice = 500m
-                        },
-                        new
-                        {
-                            OrderId = "O002",
-                            BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 28, 14, 43, 18, 241, DateTimeKind.Local).AddTicks(9761),
-                            DenyReason = "none",
-                            ProductId = "P002",
-                            SellerId = "U001",
-                            Status = "待確認",
-                            Trade = "金錢",
-                            UnitPrice = 500m
-                        },
-                        new
-                        {
-                            OrderId = "O003",
-                            BuyerId = "U002",
-                            CreateDate = new DateTime(2023, 6, 28, 14, 43, 18, 241, DateTimeKind.Local).AddTicks(9768),
-                            DenyReason = "none",
-                            ProductId = "P003",
-                            SellerId = "U001",
-                            Status = "待確認",
-                            Trade = "以物易物",
-                            UnitPrice = -1m
-                        });
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Product", b =>
@@ -158,6 +120,10 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TradingPlaceAndTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
@@ -166,65 +132,6 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasIndex("CreateBy");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = "P001",
-                            Author = "作者",
-                            ContentText = "Context1",
-                            CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 28, 14, 43, 18, 238, DateTimeKind.Local).AddTicks(9163),
-                            Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 28, 14, 43, 18, 240, DateTimeKind.Local).AddTicks(5314),
-                            ISBN = "9876543210",
-                            Image1 = "example.jpg",
-                            Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
-                            PublicationDate = "2023-01-01",
-                            Publisher = "出版社",
-                            Status = "未上架",
-                            Title = "Book1",
-                            Trade = "金錢",
-                            UnitPrice = 500m
-                        },
-                        new
-                        {
-                            ProductId = "P002",
-                            Author = "作者",
-                            ContentText = "Context2",
-                            CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 28, 14, 43, 18, 240, DateTimeKind.Local).AddTicks(6023),
-                            Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 28, 14, 43, 18, 240, DateTimeKind.Local).AddTicks(6029),
-                            ISBN = "9876543211",
-                            Image1 = "example.jpg",
-                            Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
-                            PublicationDate = "2023-01-01",
-                            Publisher = "出版社",
-                            Status = "未上架",
-                            Title = "Book2",
-                            Trade = "金錢",
-                            UnitPrice = 500m
-                        },
-                        new
-                        {
-                            ProductId = "P003",
-                            Author = "作者",
-                            ContentText = "Context3",
-                            CreateBy = "U001",
-                            CreateDate = new DateTime(2023, 6, 28, 14, 43, 18, 240, DateTimeKind.Local).AddTicks(6036),
-                            Degree = "二手",
-                            EditDate = new DateTime(2023, 6, 28, 14, 43, 18, 240, DateTimeKind.Local).AddTicks(6037),
-                            ISBN = "9876543212",
-                            Image1 = "example.jpg",
-                            Image2 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片",
-                            PublicationDate = "2023-01-01",
-                            Publisher = "出版社",
-                            Status = "未上架",
-                            Title = "Book3",
-                            Trade = "以物易物",
-                            UnitPrice = -1m
-                        });
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Role", b =>
@@ -259,7 +166,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         new
                         {
                             Id = "R004",
-                            Name = ""
+                            Name = "Owner"
                         });
                 });
 
@@ -323,32 +230,12 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "U001",
-                            Email = "kevinxi@gmail.com",
-                            Name = "Admin0001",
-                            Nickname = "Admin0001",
-                            Password = "$2a$11$FpmWDffIDO9DHzi4nd46xuJcZrxxGsvh77NL5u/aRI1hruuP7LKwa",
-                            PhoneNo = "0925-155222",
-                            UserIcon = "UserIcon.png"
-                        },
-                        new
-                        {
-                            Id = "U002",
-                            Email = "marylee@gmail.com",
-                            Name = "Admin0002",
-                            Nickname = "Admin0002",
-                            Password = "$2a$11$IkjpFOr2ZnWORkS.XxfX2ezwg25chZDGE3q9YWLGLoZGRwV.ZzXrS",
-                            PhoneNo = "0935-123123",
-                            UserIcon = "UserIcon.png"
-                        },
-                        new
-                        {
-                            Id = "U003",
-                            Email = "johnwei@gmail.com",
-                            Name = "Admin0003",
-                            Nickname = "Admin0003",
-                            Password = "$2a$11$XjfS5fyle05kHNE7KPrNM./hK1YzETvbqmGbCJaXhlWRy5.kC8TOu",
-                            PhoneNo = "0955-456456",
+                            Id = "Owner",
+                            Email = "null",
+                            Name = "uU7SkhR5UQ3sZA5B",
+                            Nickname = "Owner",
+                            Password = "$2a$11$.qZBOBQllmLtuIyjY1.nMubxliseIq6y/sGWik9P7/CAgvLbQeRbi",
+                            PhoneNo = "null",
                             UserIcon = "UserIcon.png"
                         });
                 });
@@ -370,49 +257,49 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "U001",
+                            UserId = "Owner",
                             RoleId = "R001"
                         },
                         new
                         {
-                            UserId = "U002",
-                            RoleId = "R001"
-                        },
-                        new
-                        {
-                            UserId = "U003",
-                            RoleId = "R001"
-                        },
-                        new
-                        {
-                            UserId = "U001",
+                            UserId = "Owner",
                             RoleId = "R002"
                         },
                         new
                         {
-                            UserId = "U002",
-                            RoleId = "R002"
-                        },
-                        new
-                        {
-                            UserId = "U003",
-                            RoleId = "R002"
-                        },
-                        new
-                        {
-                            UserId = "U001",
+                            UserId = "Owner",
                             RoleId = "R003"
                         },
                         new
                         {
-                            UserId = "U002",
-                            RoleId = "R003"
-                        },
-                        new
-                        {
-                            UserId = "U003",
-                            RoleId = "R003"
+                            UserId = "Owner",
+                            RoleId = "R004"
                         });
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Wish", b =>
+                {
+                    b.Property<int>("WishId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WishId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("Wishes");
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Order", b =>
@@ -469,6 +356,15 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Wish", b =>
+                {
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Id");
 
                     b.Navigation("User");
                 });

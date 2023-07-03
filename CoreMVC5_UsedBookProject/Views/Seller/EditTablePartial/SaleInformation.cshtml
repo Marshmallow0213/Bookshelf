@@ -38,5 +38,15 @@
                 <span asp-validation-for="UnitPrice" class="text-danger"></span>
             </td>
         </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.TradingPlaceAndTime)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="TradingPlaceAndTime" class="form-control show-length" placeholder="輸入交易地點與時間"></textarea>
+                    <p id="TradingPlaceAndTime_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="TradingPlaceAndTime" class="text-danger"></span>
+            </td>
+        </tr>
     </tbody>
 </table>

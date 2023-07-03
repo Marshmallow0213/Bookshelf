@@ -45,7 +45,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             int targetLength = target.Length;
             int[,] distanceMatrix = new int[sourceLength + 1, targetLength + 1];
 
-            // 初始化距离矩阵
+            
             for (int i = 0; i <= sourceLength; i++)
             {
                 distanceMatrix[i, 0] = i;
@@ -56,7 +56,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 distanceMatrix[0, j] = j;
             }
 
-            // 计算编辑距离
             for (int i = 1; i <= sourceLength; i++)
             {
                 for (int j = 1; j <= targetLength; j++)
@@ -68,10 +67,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
             }
 
-            // 判断是否匹配成功
             int maxEditDistance = Math.Max(sourceLength, targetLength);
             int normalizedEditDistance = distanceMatrix[sourceLength, targetLength] * 100 / maxEditDistance;
-            double similarityThreshold = 0.8; // 设置相似度阈值
+            double similarityThreshold = 0.8; 
             return normalizedEditDistance <= (1 - similarityThreshold) * 100;
         }
         public IActionResult SearchProductbyName(string name)
@@ -132,40 +130,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
 
 
-            // 判断集合是否有数据
-            //if (products.Count == 0 )
-            //{
-            //    // 进行模糊匹配
-            //    var _products = _context.Products
-            //        .Where(p => FuzzyMatch(p.Title, name))
-            //        .Select(p => new ProductViewModel
-            //        {
-            //            ProductId = p.ProductId,
-            //            Title = p.Title,
-            //            ISBN = p.ISBN,
-            //            Author = p.Author,
-            //            Publisher = p.Publisher,
-            //            PublicationDate = p.PublicationDate,
-            //            Degree = p.Degree,
-            //            ContentText = p.ContentText,
-            //            Image1 = p.Image1,
-            //            Image2 = p.Image2,
-            //            Status = p.Status,
-            //            Trade = p.Trade,
-            //            UnitPrice = p.UnitPrice,
-            //            CreateDate = p.CreateDate,
-            //            EditDate = p.EditDate,
-            //            CreateBy = p.CreateBy
-            //        })
-            //        .ToList();
-            //    MyProductsViewModel mysearchproductmodel = new MyProductsViewModel
-            //    {
-            //        Products = _products
-            //    };
-
-            //    // 指派使用ListTable.cshtml
-            //    return View(mysearchproductmodel);
-            //}
             ViewBag.Count = $"find {products.Count} products";
             MyProductsViewModel mymodel = new MyProductsViewModel
             {
@@ -216,6 +180,31 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-       
+        private List<string> GetPredictionsFromData(string searchText)
+        {
+            var predictions =_context.Products
+                .Where(p => p.Title.Contains(searchText))
+                .Select(p => p.Title)
+                .ToList();
+            if(predictions.Count == 0)
+            {
+                 predictions = _context.Products.Where(p => p.ISBN.Contains(searchText))
+                .Select(p => p.ISBN)
+                .ToList();
+
+            }
+            return predictions;
+        }
+
+        public IActionResult GetPredictions(string searchText)
+        {
+            
+            var predictions = GetPredictionsFromData(searchText);
+
+            
+            return PartialView("GetPredictions", predictions);
+        }
+
+
     }
 }

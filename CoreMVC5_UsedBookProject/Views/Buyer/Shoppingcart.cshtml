@@ -1,42 +1,44 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
 @model MyProductsViewModel
 
-<h2>購物車</h2>
+<div class="container-fluid">
+    <h2>購物車</h2>
 
-@if (Model != null && Model.Products.Count > 0)
-{
-    @foreach (var item in Model.Products)
+    @if (Model != null && Model.Products.Count > 0)
     {
-        <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-            <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+        @foreach (var item in Model.Products)
+        {
+            <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
+                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+                </div>
+                <table class="container-fluid">
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
+                    @if (item.Trade == "金錢")
+                    {
+                        <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
+                    }
+                    else if (item.Trade == "以物易物")
+                    {
+                        <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
+                    }
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
+                </table>
+                <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
+                    <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="btn btn-primary mt-2">詳情</a>
+                    <a href="@Url.Action("DeleteFromShoppingcart", "Buyer", new {ProductId=@item.ProductId})" class="btn btn-danger mt-2">移除</a>
+                </div>
             </div>
-            <table class="container-fluid">
-                <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
-                <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
-                <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
-                <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                @if (item.Trade == "金錢")
-                {
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
-                }
-                else if (item.Trade == "以物易物")
-                {
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
-                }
-                <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
-            </table>
-            <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-                <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="btn btn-primary mt-2">詳情</a>
-                <a href="@Url.Action("DeleteFromShoppingcart", "Buyer", new {ProductId=@item.ProductId})" class="btn btn-danger mt-2">移除</a>
-            </div>
-        </div>
+        }
     }
-}
-else
-{
-    <p>購物車是空的</p>
-}
+    else
+    {
+        <p>購物車是空的</p>
+    }
+</div>
 @section topCSS{
     <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
 }

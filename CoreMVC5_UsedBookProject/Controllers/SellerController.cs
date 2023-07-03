@@ -189,6 +189,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _sellerService.DenyOrder(orderId);
             return RedirectToAction("MySales", new { status = "不成立", trade = trade });
         }
+        public IActionResult CancelOrder(string orderId, string trade)
+        {
+            _sellerService.CancelOrder(orderId);
+            return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+        }
         public IActionResult Error()
         {
             return View();

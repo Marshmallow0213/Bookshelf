@@ -130,5 +130,68 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Shoppingcart", new {});
         }
+        public IActionResult Wish()
+
+        {
+            var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN ,WishId=w.WishId,Id=w.Id}).ToList();
+               
+            return View(wishlist);
+        }
+        [HttpPost]
+        public IActionResult AddBook(WishViewModel book)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            Wish bookWish = new Wish { Title=book.Title,ISBN=book.ISBN,Id=name};
+
+
+            _context.Wishes.Add(bookWish);
+            _context.SaveChanges();
+            return RedirectToAction("Wish", new { });
+        }
+        public IActionResult DeleteBook(int Id)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var wish = _context.Wishes.Where(w => w.WishId == Id).FirstOrDefault();
+            
+
+            _context.Wishes.Remove(wish);
+            _context.SaveChanges();
+            return RedirectToAction("Wish", new { });
+        }
+        public IActionResult OrderDetails(string OrderId, string trade)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            OrderViewModel mymodel = new();
+            ViewBag.trade = trade;
+            if (trade != "金錢" && trade != "以物易物")
+            {
+                return NotFound();
+            }
+            mymodel = _buyerService.GetOrder(OrderId, trade);
+            return View(mymodel);
+        }
+        [HttpPost]
+        public IActionResult OrderDetails(OrderViewModel orderViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _buyerService.CancelOrder(orderViewModel.OrderId);
+                return RedirectToAction("MySales", new { status = "待取消", trade = orderViewModel.Trade });
+            }
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            OrderViewModel mymodel = new();
+            ViewBag.trade = orderViewModel.Trade;
+            if (orderViewModel.Trade != "金錢" && orderViewModel.Trade != "以物易物")
+            {
+                return NotFound();
+            }
+            mymodel = _buyerService.GetOrder(orderViewModel.OrderId, orderViewModel.Trade);
+            return View(mymodel);
+        }
+        public IActionResult FinishOrder(string orderId, string trade)
+        {
+            _buyerService.FinishOrder(orderId);
+            return RedirectToAction("MySales", new { status = "已完成", trade = trade });
+        }
     }
 }
