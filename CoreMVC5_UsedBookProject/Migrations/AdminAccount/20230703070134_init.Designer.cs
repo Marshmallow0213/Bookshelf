@@ -9,11 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 {
     [DbContext(typeof(AdminAccountContext))]
-<<<<<<<< HEAD:CoreMVC5_UsedBookProject/Migrations/AdminAccount/20230703052618_init.Designer.cs
-    [Migration("20230703052618_init")]
-========
-    [Migration("20230703025702_init")]
->>>>>>>> 71aa537739564ff1c6eea5e787e7c1e7136e5e5b:CoreMVC5_UsedBookProject/Migrations/AdminAccount/20230703025702_init.Designer.cs
+    [Migration("20230703070134_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

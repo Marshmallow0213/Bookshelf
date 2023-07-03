@@ -179,7 +179,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo", "UserIcon" },
-                values: new object[] { "Owner", "null", "uU7SkhR5UQ3sZA5B", "Owner", "$2a$11$.qZBOBQllmLtuIyjY1.nMubxliseIq6y/sGWik9P7/CAgvLbQeRbi", "null", "UserIcon.png" });
+                values: new object[] { "Owner", "null", "uU7SkhR5UQ3sZA5B", "Owner", "$2a$11$2dfzSpUE0sgNvgx9eTesEuH/RsVFkedd37zjI2fJwdkiDazIvFesC", "null", "UserIcon.png" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
