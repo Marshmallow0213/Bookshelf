@@ -38,6 +38,8 @@ namespace CoreMVC5_UsedBookProject.Models
         [Required]
         public DateTime EditDate { get; set; }
         [Required]
+        public string TradingPlaceAndTime { get; set; }
+        [Required]
         public string CreateBy { get; set; }
         public User User { get; set; }
     }

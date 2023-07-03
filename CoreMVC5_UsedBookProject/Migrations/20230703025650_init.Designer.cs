@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230702122532_init")]
+    [Migration("20230703025650_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,10 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Trade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TradingPlaceAndTime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -232,7 +236,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "null",
                             Name = "uU7SkhR5UQ3sZA5B",
                             Nickname = "Owner",
-                            Password = "$2a$11$i42.sChTRbo20x/XwN637Ogdcrx.GdhUCbopIXQp6rlgxjpxu8TPW",
+                            Password = "$2a$11$.qZBOBQllmLtuIyjY1.nMubxliseIq6y/sGWik9P7/CAgvLbQeRbi",
                             PhoneNo = "null",
                             UserIcon = "UserIcon.png"
                         });

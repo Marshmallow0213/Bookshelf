@@ -65,6 +65,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 { "待確認", 0 },
                 { "已成立", 0 },
                 { "不成立", 0 },
+                { "已完成", 0 },
                 { "待取消", 0 }
             };
             foreach (var item in countList.Keys)
@@ -211,6 +212,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 UnitPrice = checkUnitPrice,
                 CreateDate = DateTime.Now,
                 EditDate = DateTime.Now,
+                TradingPlaceAndTime = productCreateViewModel.TradingPlaceAndTime,
                 CreateBy = name
             };
             _context.Add(product);
@@ -339,6 +341,7 @@ namespace CoreMVC5_UsedBookProject.Services
             product.Trade = productEditViewModel.Trade;
             product.UnitPrice = checkUnitPrice;
             product.EditDate = DateTime.Now;
+            product.TradingPlaceAndTime = productEditViewModel.TradingPlaceAndTime;
             _context.SaveChanges();
             UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);
         }

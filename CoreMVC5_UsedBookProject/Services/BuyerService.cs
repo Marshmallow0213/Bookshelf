@@ -43,6 +43,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 UnitPrice = p.UnitPrice,
                 CreateDate = p.CreateDate,
                 EditDate = p.EditDate,
+                TradingPlaceAndTime = p.TradingPlaceAndTime,
                 CreateBy = p.CreateBy
             })
            .FirstOrDefault();
@@ -84,8 +85,8 @@ namespace CoreMVC5_UsedBookProject.Services
             {
                 { "全部", 0 },
                 { "未上架", 0 },
-                { "待審核", 0 },
                 { "已上架", 0 },
+                { "待確認", 0 },
                 { "已售完", 0 },
                 { "封禁", 0 },
                 { "刪除", 0 }
@@ -133,6 +134,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 { "待確認", 0 },
                 { "已成立", 0 },
                 { "不成立", 0 },
+                { "已完成", 0 },
                 { "待取消", 0 }
             };
             foreach (var item in countList.Keys)
@@ -178,8 +180,28 @@ namespace CoreMVC5_UsedBookProject.Services
                 CreateDate = DateTime.Now
             };
             _context.Add(order);
-            var exist = _context.Shoppingcarts.Where(w => w.ProductId == ProductId).FirstOrDefault();
-            _context.Shoppingcarts.Remove(exist);
+            var exist = _context.Shoppingcarts.Where(w => w.ProductId == ProductId).ToList();
+            foreach(var i in exist)
+            {
+                _context.Shoppingcarts.Remove(i);
+            }
+            _context.SaveChanges();
+        }
+        public OrderViewModel GetOrder(string OrderId, string trade)
+        {
+            OrderViewModel order = new();
+            order = (from o in _context.Orders
+                     from p in _context.Products
+                     where o.ProductId == p.ProductId && o.OrderId == OrderId
+                     orderby o.CreateDate descending
+                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, UnitPrice = o.UnitPrice, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
+            return order;
+        }
+        public void FinishOrder(string orderId)
+        {
+            var order = _context.Orders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "已完成";
             _context.SaveChanges();
         }
     }

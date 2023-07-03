@@ -98,6 +98,11 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "新增日期")]
         public DateTime CreateDate { get; set; }
         //
+        [Required(ErrorMessage = "{0}不可為空!")]
+        [Display(Name = "交易地點與時間")]
+        [MaxLength(200)]
+        public string TradingPlaceAndTime { get; set; }
+        //
         [Display(Name = "最後編輯日期")]
         public DateTime EditDate { get; set; }
         //

@@ -100,6 +100,9 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "最後編輯日期")]
         public DateTime EditDate { get; set; }
         //
+        [Display(Name = "交易地點與時間")]
+        public string TradingPlaceAndTime { get; set; }
+        //
         [MaxLength(200)]
         public string CreateBy { get; set; }
     }

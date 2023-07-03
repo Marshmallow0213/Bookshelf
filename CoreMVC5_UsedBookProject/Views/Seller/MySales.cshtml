@@ -27,6 +27,10 @@
             <span style="color: red;">@Model.OrdersCount["不成立"] </span>
         </li>
         <li class="nav-item d-flex">
+            <a href="@Url.Action("MySales", "Seller", new {status = "已完成", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已完成" ? "color: red; border-bottom: 2px solid red;" : "")">已完成</a>
+            <span style="color: red;">@Model.OrdersCount["已完成"] </span>
+        </li>
+        <li class="nav-item d-flex">
             <a href="@Url.Action("MySales", "Seller", new {status = "待取消", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待取消" ? "color: red; border-bottom: 2px solid red;" : "")">待取消</a>
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>

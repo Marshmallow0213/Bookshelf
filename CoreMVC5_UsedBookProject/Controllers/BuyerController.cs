@@ -158,6 +158,22 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Wish", new { });
         }
-
+        public IActionResult OrderDetails(string OrderId, string trade)
+        {
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            OrderViewModel mymodel = new();
+            ViewBag.trade = trade;
+            if (trade != "金錢" && trade != "以物易物")
+            {
+                return NotFound();
+            }
+            mymodel = _buyerService.GetOrder(OrderId, trade);
+            return View(mymodel);
+        }
+        public IActionResult FinishOrder(string orderId, string trade)
+        {
+            _buyerService.FinishOrder(orderId);
+            return RedirectToAction("MySales", new { status = "已成交", trade = trade });
+        }
     }
 }

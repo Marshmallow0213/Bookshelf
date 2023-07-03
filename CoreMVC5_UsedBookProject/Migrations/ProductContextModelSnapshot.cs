@@ -120,6 +120,10 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TradingPlaceAndTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
@@ -230,7 +234,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "null",
                             Name = "uU7SkhR5UQ3sZA5B",
                             Nickname = "Owner",
-                            Password = "$2a$11$i42.sChTRbo20x/XwN637Ogdcrx.GdhUCbopIXQp6rlgxjpxu8TPW",
+                            Password = "$2a$11$.qZBOBQllmLtuIyjY1.nMubxliseIq6y/sGWik9P7/CAgvLbQeRbi",
                             PhoneNo = "null",
                             UserIcon = "UserIcon.png"
                         });

@@ -55,6 +55,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     UnitPrice = table.Column<decimal>(type: "money", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TradingPlaceAndTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateBy = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -178,7 +179,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo", "UserIcon" },
-                values: new object[] { "Owner", "null", "uU7SkhR5UQ3sZA5B", "Owner", "$2a$11$i42.sChTRbo20x/XwN637Ogdcrx.GdhUCbopIXQp6rlgxjpxu8TPW", "null", "UserIcon.png" });
+                values: new object[] { "Owner", "null", "uU7SkhR5UQ3sZA5B", "Owner", "$2a$11$.qZBOBQllmLtuIyjY1.nMubxliseIq6y/sGWik9P7/CAgvLbQeRbi", "null", "UserIcon.png" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",

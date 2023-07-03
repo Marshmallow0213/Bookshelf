@@ -24,7 +24,7 @@ namespace CoreMVC5_UsedBookProject.Repositories
             var product = (from p in _context.Products
                            where p.ProductId == $"{ProductId}" && p.CreateBy == $"{name}"
                            orderby p.CreateDate descending
-                           select new Product { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).FirstOrDefault();
+                           select new Product { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, TradingPlaceAndTime = p.TradingPlaceAndTime, CreateBy = p.CreateBy }).FirstOrDefault();
             return product;
         }
         public ProductEditViewModel DMToVM(Product product)
@@ -54,6 +54,7 @@ namespace CoreMVC5_UsedBookProject.Repositories
                 UnitPrice = product.UnitPrice,
                 CreateDate = product.CreateDate,
                 EditDate = product.EditDate,
+                TradingPlaceAndTime = product.TradingPlaceAndTime,
                 CreateBy = product.CreateBy
             };
             return viewModel;
@@ -77,6 +78,7 @@ namespace CoreMVC5_UsedBookProject.Repositories
                 UnitPrice = productEditViewModel.UnitPrice,
                 CreateDate = productEditViewModel.CreateDate,
                 EditDate = productEditViewModel.EditDate,
+                TradingPlaceAndTime = productEditViewModel.TradingPlaceAndTime,
                 CreateBy = productEditViewModel.CreateBy
             };
             return model;
