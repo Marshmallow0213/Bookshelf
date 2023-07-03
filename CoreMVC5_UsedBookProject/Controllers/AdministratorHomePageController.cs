@@ -1,23 +1,13 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
-using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
-using CoreMVC5_UsedBookProject.Repositories;
-
-using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Net.WebRequestMethods;
+using System.Linq;
 
 
 namespace CoreMVC5_UsedBookProject.Controllers
@@ -31,16 +21,60 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             _ctx = ctx;
         }
-        public IActionResult AdministratorHome()
+
+        public async Task<IActionResult> AdminIndex(string id)
         {
-            var Users = _ctx.Users.ToList();
-            return View(Users);
+
+            var model = await _ctx.TextValue.FirstOrDefaultAsync();
+            return View(model);
         }
-        [Authorize(Roles = "Administrator,common user")]
-        public async Task<IActionResult> DetailCard()
+    
+
+
+        public async Task<IActionResult> EditHomeText(string id)
         {
-            var Users = await _ctx.Users.ToListAsync();
-            return View(Users);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var textbox = await _ctx.TextValue.FirstOrDefaultAsync(t => t.Id == id);
+            if (textbox == null)
+            {
+                return NotFound();
+            }
+            return View(textbox);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditHomeText(string id,
+            [Bind("Id,TextValue")] Textbox textbox)
+        {
+            if (id != textbox.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = _ctx.TextValue.Where(w => w.Id == id).FirstOrDefault();
+                    _ctx.Entry(user).State = EntityState.Modified;
+                    user.Id = textbox.Id;
+                    user.TextValue = textbox.TextValue;
+                    await _ctx.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                }
+                return RedirectToAction("AdminIndex");
+            }
+            return View(textbox);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

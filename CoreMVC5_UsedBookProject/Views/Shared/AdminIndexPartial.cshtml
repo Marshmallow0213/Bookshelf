@@ -1,0 +1,16 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model Textbox
+
+@{
+    ViewData["Title"] = "文字介紹區左側";
+}
+
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(t => t.TextValue)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(t => t.TextValue)</dd>
+    </dl>
+</div>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoreMVC5_UsedBookProject.ViewModels
 {
@@ -10,5 +11,9 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public int[] PagesCount { get; set; }
         public string StatusPage { get; set; }
         public int[] ProductNewLimit { get; set; }
+
+
+
+        
     }
 }

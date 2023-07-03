@@ -1,0 +1,42 @@
+﻿@model CoreMVC5_UsedBookProject.Models.Textbox
+@{
+    ViewData["Title"] = "主頁面更新";
+}
+<div class="sidebar">
+    <ul class="menu">
+        <li class="menu-item">
+            <a asp-controller="Administratorlist" asp-action="Adminlist" class="navtext">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext" style="background-color: white; color:black;">主頁面更新</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="navtext">按鈕6</a>
+        </li>
+    </ul>
+</div>
+<div style="display:flex;">
+    <div style="width: 30%; padding: 300px;">
+    </div>
+    <div class="content">
+        <h4 class="alert alert-danger">更改文字介紹區</h4>
+        <div style="display: flex;">
+            <dl class="row">
+                <dd class="col-sm">@Html.DisplayFor(m => m.TextValue)</dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-controller="AdministratorHomePage" asp-action="EditHomeText" asp-route-id="@Model.Id" class="btn btn-info">編輯文字介紹</a>
+
+        </div>
+    </div>
+</div>

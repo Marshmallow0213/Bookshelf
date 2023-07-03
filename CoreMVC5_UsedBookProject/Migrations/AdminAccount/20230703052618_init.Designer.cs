@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 {
     [DbContext(typeof(AdminAccountContext))]
-    [Migration("20230630124120_init")]
+    [Migration("20230703052618_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,6 +133,27 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         {
                             UserId = "B003",
                             RoleId = "R001"
+                        });
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Textbox", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TextValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TextValue");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "T001",
+                            TextValue = "預設文字"
                         });
                 });
 

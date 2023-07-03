@@ -23,27 +23,22 @@ namespace CoreMVC5_UsedBookProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ProductContext _context;
         private readonly BuyerService _buyerService;
+        private readonly AdminAccountContext _ctx;
 
-        public HomeController(ILogger<HomeController> logger, ProductContext productContext, BuyerService buyerService)
+        public HomeController(ILogger<HomeController> logger, ProductContext productContext, BuyerService buyerService, AdminAccountContext ctx)
         {
             _logger = logger;
             _context = productContext;
             _buyerService = buyerService;
+            _ctx = ctx;
         }
-        public IActionResult Index()
-        {  
-            var product = (from p in _context.Products
-                           where p.Status == "已上架" 
-                           orderby p.CreateDate descending
-                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).Take(30).ToList();
+        public async Task<IActionResult> Index()
+        {
+            var textbox = await _ctx.TextValue.FirstOrDefaultAsync();
+            return View(textbox);
+        }
 
-          
-            MyProductsViewModel mymodel = new()
-            {
-                Products = product
-            };
-            return View(mymodel);
-        }
+
         private bool FuzzyMatch(string source, string target)
         {
             int sourceLength = source.Length;

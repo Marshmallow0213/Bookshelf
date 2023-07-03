@@ -134,6 +134,27 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         });
                 });
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Textbox", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TextValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TextValue");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "T001",
+                            TextValue = "預設文字"
+                        });
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUserRoles", b =>
                 {
                     b.HasOne("CoreMVC5_UsedBookProject.Models.AdministratorRole", "Role")

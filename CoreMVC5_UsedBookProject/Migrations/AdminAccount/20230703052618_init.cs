@@ -19,6 +19,18 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             migrationBuilder.CreateTable(
+                name: "TextValue",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TextValue = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TextValue", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -69,6 +81,11 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             migrationBuilder.InsertData(
+                table: "TextValue",
+                columns: new[] { "Id", "TextValue" },
+                values: new object[] { "T001", "預設文字" });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo" },
                 values: new object[,]
@@ -101,6 +118,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TextValue");
+
             migrationBuilder.DropTable(
                 name: "UserRoles");
 
