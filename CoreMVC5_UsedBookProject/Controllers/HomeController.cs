@@ -35,6 +35,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public async Task<IActionResult> Index()
         {
             var textbox = await _ctx.TextValue.FirstOrDefaultAsync();
+            var model = await _ctx.TextValue.Select(g => new TextboxViewModel { Image1 = g.Image1, Image2 = g.Image2, Image3 = g.Image3 }).FirstOrDefaultAsync();
+            string[] imgs = { model.Image1, model.Image2, model.Image3};
+            ViewBag.Imgs = imgs;
             return View(textbox);
         }
 

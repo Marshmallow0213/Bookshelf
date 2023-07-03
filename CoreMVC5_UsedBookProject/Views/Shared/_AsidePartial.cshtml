@@ -63,14 +63,14 @@
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangeUserInfo", "Account", new {})">變更資訊</a>
         </li>
-        <li class="list-unstyled aside-link">
+        @*<li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "Account", new {})">變更密碼</a>
-        </li>
+        </li>*@
         @if (User.IsInRole("Administrator"))
         {
-            <li class="list-unstyled aside-link">
+            @*<li class="list-unstyled aside-link">
                 <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ForgotPasswordUserName", "Account", new {})">忘記密碼</a>
-            </li>
+            </li>*@
             <li class="list-unstyled aside-link">
                 <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("RegisterFromCSV", "Account", new {})">批量註冊</a>
             </li>
