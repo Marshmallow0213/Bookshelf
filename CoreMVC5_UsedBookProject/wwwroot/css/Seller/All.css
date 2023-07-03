@@ -56,9 +56,9 @@
     z-index: 1;
 }
 
-    .search:hover {
+    .search:hover > i {
         border-radius: 50%;
-        background-color: #282B2E;
+        color: blue !important;
     }
 .hamber-i {
     cursor: pointer;
@@ -85,6 +85,15 @@
     .account-a:hover {
         color: white !important;
         background-color: #282B2E;
+    }
+.account-nav-a {
+    color: black;
+    text-align: center;
+    font-size: 20px;
+}
+
+    .account-nav-a:hover {
+        color: blue !important;
     }
 img {
     width: 100%;
