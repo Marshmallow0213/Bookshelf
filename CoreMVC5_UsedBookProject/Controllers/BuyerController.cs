@@ -173,7 +173,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public IActionResult FinishOrder(string orderId, string trade)
         {
             _buyerService.FinishOrder(orderId);
-            return RedirectToAction("MySales", new { status = "已成交", trade = trade });
+            return RedirectToAction("MySales", new { status = "已完成", trade = trade });
         }
     }
 }
