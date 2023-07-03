@@ -234,7 +234,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "null",
                             Name = "uU7SkhR5UQ3sZA5B",
                             Nickname = "Owner",
-                            Password = "$2a$11$2dfzSpUE0sgNvgx9eTesEuH/RsVFkedd37zjI2fJwdkiDazIvFesC",
+                            Password = "$2a$11$ypB0llPBYSb/edVbQuAbSeJNpmVh/HJQhsdinwuND3GIHFUZ6MMCi",
                             PhoneNo = "null",
                             UserIcon = "UserIcon.png"
                         });

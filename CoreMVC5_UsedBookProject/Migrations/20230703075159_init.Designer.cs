@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230703070124_init")]
+    [Migration("20230703075159_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,7 +236,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                             Email = "null",
                             Name = "uU7SkhR5UQ3sZA5B",
                             Nickname = "Owner",
-                            Password = "$2a$11$2dfzSpUE0sgNvgx9eTesEuH/RsVFkedd37zjI2fJwdkiDazIvFesC",
+                            Password = "$2a$11$ypB0llPBYSb/edVbQuAbSeJNpmVh/HJQhsdinwuND3GIHFUZ6MMCi",
                             PhoneNo = "null",
                             UserIcon = "UserIcon.png"
                         });

@@ -1,4 +1,4 @@
-﻿@model CoreMVC5_UsedBookProject.Models.Textbox
+﻿@model CoreMVC5_UsedBookProject.ViewModels.TextboxViewModel
 @{
     ViewData["Title"] = "主頁面更新";
 }
@@ -28,6 +28,57 @@
     <div style="width: 30%; padding: 300px;">
     </div>
     <div class="content">
+        <form action="~/AdministratorHomePage/UploadImage" method="post" enctype="multipart/form-data">
+            <div>
+                <div>
+                    <input type="hidden" name="Image1" class="form-control" value="@(Model.Image1 == null ? "無圖片" : Model.Image1)" id="Image1" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image1-clear">X</button>
+                    <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
+                        <img src="" alt="img1" id="img1" onerror="errorLoad(this)">
+                    </div>
+                    <div class="d-flex align-items-end mt-2">
+                        <label for="file1" class="btn btn-primary">
+                            選擇檔案
+                        </label>
+                        <input type="file" asp-for="File1" class="d-none" accept="image/*" id="file1" />
+                        <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
+                    </div>
+                    <span asp-validation-for="File1" class="text-danger"></span>
+                </div>
+                <div>
+                    <input type="hidden" name="Image2" class="form-control" value="@(Model.Image2 == null ? "無圖片" : Model.Image2)" id="Image2" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image2-clear">X</button>
+                    <div id="img2Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
+                        <img src="" alt="img1" id="img1" onerror="errorLoad(this)">
+                    </div>
+                    <div class="d-flex align-items-end mt-2">
+                        <label for="file2" class="btn btn-primary">
+                            選擇檔案
+                        </label>
+                        <input type="file" asp-for="File2" class="d-none" accept="image/*" id="file2" />
+                        <p id="p-file2" class="d-block ml-3">未選擇任何檔案</p>
+                    </div>
+                    <span asp-validation-for="File2" class="text-danger"></span>
+                </div>
+                <div>
+                    <input type="hidden" name="Image3" class="form-control" value="@(Model.Image3 == null ? "無圖片" : Model.Image3)" id="Image3" readonly />
+                    <button type="button" class="btn btn-danger d-block" id="Image3-clear">X</button>
+                    <div id="img3Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
+                        <img src="" alt="img1" id="img1" onerror="errorLoad(this)">
+                    </div>
+                    <div class="d-flex align-items-end mt-2">
+                        <label for="file3" class="btn btn-primary">
+                            選擇檔案
+                        </label>
+                        <input type="file" asp-for="File3" class="d-none" accept="image/*" id="file3" />
+                        <p id="p-file3" class="d-block ml-3">未選擇任何檔案</p>
+                    </div>
+                    <span asp-validation-for="File3" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" name="Id" class="form-control" id="Id" value="@Model.Id" readonly />
+            <button type="submit" class="btn btn-primary">submit</button>
+        </form>
         <h4 class="alert alert-danger">更改文字介紹區</h4>
         <div style="display: flex;">
             <dl class="row">
@@ -40,3 +91,16 @@
         </div>
     </div>
 </div>
+@section topCSS{
+    <style>
+        img {
+            width: 100%;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+}
+@section endJS{
+    <script src="~/js/administratorhomepage/adminindex.js" asp-append-version="true"></script>
+}

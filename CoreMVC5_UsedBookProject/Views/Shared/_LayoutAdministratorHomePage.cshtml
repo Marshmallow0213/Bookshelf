@@ -6,8 +6,12 @@
     <title>二手書交換平台</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
     <link href="~/css/buttons.css" rel="stylesheet" />
     <link href="~/css/AdminHome.css" rel="stylesheet" />
+    <script src="~/js/seller/errorimg.js" asp-append-version="true"></script>
+    @RenderSection("topCSS",required:false)
+    @RenderSection("topJS", required: false)
 </head>
 <body>
     <header>
@@ -53,6 +57,8 @@
     <script src="~/lib/chart.js/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    @RenderSection("endCSS", required: false)
+    @RenderSection("endJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

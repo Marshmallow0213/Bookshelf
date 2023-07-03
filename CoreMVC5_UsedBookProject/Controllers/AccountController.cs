@@ -130,38 +130,38 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "Seller")]
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
-        [Authorize(Roles = "Seller")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
-                var user = (from p in _ctx.Users
-                            where p.Id == $"{name}"
-                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
-                if (!_hashService.Verify(userPasswordChangeViewModel.OldPassword, user.Password))
-                {
-                    ViewBag.Error = "舊密碼不符";
-                    return View(userPasswordChangeViewModel);
-                }
-                _ctx.Entry(user).State = EntityState.Modified;
-                user.Password = password;
-                _ctx.SaveChanges();
-                ViewData["Title"] = "密碼變更";
-                ViewData["Message"] = "使用者密碼變更成功!";  //顯示訊息
+        //[Authorize(Roles = "Seller")]
+        //public IActionResult ChangePassword()
+        //{
+        //    return View();
+        //}
+        //[Authorize(Roles = "Seller")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+        //        string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
+        //        var user = (from p in _ctx.Users
+        //                    where p.Id == $"{name}"
+        //                    select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
+        //        if (!_hashService.Verify(userPasswordChangeViewModel.OldPassword, user.Password))
+        //        {
+        //            ViewBag.Error = "舊密碼不符";
+        //            return View(userPasswordChangeViewModel);
+        //        }
+        //        _ctx.Entry(user).State = EntityState.Modified;
+        //        user.Password = password;
+        //        _ctx.SaveChanges();
+        //        ViewData["Title"] = "密碼變更";
+        //        ViewData["Message"] = "使用者密碼變更成功!";  //顯示訊息
                 
-                return View("~/Views/Shared/ResultMessage.cshtml");
-            }
-            return View(userPasswordChangeViewModel);
-        }
+        //        return View("~/Views/Shared/ResultMessage.cshtml");
+        //    }
+        //    return View(userPasswordChangeViewModel);
+        //}
         [Authorize(Roles = "Seller")]
         public IActionResult ChangeUserInfo()
         {
@@ -195,27 +195,27 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(userViewModel);
         }
-        [Authorize(Roles = "Administrator,Seller")]
-        [HttpGet]
-        public IActionResult ForgotPasswordUserName()
-        {
-            return View();
-        }
-        [Authorize(Roles = "Administrator,Seller")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ForgotPasswordUserName(RegisterViewModel registerVM)
-        {
-            var checkAccountExist = (from p in _ctx.Users
-                                     where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
-                                     select new { p.Id }).FirstOrDefault();
-            if (checkAccountExist != null)
-            {
-                return RedirectToAction("ForgotPassword", new { UserName = registerVM.UserName });
-            }
-            ViewBag.Error = "使用者名稱不存在";
-            return View(registerVM);
-        }
+        //[Authorize(Roles = "Administrator,Seller")]
+        //[HttpGet]
+        //public IActionResult ForgotPasswordUserName()
+        //{
+        //    return View();
+        //}
+        //[Authorize(Roles = "Administrator,Seller")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult ForgotPasswordUserName(RegisterViewModel registerVM)
+        //{
+        //    var checkAccountExist = (from p in _ctx.Users
+        //                             where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
+        //                             select new { p.Id }).FirstOrDefault();
+        //    if (checkAccountExist != null)
+        //    {
+        //        return RedirectToAction("ForgotPassword", new { UserName = registerVM.UserName });
+        //    }
+        //    ViewBag.Error = "使用者名稱不存在";
+        //    return View(registerVM);
+        //}
         [Authorize(Roles = "Administrator,Seller")]
         [HttpGet]
         public IActionResult ForgotPassword(string username)
