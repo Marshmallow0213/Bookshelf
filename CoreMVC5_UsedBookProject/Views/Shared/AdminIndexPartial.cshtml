@@ -2,7 +2,7 @@
 @model Textbox
 
 @{
-    ViewData["Title"] = "文字介紹區左側";
+    ViewData["Title"] = "二手書交換平台";
 }
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -11,7 +11,7 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
-    <div class="carousel-inner" style="max-height: 500px;">
+    <div class="carousel-inner" style="max-height: 700px;">
         <div class="carousel-item active">
             <img src="../Images/Home/@ViewBag.Imgs[0]" asp-append-version="true" class="d-block w-100" alt="...">
         </div>
@@ -33,8 +33,9 @@
 </div>
 
 <div>
-    <hr />
-    <dl class="row">
-        <dd class="col-sm-9">@Html.DisplayFor(t => t.TextValue)</dd>
+    <hr>
+    <dl class="row" style="padding:5px; text-align:center; width:100%; margin:0 10%;">
+        <dd class="col-sm-9" style="letter-spacing: 5px; line-height: 2; width:100%">@Html.DisplayFor(t => t.TextValue)</dd>
     </dl>
 </div>
+

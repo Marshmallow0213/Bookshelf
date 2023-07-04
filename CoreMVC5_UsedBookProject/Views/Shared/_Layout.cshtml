@@ -15,7 +15,7 @@
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
-<body>
+<body style="overflow-x:hidden; max-width:100%;">
     <header>
         <nav class="bg-white border-bottom box-shadow d-flex px-3 flex-wrap" id="navbar">
             <div class="d-flex align-items-center justify-content-center">
@@ -48,7 +48,7 @@
         @RenderBody()
     </main>
 
-    <footer class="border-top footer text-muted m-0">
+    <footer class="border-top footer text-muted" style="background-color:white; margin-top:3px;">
         
         <div class="container-footer">
             <div class="container">

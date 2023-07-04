@@ -8,12 +8,11 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="width:1000px;">
         <form asp-action="EditHomeText">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TextValue" class="control-label"></label>
-                <input asp-for="TextValue" class="form-control" />
+            <div class="form-group" style="width:1000px;">
+                <textarea asp-for="TextValue" class="form-control" style="height:400px; width:;1000px"></textarea>
                 <span asp-validation-for="TextValue" class="text-danger"></span>
             </div>
             <div class="form-group">
