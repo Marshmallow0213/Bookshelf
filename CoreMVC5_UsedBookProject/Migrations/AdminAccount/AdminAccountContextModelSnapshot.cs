@@ -54,18 +54,23 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nickname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -160,6 +165,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         new
                         {
                             Id = "T001",
+                            Image1 = "Error.jpg",
+                            Image2 = "Error.jpg",
+                            Image3 = "Error.jpg",
                             TextValue = "預設文字"
                         });
                 });

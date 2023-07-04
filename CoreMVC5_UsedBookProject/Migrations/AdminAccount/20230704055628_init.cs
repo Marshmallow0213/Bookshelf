@@ -38,11 +38,11 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nickname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nickname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
             migrationBuilder.InsertData(
                 table: "TextValue",
                 columns: new[] { "Id", "Image1", "Image2", "Image3", "TextValue" },
-                values: new object[] { "T001", null, null, null, "預設文字" });
+                values: new object[] { "T001", "Error.jpg", "Error.jpg", "Error.jpg", "預設文字" });
 
             migrationBuilder.InsertData(
                 table: "Users",
