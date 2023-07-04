@@ -44,7 +44,7 @@
         </nav>
     </header>
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
-    <main role="main" class="pb-5" style="padding-top: 75px;">
+    <main role="main" class="pb-5">
         @RenderBody()
     </main>
 
@@ -52,7 +52,7 @@
         
         <div class="container-footer">
             <div class="container">
-                &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Index">隱私中心</a>
+                &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">隱私中心</a>
             </div>
             
             @if (User.Identity.IsAuthenticated)
