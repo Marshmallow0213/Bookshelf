@@ -78,7 +78,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             double similarityThreshold = 0.8; 
             return normalizedEditDistance <= (1 - similarityThreshold) * 100;
         }
-        public IActionResult SearchProductbyName(string name)
+        public IActionResult SearchProducts(string name)
         {
             List<ProductViewModel> products = new();
             if (!string.IsNullOrEmpty(name))
