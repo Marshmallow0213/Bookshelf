@@ -18,7 +18,8 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         //
         [Required(ErrorMessage = "{0}不可為空!")]
         [Display(Name = "ISBN")]
-        [MaxLength(200)]
+        [MaxLength(13, ErrorMessage = "{0}至多13個字。")]
+        [MinLength(10, ErrorMessage = "{0}至少10個字。")]
         public string ISBN { get; set; }
         //
         [Required(ErrorMessage = "{0}不可為空!")]

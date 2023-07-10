@@ -1,1 +1,2 @@
-﻿admin,12345678
+UserName,Password,IsAdmin
+admin,12345678,TRUE

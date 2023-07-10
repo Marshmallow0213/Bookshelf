@@ -5,6 +5,7 @@
 }
 
 <div class="container-fluid">
+    <h1>@(ViewBag.Trade == "以物易物" ? "以物易物" : "買賣")賣場</h1>
     <p>@ViewBag.Count</p>
     <div class="row py-2">
         @if (Model.Products.Count > 0)

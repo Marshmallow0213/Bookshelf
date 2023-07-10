@@ -18,10 +18,13 @@ let topbutton = document.getElementById("topBtn");
 window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
+    let main = document.querySelector("main");
     if (document.body.scrollTop > 75 || document.documentElement.scrollTop > 75) {
         topbutton.style.display = "block";
+        main.style.paddingTop = "75px";
     } else {
         topbutton.style.display = "none";
+        main.style.paddingTop = "0px";
     }
 }
 

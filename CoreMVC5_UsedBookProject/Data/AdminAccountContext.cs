@@ -55,7 +55,7 @@ namespace CoreMVC5_UsedBookProject.Data
                 );
             modelBuilder.Entity<Textbox>()
                 .HasData(
-                new Textbox { Id = "T001", TextValue = "預設文字", Image1 = "Error.jpg", Image2 = "Error.jpg", Image3 = "Error.jpg" }
+                new Textbox { Id = "T001", TextValue = "預設文字", Image1 = "Error.png", Image2 = "Error.png", Image3 = "Error.png" }
                 );
         }
     }

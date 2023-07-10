@@ -40,7 +40,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
             ViewBag.Imgs = imgs;
             return View(textbox);
         }
-
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
         private bool FuzzyMatch(string source, string target)
         {
@@ -75,7 +78,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             double similarityThreshold = 0.8;
             return normalizedEditDistance <= (1 - similarityThreshold) * 100;
         }
-        public IActionResult SearchProductbyName(string name)
+        public IActionResult SearchProducts(string name)
         {
             List<ProductViewModel> products = new();
             if (!string.IsNullOrEmpty(name))
@@ -133,7 +136,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
 
 
-            ViewBag.Count = $"find {products.Count} products";
+            ViewBag.Count = $"找到 {products.Count} 項商品";
             MyProductsViewModel mymodel = new MyProductsViewModel
             {
                 Products = products

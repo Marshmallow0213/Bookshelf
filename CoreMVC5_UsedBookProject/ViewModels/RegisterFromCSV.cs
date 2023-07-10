@@ -8,8 +8,5 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "CSV")]
         [Required(ErrorMessage = "{0}不可為空!")]
         public IFormFile File { get; set; }
-        [Display(Name = "Role")]
-        [Required(ErrorMessage = "{0}不可為空!")]
-        public string Role { get; set; }
     }
 }

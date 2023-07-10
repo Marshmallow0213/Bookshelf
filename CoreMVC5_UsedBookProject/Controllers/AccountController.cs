@@ -268,20 +268,32 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 List<string> listA = new();
                 List<string> listB = new();
-                using (var reader = new StreamReader(registerFromCSV.File.OpenReadStream()))
+                List<string> listC = new();
+                try
                 {
-                    while (!reader.EndOfStream)
+                    using (var reader = new StreamReader(registerFromCSV.File.OpenReadStream()))
                     {
-                        var line = reader.ReadLine();
-                        var values = line.Split(',');
+                        while (!reader.EndOfStream)
+                        {
+                            var line = reader.ReadLine();
+                            var values = line.Split(',');
 
-                        listA.Add(values[0]);
-                        listB.Add(values[1]);
+                            listA.Add(values[0]);
+                            listB.Add(values[1]);
+                            listC.Add(values[2]);
+                        }
                     }
+                }
+                catch
+                {
+                    ViewData["Title"] = "錯誤";
+                    ViewData["Message"] = $"無法讀取CSV檔或格式不正確。";  //顯示訊息
                 }
                 if (submit == "批量註冊")
                 {
-                    for (int i = 0; i < listA.Count(); i++)
+                    int newuserscount = 0;
+                    int newadmincount = 0;
+                    for (int i = 1; i < listA.Count(); i++)
                     {
                         var checkAccountExist = (from p in _ctx.Users
                                                  where p.Name == $"{listA[i]}"
@@ -332,7 +344,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             };
                             _ctx.UserRoles.Add(userRoles1);
                             _ctx.UserRoles.Add(userRoles2);
-                            if (registerFromCSV.Role == "管理者")
+                            if (listC[i].ToUpper() == "True".ToUpper())
                             {
                                 UserRoles userRoles3 = new UserRoles
                                 {
@@ -340,16 +352,20 @@ namespace CoreMVC5_UsedBookProject.Controllers
                                     RoleId = "R003",
                                 };
                                 _ctx.UserRoles.Add(userRoles3);
+                                newadmincount += 1;
                             }
+                            newuserscount += 1;
                             _ctx.SaveChanges();
                         }
                     }
                     ViewData["Title"] = "帳號批量註冊";
-                    ViewData["Message"] = "使用者帳號批量註冊成功!";  //顯示訊息
+                    ViewData["Message"] = $"使用者帳號批量註冊成功! 新增{newuserscount - newadmincount}個使用者，新增{newadmincount}個管理者。";  //顯示訊息
                 }
                 else if (submit == "批量刪除")
                 {
-                    for (int i = 0; i < listA.Count(); i++)
+                    int newuserscount = 0;
+                    int newadmincount = 0;
+                    for (int i = 1; i < listA.Count(); i++)
                     {
                         var checkAccountExist = _ctx.Users.Where(w => w.Name.ToUpper() == $"{listA[i]}".ToUpper()).FirstOrDefault();
                         List<string> noDeleteList = new()
@@ -366,10 +382,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             {
                                 Directory.Delete(folderPath, true);
                             }
+                            var checkadmin = (from ur in _ctx.UserRoles from u in _ctx.Users where ur.UserId == u.Id && ur.RoleId == "R003" && u.Name.ToUpper() == $"{listA[i]}".ToUpper() select ur.RoleId).FirstOrDefault();
+                            if (checkadmin != null)
+                            {
+                                newadmincount += 1;
+                            }
+                            newuserscount += 1;
                             _ctx.SaveChanges();
                         }
                         ViewData["Title"] = "帳號批量刪除";
-                        ViewData["Message"] = "使用者帳號批量刪除成功!";  //顯示訊息
+                        ViewData["Message"] = $"使用者帳號批量刪除成功! 刪除{newuserscount - newadmincount}個使用者，刪除{newadmincount}個管理者。";  //顯示訊息
                     }
                 }
                 return View("~/Views/Shared/ResultMessage.cshtml");
