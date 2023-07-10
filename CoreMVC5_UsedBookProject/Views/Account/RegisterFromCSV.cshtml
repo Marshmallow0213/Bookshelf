@@ -1,45 +1,72 @@
 ﻿@model CoreMVC5_UsedBookProject.ViewModels.RegisterFromCSVViewModel
 
 @{
-    ViewData["Title"] = "RegisterFromCSV";
+    ViewData["Title"] = "使用者批量註冊";
 }
-
-<div class="container-fluid">
-    <h1>從CSV批量註冊</h1>
-    <hr />
-    <div class="row">
-        <div class="col-12">
-            <form asp-action="RegisterFromCSV" method="post" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <p>@Html.DisplayNameFor(model => model.File) 限2MB以內</p>
-                <div class="d-flex align-items-end">
-                    <label for="file1" class="btn btn-primary">
-                        選擇檔案
-                    </label>
-                    <input type="file" asp-for="File" class="d-none" accept=".csv" id="file1" />
-                    <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
-                </div>
-                <span asp-validation-for="File" class="text-danger"></span>
-                <div class="form-group mt-3">
-                    <input type="submit" name="submit" value="批量註冊" class="btn btn-primary" />
-                    <input type="submit" name="submit" value="批量刪除" class="btn btn-danger ml-5" />
-                </div>
-            </form>
-            <pre id="out"><p>文件內容將出現在這裡</p></pre>
-        </div>
-        <div class="col-12">
-            <p>CSV格式範例:</p>
-            <p>UserName,Password,IsAdmin</p>
-            <p>B10802001,12345678,FALSE</p>
-            <p>B10802002,12345678,FALSE</p>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="Index" asp-controller="Home">回首頁</a>
-    </div>
+<div class="sidebar">
+    <ul class="menu">
+        <li class="menu-item">
+            <a asp-controller="Administratorlist" asp-action="Adminlist" class="navtext">管理員人員名單</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdminToUser" asp-action="UserData" class="navtext">使用者控管</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext">主頁面更新</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="Account" asp-action="RegisterFromCSV" class="navtext" style="background-color: white; color:black;">使用者批量註冊</a>
+        </li>
+    </ul>
 </div>
-@section endJS{
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/account/registerfromcsv.js" asp-append-version="true"></script>
-}
+
+<div style="display:flex;">
+    <div style="width: 30%; padding: 30%;">
+    </div>
+        <div class="content">
+        <div class="container-fluid">
+            <h1>從CSV批量註冊</h1>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <form asp-action="RegisterFromCSV" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <p>@Html.DisplayNameFor(model => model.File) 限2MB以內</p>
+                        <div class="d-flex align-items-end">
+                            <label for="file1" class="btn btn-primary">
+                                選擇檔案
+                            </label>
+                            <input type="file" asp-for="File" class="d-none" accept=".csv" id="file1" />
+                            <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
+                        </div>
+                        <span asp-validation-for="File" class="text-danger"></span>
+                        <div class="form-group mt-3">
+                            <input type="submit" name="submit" value="批量註冊" class="btn btn-primary" />
+                            <input type="submit" name="submit" value="批量刪除" class="btn btn-danger ml-5" />
+                        </div>
+                    </form>
+                    <pre id="out"><p>文件內容將出現在這裡</p></pre>
+                </div>
+                <div class="col-12">
+                    <p>CSV格式範例:</p>
+                    <p>UserName,Password</p>
+                    <p>B10802001,12345678</p>
+                    <p>B10802002,12345678</p>
+                </div>
+            </div>
+        </div>
+        @section endJS{
+            <partial name="_ValidationScriptsPartial" />
+            <script src="~/js/account/registerfromcsv.js" asp-append-version="true"></script>
+        }
+         </div>
+</div>

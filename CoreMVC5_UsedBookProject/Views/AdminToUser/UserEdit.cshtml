@@ -1,16 +1,16 @@
-﻿@model CoreMVC5_UsedBookProject.Models.User
+﻿@model CoreMVC5_UsedBookProject.ViewModels.UserViewModel
 
 @{
-    ViewData["Title"] = "管理員資料編輯";
+    ViewData["Title"] = "使用者資料編輯";
 }
 
-<h1>管理員資料編輯</h1>
+<h1>使用者資料編輯</h1>
 
-<h4>管理員個人資料</h4>
+<h4>使用者個人資料</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AdministratorEdit">
+        <form asp-action="UserEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
@@ -48,8 +48,3 @@
     <a asp-controller="AdminToUser" asp-action="UserData" class="btn btn-primary">返回使用者資料列表</a>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

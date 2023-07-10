@@ -64,24 +64,12 @@ namespace CoreMVC5_UsedBookProject.Data
                 .IsUnique();
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().HasData(
-                new User { Id = "Owner", Name = "uU7SkhR5UQ3sZA5B", Email = "null", Password = _hashService.HashPassword("S3drXR0tFA3v9DzS"), Nickname = "Owner", PhoneNo = "null", UserIcon = "UserIcon.png" }
-                );
-
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = "R001", Name = "Seller" },
                 new Role { Id = "R002", Name = "Buyer" },
-                new Role { Id = "R003", Name = "Administrator" },
-                new Role { Id = "R004", Name = "Owner" }
+                new Role { Id = "R003", Name = "Administrator" }
                 );
 
-            modelBuilder.Entity<UserRoles>()
-                .HasData(
-                new UserRoles { UserId = "Owner", RoleId = "R001" },
-                new UserRoles { UserId = "Owner", RoleId = "R002" },
-                new UserRoles { UserId = "Owner", RoleId = "R003" },
-                new UserRoles { UserId = "Owner", RoleId = "R004" }
-                );
         }
     }
 

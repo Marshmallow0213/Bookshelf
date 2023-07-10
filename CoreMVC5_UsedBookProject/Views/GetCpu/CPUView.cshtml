@@ -16,7 +16,7 @@
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
         </li>
         <li class="menu-item">
-            <a asp-controller="AdminToUserController" asp-action="UserData" class="navtext">使用者控管</a>
+            <a asp-controller="AdminToUser" asp-action="UserData" class="navtext">使用者控管</a>
         </li>
         <li class="menu-item">
             <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
@@ -26,6 +26,9 @@
         </li>
         <li class="menu-item">
             <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext">主頁面更新</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="Account" asp-action="RegisterFromCSV" class="navtext">使用者批量註冊</a>
         </li>
     </ul>
 </div>
@@ -42,7 +45,6 @@
         <div style=" width:700px; height:400px">
             <canvas id="memoryChart" width="100" height="50"></canvas>
         </div>
-
         <script>
             $(document).ready(function () {
                 var cpuChart;
@@ -89,6 +91,11 @@
                         success: function (result) {
                             var cpuUsage = result.cpuUsage.toFixed(2);
                             var currentTime = new Date().toLocaleTimeString();
+
+                            if (cpuUsage > 60) {
+                                var warningMessage = "您的CPU高於60%了，請注意!";
+                                alert(warningMessage);
+                            }
 
                             if (cpuLabels.length >= 10) {
                                 cpuLabels.splice(0, 1);
@@ -141,6 +148,11 @@
                             var memoryUsage = result.memoryUsage.toFixed(2);
                             var currentTime = new Date().toLocaleTimeString();
 
+                            if (memoryUsage > 60) {
+                                var warningMessage = "您的記憶體高於60%了，請注意!";
+                                alert(warningMessage);
+                            }
+
                             if (memoryLabels.length >= 10) {
                                 memoryLabels.splice(0, 1);
                                 memoryData.splice(0, 1);
@@ -159,7 +171,5 @@
                 initMemoryChart();
             });
         </script>
-
-
     </div>
 </div>

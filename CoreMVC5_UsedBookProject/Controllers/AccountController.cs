@@ -216,14 +216,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         //    ViewBag.Error = "使用者名稱不存在";
         //    return View(registerVM);
         //}
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Top Administrator")]
         [HttpGet]
         public IActionResult ForgotPassword(string username)
         {
             ViewBag.UserName = username;
             return View();
         }
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Top Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ForgotPassword(RegisterViewModel registerVM)
@@ -253,13 +253,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(registerVM);
         }
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Top Administrator")]
         [HttpGet]
         public IActionResult RegisterFromCSV()
         {
             return View();
         }
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Top Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult RegisterFromCSV(RegisterFromCSVViewModel registerFromCSV, string submit)
@@ -268,7 +268,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 List<string> listA = new();
                 List<string> listB = new();
-                List<string> listC = new();
                 try
                 {
                     using (var reader = new StreamReader(registerFromCSV.File.OpenReadStream()))
@@ -280,7 +279,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
                             listA.Add(values[0]);
                             listB.Add(values[1]);
-                            listC.Add(values[2]);
                         }
                     }
                 }
@@ -344,22 +342,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             };
                             _ctx.UserRoles.Add(userRoles1);
                             _ctx.UserRoles.Add(userRoles2);
-                            if (listC[i].ToUpper() == "True".ToUpper())
-                            {
-                                UserRoles userRoles3 = new UserRoles
-                                {
-                                    UserId = Id,
-                                    RoleId = "R003",
-                                };
-                                _ctx.UserRoles.Add(userRoles3);
-                                newadmincount += 1;
-                            }
                             newuserscount += 1;
                             _ctx.SaveChanges();
                         }
                     }
                     ViewData["Title"] = "帳號批量註冊";
-                    ViewData["Message"] = $"使用者帳號批量註冊成功! 新增{newuserscount - newadmincount}個使用者，新增{newadmincount}個管理者。";  //顯示訊息
+                    ViewData["Message"] = $"使用者帳號批量註冊成功! 新增{newuserscount - newadmincount}個使用者。";  //顯示訊息
                 }
                 else if (submit == "批量刪除")
                 {
@@ -382,16 +370,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             {
                                 Directory.Delete(folderPath, true);
                             }
-                            var checkadmin = (from ur in _ctx.UserRoles from u in _ctx.Users where ur.UserId == u.Id && ur.RoleId == "R003" && u.Name.ToUpper() == $"{listA[i]}".ToUpper() select ur.RoleId).FirstOrDefault();
-                            if (checkadmin != null)
-                            {
-                                newadmincount += 1;
-                            }
                             newuserscount += 1;
                             _ctx.SaveChanges();
                         }
                         ViewData["Title"] = "帳號批量刪除";
-                        ViewData["Message"] = $"使用者帳號批量刪除成功! 刪除{newuserscount - newadmincount}個使用者，刪除{newadmincount}個管理者。";  //顯示訊息
+                        ViewData["Message"] = $"使用者帳號批量刪除成功! 刪除{newuserscount - newadmincount}個使用者。";  //顯示訊息
                     }
                 }
                 return View("~/Views/Shared/ResultMessage.cshtml");

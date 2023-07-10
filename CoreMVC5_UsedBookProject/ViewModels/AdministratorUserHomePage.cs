@@ -8,7 +8,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
     {
         public string Id { get; set; }
         [Required]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "最少需要3個字元")]
+        
         public string Name { get; set; }
         public string Password { get; set; }
         public string Nickname { get; set; }
@@ -16,7 +16,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
-        [RegularExpression(@"^\09d{2}\-?\d{3}\-?\d{3}$", ErrorMessage = "09xx-xxx-xxx")]
+        [Phone(ErrorMessage = "09xx-xxx-xxx")]
         public string PhoneNo { get; set; }
 
         public ICollection<AdministratorUserRoles> AdministratorRoles { get; set; }

@@ -1,6 +1,7 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
+using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,15 +45,25 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return new BadRequestObjectResult(msgObject);
             }
 
-            var administratorUser = await _ctx.Users.FirstOrDefaultAsync(m => m.Id == id);
+            var User = await _ctx.Users.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (administratorUser == null)
+            if (User == null)
             {
                 return NotFound();
             }
 
-            return View(administratorUser);
+            return View(User);
         }
+
+
+
+
+
+
+
+
+
+
 
 
         public async Task<IActionResult> UserEdit(string id)
@@ -61,42 +72,59 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var administratorUser = await _ctx.Users.FirstAsync(m => m.Id == id);
-            if (administratorUser == null)
+
+            var user = await _ctx.Users.Select(s => new UserViewModel { Id = s.Id, Name = s.Name, Nickname = s.Nickname, Email = s.Email, PhoneNo = s.PhoneNo}).FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(administratorUser);
+
+            return View(user);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserEdit(string id,
-            [Bind("Id,Name,Nickname,Password,Email,PhoneNo")] User User)
+        public async Task<IActionResult> UserEdit(string id, [Bind("Id,Name,Nickname,Email,PhoneNo")] UserViewModel User)
         {
             if (id != User.Id)
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
-                    _ctx.Entry(user).State = EntityState.Modified;
+                    var user = await _ctx.Users.FindAsync(id);
+                    if (user == null)
+                    {
+                        return NotFound();
+                    }
+
                     user.Name = User.Name;
-                    user.Password = User.Password;
                     user.Nickname = User.Nickname;
                     user.Email = User.Email;
                     user.PhoneNo = User.PhoneNo;
+
                     await _ctx.SaveChangesAsync();
+
+                    return RedirectToAction("UserData");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                 }
                 return RedirectToAction("UserData");
             }
+
             return View(User);
         }
+
+
+
+
+
+
+
 
         public async Task<IActionResult> UserDelete(string id)
         {
@@ -120,21 +148,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             await _ctx.SaveChangesAsync();
             return RedirectToAction("UserData");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public async Task<IActionResult> UserSuspension(string id)
         {
             if (string.IsNullOrEmpty(id))

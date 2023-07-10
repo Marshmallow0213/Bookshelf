@@ -1,2 +1,2 @@
-UserName,Password,IsAdmin
-admin,12345678,TRUE
+UserName,Password
+admin,12345678

@@ -11,5 +11,6 @@
     @if (!String.IsNullOrEmpty(ViewData["Message"].ToString()))
     {
         <p>@ViewData["Message"]</p>
+        <a asp-controller="AdminToUser" asp-action="UserData" class="navtext btn btn-primary">回到使用者控管</a>
     }
 </div>

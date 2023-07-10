@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CoreMVC5_UsedBookProject.ViewModels
@@ -24,5 +27,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "使用者Icon")]
         public string UserIcon { get; set; }
         public IFormFile File1 { get; set; }
+        public DbSet<User> Users { get; set; }
     }
+    
 }

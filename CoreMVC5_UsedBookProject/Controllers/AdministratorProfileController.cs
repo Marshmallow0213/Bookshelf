@@ -1,6 +1,7 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
+using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -92,7 +93,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var administratorUser = await _ctx.Users.FirstAsync(m => m.Id == id);
+            var administratorUser = await _ctx.Users.Select(s => new AdministratorUserHomePage { Id = s.Id, Name = s.Name, Nickname = s.Nickname, Email = s.Email, PhoneNo = s.PhoneNo }).FirstOrDefaultAsync(m => m.Id == id);
             if (administratorUser == null)
             {
                 return NotFound();
@@ -102,7 +103,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdministratorEdit(string id,
-            [Bind("Id,Name,Nickname,Password,Email,PhoneNo")] AdministratorUser administratorUser)
+            [Bind("Id,Name,Nickname,Password,Email,PhoneNo")] AdministratorUserHomePage administratorUser)
         {
             if (id != administratorUser.Id)
             {
@@ -115,7 +116,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
                     _ctx.Entry(user).State = EntityState.Modified;
                     user.Name = administratorUser.Name;
-                    user.Password = administratorUser.Password;
                     user.Nickname = administratorUser.Nickname;
                     user.Email = administratorUser.Email;
                     user.PhoneNo = administratorUser.PhoneNo;

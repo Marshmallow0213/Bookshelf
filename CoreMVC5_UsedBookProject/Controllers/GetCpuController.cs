@@ -7,15 +7,47 @@ namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class GetCpuController : Controller
     {
+
+        private void SendCpuWarning()
+        {
+            string warningMessage = "您的CPU高於60%了，請注意!";
+            TempData["CpuWarningMessage"] = warningMessage;
+        }
+
+        private void SendMemoryWarning()
+        {
+            string warningMessage = "您的記憶體高於60%了，請注意!";
+            TempData["MemoryWarningMessage"] = warningMessage;
+        }
+
         public IActionResult CPUView()
         {
+            string cpuWarningMessage = TempData["CpuWarningMessage"] as string;
+            string memoryWarningMessage = TempData["MemoryWarningMessage"] as string;
+
+            if (!string.IsNullOrEmpty(cpuWarningMessage))
+            {
+                ViewBag.CpuWarningMessage = cpuWarningMessage;
+            }
+
+            if (!string.IsNullOrEmpty(memoryWarningMessage))
+            {
+                ViewBag.MemoryWarningMessage = memoryWarningMessage;
+            }
             return View();
         }
         public IActionResult GetCpuUsage()
         {
             var cpuUsage = FetchCpuUsage();
+
+            if (cpuUsage > 15)
+            {
+                SendCpuWarning();
+            }
+
             return Json(new { cpuUsage });
         }
+
 
         private float FetchCpuUsage()
         {
@@ -52,12 +84,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-
         public IActionResult GetMemoryUsage()
         {
             var memoryUsage = FetchMemoryUsage();
+
+            if (memoryUsage > 60)
+            {
+                SendMemoryWarning();
+            }
+
             return Json(new { memoryUsage });
         }
+
 
         private float FetchMemoryUsage()
         {
@@ -72,6 +110,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     CreateNoWindow = true
                 }
             };
+
 
             process.Start();
             var output = process.StandardOutput.ReadToEnd();
@@ -91,7 +130,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     break;
                 }
             }
-
             var memoryUsage = ((float)(totalMemory - freeMemory) / totalMemory) * 100;
             return memoryUsage;
         }
