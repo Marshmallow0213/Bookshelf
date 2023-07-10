@@ -16,10 +16,10 @@
     @if (controller == "Home" || controller == "Buyer")
     {
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "金錢"})">賣場(買賣)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "金錢"})">買賣賣場</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "以物易物"})">賣場(以物易物)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "以物易物"})">以物易物賣場</a>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">賣家中心</a>
@@ -34,19 +34,19 @@
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})">待辦事項清單</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "金錢"})">我的銷售(買賣)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "金錢"})">買賣銷售</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "以物易物"})">我的銷售(以物易物)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "以物易物"})">以物易物銷售</a>
         </li>
         <li class="list-unstyled aside-text">
             <p class="text-left pl-2 py-3 mb-0"><strong>商品管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "金錢"})">我的商品(買賣)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "金錢"})">買賣商品</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "以物易物"})">我的商品(以物易物)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "以物易物"})">以物易物商品</a>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Create", "Seller", new {})">新增商品</a>
@@ -82,10 +82,10 @@
             <p class="text-left pl-2 py-3 mb-0"><strong>訂單管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "金錢"})">訂單紀錄(買賣)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "金錢"})">買賣訂單紀錄</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "以物易物"})">訂單紀錄(以物易物)</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "以物易物"})">以物易物訂單紀錄</a>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Shoppingcart", "Buyer", new {})">購物車</a>
