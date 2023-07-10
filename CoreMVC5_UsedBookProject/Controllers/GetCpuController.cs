@@ -1,66 +1,99 @@
-﻿using CoreMVC5_UsedBookProject.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class GetCpuController : Controller
     {
-        private readonly IHubContext<CpuHub> _hubContext;
-
-        public GetCpuController(IHubContext<CpuHub> hubContext)
-        {
-            _hubContext = hubContext;
-        }
-
         public IActionResult CPUView()
         {
             return View();
         }
-
-        public async Task<IActionResult> StartMonitoring()
+        public IActionResult GetCpuUsage()
         {
-            while (true)
-            {
-                float cpuUsage = GetCpuUsage();
-                await _hubContext.Clients.All.SendAsync("UpdateCpuUsage", cpuUsage);
-
-                float memoryUsage = GetMemoryUsage();
-                await _hubContext.Clients.All.SendAsync("UpdateMemoryUsage", memoryUsage);
-
-                await Task.Delay(1000);
-            }
+            var cpuUsage = FetchCpuUsage();
+            return Json(new { cpuUsage });
         }
 
-        private float GetCpuUsage()
+        private float FetchCpuUsage()
         {
-            using (Process process = Process.GetCurrentProcess())
+            var process = new Process()
             {
-                TimeSpan totalProcessorTime = process.TotalProcessorTime;
-                TimeSpan systemProcessorTime = TimeSpan.Zero;
-
-                using (Process p = Process.GetCurrentProcess())
+                StartInfo = new ProcessStartInfo
                 {
-                    p.Refresh();
-                    systemProcessorTime = p.TotalProcessorTime;
+                    FileName = "wmic",
+                    Arguments = "cpu get loadpercentage",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            var output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            var cpuUsage = 0;
+            var lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            if (lines.Length >= 2)
+            {
+                if (int.TryParse(lines[1], out var usage))
+                {
+                    cpuUsage = usage;
+                }
+            }
+
+            return cpuUsage;
+        }
+
+        public IActionResult Memory()
+        {
+            return View();
+        }
+
+        public IActionResult GetMemoryUsage()
+        {
+            var memoryUsage = FetchMemoryUsage();
+            return Json(new { memoryUsage });
+        }
+
+        private float FetchMemoryUsage()
+        {
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "wmic",
+                    Arguments = "OS get FreePhysicalMemory, TotalVisibleMemorySize /Value",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            var output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            var freeMemory = 0ul;
+            var totalMemory = 0ul;
+            foreach (var line in output.Split("\n"))
+            {
+                if (line.StartsWith("FreePhysicalMemory=") && ulong.TryParse(line.Substring(19), out freeMemory))
+                {
+                    continue;
                 }
 
-                float cpuUsage = (float)(totalProcessorTime.TotalMilliseconds / systemProcessorTime.TotalMilliseconds * 100.0);
-                return cpuUsage;
+                if (line.StartsWith("TotalVisibleMemorySize=") && ulong.TryParse(line.Substring(23), out totalMemory))
+                {
+                    break;
+                }
             }
-        }
 
-        private float GetMemoryUsage()
-        {
-            using (Process process = Process.GetCurrentProcess())
-            {
-                long memoryUsed = process.PrivateMemorySize64;
-                float memoryUsage = (float)memoryUsed / (1024 * 1024);
-                return memoryUsage;
-            }
+            var memoryUsage = ((float)(totalMemory - freeMemory) / totalMemory) * 100;
+            return memoryUsage;
         }
     }
 }

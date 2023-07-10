@@ -1,0 +1,27 @@
+﻿@model User
+@{
+    ViewData["Title"] = "使用者權限更改";
+}
+
+<h4 class="alert alert-danger">使用者個人資料明細</h4>
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Name)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Nickname)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Nickname)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Email)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PhoneNo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.PhoneNo)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="AdminToUser" asp-action="Seller" asp-route-id="@Model.Id" class="btn btn-danger">設為賣家</a>|
+    <a asp-controller="AdminToUser" asp-action="Buyer" asp-route-id="@Model.Id" class="btn btn-primary">設為買家</a>|
+    <a asp-controller="AdminToUser" asp-action="Administrator" asp-route-id="@Model.Id" class="btn btn-info">停用使用者權限</a>|
+    <a asp-controller="AdminToUser" asp-action="UserData" class="btn btn-primary">返回使用者資料列表</a>
+</div>

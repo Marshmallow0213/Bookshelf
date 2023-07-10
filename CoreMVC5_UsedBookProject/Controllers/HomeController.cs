@@ -36,7 +36,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             var textbox = await _ctx.TextValue.FirstOrDefaultAsync();
             var model = await _ctx.TextValue.Select(g => new TextboxViewModel { Image1 = g.Image1, Image2 = g.Image2, Image3 = g.Image3 }).FirstOrDefaultAsync();
-            string[] imgs = { model.Image1, model.Image2, model.Image3};
+            string[] imgs = { model.Image1, model.Image2, model.Image3 };
             ViewBag.Imgs = imgs;
             return View(textbox);
         }
@@ -48,7 +48,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             int targetLength = target.Length;
             int[,] distanceMatrix = new int[sourceLength + 1, targetLength + 1];
 
-            
+
             for (int i = 0; i <= sourceLength; i++)
             {
                 distanceMatrix[i, 0] = i;
@@ -72,7 +72,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             int maxEditDistance = Math.Max(sourceLength, targetLength);
             int normalizedEditDistance = distanceMatrix[sourceLength, targetLength] * 100 / maxEditDistance;
-            double similarityThreshold = 0.8; 
+            double similarityThreshold = 0.8;
             return normalizedEditDistance <= (1 - similarityThreshold) * 100;
         }
         public IActionResult SearchProductbyName(string name)
@@ -185,15 +185,15 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         private List<string> GetPredictionsFromData(string searchText)
         {
-            var predictions =_context.Products
+            var predictions = _context.Products
                 .Where(p => p.Title.Contains(searchText))
                 .Select(p => p.Title)
                 .ToList();
-            if(predictions.Count == 0)
+            if (predictions.Count == 0)
             {
-                 predictions = _context.Products.Where(p => p.ISBN.Contains(searchText))
-                .Select(p => p.ISBN)
-                .ToList();
+                predictions = _context.Products.Where(p => p.ISBN.Contains(searchText))
+               .Select(p => p.ISBN)
+               .ToList();
 
             }
             return predictions;
@@ -201,10 +201,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public IActionResult GetPredictions(string searchText)
         {
-            
+
             var predictions = GetPredictionsFromData(searchText);
 
-            
+
             return PartialView("GetPredictions", predictions);
         }
 

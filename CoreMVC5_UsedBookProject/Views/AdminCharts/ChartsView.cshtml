@@ -1,7 +1,6 @@
 ﻿@model List<int>
 @{
     ViewData["Title"] = "管理員與使用者占比";
-    Layout = "_LayoutAdministratorCharts";
 }
 <div class="sidebar">
     <ul class="menu">
@@ -12,21 +11,21 @@
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
         </li>
         <li class="menu-item">
+            <a asp-controller="AdminToUser" asp-action="UserData" class="navtext">使用者控管</a>
+        </li>
+        <li class="menu-item">
             <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext" style="background-color: white; color:black;">管理員與使用者占比</a>
         </li>
-        @*<li class="menu-item">
+        <li class="menu-item">
             <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
-        </li>*@
+        </li>
         <li class="menu-item">
             <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext">主頁面更新</a>
         </li>
-        @*<li class="menu-item">
-            <a href="#" class="navtext">按鈕6</a>
-        </li>*@
     </ul>
 </div>
 <div style="display:flex;">
-    <div style="width: 30%; padding: 300px;">
+    <div style="width: 30%; padding: 30%;">
     </div>
     <div class="content">
         <div style="display: flex;">
@@ -75,7 +74,7 @@
         var userChart = new Chart(userCtx, {
             type: "pie",
             data: {
-                labels: ["賣家", "買家", "管理員"],
+                labels: ["賣家", "買家", "已停權"],
                 datasets: [{
                     data: userData,
                     backgroundColor: [

@@ -3,6 +3,10 @@
     ViewData["Title"] = "當前CPU與記憶體使用率";
     Layout = "_LayoutGetCpu";
 }
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 <div class="sidebar">
     <ul class="menu">
         <li class="menu-item">
@@ -10,6 +14,9 @@
         </li>
         <li class="menu-item">
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">管理人員控管</a>
+        </li>
+        <li class="menu-item">
+            <a asp-controller="AdminToUserController" asp-action="UserData" class="navtext">使用者控管</a>
         </li>
         <li class="menu-item">
             <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
@@ -20,141 +27,139 @@
         <li class="menu-item">
             <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext">主頁面更新</a>
         </li>
-        <li class="menu-item">
-            <a href="#" class="navtext">按鈕6</a>
-        </li>
     </ul>
 </div>
 
 <div style="display:flex;">
-    <div style="width: 30%; padding: 300px;">
+    <div style="width: 30%; padding: 30%;">
     </div>
     <div class="content">
         <h1>當前本機CPU與記憶體使用率</h1>
-
-        <div>
-            <canvas id="cpuChart" style="width: 800px; height: 300px;"></canvas>
+        <div style=" width:700px; height:400px">
+            <canvas id="cpuChart" width="100" height="50"></canvas>
         </div>
 
-        <div>
-            <canvas id="memoryChart" style="width: 800px; height: 300px;"></canvas>
+        <div style=" width:700px; height:400px">
+            <canvas id="memoryChart" width="100" height="50"></canvas>
         </div>
+
+        <script>
+            $(document).ready(function () {
+                var cpuChart;
+                var cpuLabels = [];
+                var cpuData = [];
+
+                var memoryChart;
+                var memoryLabels = [];
+                var memoryData = [];
+
+                function initCpuChart() {
+                    var ctx = document.getElementById('cpuChart').getContext('2d');
+                    cpuChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: cpuLabels,
+                            datasets: [{
+                                label: 'CPU Usage',
+                                data: cpuData,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                pointRadius: 0,
+                                fill: false,
+                                lineTension: 0
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
+                    fetchCpuUsage();
+                }
+
+                function fetchCpuUsage() {
+                    $.ajax({
+                        url: '/GetCpu/GetCpuUsage',
+                        type: 'GET',
+                        success: function (result) {
+                            var cpuUsage = result.cpuUsage.toFixed(2);
+                            var currentTime = new Date().toLocaleTimeString();
+
+                            if (cpuLabels.length >= 10) {
+                                cpuLabels.splice(0, 1);
+                                cpuData.splice(0, 1);
+                            }
+
+                            cpuLabels.push(currentTime);
+                            cpuData.push(cpuUsage);
+
+                            cpuChart.update();
+                            setTimeout(fetchCpuUsage, 100);
+                        }
+                    });
+                }
+
+                function initMemoryChart() {
+                    var ctx = document.getElementById('memoryChart').getContext('2d');
+                    memoryChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: memoryLabels,
+                            datasets: [{
+                                label: 'Memory Usage',
+                                data: memoryData,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1,
+                                pointRadius: 0,
+                                fill: false,
+                                lineTension: 0
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
+                    fetchMemoryUsage();
+                }
+
+                function fetchMemoryUsage() {
+                    $.ajax({
+                        url: '/GetCpu/GetMemoryUsage',
+                        type: 'GET',
+                        success: function (result) {
+                            var memoryUsage = result.memoryUsage.toFixed(2);
+                            var currentTime = new Date().toLocaleTimeString();
+
+                            if (memoryLabels.length >= 10) {
+                                memoryLabels.splice(0, 1);
+                                memoryData.splice(0, 1);
+                            }
+
+                            memoryLabels.push(currentTime);
+                            memoryData.push(memoryUsage);
+
+                            memoryChart.update();
+                            setTimeout(fetchMemoryUsage, 1000);
+                        }
+                    });
+                }
+
+                initCpuChart();
+                initMemoryChart();
+            });
+        </script>
+
 
     </div>
 </div>
-@section scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@latest/dist/chartjs-adapter-moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
-
-    <script>
-        var cpuChart;
-        var cpuData = [];
-        var cpuLabels = [];
-
-        var memoryChart;
-        var memoryData = [];
-        var memoryLabels = [];
-
-        document.addEventListener("DOMContentLoaded", function () {
-            cpuChart = new Chart(document.getElementById("cpuChart"), {
-                type: "bar",
-                data: {
-                    labels: cpuLabels,
-                    datasets: [{
-                        label: "CPU Usage",
-                        data: cpuData,
-                        backgroundColor: "blue",
-                        borderColor: "blue",
-                        tension: 0
-                    }]
-                },
-                options: {
-                    responsive: false,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            type: "realtime",
-                            realtime: {
-                                duration: 10000,
-                                refresh: 1000,
-                                delay: 1000,
-                                pause: false,
-                                ttl: undefined
-                            }
-                        },
-                        y: {
-                            min: 0,
-                            max: 100,
-                            ticks: {
-                                stepSize: 10
-                            }
-                        }
-                    }
-                }
-            });
-
-            memoryChart = new Chart(document.getElementById("memoryChart"), {
-                type: "line",
-                data: {
-                    labels: memoryLabels,
-                    datasets: [{
-                        label: "Memory Usage",
-                        data: memoryData,
-                        backgroundColor: "green",
-                        borderColor: "green",
-                        tension: 0
-                    }]
-                },
-                options: {
-                    responsive: false,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            type: "realtime",
-                            realtime: {
-                                duration: 10000,
-                                refresh: 1000,
-                                delay: 1000,
-                                pause: false,
-                                ttl: undefined
-                            }
-                        },
-                        y: {
-                            min: 0,
-                            ticks: {
-                                stepSize: 100
-                            }
-                        }
-                    }
-                }
-            });
-
-            var connection = new signalR.HubConnectionBuilder()
-                .withUrl("/CpuHub")
-                .build();
-
-            connection.on("UpdateCpuUsage", function (cpuUsage) {
-                cpuData.push(cpuUsage);
-                cpuLabels.push("");
-                cpuChart.update();
-            });
-
-            connection.on("UpdateMemoryUsage", function (memoryUsage) {
-                memoryData.push(memoryUsage);
-                memoryLabels.push("");
-                memoryChart.update();
-            });
-
-            connection.start()
-                .then(function () {
-                    console.log("SignalR connected.");
-                })
-                .catch(function (err) {
-                    console.error("SignalR connection error: " + err);
-                });
-        });
-    </script>
-}

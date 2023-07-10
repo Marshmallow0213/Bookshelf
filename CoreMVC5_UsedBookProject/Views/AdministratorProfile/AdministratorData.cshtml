@@ -11,22 +11,22 @@
             <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext" style="background-color: white; color:black;">管理人員控管</a>
         </li>
         <li class="menu-item">
+            <a asp-controller="AdminToUser" asp-action="UserData" class="navtext">使用者控管</a>
+        </li>
+        <li class="menu-item">
             <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
-        </li>@*
+        </li>
         <li class="menu-item">
             <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
-        </li>*@
+        </li>
         <li class="menu-item">
             <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext">主頁面更新</a>
-        </li>@*
-        <li class="menu-item">
-            <a href="#" class="navtext">按鈕6</a>
-        </li>*@
+        </li>
     </ul>
 </div>
 
 <div style="display:flex;">
-    <div style="width: 30%; padding: 300px;">
+    <div style="width: 30%; padding: 30%;">
     </div>
         <div class="content">
         <table class="table table-striped table-bordered table-hover">
