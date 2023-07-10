@@ -122,7 +122,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Seller")]
+        [Authorize]
         public IActionResult Details()
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
@@ -130,12 +130,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(user);
         }
 
-        //[Authorize(Roles = "Seller")]
+        //[Authorize]
         //public IActionResult ChangePassword()
         //{
         //    return View();
         //}
-        //[Authorize(Roles = "Seller")]
+        //[Authorize]
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
@@ -162,14 +162,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         //    }
         //    return View(userPasswordChangeViewModel);
         //}
-        [Authorize(Roles = "Seller")]
+        [Authorize]
         public IActionResult ChangeUserInfo()
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var user = _accountService.GetUser(name);
             return View(user);
         }
-        [Authorize(Roles = "Seller")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangeUserInfo(UserViewModel userViewModel)
@@ -195,13 +195,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(userViewModel);
         }
-        //[Authorize(Roles = "Administrator,Seller")]
+        //[Authorize]
         //[HttpGet]
         //public IActionResult ForgotPasswordUserName()
         //{
         //    return View();
         //}
-        //[Authorize(Roles = "Administrator,Seller")]
+        //[Authorize]
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public IActionResult ForgotPasswordUserName(RegisterViewModel registerVM)
@@ -216,14 +216,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         //    ViewBag.Error = "使用者名稱不存在";
         //    return View(registerVM);
         //}
-        [Authorize(Roles = "Administrator,Seller")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult ForgotPassword(string username)
         {
             ViewBag.UserName = username;
             return View();
         }
-        [Authorize(Roles = "Administrator,Seller")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ForgotPassword(RegisterViewModel registerVM)
@@ -253,13 +253,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(registerVM);
         }
-        [Authorize(Roles = "Administrator,Seller")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult RegisterFromCSV()
         {
             return View();
         }
-        [Authorize(Roles = "Administrator,Seller")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult RegisterFromCSV(RegisterFromCSV registerFromCSV, string submit)

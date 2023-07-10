@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    [Authorize(Roles = "Buyer")]
+    [Authorize]
     public class BuyerController : Controller
     {
         private readonly BuyerService _buyerService;
