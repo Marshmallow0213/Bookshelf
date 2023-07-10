@@ -262,7 +262,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RegisterFromCSV(RegisterFromCSV registerFromCSV, string submit)
+        public IActionResult RegisterFromCSV(RegisterFromCSVViewModel registerFromCSV, string submit)
         {
             if (ModelState.IsValid)
             {

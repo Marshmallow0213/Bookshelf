@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CoreMVC5_UsedBookProject.ViewModels
 {
-    public class RegisterFromCSV
+    public class RegisterFromCSVViewModel
     {
         [Display(Name = "CSV")]
         [Required(ErrorMessage = "{0}不可為空!")]
