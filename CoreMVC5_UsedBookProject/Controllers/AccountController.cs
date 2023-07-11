@@ -130,38 +130,36 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(user);
         }
 
-        //[Authorize]
-        //public IActionResult ChangePassword()
-        //{
-        //    return View();
-        //}
-        //[Authorize]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-        //        string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
-        //        var user = (from p in _ctx.Users
-        //                    where p.Id == $"{name}"
-        //                    select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
-        //        if (!_hashService.Verify(userPasswordChangeViewModel.OldPassword, user.Password))
-        //        {
-        //            ViewBag.Error = "舊密碼不符";
-        //            return View(userPasswordChangeViewModel);
-        //        }
-        //        _ctx.Entry(user).State = EntityState.Modified;
-        //        user.Password = password;
-        //        _ctx.SaveChanges();
-        //        ViewData["Title"] = "密碼變更";
-        //        ViewData["Message"] = "使用者密碼變更成功!";  //顯示訊息
-                
-        //        return View("~/Views/Shared/ResultMessage.cshtml");
-        //    }
-        //    return View(userPasswordChangeViewModel);
-        //}
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
+                var user = (from p in _ctx.Users
+                            where p.Id == $"{name}"
+                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
+                if (!_hashService.Verify(userPasswordChangeViewModel.OldPassword, user.Password))
+                {
+                    ViewBag.Error = "舊密碼不符";
+                    return View(userPasswordChangeViewModel);
+                }
+                _ctx.Entry(user).State = EntityState.Modified;
+                user.Password = password;
+                _ctx.SaveChanges();
+                TempData["Message"] = "使用者密碼變更成功!";
+                return View();
+            }
+            return View(userPasswordChangeViewModel);
+        }
         [Authorize]
         public IActionResult ChangeUserInfo()
         {
@@ -188,70 +186,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 _ctx.SaveChanges();
                 _accountService.UploadImages(userViewModel.File1, user.Id);
-                ViewData["Title"] = "資訊變更";
-                ViewData["Message"] = "使用者資訊變更成功!";  //顯示訊息
-
-                return View("~/Views/Shared/ResultMessage.cshtml");
+                TempData["Message"] = "使用者資訊變更成功!";
+                var _user = _accountService.GetUser(name);
+                return View(_user);
             }
             return View(userViewModel);
-        }
-        //[Authorize]
-        //[HttpGet]
-        //public IActionResult ForgotPasswordUserName()
-        //{
-        //    return View();
-        //}
-        //[Authorize]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult ForgotPasswordUserName(RegisterViewModel registerVM)
-        //{
-        //    var checkAccountExist = (from p in _ctx.Users
-        //                             where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
-        //                             select new { p.Id }).FirstOrDefault();
-        //    if (checkAccountExist != null)
-        //    {
-        //        return RedirectToAction("ForgotPassword", new { UserName = registerVM.UserName });
-        //    }
-        //    ViewBag.Error = "使用者名稱不存在";
-        //    return View(registerVM);
-        //}
-        [Authorize(Roles = "Top Administrator")]
-        [HttpGet]
-        public IActionResult ForgotPassword(string username)
-        {
-            ViewBag.UserName = username;
-            return View();
-        }
-        [Authorize(Roles = "Top Administrator")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ForgotPassword(RegisterViewModel registerVM)
-        {
-            if (ModelState.IsValid)
-            {
-                var checkAccountExist = (from p in _ctx.Users
-                                         where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
-                                         select new { p.Id }).FirstOrDefault();
-                if (checkAccountExist == null)
-                {
-                    ViewBag.Error = "使用者名稱不存在";
-                    return View(registerVM);
-                }
-                string password = _hashService.HashPassword(registerVM.Password);
-                var user = (from p in _ctx.Users
-                            where p.Name == $"{registerVM.UserName}"
-                            select new User { Id = p.Id, Name = p.Name, Password = p.Password, Nickname = p.Nickname, Email = p.Email, PhoneNo = p.PhoneNo, UserIcon = p.UserIcon }).FirstOrDefault();
-                _ctx.Entry(user).State = EntityState.Modified;
-                user.Password = password;
-                _ctx.SaveChanges();
-                ViewData["Title"] = "密碼變更";
-                ViewData["Message"] = "使用者密碼變更成功!";  //顯示訊息
-
-                return View("~/Views/Shared/ResultMessage.cshtml");
-            }
-
-            return View(registerVM);
         }
         [Authorize(Roles = "Top Administrator")]
         [HttpGet]
