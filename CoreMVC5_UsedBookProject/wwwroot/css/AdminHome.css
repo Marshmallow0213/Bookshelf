@@ -12,10 +12,13 @@
     position: fixed;
     background-color: #d3d3d3;
     padding: 10px;
-    height: 100VH;
+    height: calc(100% - 160px); /* Subtract 79px (top) + 81px (bottom) */
     display: flex;
     flex-direction: column;
+    top: 79px; /* Adjust the top value */
+    bottom: 81px; /* Adjust the bottom value */
 }
+
 
 .navtext {
     font-size: 30px;
