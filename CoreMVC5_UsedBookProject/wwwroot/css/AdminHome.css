@@ -32,7 +32,7 @@
     padding: 0;
     margin-bottom: 0;
     gap: 5px;
-    justify-content: stretch;
+    justify-content: space-evenly;
 }
 .content{
     width:800px;
@@ -52,4 +52,38 @@
     }
 .createtext{
     font-size:35px;
+}
+@media screen and (max-width: 600px) {
+    .navtext {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1200px) {
+    .navtext {
+        font-size: 25px;
+    }
+}
+
+@media screen and (min-width: 1201px) {
+    .navtext {
+        font-size: 30px;
+    }
+}
+@media screen and (max-height: 400px) {
+    .navtext {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-height: 401px) and (max-height: 800px) {
+    .navtext {
+        font-size: 25px;
+    }
+}
+
+@media screen and (min-height: 801px) {
+    .navtext {
+        font-size: 30px;
+    }
 }
