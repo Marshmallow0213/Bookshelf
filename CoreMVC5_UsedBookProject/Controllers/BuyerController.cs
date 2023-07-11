@@ -55,6 +55,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
             if (buyername == product.CreateBy)
             {
+                TempData["Message"] = "你不能購買自己的商品!";
                 return RedirectToAction("Details", "Home", new { ProductId = ProductId });
             }
             if (ProductId != null && Sellername != null)

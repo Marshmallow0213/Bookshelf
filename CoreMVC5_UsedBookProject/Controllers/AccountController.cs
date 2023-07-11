@@ -274,13 +274,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                                 UserId = Id,
                                 RoleId = "R001",
                             };
-                            UserRoles userRoles2 = new UserRoles
-                            {
-                                UserId = Id,
-                                RoleId = "R002",
-                            };
                             _ctx.UserRoles.Add(userRoles1);
-                            _ctx.UserRoles.Add(userRoles2);
                             newuserscount += 1;
                             _ctx.SaveChanges();
                         }

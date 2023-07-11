@@ -44,40 +44,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-
-        private bool FuzzyMatch(string source, string target)
-        {
-            int sourceLength = source.Length;
-            int targetLength = target.Length;
-            int[,] distanceMatrix = new int[sourceLength + 1, targetLength + 1];
-
-
-            for (int i = 0; i <= sourceLength; i++)
-            {
-                distanceMatrix[i, 0] = i;
-            }
-
-            for (int j = 0; j <= targetLength; j++)
-            {
-                distanceMatrix[0, j] = j;
-            }
-
-            for (int i = 1; i <= sourceLength; i++)
-            {
-                for (int j = 1; j <= targetLength; j++)
-                {
-                    int substitutionCost = (source[i - 1] == target[j - 1]) ? 0 : 1;
-                    distanceMatrix[i, j] = Math.Min(
-                        Math.Min(distanceMatrix[i - 1, j] + 1, distanceMatrix[i, j - 1] + 1),
-                        distanceMatrix[i - 1, j - 1] + substitutionCost);
-                }
-            }
-
-            int maxEditDistance = Math.Max(sourceLength, targetLength);
-            int normalizedEditDistance = distanceMatrix[sourceLength, targetLength] * 100 / maxEditDistance;
-            double similarityThreshold = 0.8;
-            return normalizedEditDistance <= (1 - similarityThreshold) * 100;
-        }
         public IActionResult SearchProducts(string name)
         {
             List<ProductViewModel> products = new();
@@ -189,7 +155,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         private List<string> GetPredictionsFromData(string searchText)
         {
             var predictions = _context.Products
-                .Where(p => p.Title.Contains(searchText))
+                .Where(p => p.Title.Contains(searchText) && p.Status == "已上架")
                 .Select(p => p.Title)
                 .ToList();
             if (predictions.Count == 0)
