@@ -24,7 +24,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class Administratorlist : Controller
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AdminAccountContext _ctx;
 
         public Administratorlist(AdminAccountContext ctx)

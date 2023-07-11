@@ -65,9 +65,8 @@ namespace CoreMVC5_UsedBookProject.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Role>().HasData(
-                new Role { Id = "R001", Name = "Seller" },
-                new Role { Id = "R002", Name = "Buyer" },
-                new Role { Id = "R003", Name = "Administrator" }
+                new Role { Id = "R001", Name = "User" },
+                new Role { Id = "R002", Name = "Suspension" }
                 );
 
         }

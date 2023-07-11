@@ -165,9 +165,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         new
                         {
                             Id = "T001",
-                            Image1 = "Error.jpg",
-                            Image2 = "Error.jpg",
-                            Image3 = "Error.jpg",
+                            Image1 = "Error.png",
+                            Image2 = "Error.png",
+                            Image3 = "Error.png",
                             TextValue = "預設文字"
                         });
                 });

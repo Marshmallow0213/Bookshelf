@@ -122,7 +122,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-        [Authorize]
+        [Authorize(Roles = "User")]
         public IActionResult Details()
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
@@ -130,12 +130,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(user);
         }
 
-        [Authorize]
+        [Authorize(Roles = "User")]
         public IActionResult ChangePassword()
         {
             return View();
         }
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
@@ -160,14 +160,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(userPasswordChangeViewModel);
         }
-        [Authorize]
+        [Authorize(Roles = "User")]
         public IActionResult ChangeUserInfo()
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var user = _accountService.GetUser(name);
             return View(user);
         }
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangeUserInfo(UserViewModel userViewModel)
@@ -295,12 +295,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     for (int i = 1; i < listA.Count(); i++)
                     {
                         var checkAccountExist = _ctx.Users.Where(w => w.Name.ToUpper() == $"{listA[i]}".ToUpper()).FirstOrDefault();
-                        List<string> noDeleteList = new()
-                        {
-                            // Adding elements to List
-                            "uU7SkhR5UQ3sZA5B"
-                        };
-                        if (checkAccountExist != null && noDeleteList.ConvertAll(d => d.ToUpper()).Contains(listA[i].ToUpper()) == false)
+                        if (checkAccountExist != null)
                         {
                             string Id = checkAccountExist.Id;
                             _ctx.Users.Remove(checkAccountExist);

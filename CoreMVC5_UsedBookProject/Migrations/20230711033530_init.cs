@@ -168,29 +168,12 @@ namespace CoreMVC5_UsedBookProject.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { "R001", "Seller" },
-                    { "R002", "Buyer" },
-                    { "R003", "Administrator" },
-                    { "R004", "Owner" }
-                });
+                values: new object[] { "R001", "User" });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo", "UserIcon" },
-                values: new object[] { "Owner", "null", "uU7SkhR5UQ3sZA5B", "Owner", "$2a$11$ypB0llPBYSb/edVbQuAbSeJNpmVh/HJQhsdinwuND3GIHFUZ6MMCi", "null", "UserIcon.png" });
-
-            migrationBuilder.InsertData(
-                table: "UserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { "R001", "Owner" },
-                    { "R002", "Owner" },
-                    { "R003", "Owner" },
-                    { "R004", "Owner" }
-                });
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { "R002", "Suspension" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ProductId",

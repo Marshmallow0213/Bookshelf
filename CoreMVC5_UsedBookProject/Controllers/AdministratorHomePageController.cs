@@ -16,7 +16,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
 {
     public class AdministratorHomePageController : Controller
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AdminAccountContext _ctx;
 
         public AdministratorHomePageController(AdminAccountContext ctx)

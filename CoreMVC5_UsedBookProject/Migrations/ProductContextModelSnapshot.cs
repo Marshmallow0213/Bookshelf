@@ -151,22 +151,12 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         new
                         {
                             Id = "R001",
-                            Name = "Seller"
+                            Name = "User"
                         },
                         new
                         {
                             Id = "R002",
-                            Name = "Buyer"
-                        },
-                        new
-                        {
-                            Id = "R003",
-                            Name = "Administrator"
-                        },
-                        new
-                        {
-                            Id = "R004",
-                            Name = "Owner"
+                            Name = "Suspension"
                         });
                 });
 
@@ -226,18 +216,6 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "Owner",
-                            Email = "null",
-                            Name = "uU7SkhR5UQ3sZA5B",
-                            Nickname = "Owner",
-                            Password = "$2a$11$ypB0llPBYSb/edVbQuAbSeJNpmVh/HJQhsdinwuND3GIHFUZ6MMCi",
-                            PhoneNo = "null",
-                            UserIcon = "UserIcon.png"
-                        });
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.UserRoles", b =>
@@ -253,28 +231,6 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "Owner",
-                            RoleId = "R001"
-                        },
-                        new
-                        {
-                            UserId = "Owner",
-                            RoleId = "R002"
-                        },
-                        new
-                        {
-                            UserId = "Owner",
-                            RoleId = "R003"
-                        },
-                        new
-                        {
-                            UserId = "Owner",
-                            RoleId = "R004"
-                        });
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Wish", b =>

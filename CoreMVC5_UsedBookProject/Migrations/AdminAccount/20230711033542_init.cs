@@ -86,7 +86,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
             migrationBuilder.InsertData(
                 table: "TextValue",
                 columns: new[] { "Id", "Image1", "Image2", "Image3", "TextValue" },
-                values: new object[] { "T001", "Error.jpg", "Error.jpg", "Error.jpg", "預設文字" });
+                values: new object[] { "T001", "Error.png", "Error.png", "Error.png", "預設文字" });
 
             migrationBuilder.InsertData(
                 table: "Users",

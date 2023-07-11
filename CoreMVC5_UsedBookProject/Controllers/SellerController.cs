@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class SellerController : Controller
     {
         private readonly SellerService _sellerService;
