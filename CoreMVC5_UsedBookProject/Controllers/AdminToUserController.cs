@@ -89,8 +89,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     {
                         return NotFound();
                     }
-
-                    user.Name = User.Name;
                     user.Nickname = User.Nickname;
                     user.Email = User.Email;
                     user.PhoneNo = User.PhoneNo;
