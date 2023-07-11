@@ -23,20 +23,20 @@
             <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">管理員與使用者占比</a>
         </li>
         <li class="menu-item">
-            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前CPU與記憶體使用率</a>
+            <a asp-controller="GetCpu" asp-action="CPUView" class="navtext">當前進程CPU與記憶體使用率</a>
         </li>
         <li class="menu-item">
             <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext" style="background-color: white; color:black;">主頁面更新</a>
         </li>
         <li class="menu-item">
-            <a asp-controller="Account" asp-action="RegisterFromCSV" class="navtext">使用者批量註冊</a>
+            <a asp-controller="Account" asp-action="RegisterFromCSV" class="navtext">使用者批量管理</a>
         </li>
     </ul>
 </div>
 <div style="display:flex;">
-    <div style="width: 30%; padding: 30%;">
+    <div style="width: 30%; margin:auto;">
     </div>
-    <div class="content" style="width:1200px;">
+    <div class="content">
             <form action="~/AdministratorHomePage/UploadImage" method="post" enctype="multipart/form-data">
             <div style="display:flex;">
                     <div>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="Id" class="form-control" id="Id" value="@Model.Id" readonly />
-                <button type="submit" class="btn btn-primary">submit</button>
+                <button type="submit" class="btn btn-primary">保存</button>
             </form>
         <h4 class="alert alert-danger">更改文字預覽區</h4>
         <div style="display: flex;">
