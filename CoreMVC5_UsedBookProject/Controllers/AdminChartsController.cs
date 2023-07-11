@@ -29,15 +29,31 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 .Select(g => g.Count())
                 .ToList();
 
+            var countadmin1 = _ctx.UserRoles.Where(r => r.RoleId == "R001").Count();
+            var countadmin2 = _ctx.UserRoles.Where(r => r.RoleId == "R002").Count();
+            var countadmin3 = _ctx.UserRoles.Where(r => r.RoleId == "R003").Count();
+            var totalAdminRoleCount = adminRoleCounts.Sum();
+            ViewBag.AdminData1 = JsonSerializer.Serialize(countadmin1);
+            ViewBag.AdminData2 = JsonSerializer.Serialize(countadmin2);
+            ViewBag.AdminData3 = JsonSerializer.Serialize(countadmin3);
+            ViewBag.AdminDatat = JsonSerializer.Serialize(totalAdminRoleCount);
+            ViewBag.AdminData = JsonSerializer.Serialize(adminRoleCounts);
+
+
+
             var userRoleCounts = _ctxc.UserRoles
                 .Where(r => r.RoleId == "R001" ||
-                            r.RoleId == "R002" ||
-                            r.RoleId == "R003")
+                            r.RoleId == "R002")
                 .GroupBy(r => r.RoleId)
                 .Select(g => g.Count())
                 .ToList();
 
-            ViewBag.AdminData = JsonSerializer.Serialize(adminRoleCounts);
+            var countuser1 = _ctxc.UserRoles.Where(r => r.RoleId == "R001").Count();
+            var countuser2 = _ctxc.UserRoles.Where(r => r.RoleId == "R002").Count();
+            var totalUserRoleCount = userRoleCounts.Sum();
+            ViewBag.UserData1 = JsonSerializer.Serialize(countuser1);
+            ViewBag.UserData2 = JsonSerializer.Serialize(countuser2);
+            ViewBag.UserDatat = JsonSerializer.Serialize(totalUserRoleCount);
             ViewBag.UserData = JsonSerializer.Serialize(userRoleCounts);
 
             return View();

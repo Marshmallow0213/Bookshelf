@@ -55,17 +55,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(User);
         }
 
-
-
-
-
-
-
-
-
-
-
-
         public async Task<IActionResult> UserEdit(string id)
         {
             if (id == null)
@@ -118,11 +107,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(User);
         }
-
-
-
-
-
 
 
 
@@ -180,7 +164,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             try
             {
                 var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
-                var role = _ctx.Roles.Where(r => r.Name == "Seller").FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "User").FirstOrDefault();
                 if (data != null && role != null)
                 {
                     var newUserRole = new UserRoles
@@ -201,36 +185,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return RedirectToAction("UserData");
         }
 
-        public IActionResult Buyer(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return NotFound();
-            }
-
-            try
-            {
-                var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
-                var role = _ctx.Roles.Where(r => r.Name == "Buyer").FirstOrDefault();
-                if (data != null && role != null)
-                {
-                    var newUserRole = new UserRoles
-                    {
-                        UserId = id,
-                        RoleId = role.Id
-                    };
-                    _ctx.Remove(data);
-                    _ctx.UserRoles.Add(newUserRole);
-                    _ctx.SaveChanges();
-                }
-            }
-            catch (DbUpdateException ex)
-            {
-                return BadRequest(ex.Data);
-            }
-
-            return RedirectToAction("UserData");
-        }
+        
 
         public IActionResult Administrator(string id)
         {
@@ -242,7 +197,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             try
             {
                 var data = _ctx.UserRoles.Where(ur => ur.UserId == id).FirstOrDefault();
-                var role = _ctx.Roles.Where(r => r.Name == "Administrator").FirstOrDefault();
+                var role = _ctx.Roles.Where(r => r.Name == "Suspension").FirstOrDefault();
                 if (data != null && role != null)
                 {
                     var newUserRole = new UserRoles

@@ -9,10 +9,12 @@
 
 .sidebar {
     left: 0;
-    width: 30%;
     position: fixed;
-    background-color: gray;
+    background-color: #d3d3d3;
     padding: 10px;
+    height: 100VH;
+    display: flex;
+    flex-direction: column;
 }
 
 .navtext {
@@ -27,7 +29,7 @@
     padding: 0;
     margin-bottom: 0;
     gap: 5px;
-    justify-content: space-around;
+    justify-content: stretch;
 }
 .content{
     width:800px;
@@ -38,7 +40,7 @@
 .menu-item a {
     display: block;
     padding: 5px;
-    color: white;
+    color: #949494;
     text-decoration: none;
 }
     .menu-item a:hover {
