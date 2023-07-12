@@ -7,7 +7,6 @@ namespace CoreMVC5_UsedBookProject.Models
         public string Id { get; set; }
         public string Name { get; set; }
 
-        // Navigation property for UserRoles
         public ICollection<AdministratorUserRoles> UserRoles { get; set; }
     }
 }

@@ -29,8 +29,23 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [Authorize]
         public async Task<IActionResult> UserData()
         {
-            var model = await _ctx.Users.ToListAsync();
-            return View(model);
+            var data = (from ur in _ctx.UserRoles
+                        from u in _ctx.Users
+                        from r in _ctx.Roles
+                        where ur.UserId == u.Id && ur.RoleId == r.Id
+                        select new MixUserViewModel { UserID = u.Id, UserName = u.Name, RoleName = r.Name }).ToList();
+            foreach (var item in data)
+            {
+                if (item.RoleName == "User")
+                {
+                    item.RoleName = "使用者";
+                }
+                else if (item.RoleName == "Suspension")
+                {
+                    item.RoleName = "已停權使用者";
+                }
+            }
+            return View(data);
         }
 
         public async Task<IActionResult> UserDetail(string id)
