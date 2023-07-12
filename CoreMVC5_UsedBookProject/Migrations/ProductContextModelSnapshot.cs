@@ -19,6 +19,49 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.BarterOrder", b =>
+                {
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BuyerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BuyerProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DenyReason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SellerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SellerProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Trade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("BuyerProductId");
+
+                    b.ToTable("BarterOrders");
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Order", b =>
                 {
                     b.Property<string>("OrderId")
@@ -256,6 +299,17 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("Wishes");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.BarterOrder", b =>
+                {
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("BuyerProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Order", b =>

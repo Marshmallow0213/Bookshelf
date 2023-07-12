@@ -35,7 +35,7 @@
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>
     </ul>
-    @if (Model.Orders.Count > 0)
+    @if (Model.Orders.Count > 0 && ViewBag.Trade == "金錢")
     {
         @foreach (var item in Model.Orders)
         {
@@ -49,15 +49,34 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.ProductId)</td><td>@item.ProductId</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
-                    @if (item.Trade == "金錢")
-                    {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
-                    }
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
                 </table>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
                     <a href="@Url.Action("Details", "Buyer", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
                     <a href="@Url.Action("OrderDetails", "Buyer", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 訂單詳情</a>
+                </div>
+            </div>
+        }
+    }
+    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "以物易物")
+    {
+        @foreach (var item in Model.BarterOrders)
+        {
+            <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
+                    <img src="../Images/Products/@item.SellerProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+                </div>
+                <table class="container-fluid">
+                    <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.SellerName)</td><td>@item.SellerName</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.BuyerName)</td><td>@item.BuyerName</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.DenyReason)</td><td>@item.DenyReason</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.SellerProductId)</td><td>@item.SellerProductId</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.Trade)</td><td>@item.Trade</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.Status)</td><td>@item.Status</td></tr>
+                </table>
+                <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
+                    <a href="@Url.Action("Details", "Buyer", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    <a href="@Url.Action("BarterOrderDetails", "Buyer", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 訂單詳情</a>
                 </div>
             </div>
         }

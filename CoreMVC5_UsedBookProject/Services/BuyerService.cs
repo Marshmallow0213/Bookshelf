@@ -120,6 +120,31 @@ namespace CoreMVC5_UsedBookProject.Services
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
+                BarterOrders = new List<BarterOrderViewModel>() { },
+                PagesCount = new int[] { now_page, all_pages },
+                OrdersCount = count,
+                StatusPage = status
+            };
+            return mymodel;
+        }
+        public MySalesViewModel GetBarterOrders(string trade, string status, int now_page, string name)
+        {
+            Dictionary<string, int> count = BarterOrdersCountList(trade, name);
+            status ??= "待確認";
+            now_page = now_page == 0 ? 1 : now_page;
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            List<BarterOrderViewModel> barterorders = new();
+            var sellername = (from o in _context.BarterOrders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
+            var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
+            barterorders = (from o in _context.BarterOrders
+                      from p in _context.Products
+                      where o.SellerProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}" && o.Trade == trade
+                      orderby o.CreateDate descending
+                      select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, BuyerProductId = o.BuyerProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 30).Take(30).ToList();
+            MySalesViewModel mymodel = new()
+            {
+                Orders = new List<OrderViewModel>() { },
+                BarterOrders = barterorders,
                 PagesCount = new int[] { now_page, all_pages },
                 OrdersCount = count,
                 StatusPage = status
@@ -130,6 +155,31 @@ namespace CoreMVC5_UsedBookProject.Services
         {
             Dictionary<string, int> countList = new();
             countList = _context.Orders.Where(w => w.BuyerId == name && w.Trade == trade).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+            Dictionary<string, int> count = new()
+            {
+                { "全部", 0 },
+                { "待確認", 0 },
+                { "已成立", 0 },
+                { "不成立", 0 },
+                { "已完成", 0 },
+                { "待取消", 0 }
+            };
+            foreach (var item in countList.Keys)
+            {
+                count[item] = countList[item];
+            }
+            int all = 0;
+            foreach (var item in count.Values)
+            {
+                all += item;
+            }
+            count["全部"] = all;
+            return count;
+        }
+        public Dictionary<string, int> BarterOrdersCountList(string trade, string name)
+        {
+            Dictionary<string, int> countList = new();
+            countList = _context.BarterOrders.Where(w => w.BuyerId == name && w.Trade == trade).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },
@@ -189,6 +239,44 @@ namespace CoreMVC5_UsedBookProject.Services
             }
             _context.SaveChanges();
         }
+        public void CreateBarterOrder(string trade, string sellername, string buyername, string ProductId)
+        {
+            string Id = $"{_hashService.RandomString(16)}";
+            var checkOrderExist = (from p in _context.BarterOrders
+                                   where p.OrderId == $"{Id}"
+                                   orderby p.CreateDate descending
+                                   select new { p.OrderId }).FirstOrDefault();
+            while (checkOrderExist != null)
+            {
+                Id = $"{_hashService.RandomString(16)}";
+                checkOrderExist = (from p in _context.BarterOrders
+                                   where p.OrderId == $"{Id}"
+                                   orderby p.CreateDate descending
+                                   select new { p.OrderId }).FirstOrDefault();
+            };
+            var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "待確認";
+            BarterOrder barterOrder = new()
+            {
+                OrderId = Id,
+                SellerId = sellername,
+                BuyerId = buyername,
+                DenyReason = "",
+                SellerProductId = ProductId,
+                BuyerProductId = ProductId,
+                Status = "待確認",
+                Trade = trade,
+                CreateDate = DateTime.Now
+            };
+            _context.Add(barterOrder);
+            var exist = _context.Shoppingcarts.Where(w => w.ProductId == ProductId).ToList();
+            foreach (var i in exist)
+            {
+                _context.Shoppingcarts.Remove(i);
+            }
+            _context.SaveChanges();
+        }
         public OrderViewModel GetOrder(string OrderId, string trade)
         {
             OrderViewModel order = new();
@@ -201,6 +289,18 @@ namespace CoreMVC5_UsedBookProject.Services
                      select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, UnitPrice = o.UnitPrice, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
             return order;
         }
+        public BarterOrderViewModel GetBarterOrder(string OrderId, string trade)
+        {
+            BarterOrderViewModel order = new();
+            var sellername = (from o in _context.BarterOrders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
+            var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
+            order = (from o in _context.BarterOrders
+                     from p in _context.Products
+                     where o.SellerProductId == p.ProductId && o.OrderId == OrderId
+                     orderby o.CreateDate descending
+                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, BuyerProductId = o.BuyerProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
+            return order;
+        }
         public void FinishOrder(string orderId)
         {
             var order = _context.Orders.Where(w => w.OrderId == orderId).FirstOrDefault();
@@ -208,11 +308,27 @@ namespace CoreMVC5_UsedBookProject.Services
             order.Status = "已完成";
             _context.SaveChanges();
         }
-        public void CancelOrder(string orderId)
+        public void CancelOrder(string orderId, string DenyReason)
         {
             var order = _context.Orders.Where(w => w.OrderId == orderId).FirstOrDefault();
             _context.Entry(order).State = EntityState.Modified;
             order.Status = "待取消";
+            order.DenyReason = DenyReason;
+            _context.SaveChanges();
+        }
+        public void FinishBarterOrder(string orderId)
+        {
+            var order = _context.BarterOrders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "已完成";
+            _context.SaveChanges();
+        }
+        public void CancelBarterOrder(string orderId, string DenyReason)
+        {
+            var order = _context.BarterOrders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "待取消";
+            order.DenyReason = DenyReason;
             _context.SaveChanges();
         }
     }
