@@ -2,19 +2,6 @@
 @model WishsViewModel
 <div class="container-fluid">
     <h2>願望清單</h2>
-    <form method="post" enctype="multipart/form-data" action="/Buyer/Wish">
-        <div class="form-group">
-            <label asp-for="Title" class="control-label"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="ISBN" class="control-label"></label>
-            <input asp-for="ISBN" class="form-control" />
-            <span asp-validation-for="ISBN" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-outline-primary">增至許願井</button>
-    </form>
     @if (Model.Wishs.Count > 0)
     {
         @foreach (var item in Model.Wishs)
@@ -28,9 +15,6 @@
                     <tr><td>@Html.DisplayNameFor(model => model.ISBN)</td><td>@item.ISBN</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.UserName)</td><td>@item.UserName</td></tr>
                 </table>
-                <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-                    <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-danger mt-2">刪除</a>
-                </div>
             </div>
         }
     }

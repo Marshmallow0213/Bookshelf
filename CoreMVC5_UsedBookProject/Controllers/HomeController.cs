@@ -5,6 +5,7 @@ using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -99,9 +100,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     .ToList();
                 }
             }
-
-
-
             ViewBag.Count = $"找到 {products.Count} 項商品";
             MyProductsViewModel mymodel = new MyProductsViewModel
             {
@@ -170,13 +168,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public IActionResult GetPredictions(string searchText)
         {
-
             var predictions = GetPredictionsFromData(searchText);
-
-
             return PartialView("GetPredictions", predictions);
         }
 
-
+        public IActionResult Wish()
+        {
+            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).ToList();
+            WishsViewModel wishs = new()
+            {
+                Wishs = wishlist
+            };
+            return View(wishs);
+        }
     }
 }

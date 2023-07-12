@@ -20,6 +20,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "ISBN")]
         [MaxLength(13, ErrorMessage = "{0}至多13個字。")]
         [MinLength(10, ErrorMessage = "{0}至少10個字。")]
+        [RegularExpression(@"^\d{10}$|^\d{13}$", ErrorMessage = "ISBN必須是10位或13位數字。")]
         public string ISBN { get; set; }
         //
         [Required(ErrorMessage = "{0}不可為空!")]

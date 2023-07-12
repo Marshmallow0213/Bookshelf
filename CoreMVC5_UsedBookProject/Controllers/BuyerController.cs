@@ -146,39 +146,36 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return RedirectToAction("Shoppingcart", new {});
         }
         public IActionResult Wish()
-
         {
-            
-            var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN ,WishId=w.WishId,Id=w.Id}).ToList();
-               
-            return View(wishlist);
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).ToList();
+            WishsViewModel wishs = new()
+            {
+                Wishs = wishlist
+            };
+            return View(wishs);
         }
        
         [HttpPost]
-public IActionResult AddBook(WishViewModel book)
-{
-    if (ModelState.IsValid)
-    {
-        var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-        Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
-        _context.Wishes.Add(bookWish);
-        _context.SaveChanges();
-        return RedirectToAction("Wish", new {});
-    }
-
-            else {
-                var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, Id = w.Id }).ToList();
-                return View("Wish", wishlist);
+        public IActionResult Wish(WishsViewModel book)
+        {
+            if (ModelState.IsValid)
+            {
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
+                _context.Wishes.Add(bookWish);
+                _context.SaveChanges();
+                return RedirectToAction("Wish", new {});
             }
-    
-}
+            else {
+                return RedirectToAction("Wish", new {});
+            }
+        }
 
         public IActionResult DeleteBook(int Id)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var wish = _context.Wishes.Where(w => w.WishId == Id).FirstOrDefault();
-            
-
             _context.Wishes.Remove(wish);
             _context.SaveChanges();
             return RedirectToAction("Wish", new { });
