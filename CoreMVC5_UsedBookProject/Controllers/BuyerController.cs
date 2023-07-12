@@ -134,21 +134,31 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public IActionResult Wish()
 
         {
+            
             var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN ,WishId=w.WishId,Id=w.Id}).ToList();
                
             return View(wishlist);
         }
+       
         [HttpPost]
-        public IActionResult AddBook(WishViewModel book)
-        {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-            Wish bookWish = new Wish { Title=book.Title,ISBN=book.ISBN,Id=name};
+public IActionResult AddBook(WishViewModel book)
+{
+    if (ModelState.IsValid)
+    {
+        var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+        Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
+        _context.Wishes.Add(bookWish);
+        _context.SaveChanges();
+        return RedirectToAction("Wish", new {});
+    }
 
+            else {
+                var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, Id = w.Id }).ToList();
+                return View("Wish", wishlist);
+            }
+    
+}
 
-            _context.Wishes.Add(bookWish);
-            _context.SaveChanges();
-            return RedirectToAction("Wish", new { });
-        }
         public IActionResult DeleteBook(int Id)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
