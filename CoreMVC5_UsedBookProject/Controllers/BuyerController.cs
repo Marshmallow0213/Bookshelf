@@ -46,7 +46,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
-            mymodel = _buyerService.GetOrders(trade, status, now_page, name);
+            if (trade == "金錢")
+            {
+                mymodel = _buyerService.GetOrders(trade, status, now_page, name);
+            }
+            else if (trade == "以物易物")
+            {
+                mymodel = _buyerService.GetBarterOrders(trade, status, now_page, name);
+            }
             return View(mymodel);
         }
         public IActionResult CreateOrder(string ProductId, string Sellername, string trade)
@@ -60,7 +67,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             if (ProductId != null && Sellername != null)
             {
-                _buyerService.CreateOrder(trade, Sellername, buyername, ProductId);
+                if (trade == "金錢")
+                {
+                    _buyerService.CreateOrder(trade, Sellername, buyername, ProductId);
+                }
+                else if (trade == "以物易物")
+                {
+                    _buyerService.CreateBarterOrder(trade, Sellername, buyername, ProductId);
+                }
             }
             return RedirectToAction("MySales", new { Trade = trade });
         }
@@ -174,35 +188,54 @@ public IActionResult AddBook(WishViewModel book)
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade != "金錢" && trade != "以物易物")
-            {
-                return NotFound();
-            }
             mymodel = _buyerService.GetOrder(OrderId, trade);
             return View(mymodel);
         }
         [HttpPost]
-        public IActionResult OrderDetails(OrderViewModel orderViewModel)
+        public IActionResult OrderDetails(OrderViewModel orderViewModel, string submit)
         {
-            if (ModelState.IsValid)
+            if (submit == "完成訂單")
             {
-                _buyerService.CancelOrder(orderViewModel.OrderId);
+                _buyerService.FinishOrder(orderViewModel.OrderId);
+                return RedirectToAction("MySales", new { status = "已完成", trade = orderViewModel.Trade });
+            }
+            if (ModelState.IsValid && submit == "取消訂單")
+            {
+                _buyerService.CancelOrder(orderViewModel.OrderId, orderViewModel.DenyReason);
                 return RedirectToAction("MySales", new { status = "待取消", trade = orderViewModel.Trade });
             }
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             OrderViewModel mymodel = new();
             ViewBag.trade = orderViewModel.Trade;
-            if (orderViewModel.Trade != "金錢" && orderViewModel.Trade != "以物易物")
-            {
-                return NotFound();
-            }
             mymodel = _buyerService.GetOrder(orderViewModel.OrderId, orderViewModel.Trade);
             return View(mymodel);
         }
-        public IActionResult FinishOrder(string orderId, string trade)
+        public IActionResult BarterOrderDetails(string OrderId, string trade)
         {
-            _buyerService.FinishOrder(orderId);
-            return RedirectToAction("MySales", new { status = "已完成", trade = trade });
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            BarterOrderViewModel mymodel = new();
+            ViewBag.trade = trade;
+            mymodel = _buyerService.GetBarterOrder(OrderId, trade);
+            return View(mymodel);
+        }
+        [HttpPost]
+        public IActionResult BarterOrderDetails(OrderViewModel orderViewModel, string submit)
+        {
+            if(submit == "完成訂單")
+            {
+                _buyerService.FinishBarterOrder(orderViewModel.OrderId);
+                return RedirectToAction("MySales", new { status = "已完成", trade = orderViewModel.Trade });
+            }
+            if (ModelState.IsValid && submit == "取消訂單")
+            {
+                _buyerService.CancelBarterOrder(orderViewModel.OrderId, orderViewModel.DenyReason);
+                return RedirectToAction("MySales", new { status = "待取消", trade = orderViewModel.Trade });
+            }
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            BarterOrderViewModel mymodel = new();
+            ViewBag.trade = orderViewModel.Trade;
+            mymodel = _buyerService.GetBarterOrder(orderViewModel.OrderId, orderViewModel.Trade);
+            return View(mymodel);
         }
     }
 }

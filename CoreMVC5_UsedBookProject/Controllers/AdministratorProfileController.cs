@@ -29,10 +29,30 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [Authorize]
         public async Task<IActionResult> AdministratorData()
         {
-            var model = await _ctx.Users.ToListAsync();
-            return View(model);
+            var data = (from ur in _ctx.UserRoles
+                        from u in _ctx.Users
+                        from r in _ctx.Roles
+                        where ur.UserId == u.Id && ur.RoleId == r.Id
+                        select new MixViewModel { UserID = u.Id, UserName = u.Name,RoleName = r.Name }).ToList();
+            foreach (var item in data)
+            {
+                if (item.RoleName == "Top Administrator")
+                {
+                    item.RoleName = "高級管理員";
+                }
+                else if (item.RoleName == "common Administrator")
+                {
+                    item.RoleName = "普通管理員";
+                }
+                else if (item.RoleName == "Suspended Administrator")
+                {
+                    item.RoleName = "已停權管理員";
+                }
+            }
+            return View(data);
         }
-       
+
+
         public async Task<IActionResult> AdministratorDetail(string id)
         {
             if (string.IsNullOrEmpty(id))

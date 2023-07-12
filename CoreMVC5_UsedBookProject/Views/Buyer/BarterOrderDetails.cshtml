@@ -1,5 +1,5 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
-@model OrderViewModel
+@model BarterOrderViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -8,7 +8,7 @@
 }
 <div class="container-fluid">
     <h1>訂單詳情</h1>
-    <form action="~/Buyer/OrderDetails" method="post">
+    <form action="~/Buyer/BarterOrderDetails" method="post">
         <table class="container-fluid">
             <tr><td>@Html.DisplayNameFor(model => model.OrderId)</td><td>@Model.OrderId</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.SellerId)</td><td>@Model.SellerId</td></tr>
@@ -36,7 +36,6 @@
             <tr><td>@Html.DisplayNameFor(model => model.Trade)</td><td>@Model.Trade</td></tr>
             <input type="hidden" name="OrderId" class="form-control" id="OrderId" value="@Model.OrderId" readonly />
             <input type="hidden" name="trade" class="form-control" id="trade" value="@Model.Trade" readonly />
-            <tr><td>@Html.DisplayNameFor(model => model.UnitPrice)</td><td>@(decimal.Round(Model.UnitPrice, 0) == 0 ? "" : decimal.Round(Model.UnitPrice, 0))</td></tr>
             <tr><td>@Html.DisplayNameFor(model => model.Status)</td><td>@Model.Status</td></tr>
         </table>
         <br />

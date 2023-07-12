@@ -14,6 +14,7 @@ namespace CoreMVC5_UsedBookProject.Data
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<BarterOrder> BarterOrders { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
@@ -24,6 +25,7 @@ namespace CoreMVC5_UsedBookProject.Data
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵
             modelBuilder.Entity<Product>().HasKey(ur => new { ur.ProductId });
             modelBuilder.Entity<Order>().HasKey(ur => new { ur.OrderId });
+            modelBuilder.Entity<BarterOrder>().HasKey(ur => new { ur.OrderId });
             modelBuilder.Entity<User>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<Role>().HasKey(ur => new { ur.Id });
             modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
@@ -40,6 +42,18 @@ namespace CoreMVC5_UsedBookProject.Data
                 entity.HasOne(d => d.Product)
                    .WithMany()
                    .HasForeignKey(d => d.ProductId);
+            });
+            modelBuilder.Entity<BarterOrder>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                   .WithMany()
+                   .HasForeignKey(d => d.SellerProductId);
+            });
+            modelBuilder.Entity<BarterOrder>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                   .WithMany()
+                   .HasForeignKey(d => d.BuyerProductId);
             });
             modelBuilder.Entity<Shoppingcart>(entity =>
             {

@@ -29,14 +29,14 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public List<Dictionary<string, int>> OrdersAllCountList(string name)
         {
-            Dictionary<string, int> countM = OrdersCountList("金錢", name);
-            Dictionary<string, int> countB = OrdersCountList("以物易物", name);
+            Dictionary<string, int> countM = OrdersCountList(name);
+            Dictionary<string, int> countB = BarterOrdersCountList(name);
             List<Dictionary<string, int>> count = new() { countM, countB };
             return count;
         }
         public MySalesViewModel GetOrders(string status, string trade, int now_page, string name)
         {
-            Dictionary<string, int> count = OrdersCountList(trade, name);
+            Dictionary<string, int> count = OrdersCountList(name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
@@ -51,16 +51,66 @@ namespace CoreMVC5_UsedBookProject.Services
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
+                BarterOrders = new List<BarterOrderViewModel>() { },
                 PagesCount = new int[] { now_page, all_pages },
                 OrdersCount = count,
                 StatusPage = status
             };
             return mymodel;
         }
-        public Dictionary<string, int> OrdersCountList(string trade, string name)
+        public MySalesViewModel GetBarterOrders(string status, string trade, int now_page, string name)
+        {
+            Dictionary<string, int> count = BarterOrdersCountList(name);
+            status ??= "待確認";
+            now_page = now_page == 0 ? 1 : now_page;
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            List<BarterOrderViewModel> barterorders = new();
+            var sellername = (from o in _context.BarterOrders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
+            var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
+            barterorders = (from o in _context.BarterOrders
+                      from p in _context.Products
+                      where o.SellerProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade == trade
+                      orderby o.CreateDate descending
+                      select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, BuyerProductId = o.BuyerProductId, Title = p.Title, Image1 = p.Image1 }).Skip((now_page - 1) * 30).Take(30).ToList();
+            MySalesViewModel mymodel = new()
+            {
+                Orders = new List<OrderViewModel>() { },
+                BarterOrders = barterorders,
+                PagesCount = new int[] { now_page, all_pages },
+                OrdersCount = count,
+                StatusPage = status
+            };
+            return mymodel;
+        }
+        public Dictionary<string, int> OrdersCountList(string name)
         {
             Dictionary<string, int> countList = new();
-            countList = _context.Orders.Where(w => w.SellerId == name && w.Trade == trade).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+            countList = _context.Orders.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+            Dictionary<string, int> count = new()
+            {
+                { "全部", 0 },
+                { "待確認", 0 },
+                { "已成立", 0 },
+                { "不成立", 0 },
+                { "已完成", 0 },
+                { "待取消", 0 }
+            };
+            foreach (var item in countList.Keys)
+            {
+                count[item] = countList[item];
+            }
+            int all = 0;
+            foreach (var item in count.Values)
+            {
+                all += item;
+            }
+            count["全部"] = all;
+            return count;
+        }
+        public Dictionary<string, int> BarterOrdersCountList(string name)
+        {
+            Dictionary<string, int> countList = new();
+            countList = _context.BarterOrders.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },
@@ -291,6 +341,23 @@ namespace CoreMVC5_UsedBookProject.Services
                      select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, UnitPrice = o.UnitPrice, ProductId = p.ProductId, Title = p.Title, Image1 = p.Image1 }).FirstOrDefault();
             return order;
         }
+        public BarterOrderViewModel GetBarterOrder(string OrderId, string trade)
+        {
+            BarterOrderViewModel order = new();
+            var sellername = (from o in _context.BarterOrders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
+            var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
+            var buyerid = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Id).FirstOrDefault();
+            var products = (from p in _context.Products
+                            where p.Status == "已上架" && p.CreateBy == $"{buyerid}" && p.Trade == "以物易物"
+                            orderby p.CreateDate descending
+                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
+            order = (from o in _context.BarterOrders
+                     from p in _context.Products
+                     where o.SellerProductId == p.ProductId && o.OrderId == OrderId
+                     orderby o.CreateDate descending
+                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, BuyerProductId = o.BuyerProductId, Title = p.Title, Image1 = p.Image1, Products = products }).FirstOrDefault();
+            return order;
+        }
         public void EditProduct(ProductEditViewModel productEditViewModel, string name)
         {
             List<string> randomstrings = new List<string>();
@@ -394,6 +461,43 @@ namespace CoreMVC5_UsedBookProject.Services
             var order = _context.Orders.Where(w => w.OrderId == orderId).FirstOrDefault();
             _context.Entry(order).State = EntityState.Modified;
             order.Status = "不成立";
+            _context.SaveChanges();
+        }
+        public void AcceptBarterOrder(string orderId, string ProductId)
+        {
+            var order = _context.BarterOrders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "已成立";
+            order.BuyerProductId = ProductId;
+            var product = _context.Products.Where(w => w.ProductId == order.SellerProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "已售完";
+            var _product = _context.Products.Where(w => w.ProductId == order.BuyerProductId).FirstOrDefault();
+            _context.Entry(_product).State = EntityState.Modified;
+            _product.Status = "已售完";
+            _context.SaveChanges();
+        }
+        public void DenyBarterOrder(string orderId)
+        {
+            var order = _context.BarterOrders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "不成立";
+            var product = _context.Products.Where(w => w.ProductId == order.SellerProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "已上架";
+            _context.SaveChanges();
+        }
+        public void CancelBarterOrder(string orderId)
+        {
+            var order = _context.BarterOrders.Where(w => w.OrderId == orderId).FirstOrDefault();
+            _context.Entry(order).State = EntityState.Modified;
+            order.Status = "不成立";
+            var product = _context.Products.Where(w => w.ProductId == order.SellerProductId).FirstOrDefault();
+            _context.Entry(product).State = EntityState.Modified;
+            product.Status = "已上架";
+            var _product = _context.Products.Where(w => w.ProductId == order.BuyerProductId).FirstOrDefault();
+            _context.Entry(_product).State = EntityState.Modified;
+            _product.Status = "已上架";
             _context.SaveChanges();
         }
     }

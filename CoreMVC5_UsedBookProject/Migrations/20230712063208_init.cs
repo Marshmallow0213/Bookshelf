@@ -115,6 +115,31 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BarterOrders",
+                columns: table => new
+                {
+                    OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SellerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuyerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DenyReason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SellerProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuyerProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Trade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BarterOrders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_BarterOrders_Products_BuyerProductId",
+                        column: x => x.BuyerProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -176,6 +201,11 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 values: new object[] { "R002", "Suspension" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BarterOrders_BuyerProductId",
+                table: "BarterOrders",
+                column: "BuyerProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ProductId",
                 table: "Orders",
                 column: "ProductId");
@@ -214,6 +244,9 @@ namespace CoreMVC5_UsedBookProject.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BarterOrders");
+
             migrationBuilder.DropTable(
                 name: "Orders");
 
