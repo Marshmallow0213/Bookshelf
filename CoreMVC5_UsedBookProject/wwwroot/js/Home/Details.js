@@ -68,6 +68,8 @@ function getCookie(name) {
 }
 function checklogin() {
     var myCookie = getCookie("Login");
+    let createby = document.getElementById("CreateBy");
+    let meid = document.getElementById("MeId");
     if (myCookie == null) {
         Swal.fire({
             icon: 'error',
@@ -75,5 +77,12 @@ function checklogin() {
             text: '',
             footer: '<a href="/Account/Login">登入</a>'
         })
+    }
+    else if (createby.value == meid.value) {
+        Swal.fire(
+            '這是自己的商品',
+            '',
+            'error'
+        )
     }
 }

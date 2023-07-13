@@ -15,6 +15,11 @@
         <partial name="~/Views/Seller/DetailTablePartial/SaleInformation.cshtml" />
         <partial name="~/Views/Seller/DetailTablePartial/OtherInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
+        <input type="hidden" id="CreateBy" class="form-control" value="@Model.CreateBy" readonly />
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="hidden" id="MeId" class="form-control" value="@User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value" readonly />
+        }
         <br />
         @if (Model.Trade.Contains("買賣"))
         {
@@ -24,57 +29,62 @@
             </button>
             @if (User.Identity.IsAuthenticated)
             {
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                確認要送出訂單?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+                @if(User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value != Model.CreateBy)
+                {
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    確認要送出訂單?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         }
         @if (Model.Trade.Contains("交換"))
         {
-
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="checklogin()">
                 交換
             </button>
             @if (User.Identity.IsAuthenticated)
             {
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                確認要送出訂單?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+                @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value != Model.CreateBy)
+                {
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    確認要送出訂單?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         }
         <button type="button" class="btn btn-secondary my-2" id="shoppingcart" value="@Model.ProductId">增加至購物車</button>
