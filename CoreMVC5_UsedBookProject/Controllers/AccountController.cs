@@ -108,6 +108,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties
                     );
+                HttpContext.Response.Cookies.Append("Login", "Now");
                 return LocalRedirect("~/Home/Index");
             }
 
@@ -118,6 +119,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public async Task<IActionResult> Signout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Response.Cookies.Delete("Login");
             return LocalRedirect("/");
         }
 

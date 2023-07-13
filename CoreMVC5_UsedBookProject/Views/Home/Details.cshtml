@@ -19,67 +19,65 @@
         @if (Model.Trade.Contains("買賣"))
         {
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="checklogin()" >
                 購買
             </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            確認要送出訂單?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                確認要送出訂單?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
         @if (Model.Trade.Contains("交換"))
         {
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" S>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="checklogin()">
                 交換
             </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            確認要送出訂單?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                確認要送出訂單?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade})" class="btn btn-primary">確認</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-        @if (User.Identity.IsAuthenticated)
-        {
-            @if (User.IsInRole("User"))
-            {
-                <button type="button" class="btn btn-secondary my-2" id="shoppingcart" value="@Model.ProductId">增加至購物車</button>
             }
         }
+        <button type="button" class="btn btn-secondary my-2" id="shoppingcart" value="@Model.ProductId">增加至購物車</button>
     </form>
 
 </div>
@@ -99,44 +97,5 @@
     <script src="~/js/Swiper/Swiper.js"></script>
     <script src="~/js/seller/detailtablepartial.js" asp-append-version="true"></script>
     <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
-    <script>
-        function AddToShoppingcart(id) {
-            var url = `/Buyer/AddToShoppingcart?id=${id}`;
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: id,
-                error: function (xhr, status, error) { },
-                success: function (data) {
-                    if (data == "自己的商品") {
-                        Swal.fire(
-                            '這是自己的商品',
-                            '',
-                            'error'
-                        )
-                    }
-                    else if (data == "成功") {
-                        Swal.fire(
-                            '加入購物車了',
-                            '',
-                            'success'
-                        )
-                    }
-                    else if (data == "失敗") {
-                        Swal.fire(
-                            '已經在購物車囉',
-                            '',
-                            'error'
-                        )
-                    }
-                }
-            });
-            return false;
-        }
-        var shoppingcart = document.getElementById("shoppingcart");
-        shoppingcart.addEventListener("click", () => {
-            var id = document.getElementById("shoppingcart").value;
-            AddToShoppingcart(id);
-        })
-    </script>
+    <script src="~/js/home/details.js" asp-append-version="true"></script>
 }
