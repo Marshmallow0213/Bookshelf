@@ -8,7 +8,7 @@
 }
 
 <div class="container-fluid pb-5 gap-10px">
-    <h1>@(ViewBag.Trade == "以物易物" ? "以物易物" : "買賣")商品</h1>
+    <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
     <p class="my-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
     <div class="d-flex my-3 gap-10px">
         <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-secondary" : "btn-primary")" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
@@ -57,13 +57,10 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                    @if (item.Trade == "金錢")
+                    <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
+                    @if (item.Trade.Contains("買賣"))
                     {
                         <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
-                    }
-                    else if (item.Trade == "以物易物")
-                    {
-                        <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
                     }
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
                 </table>

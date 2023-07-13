@@ -8,7 +8,7 @@
 }
 
 <div class="container-fluid pb-5 gap-2">
-    <h1>@(ViewBag.Trade == "以物易物" ? "以物易物" : "買賣")銷售</h1>
+    <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")銷售</h1>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
             <a href="@Url.Action("MySales", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
@@ -35,7 +35,7 @@
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>
     </ul>
-    @if (Model.Orders.Count > 0 && ViewBag.Trade == "金錢")
+    @if (Model.Orders.Count > 0 && ViewBag.Trade == "買賣")
     {
         @foreach (var item in Model.Orders)
         {
@@ -49,10 +49,7 @@
                     <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.SellerProductId)</td><td>@item.SellerProductId</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
-                    @if (item.Trade == "金錢")
-                    {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.SellerUnitPrice)</td><td>@(decimal.Round(item.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(item.SellerUnitPrice, 0))</td></tr>
-                    }
+                    <tr><td>@Html.DisplayNameFor(model => model.Order.SellerUnitPrice)</td><td>@(decimal.Round(item.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(item.SellerUnitPrice, 0))</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
                 </table>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
@@ -63,7 +60,7 @@
             </div>
         }
     }
-    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "以物易物")
+    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "交換")
     {
         @foreach (var item in Model.BarterOrders)
         {

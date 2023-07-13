@@ -139,7 +139,7 @@ namespace CoreMVC5_UsedBookProject.Services
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
             var products = (from p in _context.Products
-                           where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade == $"{trade}"
+                           where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade.Contains(trade)
                            orderby p.CreateDate descending
                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).Skip((now_page - 1) * 30).Take(30).ToList();
             MyProductsViewModel mymodel = new()
@@ -155,7 +155,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public Dictionary<string, int> ProductsCountList(string trade, string name)
         {
             Dictionary<string, int> countList = new();
-            countList = _context.Products.Where(w => w.CreateBy == name && w.Trade == $"{trade}").GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
+            countList = _context.Products.Where(w => w.CreateBy == name && w.Trade.Contains(trade)).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },
@@ -242,8 +242,8 @@ namespace CoreMVC5_UsedBookProject.Services
                                      orderby p.CreateDate descending
                                      select new { p.ProductId }).FirstOrDefault();
             };
-            decimal checkUnitPrice = -1;
-            if (productCreateViewModel.Trade == "金錢")
+            decimal checkUnitPrice = -1000;
+            if (productCreateViewModel.Trade.Contains("買賣"))
             {
                 checkUnitPrice = productCreateViewModel.UnitPrice;
             }
@@ -348,7 +348,7 @@ namespace CoreMVC5_UsedBookProject.Services
             var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
             var buyerid = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Id).FirstOrDefault();
             var products = (from p in _context.Products
-                            where p.Status == "已上架" && p.CreateBy == $"{buyerid}" && p.Trade == "以物易物"
+                            where p.Status == "已上架" && p.CreateBy == $"{buyerid}" && p.Trade == "交換"
                             orderby p.CreateDate descending
                             select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
             var buyerproduct = (from o in _context.BarterOrders
@@ -397,8 +397,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
             var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId, name);
-            decimal checkUnitPrice = -1;
-            if (productEditViewModel.Trade == "金錢")
+            decimal checkUnitPrice = -1000;
+            if (productEditViewModel.Trade.Contains("買賣"))
             {
                 checkUnitPrice = productEditViewModel.UnitPrice;
             }
@@ -430,16 +430,17 @@ namespace CoreMVC5_UsedBookProject.Services
             _context.Update(product);
             _context.SaveChanges();
         }
-        public void PermanentDeleteProduct(string ProductId, string name)
+        public void DeleteProductFolder(string Id)
         {
-            var product = _sellerRepository.GetProductRaw(ProductId, name);
-            _context.Remove(product);
-            string folderPath = $@"Images\Products\{ProductId}";
-            if (Directory.Exists(folderPath))
+            var products = _context.Products.Where(w=>w.CreateBy == Id).Select(s=> s.ProductId).ToList();
+            foreach (var product in products)
             {
-                Directory.Delete(folderPath, true);
+                string folderPath = $@"Images\Products\{products}";
+                if (Directory.Exists(folderPath))
+                {
+                    Directory.Delete(folderPath, true);
+                }
             }
-            _context.SaveChanges();
         }
         public void AcceptOrder(string orderId)
         {

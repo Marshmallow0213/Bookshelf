@@ -22,7 +22,7 @@
                             <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="errorLoad(this)" /></a>
                           
                         </div>
-                        @if (item.Trade == "金錢")
+                        @if (item.Trade == "買賣")
                         {
                             <table class="container-fluid my-2">
 
@@ -34,7 +34,7 @@
 
                             </table>
                         }
-                        else if (item.Trade == "以物易物")
+                        else if (item.Trade == "交換")
                         {
                             <table class="container-fluid my-2">
 

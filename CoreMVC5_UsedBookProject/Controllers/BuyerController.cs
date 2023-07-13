@@ -46,11 +46,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
+            if (trade == "買賣")
             {
                 mymodel = _buyerService.GetOrders(trade, status, now_page, name);
             }
-            else if (trade == "以物易物")
+            else if (trade == "交換")
             {
                 mymodel = _buyerService.GetBarterOrders(trade, status, now_page, name);
             }
@@ -60,18 +60,24 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade == "交換").FirstOrDefault();
             if (buyername == product.CreateBy)
             {
                 TempData["Message"] = "你不能購買自己的商品!";
                 return RedirectToAction("Details", "Home", new { ProductId = ProductId });
             }
+            if (checkselfproducts == null)
+            {
+                TempData["Message"] = "你需要先上架自己的交換商品!";
+                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
+            }
             if (ProductId != null && Sellername != null)
             {
-                if (trade == "金錢")
+                if (trade == "買賣")
                 {
                     _buyerService.CreateOrder(trade, Sellername, buyername, ProductId);
                 }
-                else if (trade == "以物易物")
+                else if (trade == "交換")
                 {
                     _buyerService.CreateBarterOrder(trade, Sellername, buyername, ProductId);
                 }

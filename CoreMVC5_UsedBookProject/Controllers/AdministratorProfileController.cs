@@ -135,7 +135,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
                     _ctx.Entry(user).State = EntityState.Modified;
-                    user.Name = administratorUser.Name;
                     user.Nickname = administratorUser.Nickname;
                     user.Email = administratorUser.Email;
                     user.PhoneNo = administratorUser.PhoneNo;

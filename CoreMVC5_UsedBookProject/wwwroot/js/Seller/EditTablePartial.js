@@ -6,14 +6,33 @@ showLength.forEach(element => {
 
 //start check trade is money or barter
 
-function Money() {
-    document.getElementById('UnitPrice_div').classList.remove("d-none");
-}
-
-function Barter() {
-    document.getElementById('UnitPrice_div').classList.add("d-none");
-    if (document.getElementById('UnitPrice').value == "") {
-        document.getElementById('UnitPrice').value = "0";
+function TradeCheck() {
+    //document.getElementById('UnitPrice_div').classList.remove("d-none");
+    let check1 = document.getElementById('moneytradecheckbox');
+    let check2 = document.getElementById('bartertradecheckbox');
+    if (check1.checked && check2.checked) {
+        document.getElementById('Trade').value = "買賣與交換";
+        document.getElementById('UnitPrice_div').classList.remove("d-none");
+        if (document.getElementById('UnitPrice').value == "-1000") {
+            document.getElementById('UnitPrice').value = "";
+        }
+    }
+    if (check1.checked && !check2.checked) {
+        document.getElementById('Trade').value = "買賣";
+        document.getElementById('UnitPrice_div').classList.remove("d-none");
+        if (document.getElementById('UnitPrice').value == "-1000") {
+            document.getElementById('UnitPrice').value = "";
+        }
+    }
+    if (!check1.checked && check2.checked) {
+        document.getElementById('Trade').value = "交換";
+        document.getElementById('UnitPrice_div').classList.add("d-none");
+        if (document.getElementById('UnitPrice').value == "") {
+            document.getElementById('UnitPrice').value = "-1000";
+        }
+    }
+    if (!check1.checked && !check2.checked) {
+        document.getElementById('Trade').value = "";
     }
 }
 //end

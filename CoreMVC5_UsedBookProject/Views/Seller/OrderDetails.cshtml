@@ -4,22 +4,18 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = "商品詳情";
+    ViewBag.Title = "買賣訂單詳情";
 }
 <div class="container-fluid">
-    <h1>訂單詳情</h1>
+    <h1>買賣訂單詳情</h1>
     <table class="container-fluid">
         <tr><td>@Html.DisplayNameFor(model => model.OrderId)</td><td>@Model.OrderId</td></tr>
-        <tr><td>@Html.DisplayNameFor(model => model.SellerId)</td><td>@Model.SellerId</td></tr>
-        <tr><td>@Html.DisplayNameFor(model => model.BuyerId)</td><td>@Model.BuyerId</td></tr>
-        <tr><td>@Html.DisplayNameFor(model => model.SellerName)</td><td>@Model.SellerName</td></tr>
-        <tr><td>@Html.DisplayNameFor(model => model.BuyerName)</td><td>@Model.BuyerName</td></tr>
         <tr><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td>@Model.DenyReason</td></tr>
-        <tr><td>@Html.DisplayNameFor(model => model.SellerProductId)</td><td>@Model.SellerProductId</td></tr>
         <tr><td>@Html.DisplayNameFor(model => model.Trade)</td><td>@Model.Trade</td></tr>
         <tr><td>@Html.DisplayNameFor(model => model.SellerUnitPrice)</td><td>@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</td></tr>
         <tr><td>@Html.DisplayNameFor(model => model.Status)</td><td>@Model.Status</td></tr>
     </table>
+    <h2>賣家的商品 @Model.SellerName</h2>
     <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
             <img src="../Images/Products/@Model.SellerProductId/@Model.SellerImage1" asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="errorLoad(this)" />
@@ -37,14 +33,14 @@
         </div>
     </div>
     <br />
-    <div class="gap-2">
+    <div class="d-flex">
         @if (Model.Status == "待確認")
         {
             <form action="~/Seller/OrderDetails" method="post">
                 <input type="hidden" name="OrderId" value="@Model.OrderId">
                 <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-danger mt-2" name="submit" value="接受交易">接受交易</button>
-                <button type="submit" class="btn btn-danger mt-2" name="submit" value="拒絕交易">拒絕交易</button>
+                <button type="submit" class="btn btn-danger mr-2" name="submit" value="接受交易">接受交易</button>
+                <button type="submit" class="btn btn-danger mr-2" name="submit" value="拒絕交易">拒絕交易</button>
             </form>
         }
         @if (Model.Status == "待取消")
@@ -52,7 +48,7 @@
             <form action="~/Seller/OrderDetails" method="post">
                 <input type="hidden" name="OrderId" value="@Model.OrderId">
                 <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-danger mt-2" name="submit" value="取消訂單">取消訂單</button>
+                <button type="submit" class="btn btn-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
             </form>
         }
         <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>

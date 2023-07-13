@@ -16,7 +16,7 @@
         <partial name="~/Views/Seller/DetailTablePartial/OtherInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
         <br />
-        @if (Model.Trade == "金錢")
+        @if (Model.Trade.Contains("買賣"))
         {
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
@@ -44,7 +44,7 @@
                 </div>
             </div>
         }
-        else if (Model.Trade == "以物易物")
+        else if (Model.Trade.Contains("交換"))
         {
 
             <!-- Button trigger modal -->
@@ -73,7 +73,13 @@
                 </div>
             </div>
         }
-        <button type="button" class="btn btn-secondary my-2" id="shoppingcart" value="@Model.ProductId">增加至購物車</button>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (User.IsInRole("User"))
+            {
+                <button type="button" class="btn btn-secondary my-2" id="shoppingcart" value="@Model.ProductId">增加至購物車</button>
+            }
+        }
     </form>
 
 </div>

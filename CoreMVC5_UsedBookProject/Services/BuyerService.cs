@@ -56,7 +56,7 @@ namespace CoreMVC5_UsedBookProject.Services
             now_page = now_page == 0 ? 1 : now_page;
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count["已上架"]) / 10));
             var products = _context.Products
-            .Where(p => p.Status == "已上架" && p.Trade == trade)
+            .Where(p => p.Status == "已上架" && p.Trade.Contains(trade))
             .OrderByDescending(p => p.CreateDate)
             .Select(p => new ProductViewModel
             {
@@ -80,7 +80,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public Dictionary<string, int> ProductsCountList(string trade)
         {
             Dictionary<string, int> countList = new();
-            countList = _context.Products.Where(w => w.Trade == $"{trade}").GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
+            countList = _context.Products.Where(w => w.Trade.Contains(trade)).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(d => d.Status, d => d.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },

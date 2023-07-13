@@ -8,7 +8,7 @@
 }
 
 <div class="container-fluid pb-5 gap-2">
-    <h1>@(ViewBag.trade == "以物易物" ? "以物易物" : "買賣") 訂單紀錄</h1>
+    <h1>@(ViewBag.trade == "交換" ? "交換" : "買賣") 訂單紀錄</h1>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
             <a href="@Url.Action("MySales", "Buyer", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
@@ -35,7 +35,7 @@
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>
     </ul>
-    @if (Model.Orders.Count > 0 && ViewBag.Trade == "金錢")
+    @if (Model.Orders.Count > 0 && ViewBag.Trade == "買賣")
     {
         @foreach (var item in Model.Orders)
         {
@@ -58,7 +58,7 @@
             </div>
         }
     }
-    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "以物易物")
+    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "交換")
     {
         @foreach (var item in Model.BarterOrders)
         {
