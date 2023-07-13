@@ -109,7 +109,7 @@ img {
     background-color: white;
     z-index: 999;
     width: 200px;
-    height: calc(100% - 110px);
+    height: calc(100% - 50px);
     overflow-y: auto;
 }
 .search-menu {
@@ -162,14 +162,12 @@ header {
     min-height: 50px;
     max-height: 50px;
 }
-footer {
-    height: 60px;
-    min-height: 60px;
-    max-height: 60px;
-}
 @media (min-width:768px) {
-    main {
+    #aside-right {
         margin-left: 200px;
+    }
+    .container-footer {
+        max-width: calc(100% - 200px);
     }
     .aside-menu {
         left: 0;

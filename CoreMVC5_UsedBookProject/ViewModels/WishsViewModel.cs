@@ -21,5 +21,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string ISBN { get; set; }
         [Display(Name = "許願者")]
         public string UserName { get; set; }
+        public List<string> ISBNproducts { get; set; }
+        public List<string> Titleproducts { get; set; }
     }
 }

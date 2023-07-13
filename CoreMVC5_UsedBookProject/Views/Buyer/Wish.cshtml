@@ -29,7 +29,9 @@
                     <tr><td>@Html.DisplayNameFor(model => model.UserName)</td><td>@item.UserName</td></tr>
                 </table>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
+                    <p class="mb-0 @(Model.Titleproducts.Contains(item.Title) == true ? "text-success" : "text-danger")">@(Model.Titleproducts.Contains(item.Title) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
                     <a href="@Url.Action("SearchProducts", "Home", new {name = item.Title})" class="btn btn-primary mt-2">以書名搜尋</a>
+                    <p class="mb-0 @(Model.ISBNproducts.Contains(item.ISBN) == true ? "text-success" : "text-danger")">@(Model.ISBNproducts.Contains(item.ISBN) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
                     <a href="@Url.Action("SearchProducts", "Home", new {name = item.ISBN})" class="btn btn-primary mt-2">以ISBN搜尋</a>
                     <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-danger mt-2">刪除</a>
                 </div>

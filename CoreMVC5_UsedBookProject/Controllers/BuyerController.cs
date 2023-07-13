@@ -155,9 +155,25 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).ToList();
+            List<string> ISBNproducts = new();
+            ISBNproducts = _context.Products
+                    .Where(p => p.Status == "已上架")
+                    .OrderByDescending(p => p.CreateDate)
+                    .Select(p => p.ISBN
+                    )
+                    .ToList();
+            List<string> Titleproducts = new();
+            Titleproducts = _context.Products
+                .Where(p => p.Status == "已上架")
+                .OrderByDescending(p => p.CreateDate)
+                .Select(p => p.Title
+                )
+                .ToList();
             WishsViewModel wishs = new()
             {
-                Wishs = wishlist
+                Wishs = wishlist,
+                ISBNproducts = ISBNproducts,
+                Titleproducts = Titleproducts
             };
             return View(wishs);
         }
