@@ -14,7 +14,7 @@
                     }
                     @if (item.ISBN.Length == 13)
                     {
-                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3,3)}/{item.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" />
+                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3,3)}/{item.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='../icon/WishsDeafultPicture.jpg'" />
                     }
                 </div>
                 <table class="container-fluid">
