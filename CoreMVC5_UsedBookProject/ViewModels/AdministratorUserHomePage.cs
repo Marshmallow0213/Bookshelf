@@ -9,10 +9,11 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "編號")]
         public string Id { get; set; }
         [Display(Name = "姓名")]
-        [Required]
+       
+        
         public string Name { get; set; }
         [Display(Name = "密碼")]
-        [Required]
+    
         public string Password { get; set; }
         [Display(Name = "綽號")]
         [Required]

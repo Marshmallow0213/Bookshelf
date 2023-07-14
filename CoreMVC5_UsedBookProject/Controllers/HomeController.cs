@@ -116,7 +116,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             else
             {
                 var product = _buyerService.GetProduct(ProductId);
-                if (product == null)
+                if (product == null || product.Status != "已上架")
                 {
                     return NotFound();
                 }
