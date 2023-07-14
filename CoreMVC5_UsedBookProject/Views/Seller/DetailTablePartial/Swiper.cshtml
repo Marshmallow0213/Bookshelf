@@ -7,40 +7,98 @@
     string[] list = { Model.Image2, Model.Image3, Model.Image4, Model.Image5, Model.Image6, Model.Image7, Model.Image8, Model.Image9 };
     list = list.Where(w => w != "無圖片").ToArray();
 }
-<div class="mb-3" style="max-width: 200px;">
-    <!-- Swiper -->
-    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="errorLoad(this)" />
-            </div>
-            @if (list.Length > 0)
-            {
-                @foreach (string item in list)
-                {
-                    <div class="swiper-slide d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; background: white; border: 1px solid black;">
-                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="errorLoad(this)" alt="@Model.Title" />
+@functions {
+    public string price()
+    {
+        return Model.UnitPrice.ToString("N0");
+    }
+}
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="mb-3 p-3">
+            <!-- Swiper -->
+            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
+                        <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                     </div>
-                }
-            }
-        </div>
-        <div class="swiper-button-next" style="color: black;"></div>
-        <div class="swiper-button-prev" style="color: black;"></div>
-    </div>
-    <div thumbsSlider="" class="swiper mySwiper" style="height: 64px;">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide d-flex align-items-center">
-                <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="errorLoad(this)" />
+                    @if (list.Length > 0)
+                    {
+                        @foreach (string item in list)
+                        {
+                            <div class="swiper-slide d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
+                                <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" alt="@Model.Title" />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="swiper-button-next" style="color: black;"></div>
+                <div class="swiper-button-prev" style="color: black;"></div>
             </div>
-            @if (list.Length > 0)
-            {
-                @foreach (var item in list)
-                {
+            <div thumbsSlider="" class="swiper mySwiper">
+                <div class="swiper-wrapper">
                     <div class="swiper-slide d-flex align-items-center">
-                        <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="errorLoad(this)" alt="@Model.Title" />
+                        <img src="../Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                     </div>
-                }
-            }
+                    @if (list.Length > 0)
+                    {
+                        @foreach (var item in list)
+                        {
+                            <div class="swiper-slide d-flex align-items-center">
+                                <img src="../Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" alt="@Model.Title" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2"><h2>@Model.Title</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2"><h2>@Html.DisplayFor(model => model.Trade)</h2></td>
+                </tr>
+                @if (Model.Trade.Contains("買賣"))
+                {
+                    <tr>
+                        <td colspan="2"><h2>NT$@price()</h2></td>
+                    </tr>
+                }
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ISBN)</td>
+                    <td>
+                        <textarea readonly>@Model.ISBN</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Author)</td>
+                    <td>
+                        <textarea readonly>@Model.Author</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Publisher)</td>
+                    <td>
+                        <textarea readonly>@Model.Publisher</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PublicationDate)</td>
+                    <td>@Html.DisplayFor(model => model.PublicationDate)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Degree)</td>
+                    <td>
+                        <textarea readonly>@Model.Degree</textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -30,7 +30,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _hashService = hashService;
         }
         [Authorize]
-        public async Task<IActionResult> UserData()
+        public IActionResult UserData()
         {
             var data = (from ur in _ctx.UserRoles
                         from u in _ctx.Users

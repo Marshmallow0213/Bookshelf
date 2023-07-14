@@ -49,21 +49,19 @@
         @foreach (var item in Model.Products)
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
+                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                 </div>
-                <table class="container-fluid">
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
+                <div class="container-fluid my-2">
+                    <h2>@item.Title</h2>
+                    <h2>@item.Trade</h2>
                     @if (item.Trade.Contains("買賣"))
                     {
-                        <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
+                        <h2>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</h2>
                     }
-                    <tr><td>@Html.DisplayNameFor(model => model.Product.Status)</td><td>@item.Status</td></tr>
-                </table>
+                    <p><span>@Html.DisplayNameFor(model => model.Product.ISBN) </span><span>@item.ISBN</span></p>
+                    <p><span>@Html.DisplayNameFor(model => model.Product.Author) </span><span>@item.Author</span></p>
+                </div>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
                     <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 詳情</a>
                     @if (item.Status == "已上架" || item.Status == "未上架")
@@ -103,7 +101,7 @@
         }
     }
     else{
-        <h2 class="text-center my-5">沒有符合的商品</h2>
+        <h2 class="text-center my-5">沒有商品在列表中</h2>
     }
     <partial name="_NowPageMyProductsPartial" />
 </div>

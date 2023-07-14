@@ -39,14 +39,15 @@ namespace CoreMVC5_UsedBookProject.Controllers
             //HttpContext.Response.Cookies.Delete("key");
         }
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl)
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginVM)
+        public async Task<IActionResult> Login(LoginViewModel loginVM, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -109,6 +110,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     authProperties
                     );
                 HttpContext.Response.Cookies.Append("Login", "Now");
+                if(ReturnUrl == "/Seller")
+                {
+                    return LocalRedirect("~/Seller/Index");
+                }
                 return LocalRedirect("~/Home/Index");
             }
 

@@ -12,25 +12,21 @@
         {
             @foreach (var item in Model.Products)
             {
-                <div class="col-12 col-sm-6 col-xl-4">
-                    <div class="card p-2 m-auto" style="width: 100%;">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Title</h5>
-                            <p class="card-text"></p>
+                <div class="col-12 col-xl-6">
+                    <div class="p-2 m-auto product-card d-flex" style="width: 100%;">
+                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
+                            <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;" class="d-flex align-items-center"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" /></a>
                         </div>
-                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                            <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;"><img src="../Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="errorLoad(this)" /></a>
-                        </div>
-                        <table class="container-fluid my-2">
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
+                        <div class="container-fluid my-2">
+                            <h2>@item.Title</h2>
+                            <h2>@item.Trade</h2>
                             @if (item.Trade.Contains("買賣"))
                             {
-                                <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
+                                <h2>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</h2>
                             }
-                        </table>
+                            <p><span>@Html.DisplayNameFor(model => model.Product.ISBN) </span><span>@item.ISBN</span></p>
+                            <p><span>@Html.DisplayNameFor(model => model.Product.Author) </span><span>@item.Author</span></p>
+                        </div>
                     </div>
                 </div>
             }
@@ -44,5 +40,5 @@
 <partial name="_NowPageMyProductsPartial" />
 
 @section topCSS{
-    <link href="~/css/seller/myproducts.css" rel="stylesheet" />
+    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
 }

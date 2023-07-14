@@ -24,8 +24,8 @@
         <tr>
             <td>@Html.DisplayNameFor(model => model.Trade)</td>
             <td>
-                <input type="text" class="form-control" asp-for="Trade" readonly id="Trade" value="@Model.Trade" />
-                <div class="form-check mt-2">
+                <input type="hidden" class="form-control" asp-for="Trade" readonly id="Trade" value="@Model.Trade" />
+                <div class="form-check">
                     <input type="checkbox" id="moneytradecheckbox" value="買賣" @(Trade == "買賣" || Trade == "買賣與交換" ? "checked" : "") onclick="TradeCheck()">
                     <label for="moneytradecheckbox"> 買賣</label>
                 </div>

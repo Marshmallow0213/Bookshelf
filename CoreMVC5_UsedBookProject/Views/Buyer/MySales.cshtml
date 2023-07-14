@@ -40,8 +40,8 @@
         @foreach (var item in Model.Orders)
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.SellerProductId/@item.SellerImage1" asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="errorLoad(this)" />
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
+                    <img src="../Images/Products/@item.SellerProductId/@item.SellerImage1" asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.Order.SellerName)</td><td>@item.SellerName</td></tr>
@@ -64,7 +64,7 @@
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
                 <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.SellerProductId/@item.SellerImage1" asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="errorLoad(this)" />
+                    <img src="../Images/Products/@item.SellerProductId/@item.SellerImage1" asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.SellerName)</td><td>@item.SellerName</td></tr>
@@ -83,7 +83,7 @@
     }
     else
     {
-        <h2 class="text-center my-5">沒有符合的商品</h2>
+        <h2 class="text-center my-5">沒有訂單在列表中</h2>
     }
     <partial name="_NowPageMySalesPartial" />
 </div>

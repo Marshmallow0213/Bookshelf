@@ -1,4 +1,22 @@
 ﻿/*aside*/
+body, footer, main, nav, .aside-menu, .login-menu, form, textarea:read-only, .swiper-slide {
+    background-image: url(../../pictures/background.jpg) !important;
+    background-repeat: repeat;
+    background-size: cover;
+}
+.page-link {
+    background-color: #282B2E05;
+}
+    .page-link:hover {
+        background-color: #282B2E !important;
+        color: white;
+    }
+body {
+    max-width: 100%;
+}
+h1 {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
 #menu {
     width: 100%;
     height: fit-content;
@@ -106,7 +124,6 @@ img {
     position: fixed;
     top: 50px;
     left: -10000px;
-    background-color: white;
     z-index: 999;
     width: 200px;
     height: calc(100% - 50px);
@@ -130,7 +147,6 @@ img {
     position: absolute;
     top: 50px;
     right: 10000px;
-    background-color: white;
     z-index: 3;
     width: 200px;
 }

@@ -168,7 +168,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            mymodel = _sellerService.GetOrder(OrderId, trade);
+            mymodel = _sellerService.GetOrder(OrderId);
             return View(mymodel);
         }
         [HttpPost]
@@ -177,17 +177,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (submit == "拒絕交易")
             {
                 _sellerService.DenyOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "買賣" });
             }
             else if (submit == "取消訂單")
             {
                 _sellerService.CancelOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "買賣" });
             }
             else if (submit == "接受交易")
             {
                 _sellerService.AcceptOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "已成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "已成立", trade = "買賣" });
             }
             else
             {
@@ -203,7 +203,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            mymodel = _sellerService.GetBarterOrder(OrderId, trade);
+            mymodel = _sellerService.GetBarterOrder(OrderId);
             return View(mymodel);
         }
         [HttpPost]
@@ -212,17 +212,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if(submit == "拒絕交換")
             {
                 _sellerService.DenyBarterOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "交換" });
             }
             else if (submit == "取消訂單")
             {
                 _sellerService.CancelBarterOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "交換" });
             }
             else if (submit == "接受與此書交換")
             {
                 _sellerService.AcceptBarterOrder(OrderId, ProductId);
-                return RedirectToAction("MySales", new { status = "已成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "已成立", trade = "交換" });
             }
             else
             {

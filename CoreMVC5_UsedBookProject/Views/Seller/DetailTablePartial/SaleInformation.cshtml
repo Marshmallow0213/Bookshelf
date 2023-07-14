@@ -19,21 +19,6 @@
     </thead>
     <tbody>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.Status)</td>
-            <td>@Html.DisplayFor(model => model.Status)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Trade)</td>
-            <td>@Html.DisplayFor(model => model.Trade)</td>
-        </tr>
-        @if (@Model.Trade == "買賣")
-        {
-            <tr>
-                <td>@Html.DisplayNameFor(model => model.UnitPrice)</td>
-                <td>NT$@price()</td>
-            </tr>
-        }
-        <tr>
             <td>@Html.DisplayNameFor(model => model.TradingPlaceAndTime)</td>
             <td>@Html.DisplayFor(model => model.TradingPlaceAndTime)</td>
         </tr>
