@@ -43,6 +43,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult MySales(String status, int now_page, string trade)
         {
+            var checkStatus = _buyerService.CheckOrdersStatus(status);
+            if (!checkStatus)
+            {
+                return NotFound();
+            }
+            var checkTrade = _buyerService.CheckOrdersTrade(trade);
+            if (!checkTrade)
+            {
+                return NotFound();
+            }
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
@@ -64,7 +74,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
-            var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade == "交換").FirstOrDefault();
+            var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade.Contains("交換")).FirstOrDefault();
             if (buyername == product.CreateBy)
             {
                 TempData["Message"] = "你不能購買自己的商品!";
@@ -201,7 +211,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public IActionResult DeleteBook(int Id)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-            var wish = _context.Wishes.Where(w => w.WishId == Id).FirstOrDefault();
+            var wish = _context.Wishes.Where(w => w.WishId == Id && w.Id == name).FirstOrDefault();
             _context.Wishes.Remove(wish);
             _context.SaveChanges();
             return RedirectToAction("Wish", new { });
@@ -212,6 +222,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
             mymodel = _buyerService.GetOrder(OrderId);
+            if(mymodel == null || mymodel.BuyerId != name)
+            {
+                return NotFound();
+            }
             return View(mymodel);
         }
         [HttpPost]
@@ -239,6 +253,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = trade;
             mymodel = _buyerService.GetBarterOrder(OrderId);
+            if (mymodel == null || mymodel.BuyerId != name)
+            {
+                return NotFound();
+            }
             return View(mymodel);
         }
         [HttpPost]

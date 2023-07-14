@@ -28,6 +28,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult MySales(String status, int now_page, string trade)
         {
+            var checkStatus = _sellerService.CheckOrdersStatus(status);
+            if (!checkStatus)
+            {
+                return NotFound();
+            }
+            var checkTrade = _sellerService.CheckOrdersTrade(trade);
+            if (!checkTrade)
+            {
+                return NotFound();
+            }
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
@@ -43,6 +53,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult MyProducts(String status, int now_page, string trade)
         {
+            var checkStatus = _sellerService.CheckProductsStatus(status);
+            if (!checkStatus)
+            {
+                return NotFound();
+            }
+            var checkTrade = _sellerService.CheckProductsTrade(trade);
+            if (!checkTrade)
+            {
+                return NotFound();
+            }
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
@@ -90,8 +110,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
         }
 
-        
-
         public IActionResult Edit(string ProductId)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
@@ -102,7 +120,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             else
             {
                 var product = _sellerService.GetProduct(ProductId, name);
-                if (product == null)
+                if (product == null || product.CreateBy != name)
                 {
                     return NotFound();
                 }
@@ -149,7 +167,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             else
             {
                 var product = _sellerService.GetProduct(ProductId, name);
-                if (product == null)
+                if (product == null || product.CreateBy != name)
                 {
                     return NotFound();
                 }
@@ -169,6 +187,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return NotFound();
             }
             mymodel = _sellerService.GetOrder(OrderId);
+            if (mymodel == null || mymodel.SellerId != name)
+            {
+                return NotFound();
+            }
             return View(mymodel);
         }
         [HttpPost]
@@ -204,6 +226,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return NotFound();
             }
             mymodel = _sellerService.GetBarterOrder(OrderId);
+            if (mymodel == null || mymodel.SellerId != name)
+            {
+                return NotFound();
+            }
             return View(mymodel);
         }
         [HttpPost]

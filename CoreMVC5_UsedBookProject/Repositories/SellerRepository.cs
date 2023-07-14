@@ -19,10 +19,10 @@ namespace CoreMVC5_UsedBookProject.Repositories
         {
             _context = context;
         }
-        public Product GetProductRaw(string ProductId, string name)
+        public Product GetProductRaw(string ProductId)
         {
             var product = (from p in _context.Products
-                           where p.ProductId == $"{ProductId}" && p.CreateBy == $"{name}"
+                           where p.ProductId == $"{ProductId}"
                            orderby p.CreateDate descending
                            select new Product { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, TradingPlaceAndTime = p.TradingPlaceAndTime, CreateBy = p.CreateBy }).FirstOrDefault();
             return product;

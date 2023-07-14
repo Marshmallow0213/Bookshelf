@@ -34,6 +34,76 @@ namespace CoreMVC5_UsedBookProject.Services
             List<Dictionary<string, int>> count = new() { countM, countB };
             return count;
         }
+        public bool CheckOrdersStatus(string status)
+        {
+            switch (status)
+            {
+                case "全部":
+                    return true;
+                case "待確認":
+                    return true;
+                case "已成立":
+                    return true;
+                case "不成立":
+                    return true;
+                case "已完成":
+                    return true;
+                case "待取消":
+                    return true;
+                case null:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public bool CheckProductsStatus(string status)
+        {
+            switch (status)
+            {
+                case "全部":
+                    return true;
+                case "未上架":
+                    return true;
+                case "已上架":
+                    return true;
+                case "待確認":
+                    return true;
+                case "已售完":
+                    return true;
+                case "封禁":
+                    return true;
+                case "刪除":
+                    return true;
+                case null:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public bool CheckOrdersTrade(string trade)
+        {
+            switch (trade)
+            {
+                case "買賣":
+                    return true;
+                case "交換":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public bool CheckProductsTrade(string trade)
+        {
+            switch (trade)
+            {
+                case "買賣":
+                    return true;
+                case "交換":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public MySalesViewModel GetOrders(string status, string trade, int now_page, string name)
         {
             Dictionary<string, int> count = OrdersCountList(name);
@@ -325,7 +395,11 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public ProductEditViewModel GetProduct(string ProductId, string name)
         {
-            var product = _sellerRepository.GetProductRaw(ProductId, name);
+            var product = _sellerRepository.GetProductRaw(ProductId);
+            if (product == null)
+            {
+                return null;
+            }
             var dm = _sellerRepository.DMToVM(product);
             return dm;
         }
@@ -396,7 +470,7 @@ namespace CoreMVC5_UsedBookProject.Services
                     productEditViewModel.Image9
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
-            var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId, name);
+            var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId);
             decimal checkUnitPrice = -1000;
             if (productEditViewModel.Trade.Contains("買賣"))
             {
@@ -423,7 +497,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public void DeleteProduct(string ProductId, string name)
         {
-            var product = _sellerRepository.GetProductRaw(ProductId, name);
+            var product = _sellerRepository.GetProductRaw(ProductId);
             _context.Entry(product).State = EntityState.Modified;
             product.Status = "刪除";
             product.EditDate = DateTime.Now;
