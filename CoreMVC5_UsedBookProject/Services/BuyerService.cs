@@ -22,6 +22,40 @@ namespace CoreMVC5_UsedBookProject.Services
             _sellerRepository = sellerRepository;
             _hashService = hashService;
         }
+        public bool CheckOrdersStatus(string status)
+        {
+            switch (status)
+            {
+                case "全部":
+                    return true;
+                case "待確認":
+                    return true;
+                case "已成立":
+                    return true;
+                case "不成立":
+                    return true;
+                case "已完成":
+                    return true;
+                case "待取消":
+                    return true;
+                case null:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public bool CheckOrdersTrade(string trade)
+        {
+            switch (trade)
+            {
+                case "買賣":
+                    return true;
+                case "交換":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public ProductEditViewModel GetProduct(string id)
         {
             var product = _context.Products
