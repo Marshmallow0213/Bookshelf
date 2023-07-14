@@ -258,8 +258,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public IActionResult Delete(string ProductId, string Trade)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-            _sellerService.DeleteProduct(ProductId, name);
-            if (Trade == "買賣")
+            var product = _sellerService.DeleteProduct(ProductId, name);
+            if(product == false)
+            {
+                return RedirectToAction("Index", new {});
+            }
+            if (Trade.Contains("買賣"))
             {
                 return RedirectToAction("MyProducts", new { trade = "買賣", status = "刪除" });
             }

@@ -20,7 +20,7 @@
         {
             <a href="@Url.Action("Edit", "Seller", new {ProductId = Model.ProductId})" class="btn btn-warning"><i class="bi bi-pencil-square"></i> 編輯</a>
         }
-        @if (Model.Status == "未上架" || Model.Status == "已售完" || Model.Status == "封禁" || Model.Status == "刪除")
+        @if (Model.Status == "未上架")
         {
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">

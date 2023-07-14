@@ -495,14 +495,19 @@ namespace CoreMVC5_UsedBookProject.Services
             _context.SaveChanges();
             UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);
         }
-        public void DeleteProduct(string ProductId, string name)
+        public bool DeleteProduct(string ProductId, string name)
         {
             var product = _sellerRepository.GetProductRaw(ProductId);
+            if (product == null || product.CreateBy != name)
+            {
+                return false;
+            }
             _context.Entry(product).State = EntityState.Modified;
             product.Status = "刪除";
             product.EditDate = DateTime.Now;
             _context.Update(product);
             _context.SaveChanges();
+            return true;
         }
         public void DeleteProductFolder(string Id)
         {
