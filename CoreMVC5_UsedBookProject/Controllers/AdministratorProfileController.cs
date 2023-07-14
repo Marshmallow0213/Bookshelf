@@ -46,7 +46,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 else if (item.RoleName == "Suspended Administrator")
                 {
-                    item.RoleName = "已停權管理員";
+                    item.RoleName = "已停權";
                 }
             }
             return View(data);
@@ -113,19 +113,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var administratorUser = await _ctx.Users.Select(s => new AdministratorUserHomePage { Id = s.Id, Name = s.Name, Nickname = s.Nickname, Email = s.Email, PhoneNo = s.PhoneNo }).FirstOrDefaultAsync(m => m.Id == id);
-            if (administratorUser == null)
+            var adminUser = await _ctx.Users.Select(s => new AdministratorUserHomePage { Id = s.Id, Name = s.Name, Nickname = s.Nickname, Email = s.Email, PhoneNo = s.PhoneNo }).FirstOrDefaultAsync(m => m.Id == id);
+            if (adminUser == null)
             {
                 return NotFound();
             }
-            return View(administratorUser);
+            return View(adminUser);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdministratorEdit(string id,
-            [Bind("Id,Name,Nickname,Password,Email,PhoneNo")] AdministratorUserHomePage administratorUser)
+        public async Task<IActionResult> AdministratorEdit(string id, [Bind("Id,Name,Nickname,Email,PhoneNo")] AdministratorUserHomePage AdminUser)
         {
-            if (id != administratorUser.Id)
+            if (id != AdminUser.Id)
             {
                 return NotFound();
             }
@@ -133,20 +132,26 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 try
                 {
-                    var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
-                    _ctx.Entry(user).State = EntityState.Modified;
-                    user.Name = administratorUser.Name;
-                    user.Nickname = administratorUser.Nickname;
-                    user.Email = administratorUser.Email;
-                    user.PhoneNo = administratorUser.PhoneNo;
+                    var adminUser = await _ctx.Users.FindAsync(id);
+                    if (adminUser == null)
+                    {
+                        return NotFound();
+                    }
+                    adminUser.Name = AdminUser.Name;
+                    adminUser.Nickname = AdminUser.Nickname;
+                    adminUser.Email = AdminUser.Email;
+                    adminUser.PhoneNo = AdminUser.PhoneNo;
+
                     await _ctx.SaveChangesAsync();
+
+                    return RedirectToAction("AdministratorData");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                 }
                 return RedirectToAction("AdministratorData");
             }
-            return View(administratorUser);
+            return View(AdminUser);
         }
 
         public async Task<IActionResult> AdministratorDelete(string id)

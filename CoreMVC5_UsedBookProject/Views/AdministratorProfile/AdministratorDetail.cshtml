@@ -2,7 +2,24 @@
 @{
     ViewData["Title"] = "管理員個人資料明細";
 }
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
 
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+</style>
 <h4 class="alert alert-danger">管理員個人資料明細</h4>
 
 
@@ -26,5 +43,5 @@
 </div>
 <div>
     <a asp-action="AdministratorEdit" asp-route-id="@Model.Id" class="btn btn-info">編輯</a>|
-    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="btn btn-primary">返回管理員資料列表</a>
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="return">返回管理員資料列表</a>
 </div>

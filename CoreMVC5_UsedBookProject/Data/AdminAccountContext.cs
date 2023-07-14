@@ -58,5 +58,10 @@ namespace CoreMVC5_UsedBookProject.Data
                 new Textbox { Id = "T001", TextValue = "二手書交換平台", Image1 = "Deafult.jpg", Image2 = "Deafult.jpg", Image3 = "Deafult.jpg" }
                 );
         }
+
+
+
+
+        public DbSet<CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage> AdministratorUserHomePage { get; set; }
     }
 }

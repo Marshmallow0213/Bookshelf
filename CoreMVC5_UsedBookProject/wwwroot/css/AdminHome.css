@@ -14,6 +14,8 @@ p{
     left: 0;
     position: fixed;
     background-color: #292929;
+    min-width: 244px;
+    min-height: 75px;
     padding: 10px;
     height: calc(100% - 155px);
     display: flex;
@@ -21,9 +23,11 @@ p{
     top: 75px;
     bottom: 80px;
     box-sizing: border-box;
-    width:23.4%;
+    width: 23.4%;
 }
-
+.whfora {
+    min-width: 244px;
+}
 
 .navtext {
     font-size: 20px;

@@ -110,7 +110,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public Dictionary<string, int> BarterOrdersCountList(string name)
         {
             Dictionary<string, int> countList = new();
-            countList = _context.BarterOrders.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+            //countList = _context.BarterOrders.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },

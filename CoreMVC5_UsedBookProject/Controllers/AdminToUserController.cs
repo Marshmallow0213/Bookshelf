@@ -42,7 +42,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 else if (item.RoleName == "Suspension")
                 {
-                    item.RoleName = "已停權使用者";
+                    item.RoleName = "已停權";
                 }
             }
             return View(data);

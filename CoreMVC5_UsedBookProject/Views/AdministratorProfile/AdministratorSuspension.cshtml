@@ -2,9 +2,76 @@
 @{
     ViewData["Title"] = "管理員權限更改";
 }
+<style>
+.return {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: blue;
+    transition: 0.7s;
+    border-radius: 5px;
+    border: 0;
+}
 
+.return:hover {
+    text-decoration: none;
+    color: blue;
+    background-color: white;
+    border: 1px blue solid;
+}
+
+    .top {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(80, 160, 220);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .top:hover {
+            text-decoration: none;
+            color: rgb(80, 160, 220);
+            background-color: white;
+            border: 1px rgb(80, 160, 220) solid;
+        }
+
+    .common {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(255, 150, 160);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+    .common:hover {
+            text-decoration: none;
+            color: rgb(255, 150, 160);
+            background-color: white;
+            border: 1px rgb(255, 150, 160)solid;
+        }
+
+    .Suspension {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(185, 185, 185);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+    .Suspension:hover {
+            text-decoration: none;
+            color: rgb(185, 185, 185);
+            background-color: white;
+            border: 1px rgb(185, 185, 185) solid;
+        }
+</style>
 <h4 class="alert alert-danger">管理員個人資料明細</h4>
-
 
 <div>
     <hr />
@@ -25,8 +92,8 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="AdministratorProfile" asp-action="TopAdministrator" asp-route-id="@Model.Id" class="btn btn-danger">設為一級管理員</a>|
-    <a asp-controller="AdministratorProfile" asp-action="commonAdministrator" asp-route-id="@Model.Id" class="btn btn-primary">設為二級管理員</a>|
-    <a asp-controller="AdministratorProfile" asp-action="SuspendedAdministrator" asp-route-id="@Model.Id" class="btn btn-info">停用管理員權限</a>|
-    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="btn btn-primary">返回管理員資料列表</a>
+    <a asp-controller="AdministratorProfile" asp-action="TopAdministrator" asp-route-id="@Model.Id" class="top">設為一級管理員</a>|
+    <a asp-controller="AdministratorProfile" asp-action="commonAdministrator" asp-route-id="@Model.Id" class="common">設為二級管理員</a>|
+    <a asp-controller="AdministratorProfile" asp-action="SuspendedAdministrator" asp-route-id="@Model.Id" class="Suspension">停用管理員權限</a>|
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="return">返回管理員資料列表</a>
 </div>

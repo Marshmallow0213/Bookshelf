@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "管理員建立";
 }
-
+<link href="~/css/buttons.css" rel="stylesheet" />
 <style>
     .field-error {
         color: red;
@@ -13,53 +13,72 @@
     .input-error {
         border: 1px solid red;
     }
+
+    .return {
+        padding:10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius:5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border:1px blue solid;
+        }
 </style>
 
 <h1>新增管理員個人資料</h1>
 
 <h4>管理員個人資料</h4>
 <hr />
-<div class="row">
+<div class="row" style="flex-direction:column;">
     <div class="col-md-4">
         <form asp-action="AdministratorCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" required />
-                <span asp-validation-for="Id" class="field-error"></span>
+            <div class="form-group" style="display:flex; flex-direction:column;  gap:10px;">
+                <div style="display:flex;">
+                    <label asp-for="Id" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Id" class="form-control" required />
+                    <span asp-validation-for="Id" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="Name" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Name" class="form-control" required />
+                    <span asp-validation-for="Name" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="Password" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Password" class="form-control" type="password" required />
+                    <span asp-validation-for="Password" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="Nickname" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Nickname" class="form-control" required />
+                    <span asp-validation-for="Nickname" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="Email" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Email" class="form-control" required />
+                    <span asp-validation-for="Email" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="PhoneNo" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="PhoneNo" class="form-control" required />
+                    <span asp-validation-for="PhoneNo" class="field-error"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" required />
-                <span asp-validation-for="Name" class="field-error"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password" required />
-                <span asp-validation-for="Password" class="field-error"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nickname" class="control-label"></label>
-                <input asp-for="Nickname" class="form-control" required />
-                <span asp-validation-for="Nickname" class="field-error"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" required />
-                <span asp-validation-for="Email" class="field-error"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNo" class="control-label"></label>
-                <input asp-for="PhoneNo" class="form-control" required />
-                <span asp-validation-for="PhoneNo" class="field-error"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="建立" class="btn btn-primary" />
+                <input type="submit" value="建立" class="return">
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="btn btn-primary">返回管理員資料列表</a>
+<div style="margin-top:10px">
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="return">返回管理員資料列表</a>
 </div>
