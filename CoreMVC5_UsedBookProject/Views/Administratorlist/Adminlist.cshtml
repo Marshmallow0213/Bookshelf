@@ -92,22 +92,26 @@
 
                     <h2>你好: @firstName 歡迎來到管理員控制中心</h2>
                 }
-                <div class="card-container" style="display: flex; flex-wrap: wrap;">
+                <div class="card-container" style="display: flex; flex-wrap: wrap; min-width:1200px;">
                     @foreach (var Users in Model)
                     {
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" style="padding:0; margin:0;">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" style="padding:0; margin:0; width:260px; height:300px; max-width:260px; max-height:300px;">
                             <div class="card" style="flex: 0 0 100%; max-width: 100%; margin:10px; background-color: lightyellow; text-align:center;">
-                                <div class="card-body">
+                                <div class="card-body" style="height:300px;">
                                     @{
                                         string Name = Users.Name;
                                         string[] segmentation = Name.Split('@');
                                         string username = segmentation[0];
                                         string fullName = username;
                                     }
-                                    <h5 class="card-title" style="background-color: mistyrose;">@fullName</h5>
-                                    <p class="card-text" style="background-color: lightyellow;">@Users.Nickname</p>
-                                    <p class="card-text" style="background-color: lightyellow;">@Users.Email</p>
-                                    <p class="card-text" style="background-color: lightyellow;">@Users.PhoneNo</p>
+                                    <h5 class="card-title" style="height:60px; background-color: mistyrose;">@fullName</h5>
+                                    <div style="display:flex; align-items:center; gap:5px;">
+                                        <p style="font-weight:bold; font-size:25px;">綽號:</p>
+                                        <p class="card-text" style="height:60px;background-color: lightyellow;">@Users.Nickname</p>
+                                    </div>
+                                    
+                                    <p class="card-text" style="height:60px;background-color: lightyellow;">@Users.Email</p>
+                                    <p class="card-text" style="height:60px;background-color: lightyellow;">@Users.PhoneNo</p>
                                 </div>
                             </div>
                         </div>

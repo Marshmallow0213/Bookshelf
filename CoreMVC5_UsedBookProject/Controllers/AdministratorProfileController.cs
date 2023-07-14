@@ -113,18 +113,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var adminUser = await _ctx.Users.Select(s => new AdministratorUserHomePage { Id = s.Id, Name = s.Name, Nickname = s.Nickname, Email = s.Email, PhoneNo = s.PhoneNo }).FirstOrDefaultAsync(m => m.Id == id);
-            if (adminUser == null)
+            var user = await _ctx.Users.Select(s => new AdministratorUserHomePage { Id = s.Id, Name = s.Name, Nickname = s.Nickname, Email = s.Email, PhoneNo = s.PhoneNo }).FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(adminUser);
+            return View(user);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdministratorEdit(string id, [Bind("Id,Name,Nickname,Email,PhoneNo")] AdministratorUserHomePage AdminUser)
+        public async Task<IActionResult> AdministratorEdit(string id, [Bind("Id,Name,Nickname,Email,PhoneNo")] AdministratorUserHomePage User)
         {
-            if (id != AdminUser.Id)
+            if (id != User.Id)
             {
                 return NotFound();
             }
@@ -132,11 +132,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 try
                 {
-                    var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
-                    _ctx.Entry(user).State = EntityState.Modified;
-                    user.Nickname = administratorUser.Nickname;
-                    user.Email = administratorUser.Email;
-                    user.PhoneNo = administratorUser.PhoneNo;
+                    var user = await _ctx.Users.FindAsync(id);
+                    if (user == null)
+                    {
+                        return NotFound();
+                    }
+                    user.Id = User.Id;
+                    user.Name = User.Name;
+                    user.Nickname = User.Nickname;
+                    user.Email = User.Email;
+                    user.PhoneNo = User.PhoneNo;
+
                     await _ctx.SaveChangesAsync();
 
                     return RedirectToAction("AdministratorData");
@@ -146,7 +152,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 return RedirectToAction("AdministratorData");
             }
-            return View(AdminUser);
+            return View(User);
         }
 
         public async Task<IActionResult> AdministratorDelete(string id)

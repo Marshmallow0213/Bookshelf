@@ -7,6 +7,22 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AdministratorUserHomePage",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nickname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdministratorUserHomePage", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -54,11 +70,18 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdministratorUserHomePageId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRoles_AdministratorUserHomePage_AdministratorUserHomePageId",
+                        column: x => x.AdministratorUserHomePageId,
+                        principalTable: "AdministratorUserHomePage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
@@ -100,18 +123,23 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "R001", "B001" });
+                columns: new[] { "RoleId", "UserId", "AdministratorUserHomePageId" },
+                values: new object[] { "R001", "B001", null });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "R001", "B002" });
+                columns: new[] { "RoleId", "UserId", "AdministratorUserHomePageId" },
+                values: new object[] { "R001", "B002", null });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "R001", "B003" });
+                columns: new[] { "RoleId", "UserId", "AdministratorUserHomePageId" },
+                values: new object[] { "R001", "B003", null });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_AdministratorUserHomePageId",
+                table: "UserRoles",
+                column: "AdministratorUserHomePageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
@@ -126,6 +154,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AdministratorUserHomePage");
 
             migrationBuilder.DropTable(
                 name: "Roles");
