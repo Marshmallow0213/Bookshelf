@@ -19,7 +19,7 @@ namespace CoreMVC5_UsedBookProject.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
         public DbSet<Shoppingcart> Shoppingcarts { get; set; }
-        public DbSet<Wish>Wishes { get; set; }
+        public DbSet<Wish> Wishes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵

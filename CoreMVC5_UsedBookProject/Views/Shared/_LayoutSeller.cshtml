@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
     <link href="~/css/seller/all.css" asp-append-version="true" rel="stylesheet" />
-    <script src="~/js/seller/errorimg.js" asp-append-version="true"></script>
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
@@ -31,15 +30,17 @@
             }
         </style>
     </noscript>
-    <main role="main" id="main" style="padding-bottom: 75px;">
-        @RenderBody()
-    </main>
+    <div id="aside-right">
+        <main role="main" id="main" style="padding-bottom: 75px;">
+            @RenderBody()
+        </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+        <footer class="border-top footer text-muted">
+            <div class="px-2">
+                &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

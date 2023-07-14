@@ -8,7 +8,7 @@
 }
 
 <div class="container-fluid pb-5 gap-2">
-    <h1>@(ViewBag.Trade == "以物易物" ? "以物易物" : "買賣")銷售</h1>
+    <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")銷售</h1>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
             <a href="@Url.Action("MySales", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
@@ -35,41 +35,39 @@
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>
     </ul>
-    @if (Model.Orders.Count > 0 && ViewBag.Trade == "金錢")
+    @if (Model.Orders.Count > 0 && ViewBag.Trade == "買賣")
     {
         @foreach (var item in Model.Orders)
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
+                    <img src="../Images/Products/@item.SellerProductId/@item.SellerImage1" asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                 </div>
-                <table class="container-fluid">
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.SellerName)</td><td>@item.SellerName</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.BuyerName)</td><td>@item.BuyerName</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.DenyReason)</td><td>@item.DenyReason</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.ProductId)</td><td>@item.ProductId</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.Trade)</td><td>@item.Trade</td></tr>
-                    @if (item.Trade == "金錢")
+                <div class="container-fluid my-2">
+                    <h2>@item.BuyerName</h2>
+                    <h2>@item.Trade</h2>
+                    @if (item.Trade.Contains("買賣"))
                     {
-                        <tr><td>@Html.DisplayNameFor(model => model.Order.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
+                        <h2>NT$@(decimal.Round(item.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(item.SellerUnitPrice, 0))</h2>
                     }
-                    <tr><td>@Html.DisplayNameFor(model => model.Order.Status)</td><td>@item.Status</td></tr>
-                </table>
+                    <p><span>@Html.DisplayNameFor(model => model.Order.DenyReason) </span><span>@item.DenyReason</span></p>
+                    <p><span>@Html.DisplayNameFor(model => model.Order.Status) </span><span>@item.Status</span></p>
+                </div>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
 
-                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.SellerProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
                     <a href="@Url.Action("OrderDetails", "Seller", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 訂單詳情</a>
                 </div>
             </div>
         }
     }
-    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "以物易物")
+    else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "交換")
     {
         @foreach (var item in Model.BarterOrders)
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
                 <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.SellerProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+                    <img src="../Images/Products/@item.SellerProductId/@item.SellerImage1" asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.BarterOrder.SellerName)</td><td>@item.SellerName</td></tr>
@@ -88,7 +86,7 @@
     }
     else
     {
-        <h2 class="text-center my-5">沒有符合的商品</h2>
+        <h2 class="text-center my-5">沒有訂單在列表中</h2>
     }
     <partial name="_NowPageMySalesPartial" />
 </div>

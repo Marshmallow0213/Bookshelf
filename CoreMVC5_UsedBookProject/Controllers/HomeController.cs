@@ -5,6 +5,7 @@ using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,31 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (!string.IsNullOrEmpty(name))
             {
                 products = _context.Products
+                    .Where(p => p.Status == "已上架" && p.ISBN == name)
+                    .OrderByDescending(p => p.CreateDate)
+                    .Select(p => new ProductViewModel
+                    {
+                        ProductId = p.ProductId,
+                        Title = p.Title,
+                        ISBN = p.ISBN,
+                        Author = p.Author,
+                        Publisher = p.Publisher,
+                        PublicationDate = p.PublicationDate,
+                        Degree = p.Degree,
+                        ContentText = p.ContentText,
+                        Image1 = p.Image1,
+                        Image2 = p.Image2,
+                        Status = p.Status,
+                        Trade = p.Trade,
+                        UnitPrice = p.UnitPrice,
+                        CreateDate = p.CreateDate,
+                        EditDate = p.EditDate,
+                        CreateBy = p.CreateBy
+                    })
+                    .ToList();
+                if (products.Count == 0)
+                {
+                    products = _context.Products
                 .Where(p => p.Status == "已上架" && p.Title.Contains(name))
                 .OrderByDescending(p => p.CreateDate)
                 .Select(p => new ProductViewModel
@@ -72,36 +98,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     CreateBy = p.CreateBy
                 })
                 .ToList();
-                if (products.Count == 0)
-                {
-                    products = _context.Products
-                    .Where(p => p.Status == "已上架" && p.ISBN.Contains(name))
-                    .OrderByDescending(p => p.CreateDate)
-                    .Select(p => new ProductViewModel
-                    {
-                        ProductId = p.ProductId,
-                        Title = p.Title,
-                        ISBN = p.ISBN,
-                        Author = p.Author,
-                        Publisher = p.Publisher,
-                        PublicationDate = p.PublicationDate,
-                        Degree = p.Degree,
-                        ContentText = p.ContentText,
-                        Image1 = p.Image1,
-                        Image2 = p.Image2,
-                        Status = p.Status,
-                        Trade = p.Trade,
-                        UnitPrice = p.UnitPrice,
-                        CreateDate = p.CreateDate,
-                        EditDate = p.EditDate,
-                        CreateBy = p.CreateBy
-                    })
-                    .ToList();
                 }
             }
-
-
-
             ViewBag.Count = $"找到 {products.Count} 項商品";
             MyProductsViewModel mymodel = new MyProductsViewModel
             {
@@ -132,12 +130,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
+            if (trade == "買賣")
             {
                 mymodel = _buyerService.GetProducts(now_page, trade);
                 return View(mymodel);
             }
-            else if (trade == "以物易物")
+            else if (trade == "交換")
             {
                 mymodel = _buyerService.GetProducts(now_page, trade);
                 return View(mymodel);
@@ -170,13 +168,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public IActionResult GetPredictions(string searchText)
         {
-
             var predictions = GetPredictionsFromData(searchText);
-
-
             return PartialView("GetPredictions", predictions);
         }
 
-
+        public IActionResult Wish()
+        {
+            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).ToList();
+            WishsViewModel wishs = new()
+            {
+                Wishs = wishlist
+            };
+            return View(wishs);
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "訂單Id")]
         public string OrderId { get; set; }
         [Display(Name = "價格")]
-        public decimal UnitPrice { get; set; }
+        public decimal SellerUnitPrice { get; set; }
         //
         [Display(Name = "賣家Id")]
         public string SellerId { get; set; }
@@ -27,10 +27,14 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "交易方式")]
         public string Trade { get; set; }
         [Display(Name = "商品Id")]
-        public string ProductId { get; set; }
+        public string SellerProductId { get; set; }
         [Display(Name = "書名")]
-        public string Title { get; set; }
+        public string SellerTitle { get; set; }
+        [Display(Name = "ISBN")]
+        public string SellerISBN { get; set; }
+        [Display(Name = "作者")]
+        public string SellerAuthor { get; set; }
         [Display(Name = "圖片封面")]
-        public string Image1 { get; set; }
+        public string SellerImage1 { get; set; }
     }
 }

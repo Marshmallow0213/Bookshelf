@@ -21,6 +21,7 @@
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+                <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
                 <div class="form-group">
                     <input type="submit" value="登入" class="btn btn-primary" />
                 </div>
@@ -32,4 +33,6 @@
         <a asp-action="Index" asp-controller="Home">回首頁</a>
     </div>
 </div>
-
+@section endJS{
+    <partial name="_ValidationScriptsPartial" />
+}

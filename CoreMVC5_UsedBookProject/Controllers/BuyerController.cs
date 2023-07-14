@@ -46,37 +46,47 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade == "金錢")
+            if (trade == "買賣")
             {
                 mymodel = _buyerService.GetOrders(trade, status, now_page, name);
             }
-            else if (trade == "以物易物")
+            else if (trade == "交換")
             {
                 mymodel = _buyerService.GetBarterOrders(trade, status, now_page, name);
             }
             return View(mymodel);
         }
-        public IActionResult CreateOrder(string ProductId, string Sellername, string trade)
+        public IActionResult CreateOrder(string ProductId, string Sellername, string trade, string Order)
         {
+            if(Order != "買賣" && Order != "交換")
+            {
+                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
+            }
             var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
+            var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade == "交換").FirstOrDefault();
             if (buyername == product.CreateBy)
             {
                 TempData["Message"] = "你不能購買自己的商品!";
                 return RedirectToAction("Details", "Home", new { ProductId = ProductId });
             }
+            if (checkselfproducts == null && Order == "交換")
+            {
+                TempData["Message"] = "你需要先上架自己的交換商品!";
+                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
+            }
             if (ProductId != null && Sellername != null)
             {
-                if (trade == "金錢")
+                if (Order == "買賣")
                 {
                     _buyerService.CreateOrder(trade, Sellername, buyername, ProductId);
                 }
-                else if (trade == "以物易物")
+                else if (Order == "交換")
                 {
                     _buyerService.CreateBarterOrder(trade, Sellername, buyername, ProductId);
                 }
             }
-            return RedirectToAction("MySales", new { Trade = trade });
+            return RedirectToAction("MySales", new { Trade = Order });
         }
         private List<ProductViewModel> GetCartItems(string name)
         {
@@ -146,29 +156,52 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return RedirectToAction("Shoppingcart", new {});
         }
         public IActionResult Wish()
-
-        {
-            var wishlist = (from w in _context.Wishes select new WishViewModel { Title = w.Title, ISBN = w.ISBN ,WishId=w.WishId,Id=w.Id}).ToList();
-               
-            return View(wishlist);
-        }
-        [HttpPost]
-        public IActionResult AddBook(WishViewModel book)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-            Wish bookWish = new Wish { Title=book.Title,ISBN=book.ISBN,Id=name};
-
-
-            _context.Wishes.Add(bookWish);
-            _context.SaveChanges();
-            return RedirectToAction("Wish", new { });
+            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).ToList();
+            List<string> ISBNproducts = new();
+            ISBNproducts = _context.Products
+                    .Where(p => p.Status == "已上架")
+                    .OrderByDescending(p => p.CreateDate)
+                    .Select(p => p.ISBN
+                    )
+                    .ToList();
+            List<string> Titleproducts = new();
+            Titleproducts = _context.Products
+                .Where(p => p.Status == "已上架")
+                .OrderByDescending(p => p.CreateDate)
+                .Select(p => p.Title
+                )
+                .ToList();
+            WishsViewModel wishs = new()
+            {
+                Wishs = wishlist,
+                ISBNproducts = ISBNproducts,
+                Titleproducts = Titleproducts
+            };
+            return View(wishs);
         }
+       
+        [HttpPost]
+        public IActionResult Wish(WishsViewModel book)
+        {
+            if (ModelState.IsValid)
+            {
+                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
+                _context.Wishes.Add(bookWish);
+                _context.SaveChanges();
+                return RedirectToAction("Wish", new {});
+            }
+            else {
+                return RedirectToAction("Wish", new {});
+            }
+        }
+
         public IActionResult DeleteBook(int Id)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var wish = _context.Wishes.Where(w => w.WishId == Id).FirstOrDefault();
-            
-
             _context.Wishes.Remove(wish);
             _context.SaveChanges();
             return RedirectToAction("Wish", new { });
@@ -178,7 +211,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
-            mymodel = _buyerService.GetOrder(OrderId, trade);
+            mymodel = _buyerService.GetOrder(OrderId);
             return View(mymodel);
         }
         [HttpPost]
@@ -187,17 +220,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (submit == "完成訂單")
             {
                 _buyerService.FinishOrder(orderViewModel.OrderId);
-                return RedirectToAction("MySales", new { status = "已完成", trade = orderViewModel.Trade });
+                return RedirectToAction("MySales", new { status = "已完成", trade = "買賣" });
             }
             if (ModelState.IsValid && submit == "取消訂單")
             {
                 _buyerService.CancelOrder(orderViewModel.OrderId, orderViewModel.DenyReason);
-                return RedirectToAction("MySales", new { status = "待取消", trade = orderViewModel.Trade });
+                return RedirectToAction("MySales", new { status = "待取消", trade = "買賣" });
             }
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             OrderViewModel mymodel = new();
             ViewBag.trade = orderViewModel.Trade;
-            mymodel = _buyerService.GetOrder(orderViewModel.OrderId, orderViewModel.Trade);
+            mymodel = _buyerService.GetOrder(orderViewModel.OrderId);
             return View(mymodel);
         }
         public IActionResult BarterOrderDetails(string OrderId, string trade)
@@ -205,7 +238,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = trade;
-            mymodel = _buyerService.GetBarterOrder(OrderId, trade);
+            mymodel = _buyerService.GetBarterOrder(OrderId);
             return View(mymodel);
         }
         [HttpPost]
@@ -214,17 +247,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if(submit == "完成訂單")
             {
                 _buyerService.FinishBarterOrder(orderViewModel.OrderId);
-                return RedirectToAction("MySales", new { status = "已完成", trade = orderViewModel.Trade });
+                return RedirectToAction("MySales", new { status = "已完成", trade = "交換" });
             }
             if (ModelState.IsValid && submit == "取消訂單")
             {
                 _buyerService.CancelBarterOrder(orderViewModel.OrderId, orderViewModel.DenyReason);
-                return RedirectToAction("MySales", new { status = "待取消", trade = orderViewModel.Trade });
+                return RedirectToAction("MySales", new { status = "待取消", trade = "交換" });
             }
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = orderViewModel.Trade;
-            mymodel = _buyerService.GetBarterOrder(orderViewModel.OrderId, orderViewModel.Trade);
+            mymodel = _buyerService.GetBarterOrder(orderViewModel.OrderId);
             return View(mymodel);
         }
     }

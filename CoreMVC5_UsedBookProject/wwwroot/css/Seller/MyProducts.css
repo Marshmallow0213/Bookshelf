@@ -1,21 +1,7 @@
-﻿table {
-    border-collapse: collapse;
-    border: 1px solid black;
-    flex-grow: 1;
-    width: 100%;
-    table-layout: fixed;
-    overflow: hidden;
-    white-space: nowrap;
-}
-tr > td:first-of-type{
-    width: 75px;
-}
-td {
-    border: 1px solid black;
-    padding: 5px;
-}
-.product-card {
-    background-color: #80808025;
+﻿.product-card {
+    background-image: url(../../pictures/card.jpg);
+    background-repeat: repeat;
+    background-size: cover;
 }
 .action{
     width: 100%;

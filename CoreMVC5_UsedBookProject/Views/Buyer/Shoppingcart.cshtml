@@ -2,26 +2,26 @@
 @model MyProductsViewModel
 
 <div class="container-fluid">
-    <h2>購物車</h2>
+    <h1>購物車</h1>
 
     @if (Model != null && Model.Products.Count > 0)
     {
         @foreach (var item in Model.Products)
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
-                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="errorLoad(this)" />
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
+                    <img src="../Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Title)</td><td>@item.Title</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ISBN)</td><td>@item.ISBN</td></tr>
                     <tr><td>@Html.DisplayNameFor(model => model.Product.Author)</td><td>@item.Author</td></tr>
-                    @if (item.Trade == "金錢")
+                    @if (item.Trade == "買賣")
                     {
                         <tr><td>@Html.DisplayNameFor(model => model.Product.UnitPrice)</td><td>@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</td></tr>
                     }
-                    else if (item.Trade == "以物易物")
+                    else if (item.Trade == "交換")
                     {
                         <tr><td>@Html.DisplayNameFor(model => model.Product.Trade)</td><td>@item.Trade</td></tr>
                     }
@@ -36,7 +36,7 @@
     }
     else
     {
-        <p>購物車是空的</p>
+        <h2 class="text-center my-5">購物車是空的</h2>
     }
 </div>
 @section topCSS{

@@ -18,6 +18,7 @@ using System.Data;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.CodeAnalysis;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -25,25 +26,28 @@ namespace CoreMVC5_UsedBookProject.Controllers
     {
         private readonly ProductContext _ctx;
         private readonly AccountService _accountService;
+        private readonly SellerService _sellerService;
         private readonly IHashService _hashService;
-        public AccountController(ProductContext ctx, AccountService accountService, IHashService hashService)
+        public AccountController(ProductContext ctx, AccountService accountService, SellerService sellerService, IHashService hashService)
         {
             _ctx = ctx;
             _accountService = accountService;
+            _sellerService = sellerService;
             _hashService = hashService;
             //HttpContext.Response.Cookies.Append("setCookie", "CookieValue");
             //HttpContext.Request.Cookies["key"];
             //HttpContext.Response.Cookies.Delete("key");
         }
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl)
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginVM)
+        public async Task<IActionResult> Login(LoginViewModel loginVM, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +109,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties
                     );
+                HttpContext.Response.Cookies.Append("Login", "Now");
+                if(ReturnUrl == "/Seller")
+                {
+                    return LocalRedirect("~/Seller/Index");
+                }
                 return LocalRedirect("~/Home/Index");
             }
 
@@ -115,6 +124,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public async Task<IActionResult> Signout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Response.Cookies.Delete("Login");
             return LocalRedirect("/");
         }
 
@@ -229,7 +239,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 if (submit == "批量註冊")
                 {
                     int newuserscount = 0;
-                    int newadmincount = 0;
                     for (int i = 1; i < listA.Count(); i++)
                     {
                         var checkAccountExist = (from p in _ctx.Users
@@ -280,12 +289,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         }
                     }
                     ViewData["Title"] = "帳號批量註冊";
-                    ViewData["Message"] = $"使用者帳號批量註冊成功! 新增{newuserscount - newadmincount}個使用者。";  //顯示訊息
+                    ViewData["Message"] = $"使用者帳號批量註冊成功! 新增{newuserscount}個使用者。";  //顯示訊息
                 }
                 else if (submit == "批量刪除")
                 {
                     int newuserscount = 0;
-                    int newadmincount = 0;
                     for (int i = 1; i < listA.Count(); i++)
                     {
                         var checkAccountExist = _ctx.Users.Where(w => w.Name.ToUpper() == $"{listA[i]}".ToUpper()).FirstOrDefault();
@@ -298,11 +306,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             {
                                 Directory.Delete(folderPath, true);
                             }
+                            _sellerService.DeleteProductFolder(Id);
                             newuserscount += 1;
                             _ctx.SaveChanges();
                         }
                         ViewData["Title"] = "帳號批量刪除";
-                        ViewData["Message"] = $"使用者帳號批量刪除成功! 刪除{newuserscount - newadmincount}個使用者。";  //顯示訊息
+                        ViewData["Message"] = $"使用者帳號批量刪除成功! 刪除{newuserscount}個使用者。";  //顯示訊息
                     }
                 }
                 return View("~/Views/Shared/ResultMessage.cshtml");

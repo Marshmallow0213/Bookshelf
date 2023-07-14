@@ -1,6 +1,7 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
+using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -19,20 +20,23 @@ namespace CoreMVC5_UsedBookProject.Controllers
     public class AdminToUserController : Controller
     {
         private readonly ProductContext _ctx;
+        private readonly SellerService _sellerService;
         private readonly IHashService _hashService;
 
-        public AdminToUserController(ProductContext ctx, IHashService hashService)
+        public AdminToUserController(ProductContext ctx, SellerService sellerService, IHashService hashService)
         {
             _ctx = ctx;
+            _sellerService = sellerService;
             _hashService = hashService;
         }
         [Authorize]
-        public async Task<IActionResult> UserData()
+        public IActionResult UserData()
         {
             var data = (from ur in _ctx.UserRoles
                         from u in _ctx.Users
                         from r in _ctx.Roles
                         where ur.UserId == u.Id && ur.RoleId == r.Id
+                        orderby u.Name
                         select new MixUserViewModel { UserID = u.Id, UserName = u.Name, RoleName = r.Name }).ToList();
             foreach (var item in data)
             {
@@ -143,6 +147,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var User = await _ctx.Users.FindAsync(id);
             _ctx.Users.Remove(User);
             await _ctx.SaveChangesAsync();
+            _sellerService.DeleteProductFolder(id);
             return RedirectToAction("UserData");
         }
         public async Task<IActionResult> UserSuspension(string id)

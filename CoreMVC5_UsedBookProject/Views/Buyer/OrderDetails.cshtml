@@ -4,54 +4,65 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = "商品詳情";
+    ViewBag.Title = "買賣訂單詳情";
 }
 <div class="container-fluid">
-    <h1>訂單詳情</h1>
+    <h1>買賣訂單詳情</h1>
     <form action="~/Buyer/OrderDetails" method="post">
-        <table class="container-fluid">
-            <tr><td>@Html.DisplayNameFor(model => model.OrderId)</td><td>@Model.OrderId</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.SellerId)</td><td>@Model.SellerId</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.BuyerId)</td><td>@Model.BuyerId</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.SellerName)</td><td>@Model.SellerName</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.BuyerName)</td><td>@Model.BuyerName</td></tr>
+        <div class="container-fluid my-2">
+            <h2>@Model.Trade</h2>
+            <h2>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h2>
             @if (Model.Status == "待確認" || Model.Status == "已成立")
             {
-                <tr>
-                    <td>@Html.DisplayNameFor(model => model.DenyReason)</td>
-                    <td>
+                <p>
+                    <span>@Html.DisplayNameFor(model => model.DenyReason) </span>
+                    <span>
                         <div class="d-flex">
                             <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
                             <p id="DenyReason_length" class="text-right ml-4"></p>
                         </div>
                         <span asp-validation-for="DenyReason" class="text-danger"></span>
-                    </td>
-                </tr>
+                    </span>
+                </p>
             }
             else
             {
-                <tr><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td>@Model.DenyReason</td></tr>
+                <p><span>@Html.DisplayNameFor(model => model.DenyReason) </span><span>@Model.DenyReason</span></p>
             }
-            <tr><td>@Html.DisplayNameFor(model => model.ProductId)</td><td>@Model.ProductId</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.Trade)</td><td>@Model.Trade</td></tr>
-            <input type="hidden" name="OrderId" class="form-control" id="OrderId" value="@Model.OrderId" readonly />
-            <input type="hidden" name="trade" class="form-control" id="trade" value="@Model.Trade" readonly />
-            <tr><td>@Html.DisplayNameFor(model => model.UnitPrice)</td><td>@(decimal.Round(Model.UnitPrice, 0) == 0 ? "" : decimal.Round(Model.UnitPrice, 0))</td></tr>
-            <tr><td>@Html.DisplayNameFor(model => model.Status)</td><td>@Model.Status</td></tr>
-        </table>
+            <p><span>@Html.DisplayNameFor(model => model.Status) </span><span>@Model.Status</span></p>
+        </div>
+        <h2>賣家的商品 @Model.SellerName</h2>
+        <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
+            <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
+                <img src="../Images/Products/@Model.SellerProductId/@Model.SellerImage1" asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='../pictures/WishsDeafultPicture.jpg'" />
+            </div>
+            <div class="container-fluid my-2">
+                <h2>@Model.SellerTitle</h2>
+                <h2>@Model.Trade</h2>
+                <h2>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h2>
+                <p><span>@Html.DisplayNameFor(model => model.SellerISBN) </span><span>@Model.SellerISBN</span></p>
+                <p><span>@Html.DisplayNameFor(model => model.SellerAuthor) </span><span>@Model.SellerAuthor</span></p>
+            </div>
+            <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
+                <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
+            </div>
+        </div>
         <br />
-        <div class="gap-2">
+        <div class="d-flex">
             @if (Model.Status == "已成立")
             {
                 <input type="hidden" name="OrderId" value="@Model.OrderId">
                 <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-primary" name="submit" value="完成訂單">完成訂單</button>
+                <button type="submit" class="btn btn-primary mr-2" name="submit" value="完成訂單">完成訂單</button>
             }
             @if (Model.Status == "待確認" || Model.Status == "已成立")
             {
-                <button type="submit" class="btn btn-primary" name="submit" value="取消訂單">取消訂單</button>
+                <button type="submit" class="btn btn-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
             }
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
         </div>
     </form>
 </div>
+@section topCSS{
+    <link href="~/css/seller/mysales.css" asp-append-version="true" rel="stylesheet" />
+}

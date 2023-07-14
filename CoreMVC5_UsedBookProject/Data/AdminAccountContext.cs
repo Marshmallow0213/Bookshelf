@@ -19,10 +19,6 @@ namespace CoreMVC5_UsedBookProject.Data
         public DbSet<AdministratorRole> Roles { get; set; }
         public DbSet<AdministratorUserRoles> UserRoles  { get; set; }
         public DbSet<Textbox> TextValue { get; set; }
-
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵

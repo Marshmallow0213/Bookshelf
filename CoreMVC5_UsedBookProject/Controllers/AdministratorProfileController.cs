@@ -27,7 +27,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             _hashService = hashService;
         }
         [Authorize]
-        public async Task<IActionResult> AdministratorData()
+        public IActionResult AdministratorData()
         {
             var data = (from ur in _ctx.UserRoles
                         from u in _ctx.Users
@@ -132,16 +132,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 try
                 {
-                    var adminUser = await _ctx.Users.FindAsync(id);
-                    if (adminUser == null)
-                    {
-                        return NotFound();
-                    }
-                    adminUser.Name = AdminUser.Name;
-                    adminUser.Nickname = AdminUser.Nickname;
-                    adminUser.Email = AdminUser.Email;
-                    adminUser.PhoneNo = AdminUser.PhoneNo;
-
+                    var user = _ctx.Users.Where(w => w.Id == id).FirstOrDefault();
+                    _ctx.Entry(user).State = EntityState.Modified;
+                    user.Nickname = administratorUser.Nickname;
+                    user.Email = administratorUser.Email;
+                    user.PhoneNo = administratorUser.PhoneNo;
                     await _ctx.SaveChangesAsync();
 
                     return RedirectToAction("AdministratorData");

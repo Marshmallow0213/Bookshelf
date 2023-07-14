@@ -31,11 +31,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
-            if(trade == "金錢")
+            if(trade == "買賣")
             {
                 mymodel = _sellerService.GetOrders(status, trade, now_page, name);
             }
-            else if(trade == "以物易物")
+            else if(trade == "交換")
             {
                 mymodel = _sellerService.GetBarterOrders(status, trade, now_page, name);
             }
@@ -69,15 +69,19 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid && (productCreateViewModel.Status == "已上架" || productCreateViewModel.Status == "未上架"))
             {
+                if (productCreateViewModel.Trade != "買賣" && productCreateViewModel.Trade != "交換" && productCreateViewModel.Trade != "買賣與交換")
+                {
+                    return View(productCreateViewModel);
+                }
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 _sellerService.CreateProduct(productCreateViewModel, name);
-                if (productCreateViewModel.Trade == "金錢")
+                if (productCreateViewModel.Trade == "買賣" || productCreateViewModel.Trade == "買賣與交換")
                 {
-                    return RedirectToAction("MyProducts", new { trade = "金錢", status = productCreateViewModel.Status });
+                    return RedirectToAction("MyProducts", new { trade = "買賣", status = productCreateViewModel.Status });
                 }
                 else
                 {
-                    return RedirectToAction("MyProducts", new { trade = "以物易物", status = productCreateViewModel.Status });
+                    return RedirectToAction("MyProducts", new { trade = "交換", status = productCreateViewModel.Status });
                 }
             }
             else
@@ -114,13 +118,20 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (productEditViewModel.Trade != "金錢" && productEditViewModel.Trade != "以物易物")
+                if (productEditViewModel.Trade != "買賣" && productEditViewModel.Trade != "交換" && productEditViewModel.Trade != "買賣與交換")
                 {
                     return NotFound();
                 }
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
                 _sellerService.EditProduct(productEditViewModel, name);
-                return RedirectToAction("MyProducts", new { trade = productEditViewModel.Trade, status = productEditViewModel.Status });
+                if (productEditViewModel.Trade == "買賣" || productEditViewModel.Trade == "買賣與交換")
+                {
+                    return RedirectToAction("MyProducts", new { trade = "買賣", status = productEditViewModel.Status });
+                }
+                else
+                {
+                    return RedirectToAction("MyProducts", new { trade = "交換", status = productEditViewModel.Status });
+                }
             }
             else
             {
@@ -153,11 +164,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade != "金錢" && trade != "以物易物")
+            if (trade != "買賣" && trade != "交換")
             {
                 return NotFound();
             }
-            mymodel = _sellerService.GetOrder(OrderId, trade);
+            mymodel = _sellerService.GetOrder(OrderId);
             return View(mymodel);
         }
         [HttpPost]
@@ -166,17 +177,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (submit == "拒絕交易")
             {
                 _sellerService.DenyOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "買賣" });
             }
             else if (submit == "取消訂單")
             {
                 _sellerService.CancelOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "買賣" });
             }
             else if (submit == "接受交易")
             {
                 _sellerService.AcceptOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "已成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "已成立", trade = "買賣" });
             }
             else
             {
@@ -188,11 +199,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = trade;
-            if (trade != "金錢" && trade != "以物易物")
+            if (trade != "買賣" && trade != "交換")
             {
                 return NotFound();
             }
-            mymodel = _sellerService.GetBarterOrder(OrderId, trade);
+            mymodel = _sellerService.GetBarterOrder(OrderId);
             return View(mymodel);
         }
         [HttpPost]
@@ -201,17 +212,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if(submit == "拒絕交換")
             {
                 _sellerService.DenyBarterOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "交換" });
             }
             else if (submit == "取消訂單")
             {
                 _sellerService.CancelBarterOrder(OrderId);
-                return RedirectToAction("MySales", new { status = "不成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "不成立", trade = "交換" });
             }
             else if (submit == "接受與此書交換")
             {
                 _sellerService.AcceptBarterOrder(OrderId, ProductId);
-                return RedirectToAction("MySales", new { status = "已成立", trade = trade });
+                return RedirectToAction("MySales", new { status = "已成立", trade = "交換" });
             }
             else
             {
@@ -222,13 +233,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             _sellerService.DeleteProduct(ProductId, name);
-            if (Trade == "金錢")
+            if (Trade == "買賣")
             {
-                return RedirectToAction("MyProducts", new { trade = "金錢", status = "刪除" });
+                return RedirectToAction("MyProducts", new { trade = "買賣", status = "刪除" });
             }
             else
             {
-                return RedirectToAction("MyProducts", new { trade = "以物易物", status = "刪除" });
+                return RedirectToAction("MyProducts", new { trade = "交換", status = "刪除" });
             }
         }
         public IActionResult Error()

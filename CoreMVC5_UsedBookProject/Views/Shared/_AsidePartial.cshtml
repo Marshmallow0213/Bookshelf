@@ -7,19 +7,16 @@
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
 }
 <ul class="pl-0" id="menu">
-    <li class="list-unstyled aside-text">
-        <p class="text-left pl-2 py-3 mb-0"><strong>首頁</strong></p>
-    </li>
-    <li class="list-unstyled aside-link">
-        <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Home", new {})"><i class="bi bi-house-door-fill"></i> 主首頁</a>
-    </li>
-    @if (controller == "Home" || controller == "Buyer")
+    @if (controller == "Home" || controller == "Buyer" || action == "Login")
     {
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "金錢"})"><i class="bi bi-cart-fill"></i> 買賣賣場</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "買賣"})"><i class="bi bi-cart-fill"></i> 買賣賣場</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "以物易物"})"><i class="bi bi-cart-fill"></i> 以物易物賣場</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ProductsList", "Home", new {trade = "交換"})"><i class="bi bi-cart-fill"></i> 交換賣場</a>
+        </li>
+        <li class="list-unstyled aside-link">
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Wish", "Home", new {})"><i class="bi bi-star-half"></i> 大眾許願清單</a>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})"><i class="bi bi-shop"></i> 賣家中心</a>
@@ -34,19 +31,19 @@
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Index", "Seller", new {})"><i class="bi bi-file-text-fill"></i> 待辦事項清單</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "金錢"})"><i class="bi bi-file-text-fill"></i> 買賣銷售</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "買賣"})"><i class="bi bi-file-text-fill"></i> 買賣銷售</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "以物易物"})"><i class="bi bi-file-text-fill"></i> 以物易物銷售</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Seller", new {trade = "交換"})"><i class="bi bi-file-text-fill"></i> 交換銷售</a>
         </li>
         <li class="list-unstyled aside-text">
             <p class="text-left pl-2 py-3 mb-0"><strong>商品管理</strong></p>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "金錢"})"><i class="bi bi-bag-fill"></i> 買賣商品</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "買賣"})"><i class="bi bi-bag-fill"></i> 買賣商品</a>
         </li>
         <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "以物易物"})"><i class="bi bi-bag-fill"></i> 以物易物商品</a>
+            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MyProducts", "Seller", new {trade = "交換"})"><i class="bi bi-bag-fill"></i> 交換商品</a>
         </li>
         <li class="list-unstyled aside-link">
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Create", "Seller", new {})"><i class="bi bi-plus-circle"></i> 新增商品</a>
@@ -67,23 +64,26 @@
             <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("ChangePassword", "Account", new {})"><i class="bi bi-info-circle-fill"></i> 變更密碼</a>
         </li>
     }
-    else if (controller == "Home" || controller == "Buyer")
+    else if ((controller == "Home" || controller == "Buyer") && User.Identity.IsAuthenticated)
     {
-        <li class="list-unstyled aside-text">
-            <p class="text-left pl-2 py-3 mb-0"><strong>訂單管理</strong></p>
-        </li>
-        <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "金錢"})"><i class="bi bi-file-text-fill"></i> 買賣訂單紀錄</a>
-        </li>
-        <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "以物易物"})"><i class="bi bi-file-text-fill"></i> 以物易物訂單紀錄</a>
-        </li>
-        <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Shoppingcart", "Buyer", new {})"><i class="bi bi-cart4"></i> 購物車</a>
-        </li>
-        <li class="list-unstyled aside-link">
-            <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Wish", "Buyer", new {})"><i class="bi bi-star-half"></i> 許願井</a>
-        </li>
+        @if (User.IsInRole("User"))
+        {
+            <li class="list-unstyled aside-text">
+            <p class="text-left pl-2 py-3 mb-0"><strong>買家管理</strong></p>
+            </li>
+            <li class="list-unstyled aside-link">
+                <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "買賣"})"><i class="bi bi-file-text-fill"></i> 買賣訂單紀錄</a>
+            </li>
+            <li class="list-unstyled aside-link">
+                <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("MySales", "Buyer", new {trade = "交換"})"><i class="bi bi-file-text-fill"></i> 交換訂單紀錄</a>
+            </li>
+            <li class="list-unstyled aside-link">
+                <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Shoppingcart", "Buyer", new {})"><i class="bi bi-cart4"></i> 購物車</a>
+            </li>
+            <li class="list-unstyled aside-link">
+                <a class="text-left pl-2 py-3 d-block mb-0 text-decoration-none" href="@Url.Action("Wish", "Buyer", new {})"><i class="bi bi-star-half"></i> 個人願望清單</a>
+            </li>
+        }
     }
 </ul>
 
