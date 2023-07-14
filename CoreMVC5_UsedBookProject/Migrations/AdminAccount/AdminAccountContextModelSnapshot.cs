@@ -115,7 +115,12 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AdministratorUserHomePageId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("AdministratorUserHomePageId");
 
                     b.HasIndex("RoleId");
 
@@ -172,8 +177,42 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         });
                 });
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdministratorUserHomePage");
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUserRoles", b =>
                 {
+                    b.HasOne("CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage", null)
+                        .WithMany("AdministratorRoles")
+                        .HasForeignKey("AdministratorUserHomePageId");
+
                     b.HasOne("CoreMVC5_UsedBookProject.Models.AdministratorRole", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
@@ -197,6 +236,11 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUser", b =>
+                {
+                    b.Navigation("AdministratorRoles");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage", b =>
                 {
                     b.Navigation("AdministratorRoles");
                 });
