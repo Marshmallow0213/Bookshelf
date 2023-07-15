@@ -137,11 +137,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     {
                         return NotFound();
                     }
-                    user.Id = User.Id;
-                    user.Name = User.Name;
-                    user.Nickname = User.Nickname;
-                    user.Email = User.Email;
-                    user.PhoneNo = User.PhoneNo;
+                    user.Id = administratorUser.Id;
+                    user.Name = administratorUser.Name;
+                    user.Nickname = administratorUser.Nickname;
+                    user.Email = administratorUser.Email;
+                    user.PhoneNo = administratorUser.PhoneNo;
 
                     await _ctx.SaveChangesAsync();
 
