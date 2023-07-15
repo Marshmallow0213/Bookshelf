@@ -4,10 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/icon/booktitle.ico" type="image/x-icon">
-    <title>
-        
-        二手書交換平台
-        </title>
+    <title>二手書交換平台</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
@@ -19,23 +16,30 @@
     @RenderSection("topJS", required: false)
 </head>
 <body style="overflow-x:hidden; max-width:100%;">
-
     <header>
-       
-        <nav class="bg-white border-bottom box-shadow d-flex px-3 flex-wrap " id="navbar">
-            <div class="d-flex align-items-center justify-content-center">
+        <nav class="bg-white border-bottom box-shadow d-flex px-3 flex-wrap " id="navbar" style="height:60px; justify-content:space-between;">
+
+
+
+            @*<div class="d-flex align-items-center justify-content-center">
                 <label for="switch-aside" class="mb-0 hamber"><i class="bi bi-list hamber-i"></i></label><!--漢堡按鈕圖示-->
                 <input type="checkbox" id="switch-aside" class="d-none" style="position: absolute; top: 0; left: 0;">
-                <div class="aside-menu">
-                    <partial name="_AsidePartial"></partial>
+            </div>*@
+
+
+
+            <div>
+                <div class="d-flex justify-content-between">
+                  <div style="padding:10px; width:200px;height:60px;" class="d-flex align-items-center px-2"><a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 20px;"><span class="fa fa-book"></span> <strong>二手書交換平台</strong></a></div>
+                    <div class="d-flex align-items-center justify-content-center px-1">
+                      <div class="aside-menu">
+                         <partial name="_AsidePartial"></partial>
+                      </div>
+                  </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between flex-grow-1"> 
-           @* <link rel="icon" href="/icon/book.ico" type="image/x-icon">*@
-            <div class="d-flex align-items-center px-2"><a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 20px;"><span class="fa fa-book"></span> <strong>二手書交換平台</strong></a></div>
-            
-           
-            <div class="d-flex align-items-center justify-content-center px-1">
+
+            <div style="display:flex;padding:10px; width:300px;height:60px;">
                 <label for="switch-search" class="mb-0 search"><i class="bi bi-search hamber-i"></i></label><!--漢堡按鈕圖示-->
                 <input type="checkbox" id="switch-search" class="d-none" style="position: absolute; top: 0; left: 0;">
                 <div class="search-menu">
@@ -44,21 +48,26 @@
                         <div id="predictionList"></div>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
                     </form>
-                    
                 </div>
             </div>
-            <partial name="_LoginStatusPartial" />
+
+
+            <div style="display:flex;padding:10px; width:80px;height:60px;">
+                 <partial name="_LoginStatusPartial" />
             </div>
+            
+
+
+
+
         </nav>
     </header>
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
     <div id="aside-right">
-        <main role="main" class="pb-5">
+        <main role="main" class="pb-5"style="margin-top:50px;">
             @RenderBody()
         </main>
-
         <footer class="border-top footer text-muted" style="background-color:white; margin-top:3px;">
-
             <div class="container-footer justify-content-between">
                 <div class="px-2">
                     &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">隱私中心</a>
@@ -78,9 +87,7 @@
                         <partial name="_AdminLoginStatusPartial" />
                     </div>
                 }
-
             </div>
-
         </footer>
     </div>
     <script>
@@ -99,8 +106,6 @@
                 $('#predictionList').empty();
             }
         }</script>
-   
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

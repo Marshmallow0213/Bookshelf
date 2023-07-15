@@ -1,6 +1,4 @@
-﻿/*aside*/
-body, footer, main, nav, .aside-menu, .login-menu, form, textarea:read-only, .swiper-slide {
-    background-image: url(../../pictures/background.jpg) !important;
+﻿body, footer, main, nav, .aside-menu, .login-menu, form, textarea:read-only, .swiper-slide {
     background-repeat: repeat;
     background-size: cover;
 }
@@ -120,19 +118,10 @@ img {
     max-height: 100%;
 }
 .aside-menu {
-    border: 1px solid black;
-    position: fixed;
-    top: 50px;
-    left: -10000px;
-    z-index: 999;
-    width: 200px;
-    height: calc(100% - 50px);
-    overflow-y: auto;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    display:flex;
 }
     .aside-menu::-webkit-scrollbar {
-        display: none; /* Safari and Chrome */
+        display: none;
     }
 .search-menu {
     position: absolute;
@@ -204,7 +193,6 @@ header {
 }
 @media (min-width:1200px) {
 }
-/*all*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -228,23 +216,22 @@ img {
 .gap-10px {
     gap: 10px;
 }
-/*top btn*/
 #topBtn {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed/sticky position */
-    bottom: 80px; /* Place the button at the bottom of the page */
-    right: 20px; /* Place the button 30px from the right */
-    z-index: 99; /* Make sure it does not overlap */
-    border: none; /* Remove borders */
-    outline: none; /* Remove outline */
-    background-color: red; /* Set a background color */
-    color: white; /* Text color */
-    cursor: pointer; /* Add a mouse pointer on hover */
-    padding: 15px; /* Some padding */
-    border-radius: 10px; /* Rounded corners */
-    font-size: 16px; /* Increase font size */
+    display: none;
+    position: fixed; 
+    bottom: 80px; 
+    right: 20px;
+    z-index: 99; 
+    border: none; 
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer; 
+    padding: 15px; 
+    border-radius: 10px; 
+    font-size: 16px; 
 }
 
     #topBtn:hover {
-        background-color: #555; /* Add a dark-grey background on hover */
+        background-color: #555; 
     }
