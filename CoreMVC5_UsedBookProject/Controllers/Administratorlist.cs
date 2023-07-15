@@ -35,7 +35,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var Users = _ctx.Users.ToList();
             return View(Users);
         }
-        [Authorize(Roles = "Administrator,common user")]
+        [Authorize]
         public async Task<IActionResult> DetailCard()
         {
             var Users = await _ctx.Users.ToListAsync();

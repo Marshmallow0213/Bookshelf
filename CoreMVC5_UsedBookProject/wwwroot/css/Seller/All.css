@@ -173,12 +173,6 @@ header {
     max-height: 50px;
 }
 @media (min-width:768px) {
-    #aside-right {
-        margin-left: 200px;
-    }
-    .container-footer {
-        max-width: calc(100% - 200px);
-    }
     .aside-menu {
         left: 0;
     }
