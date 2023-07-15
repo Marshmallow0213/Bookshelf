@@ -3,6 +3,41 @@
 @{
     ViewData["Title"] = "使用者批量註冊";
 }
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .delete {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: red;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .delete:hover {
+            text-decoration: none;
+            color: red;
+            background-color: white;
+            border: 1px red solid;
+        }
+</style>
 <div class="sidebar">
     <div class="menu">
         <p class="navtextbg whfora" style="font-weight:bold; cursor:default;height:10%; min-width:368px;">
@@ -83,7 +118,7 @@
     <div style="width: 35%;">
     </div>
     <div class="content">
-        <h1>從CSV批量註冊</h1>
+        <h1>從CSV批量註冊(若資料量較龐大請稍作等待)</h1>
         <hr />
         <div class="row">
             <div class="col-12">
@@ -91,16 +126,16 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <p>@Html.DisplayNameFor(model => model.File) 限2MB以內</p>
                     <div class="d-flex align-items-end">
-                        <label for="file1" class="btn btn-primary">
+                        <label for="file1" style="cursor:pointer;padding:10px;border-radius: 5px; background-color:#0000cd;color:white;">
                             選擇檔案
                         </label>
-                        <input type="file" asp-for="File" class="d-none" accept=".csv" id="file1" />
+                        <input type="file" asp-for="File" class="d-none return" accept=".csv" id="file1" />
                         <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
                     </div>
                     <span asp-validation-for="File" class="text-danger"></span>
                     <div class="form-group mt-3">
-                        <input type="submit" name="submit" value="批量註冊" class="btn btn-primary" />
-                        <input type="submit" name="submit" value="批量刪除" class="btn btn-danger ml-5" />
+                        <input type="submit" name="submit" value="批量註冊" class="return" />
+                        <input type="submit" name="submit" value="批量刪除" class="delete" />
                     </div>
                 </form>
                 <pre id="out"><p>文件內容將出現在這裡</p></pre>

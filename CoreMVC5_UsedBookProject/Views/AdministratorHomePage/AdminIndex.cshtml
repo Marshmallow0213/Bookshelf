@@ -2,6 +2,60 @@
 @{
     ViewData["Title"] = "主頁面更新";
 }
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: #66cdaa;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .edit:hover {
+            text-decoration: none;
+            color: #66cdaa;
+            background-color: white;
+            border: 1px #66cdaa solid;
+        }
+
+    .delete {
+        padding: 5px;
+        text-decoration: none;
+        color: white;
+        background-color: red;
+        margin-bottom:5px;
+        transition: 0.7s;
+        border-radius: 5px;
+        height: 52px;
+        border: 0;
+    }
+
+        .delete:hover {
+            text-decoration: none;
+            color: red;
+            background-color: white;
+            border: 1px red solid;
+        }
+</style>
 
 <div class="sidebar">
     <div class="menu">
@@ -81,65 +135,66 @@
     </div>
     <div class="content">
             <form action="~/AdministratorHomePage/UploadImage" method="post" enctype="multipart/form-data">
-            <div style="display:flex;">
+            <div style="display:flex; display:flex; justify-content:space-evenly;">
                     <div>
                         <input type="hidden" name="Image1" class="form-control" value="@(Model.Image1 == null ? "無圖片" : Model.Image1)" id="Image1" readonly />
-                        <button type="button" class="btn btn-danger d-block" id="Image1-clear">X</button>
+                    <button type="button" class="delete" id="Image1-clear" style="width:200px; text-align:center;">移除當前照片</button>
                         <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                             <img src="" alt="img1" id="img1" onerror="this.src='../pictures/WishsDeafultPicture.jpg'">
                         </div>
-                        <div class="d-flex align-items-end mt-2">
-                            <label for="file1" class="btn btn-primary">
-                                選擇檔案
+                    <div class="d-flex" style="width:200px; justify-content:space-evenly;">
+                        <label for="file1" style="cursor:pointer;padding:10px;border-radius: 5px; background-color:#0000cd;color:white; height:52px;  white-space: nowrap;">
+                                選擇照片
                             </label>
                             <input type="file" asp-for="File1" class="d-none" accept="image/*" id="file1" />
-                            <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
+                        <div id="p-file1" style="max-height:60px; height:60px;padding:10px;">未選擇照片</div>
                         </div>
                         <span asp-validation-for="File1" class="text-danger"></span>
                     </div>
                     <div>
                         <input type="hidden" name="Image2" class="form-control" value="@(Model.Image2 == null ? "無圖片" : Model.Image2)" id="Image2" readonly />
-                        <button type="button" class="btn btn-danger d-block" id="Image2-clear">X</button>
+                    <button type="button" class="delete" id="Image2-clear" style="width:200px; text-align:center;">移除當前照片</button>
                         <div id="img2Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                             <img src="" alt="img1" id="img1" onerror="this.src='../pictures/WishsDeafultPicture.jpg'">
                         </div>
-                        <div class="d-flex align-items-end mt-2">
-                            <label for="file2" class="btn btn-primary">
-                                選擇檔案
+                    <div class="d-flex" style="width:200px; justify-content:space-evenly;">
+                        <label for="file2" style="cursor:pointer;padding:10px;border-radius: 5px; background-color:#0000cd;color:white; height:52px; white-space: nowrap;">
+                            選擇照片
                             </label>
                             <input type="file" asp-for="File2" class="d-none" accept="image/*" id="file2" />
-                            <p id="p-file2" class="d-block ml-3">未選擇任何檔案</p>
+                        <div id="p-file2" style="height:60px; padding:10px;">未選擇照片</div>
                         </div>
                         <span asp-validation-for="File2" class="text-danger"></span>
                     </div>
                     <div>
                         <input type="hidden" name="Image3" class="form-control" value="@(Model.Image3 == null ? "無圖片" : Model.Image3)" id="Image3" readonly />
-                        <button type="button" class="btn btn-danger d-block" id="Image3-clear">X</button>
+                    <button type="button" class="delete" id="Image3-clear" style="width:200px; text-align:center;">移除當前照片</button>
                         <div id="img3Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                             <img src="" alt="img1" id="img1" onerror="this.src='../pictures/WishsDeafultPicture.jpg'">
                         </div>
-                        <div class="d-flex align-items-end mt-2">
-                            <label for="file3" class="btn btn-primary">
-                                選擇檔案
+                    <div class="d-flex" style="width:200px; justify-content:space-evenly;">
+                        <label for="file3" style="cursor:pointer;padding:10px;border-radius: 5px; background-color:#0000cd;color:white; height:52px; white-space: nowrap;">
+                            選擇照片
                             </label>
                             <input type="file" asp-for="File3" class="d-none" accept="image/*" id="file3" />
-                            <p id="p-file3" class="d-block ml-3">未選擇任何檔案</p>
+                        <div id="p-file3" style="height:60px;padding:10px;">未選擇照片</div>
                         </div>
                         <span asp-validation-for="File3" class="text-danger"></span>
                     </div>
                 </div>
                 <input type="hidden" name="Id" class="form-control" id="Id" value="@Model.Id" readonly />
-                <button type="submit" class="btn btn-primary">保存</button>
             </form>
-        <h4 class="alert alert-danger">更改文字預覽區</h4>
+        <h4 class="alert alert-danger" style="width:800px; text-align:center;margin:20px 0;">更改文字預覽區</h4>
         <div style="display: flex;">
             <dl class="row">
                 <dd class="col-sm">@Html.DisplayFor(m => m.TextValue)</dd>
             </dl>
         </div>
         <div>
-            <a asp-controller="AdministratorHomePage" asp-action="EditHomeText" asp-route-id="@Model.Id" class="btn btn-info">編輯文字介紹</a>
-
+            <a asp-controller="AdministratorHomePage" asp-action="EditHomeText" asp-route-id="@Model.Id" class="edit">編輯文字介紹</a>
+            <form action="/Home/Index" method="GET">
+                <button type="submit" class="return" style="margin:20px 0;">保存</button>
+            </form>
         </div>
     </div>
 </div>

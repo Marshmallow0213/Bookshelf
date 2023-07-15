@@ -122,9 +122,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdministratorEdit(string id, [Bind("Id,Name,Nickname,Email,PhoneNo")] AdministratorUserHomePage administratorUser)
+        public async Task<IActionResult> AdministratorEdit(string id, [Bind("Id,Name,Nickname,Email,PhoneNo")] AdministratorUserHomePage User)
         {
-            if (id != administratorUser.Id)
+            if (id != User.Id)
             {
                 return NotFound();
             }
@@ -152,7 +152,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 return RedirectToAction("AdministratorData");
             }
-            return View(administratorUser);
+            return View(User);
         }
 
         public async Task<IActionResult> AdministratorDelete(string id)

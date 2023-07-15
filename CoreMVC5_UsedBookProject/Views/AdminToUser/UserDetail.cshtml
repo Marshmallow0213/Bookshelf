@@ -2,7 +2,41 @@
 @{
     ViewData["Title"] = "使用者資料明細";
 }
+<style>
+.return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
 
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: #66cdaa;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+    .edit:hover {
+            text-decoration: none;
+            color: #66cdaa;
+            background-color: white;
+            border: 1px #66cdaa solid;
+        }
+</style>
 <h4 class="alert alert-danger">使用者資料明細</h4>
 
 
@@ -20,6 +54,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="UserEdit" asp-route-id="@Model.Id" class="btn btn-info">編輯</a>|
-    <a asp-controller="AdminToUser" asp-action="UserData" class="btn btn-primary">返回管理員資料列表</a>
+    <a asp-action="UserEdit" asp-route-id="@Model.Id" class="edit">編輯</a>|
+    <a asp-controller="AdminToUser" asp-action="UserData" class="return">返回管理員資料列表</a>
 </div>

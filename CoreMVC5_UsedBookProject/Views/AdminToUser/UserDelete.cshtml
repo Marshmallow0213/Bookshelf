@@ -3,12 +3,47 @@
 @{
     ViewData["Title"] = "管理員資料刪除";
 }
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .delete {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: red;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .delete:hover {
+            text-decoration: none;
+            color: red;
+            background-color: white;
+            border: 1px red solid;
+        }
+</style>
 
 <h1>使用者資料刪除</h1>
 
 <h3>你確定要刪除這筆資料嗎</h3>
 <div>
-    <h4>使用者個人資料</h4>
+    <h4 class="alert alert-danger">使用者個人資料</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -43,8 +78,20 @@
         </dd>
     </dl>
 
+    <p style="background-color:#dc143c; color:white; margin-bottom:10px; width:250px; padding:10px; cursor:default;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+        </svg>
+        警告:這個操作是不可逆的
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+        </svg>
+    </p>
+
+
+
     <form asp-action="UserDelete">
-        <input type="submit" value="刪除" class="btn btn-danger" /> |
-        <a asp-controller="AdminToUser" asp-action="UserData" class="btn btn-primary">返回使用者資料列表</a>
+        <input type="submit" value="刪除" class="delete" /> |
+        <a asp-controller="AdminToUser" asp-action="UserData" class="return">返回使用者資料列表</a>
     </form>
 </div>

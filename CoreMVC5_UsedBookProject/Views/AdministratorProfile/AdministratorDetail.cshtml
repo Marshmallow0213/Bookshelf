@@ -19,6 +19,23 @@
             background-color: white;
             border: 1px blue solid;
         }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: #66cdaa;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+    .edit:hover {
+            text-decoration: none;
+            color: #66cdaa;
+            background-color: white;
+            border: 1px #66cdaa solid;
+        }
 </style>
 <h4 class="alert alert-danger">管理員個人資料明細</h4>
 
@@ -42,6 +59,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="AdministratorEdit" asp-route-id="@Model.Id" class="btn btn-info">編輯</a>|
+    <a asp-action="AdministratorEdit" asp-route-id="@Model.Id" class="edit">編輯</a>|
     <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="return">返回管理員資料列表</a>
 </div>

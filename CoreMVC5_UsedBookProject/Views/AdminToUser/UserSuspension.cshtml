@@ -2,7 +2,58 @@
 @{
     ViewData["Title"] = "使用者權限更改";
 }
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
 
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .top {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(80, 160, 220);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .top:hover {
+            text-decoration: none;
+            color: rgb(80, 160, 220);
+            background-color: white;
+            border: 1px rgb(80, 160, 220) solid;
+        }
+
+    .Suspension {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(185, 185, 185);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .Suspension:hover {
+            text-decoration: none;
+            color: rgb(185, 185, 185);
+            background-color: white;
+            border: 1px rgb(185, 185, 185) solid;
+        }
+</style>
 <h4 class="alert alert-danger">使用者個人資料明細</h4>
 
 
@@ -20,7 +71,7 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="AdminToUser" asp-action="Seller" asp-route-id="@Model.Id" class="btn btn-danger">啟用權限</a>|
-    <a asp-controller="AdminToUser" asp-action="Administrator" asp-route-id="@Model.Id" class="btn btn-info">停用使用者權限</a>|
-    <a asp-controller="AdminToUser" asp-action="UserData" class="btn btn-primary">返回使用者資料列表</a>
+    <a asp-controller="AdminToUser" asp-action="Seller" asp-route-id="@Model.Id" class="top">啟用權限</a>|
+    <a asp-controller="AdminToUser" asp-action="Administrator" asp-route-id="@Model.Id" class="Suspension">停用使用者權限</a>|
+    <a asp-controller="AdminToUser" asp-action="UserData" class="return">返回使用者資料列表</a>
 </div>

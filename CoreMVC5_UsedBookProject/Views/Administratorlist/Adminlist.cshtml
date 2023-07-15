@@ -3,6 +3,42 @@
 @{
     ViewData["Title"] = "管理員人員名單";
 }
+<style>
+    .tagtop{
+        width:0px;
+        height:0px;
+        border-top:0px solid #000;
+        border-right: 10px solid #006400;
+        border-bottom:10px solid #0f00;
+    }
+
+    .tagbottom{
+        width: 0px;
+        height: 0px;
+        border-top: 0px solid #000;
+        border-right: 10px solid #006400;
+        border-bottom: 10px solid #0f00;
+        transform: rotate(90deg);
+    }
+
+    .list{
+        padding: 20px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        color: #87cefa;
+        cursor: default;
+        background-color: #ffffe0;
+        min-width: 1100px;
+        margin-top: 30px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .list:hover {
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+</style>
 <div class="sidebar">
     <div class="menu">
         <p class="navtextbg whfora" style="font-weight:bold; cursor:default;height:10%; min-width:368px;">
@@ -92,30 +128,45 @@
 
                     <h2>你好: @firstName 歡迎來到管理員控制中心</h2>
                 }
-                <div class="card-container" style="display: flex; flex-wrap: wrap; min-width:1200px;">
-                    @foreach (var Users in Model)
-                    {
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" style="padding:0; margin:0; width:260px; height:300px; max-width:260px; max-height:300px;">
-                            <div class="card" style="flex: 0 0 100%; max-width: 100%; margin:10px; background-color: lightyellow; text-align:center;">
-                                <div class="card-body" style="height:300px;">
-                                    @{
-                                        string Name = Users.Name;
-                                        string[] segmentation = Name.Split('@');
-                                        string username = segmentation[0];
-                                        string fullName = username;
-                                    }
-                                    <h5 class="card-title" style="height:60px; background-color: mistyrose;">@fullName</h5>
-                                    <div style="display:flex; align-items:center; gap:5px;">
-                                        <p style="font-weight:bold; font-size:25px;">綽號:</p>
-                                        <p class="card-text" style="height:60px;background-color: lightyellow;">@Users.Nickname</p>
+                <h4 class="list">管理人員名單</h4>
+                
+                <div style="display:flex; width:1200px; max-width:1200px; flex-wrap:wrap; gap:30px;">
+                @foreach (var Users in Model)
+                {
+                        <div style="width:330px;">
+                            <div class="card-body">
+                            @{
+                                string Name = Users.Name;
+                                string[] segmentation = Name.Split('@');
+                                string username = segmentation[0];
+                                string fullName = username;
+                            }
+                                <div style="padding:10px; width:330px; text-align:center; color:white; font-weight:bold; font-size:25px; background-color:#87cefa;">@fullName</div>
+                                <div style="display:flex;width:330px;">
+                                    @*<div style="display:flex; flex-direction:column; justify-content:space-between; height:160px;">*@
+                                        <div class="tagtop"></div>
+                                        @*<div class="tagbottom"></div>*@
+                                    @*</div>*@
+                                    <div style="display:flex; flex-direction:column; gap:20px;background-color: #f0f8ff; padding:30px;">
+                                        <div style="display:flex;width:260px;">
+                                            <p style="font-weight:bold; font-size:20px; width:30%;">綽號:</p>
+                                            <p class="card-text" style="display:flex; text-align:center; align-items:center; justify-content:center; font-size:15px;width:70%">@Users.Nickname</p>
+                                        </div>
+                                        <div style="display:flex;width:260px;">
+                                            <p style="font-weight:bold; font-size:20px; width:30%;">Email:</p>
+                                            <p class="card-text" style="display:flex;text-align:center; align-items:center; justify-content:center; font-size:15px;width:70%" ">@Users.Email</p>
+                                        </div>
+                                        <div style="display:flex;width:260px;">
+                                            <p style="font-weight:bold; font-size:20px; width:30%;">電話:</p>
+                                            <p class="card-text" style="display:flex;text-align:center; align-items:center; justify-content:center; font-size:15px;width:70%" ">@Users.PhoneNo</p>
+                                        </div>
                                     </div>
-                                    
-                                    <p class="card-text" style="height:60px;background-color: lightyellow;">@Users.Email</p>
-                                    <p class="card-text" style="height:60px;background-color: lightyellow;">@Users.PhoneNo</p>
                                 </div>
+                               @* <div style="padding:10px; height:30px; width:300px; text-align:center; color:white; font-weight:bold; font-size:25px; background-color:#87cefa;"></div>*@
                             </div>
                         </div>
-                    }
+                }
+                </div>
                 </div>
             </div>
         </div>
