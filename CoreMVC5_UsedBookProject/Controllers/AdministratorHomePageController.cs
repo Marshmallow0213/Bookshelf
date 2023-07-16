@@ -11,9 +11,12 @@ using System.Linq;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
+    [Authorize(Roles = "Top Administrator,common Administrator")]
     public class AdministratorHomePageController : Controller
     {
         private readonly AdminAccountContext _ctx;
