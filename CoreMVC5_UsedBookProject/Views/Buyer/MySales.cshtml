@@ -4,11 +4,11 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = $"我的銷售({ViewBag.trade})";
+    ViewBag.Title = $"{(ViewBag.trade == "交換" ? "交換" : "買賣")}訂單紀錄";
 }
 
-<div class="container-fluid pb-5 gap-2">
-    <h1>@(ViewBag.trade == "交換" ? "交換" : "買賣") 訂單紀錄</h1>
+<div class="container-fluid gap-10px">
+    <h1>@(ViewBag.trade == "交換" ? "交換" : "買賣")訂單紀錄</h1>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
             <a href="@Url.Action("MySales", "Buyer", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>

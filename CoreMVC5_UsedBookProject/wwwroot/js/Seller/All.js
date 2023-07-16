@@ -21,10 +21,10 @@ function scrollFunction() {
     let main = document.querySelector("main");
     if (document.body.scrollTop > 75 || document.documentElement.scrollTop > 75) {
         topbutton.style.display = "block";
-        main.style.paddingTop = "75px";
+        main.style.marginTop = "60px";
     } else {
         topbutton.style.display = "none";
-        main.style.paddingTop = "0px";
+        main.style.marginTop = "0px";
     }
 }
 
@@ -33,10 +33,30 @@ function topFunction() {
     $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 $('body').on('click', function (e) {
-    let header = document.querySelector('header');
-    if (!header.contains(e.target)) {
-        $('#switch-aside').prop("checked", false);
-        $('#switch-search').prop("checked", false);
+    let menu = document.querySelector('.login-menu');
+    let classes = e.target.classList.contains('login-menu-full');
+    if (!menu.contains(e.target) && classes == true) {
         $('#switch-login').prop("checked", false);
     };
 });
+function loginMenuFull() {
+    let menu = document.querySelector('.login-menu-full');
+    let body = document.querySelector('body');
+    menu.style.height = body.offsetHeight + 'px';
+}
+// Home Index Search
+function getPredictions() {
+    var searchText = $('#searchInput').val();
+    if (searchText.length > 0) {
+        $.ajax({
+            url: '/Home/GetPredictions',
+            type: 'GET',
+            data: { searchText: searchText },
+            success: function (data) {
+                $('#predictionList').html(data);
+            }
+        });
+    } else {
+        $('#predictionList').empty();
+    }
+}

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -21,6 +22,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             _buyerService = buyerService;
             _context = productContext;
+        }
+        public IActionResult Index()
+        {
+            return View();
         }
         public IActionResult Details(string ProductId)
         {

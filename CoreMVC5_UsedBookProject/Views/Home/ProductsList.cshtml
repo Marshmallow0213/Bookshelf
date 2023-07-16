@@ -1,7 +1,7 @@
 ﻿﻿@using CoreMVC5_UsedBookProject.ViewModels;
 @model MyProductsViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = $"{(ViewBag.Trade == "交換" ? "交換" : "買賣")}賣場";
 }
 
 <div class="container-fluid">
