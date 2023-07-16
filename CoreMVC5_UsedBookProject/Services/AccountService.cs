@@ -94,7 +94,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public void UploadImages(IFormFile filename, string UserId)
         {
-            string folderPath = $@"Images\Users\{UserId}";
+            string folderPath = $@"~\Images\Users\{UserId}";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -106,7 +106,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 {
                     System.IO.File.Delete(f);
                 }
-                var path = $@"{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
+                var path = $@"~\{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
                 using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
                 filename.CopyTo(stream);
             }

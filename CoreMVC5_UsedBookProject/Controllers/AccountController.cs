@@ -271,13 +271,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             };
 
                             _ctx.Users.Add(user);
-                            string folderPath = $@"Images\Users\{Id}";
+                            string folderPath = $@"~\Images\Users\{Id}";
                             if (!Directory.Exists(folderPath))
                             {
                                 Directory.CreateDirectory(folderPath);
                             }
-                            FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
-                            fi.CopyTo($@"{folderPath}\UserIcon.png", true);
+                            FileInfo fi = new FileInfo($@"~\Images\Users\Shared\empty.png");
+                            fi.CopyTo($@"~\{folderPath}\UserIcon.png", true);
                             UserRoles userRoles1 = new UserRoles
                             {
                                 UserId = Id,

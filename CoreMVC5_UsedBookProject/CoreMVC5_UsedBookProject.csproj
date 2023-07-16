@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\css\fixbgc.css" />
+    <Content Remove="wwwroot\Pictures\EmptyUserIcon.png" />
+    <Content Remove="wwwroot\Pictures\HomeIndex.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,11 @@
 
   <ItemGroup>
     <Folder Include="Images\Products\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Pictures\EmptyUserIcon.png" />
+    <None Include="wwwroot\Pictures\HomeIndex.jpg" />
   </ItemGroup>
 
 </Project>

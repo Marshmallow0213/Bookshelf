@@ -352,7 +352,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public void UploadImages(List<IFormFile> filenames, List<string> Images, string ProductId, List<string> randomstrings)
         {
-            string folderPath = $@"Images\Products\{ProductId}";
+            string folderPath = $@"~\Images\Products\{ProductId}";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);

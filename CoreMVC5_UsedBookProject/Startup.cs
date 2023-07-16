@@ -75,11 +75,11 @@ namespace CoreMVC5_UsedBookProject
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
-                RequestPath = "/Images"
-            });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+            //    RequestPath = "/Images"
+            //});
             app.UseRouting();
 
             app.UseAuthentication(); //驗證
