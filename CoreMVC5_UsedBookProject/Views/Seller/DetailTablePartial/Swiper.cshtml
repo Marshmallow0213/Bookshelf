@@ -20,14 +20,14 @@
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
-                        <img src="/Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='../pictures/DeafultBookPicture.jpg'" />
+                        <img src="/Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                     </div>
                     @if (list.Length > 0)
                     {
                         @foreach (string item in list)
                         {
                             <div class="swiper-slide d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
-                                <img src="/Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='../pictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
+                                <img src="/Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
                             </div>
                         }
                     }
@@ -38,14 +38,14 @@
             <div thumbsSlider="" class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide d-flex align-items-center">
-                        <img src="/Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='../pictures/DeafultBookPicture.jpg'" />
+                        <img src="/Images/Products/@Model.ProductId/@Model.Image1" asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                     </div>
                     @if (list.Length > 0)
                     {
                         @foreach (var item in list)
                         {
                             <div class="swiper-slide d-flex align-items-center">
-                                <img src="/Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='../pictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
+                                <img src="/Images/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
                             </div>
                         }
                     }

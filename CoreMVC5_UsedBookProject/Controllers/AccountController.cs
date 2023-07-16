@@ -19,6 +19,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.CodeAnalysis;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
@@ -28,12 +29,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         private readonly AccountService _accountService;
         private readonly SellerService _sellerService;
         private readonly IHashService _hashService;
-        public AccountController(ProductContext ctx, AccountService accountService, SellerService sellerService, IHashService hashService)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public AccountController(ProductContext ctx, AccountService accountService, SellerService sellerService, IHashService hashService, IWebHostEnvironment hostingEnvironment)
         {
             _ctx = ctx;
             _accountService = accountService;
             _sellerService = sellerService;
             _hashService = hashService;
+            _hostingEnvironment = hostingEnvironment;
             //HttpContext.Response.Cookies.Append("setCookie", "CookieValue");
             //HttpContext.Request.Cookies["key"];
             //HttpContext.Response.Cookies.Delete("key");
@@ -192,25 +195,19 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 };
 
                 _ctx.Users.Add(user);
-                string folderPath = $@"Images\Users\{Id}";
+                string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{Id}";
                 if (!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
                 }
-                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
-                fi.CopyTo($@"{folderPath}\empty.png", true);
+                FileInfo fi = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\EmptyUserIcon.png");
+                fi.CopyTo($@"{folderPath}\UserIcon.png", true);
                 UserRoles userRoles1 = new UserRoles
                 {
                     UserId = Id,
                     RoleId = "R001",
                 };
-                UserRoles userRoles2 = new UserRoles
-                {
-                    UserId = Id,
-                    RoleId = "R002",
-                };
                 _ctx.UserRoles.Add(userRoles1);
-                _ctx.UserRoles.Add(userRoles2);
                 await _ctx.SaveChangesAsync();
 
                 ViewData["Title"] = "帳號註冊";
@@ -364,13 +361,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
                             };
 
                             _ctx.Users.Add(user);
-                            string folderPath = $@"~\Images\Users\{Id}";
+                            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{Id}";
                             if (!Directory.Exists(folderPath))
                             {
                                 Directory.CreateDirectory(folderPath);
                             }
-                            FileInfo fi = new FileInfo($@"~\Images\Users\Shared\empty.png");
-                            fi.CopyTo($@"~\{folderPath}\UserIcon.png", true);
+                            FileInfo fi = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\EmptyUserIcon.png");
+                            fi.CopyTo($@"{folderPath}\UserIcon.png", true);
                             UserRoles userRoles1 = new UserRoles
                             {
                                 UserId = Id,
@@ -394,7 +391,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         {
                             string Id = checkAccountExist.Id;
                             _ctx.Users.Remove(checkAccountExist);
-                            string folderPath = $@"Images\Users\{Id}";
+                            string folderPath = $@"~\Images\Users\{Id}";
                             if (Directory.Exists(folderPath))
                             {
                                 Directory.Delete(folderPath, true);

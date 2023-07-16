@@ -10,7 +10,7 @@
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
                 <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
-                    <img src="/Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='../pictures/DeafultBookPicture.jpg'" />
+                    <img src="/Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                 </div>
                 <table class="container-fluid">
                     <tr><td>@Html.DisplayNameFor(model => model.Product.ProductId)</td><td>@item.ProductId</td></tr>
