@@ -15,35 +15,30 @@
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
-<body style="overflow-x:hidden; max-width:100%;">
-    <header style="background-image: url('/adminimg/wood.jpg');">
-        <nav class="border-bottom box-shadow d-flex px-3 flex-wrap" id="navbar" style="height: 60px; justify-content: space-between; flex-wrap: nowrap; background-image: url('/adminimg/wood.jpg');">
-            <div>
-                <div class="d-flex justify-content-between">
-                    <div style="padding: 10px; width: 200px; height: 60px;" class="d-flex align-items-center px-2">
-                        <a class="text-dark d-block text-decoration-none p-1" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 20px;">
-                            <span class="fa fa-book"></span> <strong>二手書交換平台</strong>
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center px-1">
-                        <div class="aside-menu">
-                            <partial name="_AsidePartial"></partial>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="display: flex; padding: 10px; width: 300px; height: 60px; background-image: url('/adminimg/wood.jpg');">
-                <input type="checkbox" id="switch-search" class="d-none" style="position: absolute; top: 0; left: 0;">
-                <div class="search-menu" style="width: 800px;background-image: url('/adminimg/wood.jpg');">
-                    <form class="form-inline flex-grow-1 px-2" style="display: flex; width: 400px;" action="~/Home/SearchProducts" method="get">
-                        <div style="display: flex;">
-                            <input class="form-control mr-sm-2" style="width: 350px;" type="search" placeholder="輸入書名或ISBN" id="searchInput" oninput="getPredictions()" aria-label="Search" name="name">
-                            <div id="predictionList"></div>
-                            <button class="btn btn-outline-success my-2 my-sm-0" style="width: 50px;" type="submit">
-                                <span class="fa fa-search"></span>
-                            </button>
-                        </div>
-                    </form>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span class="fa fa-book"></span> <strong>二手書交換平台</strong></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 flex-wrap justify-content-between">
+                        <partial name="_NavItemPartial"></partial>
+                        <li class="nav-item p-2 w-100 order-sm-2">
+                            <form class="form-inline" style="display: flex;" action="~/Home/SearchProducts" method="get">
+                                <div class="d-flex">
+                                    <input class="form-control mr-sm-2 align-self-center" style="width: 350px;" type="search" placeholder="輸入書名或ISBN" id="searchInput" oninput="getPredictions()" aria-label="Search" name="name">
+                                    <div id="predictionList"></div>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" style="width: 50px;" type="submit">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -69,16 +64,16 @@
             {
                 @if (!User.IsInRole("User"))
                 {
-                    <div class="nav-item-btn buttonpartial">
-                        <partial name="_AdminLoginStatusPartial" />
-                    </div>
+                            <div class="nav-item-btn buttonpartial">
+                                <partial name="_AdminLoginStatusPartial" />
+                            </div>
                 }
             }
             else
             {
-                <div class="nav-item-btn buttonpartial">
-                    <partial name="_AdminLoginStatusPartial" />
-                </div>
+                    <div class="nav-item-btn buttonpartial">
+                        <partial name="_AdminLoginStatusPartial" />
+                    </div>
             }
         </div>
     </footer>
