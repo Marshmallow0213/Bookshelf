@@ -35,43 +35,50 @@ namespace CoreMVC5_UsedBookProject.Data
             {
                 entity.HasOne(d => d.User)
                    .WithMany()
-                   .HasForeignKey(d => d.CreateBy);
+                   .HasForeignKey(d => d.CreateBy)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.HasOne(d => d.Product)
                    .WithMany()
-                   .HasForeignKey(d => d.ProductId);
+                   .HasForeignKey(d => d.ProductId)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<BarterOrder>(entity =>
             {
                 entity.HasOne(d => d.Product)
                    .WithMany()
-                   .HasForeignKey(d => d.SellerProductId);
+                   .HasForeignKey(d => d.SellerProductId)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<BarterOrder>(entity =>
             {
                 entity.HasOne(d => d.Product)
                    .WithMany()
-                   .HasForeignKey(d => d.BuyerProductId);
+                   .HasForeignKey(d => d.BuyerProductId)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Shoppingcart>(entity =>
             {
                 entity.HasOne(d => d.Product)
                    .WithMany()
-                   .HasForeignKey(d => d.ProductId);
+                   .HasForeignKey(d => d.ProductId)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Shoppingcart>(entity =>
             {
                 entity.HasOne(d => d.User)
                    .WithMany()
-                   .HasForeignKey(d => d.Id);
+                   .HasForeignKey(d => d.Id)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Wish>(entity =>
             {
                 entity.HasOne(d => d.User)
                    .WithMany()
-                   .HasForeignKey(d => d.Id);
+                   .HasForeignKey(d => d.Id)
+                   .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Name)

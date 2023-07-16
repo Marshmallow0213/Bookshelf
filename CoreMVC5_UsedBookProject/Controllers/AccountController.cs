@@ -158,12 +158,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel registerVM)
+        public IActionResult Register(RegisterViewModel registerVM)
         {
             if (ModelState.IsValid)
             {
                 var checkAccountExist = (from p in _ctx.Users
-                                         where p.Name == $"{registerVM.UserName}"
+                                         where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
                                          select new { p.Id }).FirstOrDefault();
                 if (checkAccountExist != null)
                 {
@@ -208,7 +208,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     RoleId = "R001",
                 };
                 _ctx.UserRoles.Add(userRoles1);
-                await _ctx.SaveChangesAsync();
+                _ctx.SaveChanges();
 
                 ViewData["Title"] = "帳號註冊";
                 ViewData["Message"] = "使用者帳號註冊成功!";  //顯示訊息
@@ -390,13 +390,12 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         if (checkAccountExist != null)
                         {
                             string Id = checkAccountExist.Id;
-                            _ctx.Users.Remove(checkAccountExist);
-                            string folderPath = $@"~\Images\Users\{Id}";
+                            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{Id}";
                             if (Directory.Exists(folderPath))
                             {
                                 Directory.Delete(folderPath, true);
                             }
-                            _sellerService.DeleteProductFolder(Id);
+                            _ctx.Users.Remove(checkAccountExist);
                             newuserscount += 1;
                             _ctx.SaveChanges();
                         }
@@ -407,6 +406,64 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return View("~/Views/Shared/ResultMessage.cshtml");
             }
             return View(registerFromCSV);
+        }
+        public IActionResult DeleteUser(string Id)
+        {
+            
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            if (name != Id || Id == null)
+            {
+                TempData["Message"] = "你只能刪除自己的帳號!";
+                var _user = _accountService.GetUser(name);
+                return View(_user);
+            }
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{Id}";
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+            }
+            var barterorders = _ctx.BarterOrders.Where(w => w.SellerId == Id || w.BuyerId == Id).ToList();
+            foreach (var barterorder in barterorders)
+            {
+                _ctx.BarterOrders.Remove(barterorder);
+            }
+            var orders = _ctx.Orders.Where(w => w.SellerId == Id || w.BuyerId == Id).ToList();
+            foreach (var order in orders)
+            {
+                _ctx.Orders.Remove(order);
+            }
+            var shoppingcarts = _ctx.Shoppingcarts.Where(w => w.Id == Id).ToList();
+            foreach (var shoppingcart in shoppingcarts)
+            {
+                _ctx.Shoppingcarts.Remove(shoppingcart);
+            }
+            var productsId = _ctx.Products.Where(w => w.CreateBy == Id).Select(s=>s.ProductId).ToList();
+            foreach (var productId in productsId)
+            {
+                var shoppingcartsId = _ctx.Shoppingcarts.Where(w => w.ProductId == productId).ToList();
+                foreach (var shoppingcartId in shoppingcartsId)
+                {
+                    _ctx.Shoppingcarts.Remove(shoppingcartId);
+                }
+            }
+            var products = _ctx.Products.Where(w=>w.CreateBy == Id).ToList();
+            foreach (var product in products)
+            {
+                _ctx.Products.Remove(product);
+            }
+            var wishs = _ctx.Wishes.Where(w => w.Id == Id).ToList();
+            foreach (var wish in wishs)
+            {
+                _ctx.Wishes.Remove(wish);
+            }
+            var user = _accountService.GetUserRaw(name);
+            _ctx.Users.Remove(user);
+            _ctx.SaveChanges();
+            ViewData["Title"] = "帳號刪除";
+            ViewData["Message"] = "使用者帳號刪除成功!";  //顯示訊息
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Response.Cookies.Delete("Login");
+            return View("~/Views/Account/ResultMessage.cshtml");
         }
     }
 }

@@ -306,7 +306,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("BuyerProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -317,7 +317,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -328,7 +328,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                     b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("CreateBy")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -338,12 +338,13 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 {
                     b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("Id");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CoreMVC5_UsedBookProject.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -374,7 +375,8 @@ namespace CoreMVC5_UsedBookProject.Migrations
                 {
                     b.HasOne("CoreMVC5_UsedBookProject.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("Id");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });

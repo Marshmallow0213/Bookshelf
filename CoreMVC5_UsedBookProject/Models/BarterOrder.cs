@@ -9,7 +9,6 @@ namespace CoreMVC5_UsedBookProject.Models
 {
     public class BarterOrder
     {
-        [Required]
         public string OrderId { get; set; }
         [Required]
         public string SellerId { get; set; }

@@ -110,6 +110,9 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         //
         [MaxLength(200)]
         public string CreateBy { get; set; }
+        [Display(Name = "擁有者")]
+        [MaxLength(200)]
+        public string CreateByName { get; set; }
         public IFormFile File1 { get; set; }
         public IFormFile File2 { get; set; }
         public IFormFile File3 { get; set; }

@@ -82,6 +82,8 @@ namespace CoreMVC5_UsedBookProject.Services
             })
            .FirstOrDefault();
             var vm = _sellerRepository.DMToVM(product);
+            var username = _context.Users.Where(w => w.Id == vm.CreateBy).Select(s => s.Name).FirstOrDefault();
+            vm.CreateByName = username;
             return vm;
         }
         public MyProductsViewModel GetProducts(int now_page, string trade)
