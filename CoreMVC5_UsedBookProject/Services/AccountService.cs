@@ -10,6 +10,7 @@ using System;
 using CoreMVC5_UsedBookProject.Models;
 using Microsoft.AspNetCore.Http;
 using System.Data;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -17,10 +18,12 @@ namespace CoreMVC5_UsedBookProject.Services
     {
         private readonly ProductContext _ctx;
         private readonly IHashService _hashService;
-        public AccountService(ProductContext ctx, IHashService hashService)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public AccountService(ProductContext ctx, IHashService hashService, IWebHostEnvironment hostingEnvironment)
         {
             _ctx = ctx;
             _hashService = hashService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public  async Task<ApplicationUser> AuthenticateUser(LoginViewModel loginVM)
@@ -94,7 +97,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public void UploadImages(IFormFile filename, string UserId)
         {
-            string folderPath = $@"~\Images\Users\{UserId}";
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{UserId}";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -106,7 +109,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 {
                     System.IO.File.Delete(f);
                 }
-                var path = $@"~\{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
+                var path = $@"{folderPath}\UserIcon{Path.GetExtension(Convert.ToString(filename.FileName))}";
                 using var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 2097152);
                 filename.CopyTo(stream);
             }

@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using CoreMVC5_UsedBookProject.Repositories;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -20,12 +21,14 @@ namespace CoreMVC5_UsedBookProject.Services
         private readonly int _limit;
         private readonly IHashService _hashService;
         private readonly SellerRepository _sellerRepository;
-        public SellerService(ProductContext productContext, IHashService hashService, SellerRepository sellerRepository)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public SellerService(ProductContext productContext, IHashService hashService, SellerRepository sellerRepository, IWebHostEnvironment hostingEnvironment)
         {
             _context = productContext;
             _limit = 100;
             _hashService = hashService;
             _sellerRepository = sellerRepository;
+            _hostingEnvironment = hostingEnvironment;
         }
         public List<Dictionary<string, int>> OrdersAllCountList(string name)
         {
@@ -352,7 +355,7 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public void UploadImages(List<IFormFile> filenames, List<string> Images, string ProductId, List<string> randomstrings)
         {
-            string folderPath = $@"~\Images\Products\{ProductId}";
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Products\{ProductId}";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);

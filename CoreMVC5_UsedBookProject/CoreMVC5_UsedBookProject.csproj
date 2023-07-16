@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\css\fixbgc.css" />
+    <Content Remove="wwwroot\Pictures\Carousel.jpg" />
     <Content Remove="wwwroot\Pictures\EmptyUserIcon.png" />
-    <Content Remove="wwwroot\Pictures\HomeIndex.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\Pictures\EmptyUserIcon.png" />
-    <None Include="wwwroot\Pictures\HomeIndex.jpg" />
+    <None Include="wwwroot\Pictures\Carousel.jpg" />
   </ItemGroup>
 
 </Project>

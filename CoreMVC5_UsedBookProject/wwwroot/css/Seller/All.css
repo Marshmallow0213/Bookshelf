@@ -1,8 +1,4 @@
-﻿body, footer, main, nav, .aside-menu, .login-menu, form, textarea:read-only, .swiper-slide {
-    background-repeat: repeat;
-    background-size: cover;
-}
-.page-link {
+﻿.page-link {
     background-color: #282B2E05;
 }
     .page-link:hover {

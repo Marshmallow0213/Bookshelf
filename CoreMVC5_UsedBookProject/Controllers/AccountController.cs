@@ -127,7 +127,100 @@ namespace CoreMVC5_UsedBookProject.Controllers
             HttpContext.Response.Cookies.Delete("Login");
             return LocalRedirect("/");
         }
+        public IActionResult RegisterUserName()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RegisterUserName(RegisterViewModel registerVM)
+        {
+            var checkAccountExist = (from p in _ctx.Users
+                                     where p.Name.ToUpper() == $"{registerVM.UserName.ToUpper()}"
+                                     select new { p.Id }).FirstOrDefault();
+            if (checkAccountExist == null)
+            {
+                return RedirectToAction("Register", new { UserName = registerVM.UserName });
+            }
+            ViewBag.Error = "使用者名稱已存在";
+            return View(registerVM);
+        }
+        [HttpGet]
+        public IActionResult Register(string username)
+        {
+            ViewBag.UserName = username;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel registerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var checkAccountExist = (from p in _ctx.Users
+                                         where p.Name == $"{registerVM.UserName}"
+                                         select new { p.Id }).FirstOrDefault();
+                if (checkAccountExist != null)
+                {
+                    ViewBag.Error = "使用者名稱已存在";
+                    return View(registerVM);
+                }
+                string Id = Guid.NewGuid().ToString();
+                var checkIdExist = (from p in _ctx.Users
+                                    where p.Id == $"{Id}"
+                                    select new { p.Id }).FirstOrDefault();
+                while (checkIdExist != null)
+                {
+                    Id = Guid.NewGuid().ToString();
+                    checkIdExist = (from p in _ctx.Users
+                                    where p.Id == $"{Id}"
+                                    select new { p.Id }).FirstOrDefault();
+                };
+                //user => DB
+                //ViewModel => Data Model
+                string password = _hashService.HashPassword(registerVM.Password);
+                User user = new User
+                {
+                    Id = Id,
+                    Name = registerVM.UserName,
+                    //Password = _hashService.MD5Hash(registerVM.Password),
+                    Password = password,
+                    Nickname = registerVM.UserName,
+                    UserIcon = "UserIcon.png"
+                };
+
+                _ctx.Users.Add(user);
+                string folderPath = $@"Images\Users\{Id}";
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                FileInfo fi = new FileInfo($@"Images\Users\Shared\empty.png");
+                fi.CopyTo($@"{folderPath}\empty.png", true);
+                UserRoles userRoles1 = new UserRoles
+                {
+                    UserId = Id,
+                    RoleId = "R001",
+                };
+                UserRoles userRoles2 = new UserRoles
+                {
+                    UserId = Id,
+                    RoleId = "R002",
+                };
+                _ctx.UserRoles.Add(userRoles1);
+                _ctx.UserRoles.Add(userRoles2);
+                await _ctx.SaveChangesAsync();
+
+                ViewData["Title"] = "帳號註冊";
+                ViewData["Message"] = "使用者帳號註冊成功!";  //顯示訊息
+
+                return View("~/Views/Account/ResultMessage.cshtml");
+            }
+
+            return View();
+        }
         public IActionResult Forbidden()
         {
             return View();

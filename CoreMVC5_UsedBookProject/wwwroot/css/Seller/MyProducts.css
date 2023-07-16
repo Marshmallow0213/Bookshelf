@@ -1,7 +1,7 @@
 ﻿.product-card {
-    background-image: url(../../pictures/card.jpg);
-    background-repeat: repeat;
-    background-size: cover;
+    border: 2px solid orange;
+    border-radius: 3%;
+    background-color: #80808050;
 }
 .action{
     width: 100%;
