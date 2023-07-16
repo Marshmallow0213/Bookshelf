@@ -20,10 +20,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
     public class AdministratorHomePageController : Controller
     {
         private readonly AdminAccountContext _ctx;
-
-        public AdministratorHomePageController(AdminAccountContext ctx)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public AdministratorHomePageController(AdminAccountContext ctx, IWebHostEnvironment hostingEnvironment)
         {
             _ctx = ctx;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<IActionResult> AdminIndex(string id)
@@ -70,7 +71,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public void UploadImages(List<IFormFile> filenames, List<string> Images)
         {
-            string folderPath = $@"Images\Home";
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Home";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
