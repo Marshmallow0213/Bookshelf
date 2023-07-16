@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -22,12 +23,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         private readonly ProductContext _ctx;
         private readonly SellerService _sellerService;
         private readonly IHashService _hashService;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public AdminToUserController(ProductContext ctx, SellerService sellerService, IHashService hashService)
+        public AdminToUserController(ProductContext ctx, SellerService sellerService, IHashService hashService, IWebHostEnvironment hostingEnvironment)
         {
             _ctx = ctx;
             _sellerService = sellerService;
             _hashService = hashService;
+            _hostingEnvironment = hostingEnvironment;
         }
         [Authorize]
         public IActionResult UserData()
@@ -144,10 +147,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var User = await _ctx.Users.FindAsync(id);
+            var User = await _ctx.Users.Where(w=>w.Id == id).FirstOrDefaultAsync();
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{id}";
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+            }
             _ctx.Users.Remove(User);
             await _ctx.SaveChangesAsync();
-            _sellerService.DeleteProductFolder(id);
             return RedirectToAction("UserData");
         }
         public async Task<IActionResult> UserSuspension(string id)

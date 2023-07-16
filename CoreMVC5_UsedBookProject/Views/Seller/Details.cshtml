@@ -8,14 +8,13 @@
 }
 <div class="container-fluid">
     <h1>商品詳情</h1>
-   
     <partial name="~/Views/Seller/DetailTablePartial/Swiper.cshtml" />
     <partial name="~/Views/Seller/DetailTablePartial/ProductInformation.cshtml" />
     <partial name="~/Views/Seller/DetailTablePartial/SaleInformation.cshtml" />
     <partial name="~/Views/Seller/DetailTablePartial/OtherInformation.cshtml" />
     <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
     <br />
-    <div class="gap-2">
+    <div>
         @if (Model.Status == "已上架" || Model.Status == "未上架")
         {
             <a href="@Url.Action("Edit", "Seller", new {ProductId = Model.ProductId})" class="btn btn-warning"><i class="bi bi-pencil-square"></i> 編輯</a>

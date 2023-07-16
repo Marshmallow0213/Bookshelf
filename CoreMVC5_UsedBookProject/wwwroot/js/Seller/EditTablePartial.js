@@ -55,15 +55,17 @@ function ShowLength(element) {
 for (let i = 1; i <= 9; i++) {
     let preImg = document.getElementById(`Image${i}`).value;
     let preId = document.getElementById(`ProductId`).value;
+    let preUserId = document.getElementById(`CreateBy`).value;
     if (preImg != "無圖片") {
-        document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
     }
     document.getElementById(`file${i}`).addEventListener("click", () => {
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
         let preImg = document.getElementById(`Image${i}`).value;
         let preId = document.getElementById(`ProductId`).value;
+        let preUserId = document.getElementById(`CreateBy`).value;
         if (preImg != "無圖片") {
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
     });
     document.getElementById(`file${i}`).addEventListener("input", () => {
@@ -75,7 +77,8 @@ for (let i = 1; i <= 9; i++) {
             p_file.innerText = "未選擇任何檔案";
             let preImg = document.getElementById(`Image${i}`).value;
             let preId = document.getElementById(`ProductId`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            let preUserId = document.getElementById(`CreateBy`).value;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
         else if (!file.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) {
             alert('不是正確圖檔!');
@@ -83,7 +86,8 @@ for (let i = 1; i <= 9; i++) {
             p_file.innerText = "未選擇任何檔案";
             let preImg = document.getElementById(`Image${i}`).value;
             let preId = document.getElementById(`ProductId`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            let preUserId = document.getElementById(`CreateBy`).value;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
         else {
             p_file.innerText = file.files[0].name;

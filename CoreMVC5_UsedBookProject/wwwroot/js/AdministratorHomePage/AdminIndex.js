@@ -2,13 +2,13 @@
 for (let i = 1; i <= 9; i++) {
     let preImg = document.getElementById(`Image${i}`).value;
     if (preImg != "無圖片") {
-        document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
     }
     document.getElementById(`file${i}`).addEventListener("click", () => {
         document.getElementById(`p-file${i}`).innerText = "未選擇照片";
         let preImg = document.getElementById(`Image${i}`).value;
         if (preImg != "無圖片") {
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
     });
     document.getElementById(`file${i}`).addEventListener("input", () => {
@@ -19,14 +19,14 @@ for (let i = 1; i <= 9; i++) {
             file.value = "";
             p_file.innerText = "未選擇照片";
             let preImg = document.getElementById(`Image${i}`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
         else if (!file.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) {
             alert('不是正確圖檔!');
             file.value = "";
             p_file.innerText = "未選擇照片";
             let preImg = document.getElementById(`Image${i}`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Home/${preImg}' class='d-block m-auto' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
         else {
             p_file.innerText = file.files[0].name;

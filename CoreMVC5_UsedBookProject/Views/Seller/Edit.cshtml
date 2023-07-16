@@ -14,11 +14,12 @@
         <partial name="~/Views/Seller/EditTablePartial/ProductImage.cshtml" />
         <partial name="~/Views/Seller/EditTablePartial/SaleInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" id="ProductId" value="@Model.ProductId" readonly />
+        <input type="hidden" class="form-control" id="CreateBy" value="@Model.CreateBy" readonly />
         <div id="Test_Image_div" class="d-none">
             Test_Image_div
         </div>
         <br />
-        <div class="gap-2">
+        <div>
             <button type="submit" name="Status" class="btn btn-success disable-onbeforeunload" value="已上架"><i class="bi bi-save"></i> 儲存並上架</button>
             <button type="submit" name="Status" class="btn btn-outline-green disable-onbeforeunload" value="未上架"><i class="bi bi-save"></i> 儲存並下架</button>
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>

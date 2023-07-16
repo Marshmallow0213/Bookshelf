@@ -1,5 +1,8 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
 @model WishsViewModel
+@{
+    ViewBag.Title = $"願望清單";
+}
 <div class="container-fluid">
     <h1 style ="margin-top:15px;">願望清單</h1>
     @if (Model.Wishs.Count > 0)
@@ -7,7 +10,7 @@
         @foreach (var item in Model.Wishs)
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px;">
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
                     @if (item.ISBN.Length == 10)
                     {
                         <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(2,3)}/{item.ISBN.Substring(3,7)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />

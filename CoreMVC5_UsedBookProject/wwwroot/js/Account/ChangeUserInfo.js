@@ -5,7 +5,7 @@ for (let i = 1; i <= 1; i++) {
         let preImg = document.getElementById(`Image${i}`).value;
         let preId = document.getElementById(`ProductId`).value;
         if (preImg != "empty.png") {
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Users/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
     });
     document.getElementById(`file${i}`).addEventListener("input", () => {
@@ -17,7 +17,7 @@ for (let i = 1; i <= 1; i++) {
             p_file.innerText = "未選擇任何檔案";
             let preImg = document.getElementById(`Image${i}`).value;
             let preId = document.getElementById(`ProductId`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Users/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
         else if (!file.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) {
             alert('不是正確圖檔!');
@@ -25,19 +25,13 @@ for (let i = 1; i <= 1; i++) {
             p_file.innerText = "未選擇任何檔案";
             let preImg = document.getElementById(`Image${i}`).value;
             let preId = document.getElementById(`ProductId`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Users/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         }
         else {
             p_file.innerText = file.files[0].name;
             let url = URL.createObjectURL(file.files[0]);
             document.getElementById(`img${i}Div`).innerHTML = `<img src='${url}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
         };
-    });
-    document.getElementById(`Image${i}-clear`).addEventListener("click", () => {
-        document.getElementById(`Image${i}`).value = 'empty.png';
-        document.getElementById(`file${i}`).value = '';
-        document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
-        document.getElementById(`img${i}Div`).innerHTML = `<img src='Images/Users/Shared/empty.png' alt='img${i}' id='img${i}'>`;
     });
 }
 function testLoad(i) {

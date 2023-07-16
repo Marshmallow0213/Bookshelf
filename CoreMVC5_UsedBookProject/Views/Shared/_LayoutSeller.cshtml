@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/icon/booktitle.ico" type="image/x-icon">
-    <title>@ViewData["Title"] - 二手書交換平台</title>
+    <title>二手書交換平台 - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
@@ -19,7 +19,20 @@
 </head>
 <body>
     <header>
-        <partial name="_NavbarPartial"></partial>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span class="fa fa-book"></span> <strong>二手書交換平台</strong></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 flex-wrap justify-content-between">
+                        <partial name="_NavItemPartial"></partial>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
     <noscript>
@@ -30,17 +43,15 @@
             }
         </style>
     </noscript>
-    <div id="aside-right">
-        <main role="main" id="main" style="padding-bottom: 75px;">
-            @RenderBody()
-        </main>
+    <main role="main" id="main">
+        @RenderBody()
+    </main>
 
-        <footer class="border-top footer text-muted">
-            <div class="px-2">
-                &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-    </div>
+    <footer class="border-top footer text-muted">
+        <div class="px-2">
+            &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -342,7 +342,7 @@ namespace CoreMVC5_UsedBookProject.Services
             };
             _context.Add(product);
             _context.SaveChanges();
-            UploadImages(filenames, Images, Id, randomstrings);
+            UploadImages(filenames, Images, Id, randomstrings, name);
         }
         public string[] CheckImageName(List<IFormFile> filenames, List<string> Images, List<string> randomstrings)
         {
@@ -353,9 +353,9 @@ namespace CoreMVC5_UsedBookProject.Services
             }
             return checkImage;
         }
-        public void UploadImages(List<IFormFile> filenames, List<string> Images, string ProductId, List<string> randomstrings)
+        public void UploadImages(List<IFormFile> filenames, List<string> Images, string ProductId, List<string> randomstrings, string Id)
         {
-            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Products\{ProductId}";
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{Id}\Products\{ProductId}";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -404,6 +404,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 return null;
             }
             var dm = _sellerRepository.DMToVM(product);
+            var username = _context.Users.Where(w=>w.Id == dm.CreateBy).Select(s=>s.Name).FirstOrDefault();
+            dm.CreateByName = username;
             return dm;
         }
         public OrderViewModel GetOrder(string OrderId)
@@ -496,7 +498,7 @@ namespace CoreMVC5_UsedBookProject.Services
             product.EditDate = DateTime.Now;
             product.TradingPlaceAndTime = productEditViewModel.TradingPlaceAndTime;
             _context.SaveChanges();
-            UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings);
+            UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings, name);
         }
         public bool DeleteProduct(string ProductId, string name)
         {
@@ -511,18 +513,6 @@ namespace CoreMVC5_UsedBookProject.Services
             _context.Update(product);
             _context.SaveChanges();
             return true;
-        }
-        public void DeleteProductFolder(string Id)
-        {
-            var products = _context.Products.Where(w=>w.CreateBy == Id).Select(s=> s.ProductId).ToList();
-            foreach (var product in products)
-            {
-                string folderPath = $@"Images\Products\{products}";
-                if (Directory.Exists(folderPath))
-                {
-                    Directory.Delete(folderPath, true);
-                }
-            }
         }
         public void AcceptOrder(string orderId)
         {

@@ -4,10 +4,10 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = $"我的商品({ViewBag.trade})";
+    ViewBag.Title = $"{(ViewBag.Trade == "交換" ? "交換" : "買賣")}商品";
 }
 
-<div class="container-fluid pb-5 gap-10px">
+<div class="container-fluid gap-10px">
     <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
     <p class="my-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
     <div class="d-flex my-3 gap-10px">
@@ -50,7 +50,7 @@
         {
             <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
                 <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
-                    <img src="/Images/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                    <img src="/Images/Users/@item.CreateBy/Products/@item.ProductId/@item.Image1" asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                 </div>
                 <div class="container-fluid my-2">
                     <h2>@item.Title</h2>

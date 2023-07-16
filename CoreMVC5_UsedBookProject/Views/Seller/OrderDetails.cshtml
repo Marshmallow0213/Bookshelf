@@ -17,7 +17,7 @@
     <h2>賣家的商品 @Model.SellerName</h2>
     <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
-            <img src="/Images/Products/@Model.SellerProductId/@Model.SellerImage1" asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+            <img src="/Images/Users/@Model.SellerId/Products/@Model.SellerProductId/@Model.SellerImage1" asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
         </div>
         <div class="container-fluid my-2">
             <h2>@Model.SellerTitle</h2>

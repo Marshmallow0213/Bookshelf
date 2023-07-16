@@ -1,10 +1,11 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
 @model MyProductsViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "搜尋商品";
 }
 <div class="container-fluid">
-    <h1>@ViewBag.Count</h1>
+    <h1>搜尋商品</h1>
+    <h2>@ViewBag.Count</h2>
     <div class="row py-2">
         @if (Model.Products.Count > 0)
         {
@@ -13,7 +14,7 @@
                 <div class="col-12 col-xl-6">
                     <div class="p-2 m-auto product-card d-flex" style="width: 100%;">
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
-                            <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;" class="d-flex align-items-center"><img src="/Images/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" /></a>
+                            <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;" class="d-flex align-items-center"><img src="/Images/Users/@item.CreateBy/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" /></a>
                         </div>
                         <div class="container-fluid my-2">
                             <h2>@item.Title</h2>
