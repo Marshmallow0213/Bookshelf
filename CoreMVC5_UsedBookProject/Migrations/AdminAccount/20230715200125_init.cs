@@ -23,6 +23,31 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             migrationBuilder.CreateTable(
+                name: "Adminlists",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Maintitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    subtitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adminlists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdminRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -66,6 +91,31 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             migrationBuilder.CreateTable(
+                name: "AdminlistRoles",
+                columns: table => new
+                {
+                    ListId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdminlistId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminlistRoles", x => new { x.ListId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AdminlistRoles_Adminlists_AdminlistId",
+                        column: x => x.AdminlistId,
+                        principalTable: "Adminlists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AdminlistRoles_AdminRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AdminRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
@@ -97,6 +147,25 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             migrationBuilder.InsertData(
+                table: "AdminRoles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "R001", "undone" },
+                    { "R002", "done" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Adminlists",
+                columns: new[] { "Id", "Maintitle", "subtitle" },
+                values: new object[,]
+                {
+                    { "2023/07/16", "帶烏龜看醫生", "帶烏龜到334桃園市八德區介壽路一段248-1號(丹尼爾動物醫院)看醫生，並且要確定身高體重以及服藥次數" },
+                    { "2023/07/18", "買便當回管理員室", "因為平常樓下便當實在太難吃了，所以老闆希望可以買山下平常聚會地點的羊肉爐" },
+                    { "2023/07/20", "倒垃圾", "管理員室的垃圾已經推積如山，所以要盡快完成" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -122,19 +191,34 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 });
 
             migrationBuilder.InsertData(
-                table: "UserRoles",
-                columns: new[] { "RoleId", "UserId", "AdministratorUserHomePageId" },
-                values: new object[] { "R001", "B001", null });
+                table: "AdminlistRoles",
+                columns: new[] { "ListId", "RoleId", "AdminlistId" },
+                values: new object[,]
+                {
+                    { "2023/07/16", "R001", null },
+                    { "2023/07/18", "R001", null },
+                    { "2023/07/20", "R001", null }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId", "AdministratorUserHomePageId" },
-                values: new object[] { "R001", "B002", null });
+                values: new object[,]
+                {
+                    { "R001", "B001", null },
+                    { "R001", "B002", null },
+                    { "R001", "B003", null }
+                });
 
-            migrationBuilder.InsertData(
-                table: "UserRoles",
-                columns: new[] { "RoleId", "UserId", "AdministratorUserHomePageId" },
-                values: new object[] { "R001", "B003", null });
+            migrationBuilder.CreateIndex(
+                name: "IX_AdminlistRoles_AdminlistId",
+                table: "AdminlistRoles",
+                column: "AdminlistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdminlistRoles_RoleId",
+                table: "AdminlistRoles",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_AdministratorUserHomePageId",
@@ -150,10 +234,19 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AdminlistRoles");
+
+            migrationBuilder.DropTable(
                 name: "TextValue");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "Adminlists");
+
+            migrationBuilder.DropTable(
+                name: "AdminRoles");
 
             migrationBuilder.DropTable(
                 name: "AdministratorUserHomePage");

@@ -16,8 +16,8 @@
     @RenderSection("topJS", required: false)
 </head>
 <body style="overflow-x:hidden; max-width:100%;">
-    <header>
-        <nav class="bg-white border-bottom box-shadow d-flex px-3 flex-wrap" id="navbar" style="height: 60px; justify-content: space-between; flex-wrap: nowrap; background-image: url('/adminimg/wood.jpg'); background-repeat: no-repeat;">
+    <header style="background-image: url('/adminimg/wood.jpg');">
+        <nav class="border-bottom box-shadow d-flex px-3 flex-wrap" id="navbar" style="height: 60px; justify-content: space-between; flex-wrap: nowrap; background-image: url('/adminimg/wood.jpg');">
             <div>
                 <div class="d-flex justify-content-between">
                     <div style="padding: 10px; width: 200px; height: 60px;" class="d-flex align-items-center px-2">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex; padding: 10px; width: 300px; height: 60px;">
+            <div style="display: flex; padding: 10px; width: 300px; height: 60px; background-image: url('/adminimg/wood.jpg');">
                 <input type="checkbox" id="switch-search" class="d-none" style="position: absolute; top: 0; left: 0;">
                 <div class="search-menu" style="width: 800px;background-image: url('/adminimg/wood.jpg');">
                     <form class="form-inline flex-grow-1 px-2" style="display: flex; width: 400px;" action="~/Home/SearchProducts" method="get">

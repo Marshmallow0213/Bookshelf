@@ -1,14 +1,17 @@
 ﻿using CoreMVC5_UsedBookProject.Data;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text.Json;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
+    [Authorize(Roles = "Top Administrator,common Administrator")]
     public class AdminChartsController : Controller
     {
         private readonly AdminAccountContext _ctx;

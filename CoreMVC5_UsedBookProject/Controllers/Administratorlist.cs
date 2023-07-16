@@ -22,6 +22,7 @@ using static System.Net.WebRequestMethods;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
+    [Authorize(Roles = "Top Administrator,common Administrator")]
     public class Administratorlist : Controller
     {
         private readonly AdminAccountContext _ctx;

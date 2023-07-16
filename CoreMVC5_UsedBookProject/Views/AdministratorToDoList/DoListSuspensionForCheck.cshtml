@@ -1,0 +1,91 @@
+﻿@model Adminlist
+@{
+    ViewData["Title"] = "待辦事項審核";
+}
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .top {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(80, 160, 220);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .top:hover {
+            text-decoration: none;
+            color: rgb(80, 160, 220);
+            background-color: white;
+            border: 1px rgb(80, 160, 220) solid;
+        }
+
+    .common {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(255, 150, 160);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .common:hover {
+            text-decoration: none;
+            color: rgb(255, 150, 160);
+            background-color: white;
+            border: 1px rgb(255, 150, 160)solid;
+        }
+
+    .Suspension {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(185, 185, 185);
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .Suspension:hover {
+            text-decoration: none;
+            color: rgb(185, 185, 185);
+            background-color: white;
+            border: 1px rgb(185, 185, 185) solid;
+        }
+</style>
+<h4 class="alert alert-danger">待辦清單明細</h4>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Id)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Id)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Maintitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Maintitle)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.subtitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.subtitle)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="AdministratorToDoList" asp-action="checkT" asp-route-id="@Model.Id" class="top">審核通過</a>
+    <a asp-controller="AdministratorToDoList" asp-action="checkF" asp-route-id="@Model.Id" class="common">審核失敗</a>
+    <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
+</div>

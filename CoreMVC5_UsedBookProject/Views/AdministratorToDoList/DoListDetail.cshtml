@@ -1,0 +1,57 @@
+﻿@model Adminlist
+@{
+    ViewData["Title"] = "待辦清單明細";
+}
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: #66cdaa;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .edit:hover {
+            text-decoration: none;
+            color: #66cdaa;
+            background-color: white;
+            border: 1px #66cdaa solid;
+        }
+</style>
+<h4 class="alert alert-danger">待辦清單明細</h4>
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Id)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Id)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Maintitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Maintitle)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.subtitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.subtitle)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="AdministratorToDoList" asp-action="DoListEdit" asp-route-id="@Model.Id" class="btnadmin" style="width:100px;height:40px;background-color:blue; text-decoration:none; color:white;">編輯</a>
+    <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
+</div>

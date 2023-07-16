@@ -18,6 +18,31 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdminRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdminRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "R001",
+                            Name = "undone"
+                        },
+                        new
+                        {
+                            Id = "R002",
+                            Name = "done"
+                        });
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorRole", b =>
                 {
                     b.Property<string>("Id")
@@ -144,6 +169,81 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         });
                 });
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Adminlist", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Maintitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("subtitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Adminlists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2023/07/16",
+                            Maintitle = "帶烏龜看醫生",
+                            subtitle = "帶烏龜到334桃園市八德區介壽路一段248-1號(丹尼爾動物醫院)看醫生，並且要確定身高體重以及服藥次數"
+                        },
+                        new
+                        {
+                            Id = "2023/07/18",
+                            Maintitle = "買便當回管理員室",
+                            subtitle = "因為平常樓下便當實在太難吃了，所以老闆希望可以買山下平常聚會地點的羊肉爐"
+                        },
+                        new
+                        {
+                            Id = "2023/07/20",
+                            Maintitle = "倒垃圾",
+                            subtitle = "管理員室的垃圾已經推積如山，所以要盡快完成"
+                        });
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdminlistRole", b =>
+                {
+                    b.Property<string>("ListId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AdminlistId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ListId", "RoleId");
+
+                    b.HasIndex("AdminlistId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AdminlistRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            ListId = "2023/07/16",
+                            RoleId = "R001"
+                        },
+                        new
+                        {
+                            ListId = "2023/07/18",
+                            RoleId = "R001"
+                        },
+                        new
+                        {
+                            ListId = "2023/07/20",
+                            RoleId = "R001"
+                        });
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Textbox", b =>
                 {
                     b.Property<string>("Id")
@@ -228,6 +328,23 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdminlistRole", b =>
+                {
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.Adminlist", "Adminlist")
+                        .WithMany("AdminlistRoles")
+                        .HasForeignKey("AdminlistId");
+
+                    b.HasOne("CoreMVC5_UsedBookProject.Models.AdminRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Adminlist");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -236,6 +353,11 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
             modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.AdministratorUser", b =>
                 {
                     b.Navigation("AdministratorRoles");
+                });
+
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.Adminlist", b =>
+                {
+                    b.Navigation("AdminlistRoles");
                 });
 
             modelBuilder.Entity("CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage", b =>

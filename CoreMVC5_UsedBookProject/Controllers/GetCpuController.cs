@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
+    [Authorize(Roles = "Top Administrator,common Administrator")]
     public class GetCpuController : Controller
     {
 
