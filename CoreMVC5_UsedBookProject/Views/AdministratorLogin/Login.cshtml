@@ -7,16 +7,15 @@
     .list {
         color:black;
         border-radius: 5px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        background-color: white;
+        background-color: transparent;
     }
 
 </style>
 <div class="login-bg">
     <img src="~/adminimg/loginbg.jpg" />
 </div>
-    <div class="login-container list">
-        <h1>管理員登入</h1>
+    <div class="login-container list" style="border-radius:30px;">
+        <h1 style="color:white;font-weight:bold;">管理員登入</h1>
         <hr />
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -37,10 +36,6 @@
         {
             <div class="error-message">@ViewBag.ErrorMessage</div>
         }
-        <hr />
-        <div class="back-to-home">
-            <a asp-action="Index" asp-controller="Home">回主頁面</a>
-        </div>
     </div>
 
 @section Scripts {
