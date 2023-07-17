@@ -52,5 +52,6 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
+    <a href="/AdministratorToDoList/DoListEdit?id=@Model.Id" class="return">編輯</a>
+    <a asp-controller="AdministratorToDoList" asp-action="DolistForCheck" class="return">回待辦事項審核</a>
 </div>

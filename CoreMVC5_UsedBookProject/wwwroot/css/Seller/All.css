@@ -41,7 +41,7 @@ h1 {
     transition: .5s;
 }
     .aside-link:hover > a {
-        color: blue !important;
+        color: #4169e1 !important;
     }
 .account-p {
     border-bottom: 1px solid black;

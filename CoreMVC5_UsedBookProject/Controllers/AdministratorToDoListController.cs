@@ -105,7 +105,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 _ctx.AdminlistRoles.Add(userRole);
                 await _ctx.SaveChangesAsync();
 
-                return RedirectToAction("DoList");
+                return RedirectToAction("DolistForCheck");
             }
 
             return View(list);
@@ -148,16 +148,37 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
                     await _ctx.SaveChangesAsync();
 
-                    return RedirectToAction("DoList");
+                    return RedirectToAction("DolistForCheck");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                 }
-                return RedirectToAction("DoList");
+                return RedirectToAction("DolistForCheck");
             }
             return View(List);
         }
         public async Task<IActionResult> DoListDetail(int id)
+        {
+            if (id == 0)
+            {
+                var msgObject = new
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    error = "無效請求，必須提供ID喔!"
+                };
+                return new BadRequestObjectResult(msgObject);
+            }
+
+            var List = await _ctx.Adminlists.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (List == null)
+            {
+                return NotFound();
+            }
+
+            return View(List);
+        }
+        public async Task<IActionResult> DoListDetailForAdmin(int id)
         {
             if (id == 0)
             {
@@ -198,7 +219,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var list = await _ctx.Adminlists.FindAsync(id);
             _ctx.Adminlists.Remove(list);
             await _ctx.SaveChangesAsync();
-            return RedirectToAction("DoList");
+            return RedirectToAction("DolistForCheck");
         }
         public async Task<IActionResult> DoListSuspension(int id)
         {
