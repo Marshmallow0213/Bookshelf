@@ -41,11 +41,11 @@ h1 {
 }
 .aside-link:hover {
     background-color: wheat;
-    border-radius: 15%;
+    border-radius: 10px;
     transition: .5s;
 }
     .aside-link:hover > a {
-        color: blue !important;
+        color: #4169e1 !important;
     }
 .account-p {
     border-bottom: 1px solid black;

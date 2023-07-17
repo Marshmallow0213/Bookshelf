@@ -27,7 +27,8 @@
     position: relative;
     text-transform: uppercase;
     transition: 0.2s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 0 -4px #fff, 0 9px 0 -4px #aaa, 0 12px 0 -4px #000;
+    transform: translateY(0);
 }
 
     .btnadmin:disabled {
@@ -46,7 +47,9 @@
     .btnadmin [hidden] {
         display: none;
     }
+
     .btnadmin:hover {
-        box-shadow: 0 6px 0 -4px #fff, 0 9px 0 -4px #aaa, 0 12px 0 -4px #000;
-        transform: translateY(-5px);
+        box-shadow: none;
+        transform: translateY(5px);
+        transition: box-shadow 0.2s, transform 0.2s;
     }
