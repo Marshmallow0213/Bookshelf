@@ -172,12 +172,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return PartialView("GetPredictions", predictions);
         }
 
-        public IActionResult Wish()
+        public IActionResult Wish(int now_page)
         {
-            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).ToList();
+            now_page = now_page == 0 ? 1 : now_page;
+            var countWish = _context.Wishes.Select(g => new { g.WishId }).ToList();
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(countWish.Count) / 30));
+            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).Skip((now_page - 1) * 30).Take(30).ToList();
             WishsViewModel wishs = new()
             {
-                Wishs = wishlist
+                Wishs = wishlist,
+                PagesCount = new int[] { now_page, all_pages }
             };
             return View(wishs);
         }

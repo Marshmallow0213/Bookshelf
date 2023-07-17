@@ -12,7 +12,7 @@
             @foreach (var item in Model.Products)
             {
                 <div class="col-12 col-xl-6">
-                    <div class="p-2 m-auto product-card d-flex" style="width: 100%;">
+                    <div class="p-2 m-auto product-card d-flex w-100 h-100">
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
                             <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;" class="d-flex align-items-center"><img src="/Images/Users/@item.CreateBy/Products/@item.ProductId/@item.Image1" class="m-auto w-100" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" /></a>
                         </div>
@@ -25,6 +25,13 @@
                             }
                             <p><span>@Html.DisplayNameFor(model => model.Product.ISBN) </span><span>@item.ISBN</span></p>
                             <p><span>@Html.DisplayNameFor(model => model.Product.Author) </span><span>@item.Author</span></p>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                            {
+                                @if (item.CreateBy == User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value)
+                                {
+                                    <h3 class="text-danger">自己的商品</h3>
+                                }
+                            }
                         </div>
                     </div>
                 </div>

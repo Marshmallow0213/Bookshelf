@@ -25,25 +25,25 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string Status { get; set; }
         [Display(Name = "交易方式")]
         public string Trade { get; set; }
-        [Display(Name = "賣家商品Id")]
+        [Display(Name = "商品Id")]
         public string SellerProductId { get; set; }
-        [Display(Name = "賣家書名")]
+        [Display(Name = "書名")]
         public string SellerTitle { get; set; }
-        [Display(Name = "賣家ISBN")]
+        [Display(Name = "ISBN")]
         public string SellerISBN { get; set; }
-        [Display(Name = "賣家作者")]
+        [Display(Name = "作者")]
         public string SellerAuthor { get; set; }
-        [Display(Name = "賣家圖片封面")]
+        [Display(Name = "圖片封面")]
         public string SellerImage1 { get; set; }
-        [Display(Name = "買家商品Id")]
+        [Display(Name = "商品Id")]
         public string BuyerProductId { get; set; }
-        [Display(Name = "買家書名")]
+        [Display(Name = "書名")]
         public string BuyerTitle { get; set; }
-        [Display(Name = "買家ISBN")]
+        [Display(Name = "ISBN")]
         public string BuyerISBN { get; set; }
-        [Display(Name = "買家作者")]
+        [Display(Name = "作者")]
         public string BuyerAuthor { get; set; }
-        [Display(Name = "買家圖片封面")]
+        [Display(Name = "圖片封面")]
         public string BuyerImage1 { get; set; }
         public List<ProductViewModel> Products { get; set; }
     }

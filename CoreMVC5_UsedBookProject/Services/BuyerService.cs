@@ -7,6 +7,7 @@ using CoreMVC5_UsedBookProject.Repositories;
 using System.Linq;
 using CoreMVC5_UsedBookProject.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace CoreMVC5_UsedBookProject.Services
 {
@@ -90,7 +91,7 @@ namespace CoreMVC5_UsedBookProject.Services
         {
             Dictionary<string, int> count = ProductsCountList(trade);
             now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count["已上架"]) / 10));
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count["已上架"]) / 30));
             var products = _context.Products
             .Where(p => p.Status == "已上架" && p.Trade.Contains(trade))
             .OrderByDescending(p => p.CreateDate)
@@ -103,7 +104,8 @@ namespace CoreMVC5_UsedBookProject.Services
                 ContentText = p.ContentText,
                 Image1 = p.Image1,
                 Trade = p.Trade,
-                UnitPrice = p.UnitPrice
+                UnitPrice = p.UnitPrice,
+                CreateBy = p.CreateBy
             })
            .Skip((now_page - 1) * 30).Take(30).ToList();
             MyProductsViewModel mymodel = new()
@@ -144,7 +146,7 @@ namespace CoreMVC5_UsedBookProject.Services
             Dictionary<string, int> count = OrdersCountList(trade, name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 30));
             List<OrderViewModel> orders = new();
             var sellername = (from o in _context.Orders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
             var buyername = (from o in _context.Orders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
@@ -168,7 +170,7 @@ namespace CoreMVC5_UsedBookProject.Services
             Dictionary<string, int> count = BarterOrdersCountList(trade, name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 30));
             List<BarterOrderViewModel> barterorders = new();
             var sellername = (from o in _context.BarterOrders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
             var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
@@ -290,6 +292,43 @@ namespace CoreMVC5_UsedBookProject.Services
                                    orderby p.CreateDate descending
                                    select new { p.OrderId }).FirstOrDefault();
             };
+            var checkProductEmptyExist = (from p in _context.Products
+                                   where p.ProductId == $"Empty"
+                                   select new { p.ProductId }).FirstOrDefault();
+            if (checkProductEmptyExist == null)
+            {
+                User userEmpty = new()
+                {
+                    Id = "Empty",
+                    Name = "Empty",
+                    Password = "Empty",
+                    Nickname = "Empty",
+                    UserIcon = "Empty"
+                };
+                _context.Add(userEmpty);
+                Product productEmpty = new()
+                {
+                    ProductId = "Empty",
+                    Title = "Empty",
+                    ContentText = "Empty",
+                    Image1 = "Empty",
+                    Image2 = String.Join(",", "Empty"),
+                    ISBN = "Empty",
+                    Author = "Empty",
+                    Publisher = "Empty",
+                    PublicationDate = "Empty",
+                    Degree = "Empty",
+                    Status = "Empty",
+                    Trade = "Empty",
+                    UnitPrice = -1000,
+                    CreateDate = DateTime.Now,
+                    EditDate = DateTime.Now,
+                    TradingPlaceAndTime = "Empty",
+                    CreateBy = "Empty"
+                };
+                _context.Add(productEmpty);
+                _context.SaveChanges();
+            }
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
             _context.Entry(product).State = EntityState.Modified;
             product.Status = "待確認";
@@ -300,7 +339,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 BuyerId = buyername,
                 DenyReason = "",
                 SellerProductId = ProductId,
-                BuyerProductId = ProductId,
+                BuyerProductId = "Empty",
                 Status = "待確認",
                 Trade = trade,
                 CreateDate = DateTime.Now

@@ -41,8 +41,7 @@ $('body').on('click', function (e) {
 });
 function loginMenuFull() {
     let menu = document.querySelector('.login-menu-full');
-    let body = document.querySelector('body');
-    menu.style.height = body.offsetHeight + 'px';
+    menu.style.height = $(document).height() + 'px';
 }
 // Home Index Search
 function getPredictions() {

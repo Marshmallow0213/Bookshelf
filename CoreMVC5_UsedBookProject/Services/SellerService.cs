@@ -112,7 +112,7 @@ namespace CoreMVC5_UsedBookProject.Services
             Dictionary<string, int> count = OrdersCountList(name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 30));
             List<OrderViewModel> orders = new();
             var sellername = (from o in _context.Orders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
             var buyername = (from o in _context.Orders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
@@ -136,7 +136,7 @@ namespace CoreMVC5_UsedBookProject.Services
             Dictionary<string, int> count = BarterOrdersCountList(name);
             status ??= "待確認";
             now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 30));
             List<BarterOrderViewModel> barterorders = new();
             var sellername = (from o in _context.BarterOrders from u in _context.Users where o.SellerId == u.Id select u.Name).FirstOrDefault();
             var buyername = (from o in _context.BarterOrders from u in _context.Users where o.BuyerId == u.Id select u.Name).FirstOrDefault();
@@ -183,7 +183,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public Dictionary<string, int> BarterOrdersCountList(string name)
         {
             Dictionary<string, int> countList = new();
-            //countList = _context.BarterOrders.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
+            countList = _context.BarterOrders.Where(w => w.SellerId == name).GroupBy(p => p.Status).Select(g => new { Status = g.Key, count = g.Count() }).ToDictionary(product => product.Status, product => product.count);
             Dictionary<string, int> count = new()
             {
                 { "全部", 0 },
@@ -210,7 +210,7 @@ namespace CoreMVC5_UsedBookProject.Services
             Dictionary<string, int> count = ProductsCountList(trade, name);
             status ??= "已上架";
             now_page = now_page == 0 ? 1 : now_page;
-            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 10));
+            int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(count[status]) / 30));
             var products = (from p in _context.Products
                            where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade.Contains(trade)
                            orderby p.CreateDate descending

@@ -1,4 +1,4 @@
-﻿body, main, nav, footer {
+﻿body, main, nav, footer, textarea:read-only {
     background-image: url('/adminimg/wood.jpg');
     background-repeat: no-repeat;
     background-size: cover;
