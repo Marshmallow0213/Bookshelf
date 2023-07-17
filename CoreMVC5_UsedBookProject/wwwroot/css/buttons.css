@@ -89,7 +89,7 @@
 
 .btn-login-view {
     color: white;
-    background-color: blue;
+    background-color:#00ff00;
     transition: background-color 0.3s, color 0.3s;
 }
 .btn-logout-view {
@@ -119,14 +119,16 @@
         opacity: 1;
     }
 .btn-login {
+    border: 0;
     color: white;
-    background-color: blue;
+    background-color: #3cb371;
     transition: background-color 0.3s, color 0.3s;
 }
     .btn-login:hover {
-        border-color: blue;
+        border: 1px solid;
+        border-color: #3cb371;
         background-color: white;
-        color: blue;
+        color: #3cb371;
         transition: background-color 1.5s, color 1.5s, border-color 1.5s;
     }
 .login-info {
@@ -245,9 +247,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 50px;
     border-radius: 10px;
-    color: white;
+    color: black;
 }
 
     .login-container form {
@@ -263,18 +265,14 @@
         }
 
     .login-container .form-control {
-        background: transparent;
+        background: rgba(255, 255, 255, 0.5);
         border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0;
-        box-shadow: none;
-        padding-left: 0;
-        color: white;
+        border-radius: 5px;
+        color: black;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
         .login-container .form-control:focus {
-            outline: none;
-            box-shadow: none;
-            border-color: #000;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
         }
 
     .login-container .btn-login-view {
