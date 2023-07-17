@@ -9,9 +9,12 @@
 .gap-5px{
     gap: 5px;
 }
-.status > li > a {
+.status {
     font-size: 18px;
     color: black;
+}
+.status:hover {
+    color: blue;
 }
 @media (min-width:576px) {
 }
