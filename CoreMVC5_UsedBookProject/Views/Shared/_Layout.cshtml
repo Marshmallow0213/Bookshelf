@@ -28,9 +28,9 @@
                     <ul class="navbar-nav flex-grow-1 flex-wrap justify-content-between">
                         <partial name="_NavItemPartial"></partial>
                         <li class="nav-item p-2 w-100 order-sm-2">
-                            <form class="form-inline" style="display: flex;" action="~/Home/SearchProducts" method="get">
-                                <div class="d-flex">
-                                    <input class="form-control mr-sm-2 align-self-center" style="width: 350px;" type="search" placeholder="輸入書名或ISBN" id="searchInput" oninput="getPredictions()" aria-label="Search" name="name">
+                            <form class="form-inline w-100" action="~/Home/SearchProducts" method="get">
+                                <div class="d-flex w-100">
+                                    <input class="form-control mr-sm-2 align-self-center w-100" type="search" placeholder="輸入書名或ISBN" id="searchInput" oninput="getPredictions()" aria-label="Search" name="name">
                                     <div id="predictionList"></div>
                                     <button class="btn btn-outline-success my-2 my-sm-0" style="width: 50px;" type="submit">
                                         <span class="fa fa-search"></span>
