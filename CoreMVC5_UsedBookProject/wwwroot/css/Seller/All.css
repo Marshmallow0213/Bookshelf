@@ -106,7 +106,7 @@ img {
         top: 50%;
         width: 150%;
         z-index: -1;
-        background: #D24D57;
+        background: #8B451350;
         -moz-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
         -ms-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
         -webkit-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
