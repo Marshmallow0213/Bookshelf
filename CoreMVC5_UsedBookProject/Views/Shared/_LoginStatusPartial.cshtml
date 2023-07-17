@@ -8,27 +8,21 @@
 {
     @if (User.IsInRole("User"))
     {
-        @*已登入*@
-        //顯示使用者名稱+登出按鈕
-        <li class="d-flex align-items-center justify-content-center ml-auto">
-            <label for="switch-login" class="mb-0 px-2 d-flex align-items-center justify-content-center btn-custom" onclick="loginMenuFull()">
-                <img class="p-2" src="/Images/Users/@User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='/DeafultPictures/EmptyUserIcon.png';">
-                <a id="login-nickname" class="px-2 text-dark">
+        @if (controller != "Account")
+        {
+            <li class="nav-item px-2 ml-auto">
+                <a href="@Url.Action("Details", "Account")" class="nav-link text-dark h-100 btn-custom pr-2">
+                    <img class="p-2" src="/Images/Users/@User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='/DeafultPictures/EmptyUserIcon.png';">
                     @User.Identity.Name
                 </a>
-            </label><!--漢堡按鈕圖示-->
-            <input type="checkbox" id="switch-login" class="d-none" style="position: absolute; top: 0; right: 0;">
-            <div class="login-menu-full">
-                <div class="login-menu">
-                    <div class="mb-0 p-3 text-center account-p">
-                        <img class="p-2" src="/Images/Users/@User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='/DeafultPictures/EmptyUserIcon.png';">
-                        @User.Identity.Name
-                    </div>
-                    <a href="@Url.Action("Details", "Account")" class="d-block p-3 account-a text-decoration-none"><i class="bi bi-gear"></i> 設定</a>
-                    <a href="@Url.Action("SignOut", "Account")" class="d-block p-3 account-a text-decoration-none"><i class="bi bi-box-arrow-right"></i> 登出</a>
-                </div>
-            </div>
-        </li>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item px-2 ml-auto">
+            <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("SignOut", "Account", new {})">登出</a>
+            </li>
+        }
     }
 }
 else {
