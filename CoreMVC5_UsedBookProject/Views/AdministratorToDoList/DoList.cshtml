@@ -22,10 +22,10 @@
                 <td>@item.Id</td>
                 <td>@item.Maintitle</td>
                 <td style="overflow:hidden; display:flex; flex-wrap:wrap; justify-content:space-evenly; gap:5px;">
-                    <a asp-action="DoListEdit" asp-route-id="@item.Id" class="btnadmin" style="width:100px;height:40px;background-color:blue; text-decoration:none; color:white;">編輯</a>
-                    <a asp-action="DoListDetail" asp-route-id="@item.Id" class="btnadmin" style="width:140px;height:40px;background-color:#2e8b57;text-decoration:none;color:white;">詳細資料</a>
-                    <a asp-action="DoListDelete" asp-route-id="@item.Id" class="btnadmin" style="width:100px;height:40px;background-color:red;text-decoration:none;color:white;">刪除</a>
-                    <a asp-action="AdministratorSuspension" asp-route-id="@item.Id" class="btnadmin" style="width:140px;height:40px;background-color:gray;text-decoration:none;color:white;">確認完成</a>
+                    <a href="/AdministratorToDoList/DoListEdit?id=@item.Id" class="btnadmin" style="width:100px;height:40px;background-color:blue; text-decoration:none; color:white;">編輯</a>
+                    <a href="/AdministratorToDoList/DoListDetail?id=@item.Id" class="btnadmin" style="width:140px;height:40px;background-color:#2e8b57;text-decoration:none;color:white;">詳細資料</a>
+                    <a href="/AdministratorToDoList/DoListDelete?id=@item.Id" class="btnadmin" style="width:100px;height:40px;background-color:red;text-decoration:none;color:white;">刪除</a>
+                    <a href="/AdministratorToDoList/AdministratorSuspension?id=@item.Id" class="btnadmin" style="width:140px;height:40px;background-color:gray;text-decoration:none;color:white;">確認完成</a>
                 </td>
 
                 <td>@item.RoleName</td>

@@ -7,7 +7,7 @@
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
 }
 <partial name="_LoginStatusPartial"></partial>
-@if (controller == "Home" || action == "Login" || action == "RegisterUserName" || action == "Register")
+@if (controller == "Home" || action == "Login" || action == "RegisterUserName" || action == "Register" || action == "Forbidden")
 {
     <li class="nav-item px-2 aside-link">
         <a class="nav-link text-dark" href="@Url.Action("ProductsList", "Home", new {trade = "買賣"})"><i class="bi bi-cart-fill"></i> 買賣賣場</a>
@@ -46,7 +46,7 @@
         <a class="nav-link text-dark" href="@Url.Action("Create", "Seller", new {})"><i class="bi bi-plus-circle"></i> 新增商品</a>
     </li>
 }
-else if (controller == "Account" && (action != "Login" && action != "RegisterUserName" && action != "Register"))
+else if (controller == "Account" && (action != "Login" && action != "RegisterUserName" && action != "Register" && action != "Forbidden"))
 {
     <li class="nav-item px-2 aside-link">
         <a class="nav-link text-dark" href="@Url.Action("Details", "Account", new {})"><i class="bi bi-info-circle-fill"></i> 我的資訊</a>
