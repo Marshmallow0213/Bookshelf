@@ -7,72 +7,72 @@
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
 }
 <partial name="_LoginStatusPartial"></partial>
-@if (controller == "Home" || action == "Login" || action == "RegisterUserName" || action == "Register" || action == "Forbidden")
+@if (controller == "Home" || action == "Login" || action == "Forbidden")
 {
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("ProductsList", "Home", new {trade = "買賣"})"><i class="bi bi-cart-fill"></i> 買賣賣場</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("ProductsList", "Home", new {trade = "交換"})"><i class="bi bi-cart-fill"></i> 交換賣場</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Wish", "Home", new {})"><i class="bi bi-star-half"></i> 許願清單</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Index", "Seller", new {})"><i class="bi bi-shop"></i> 賣家中心</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Index", "Buyer", new {})"><i class="bi bi-shop"></i> 買家中心</a>
     </li>
 }
 @if (controller == "Seller")
 {
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Index", "Seller", new {})"><i class="bi bi-file-text-fill"></i> 待辦事項清單</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("MySales", "Seller", new {trade = "買賣"})"><i class="bi bi-file-text-fill"></i> 買賣銷售</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("MySales", "Seller", new {trade = "交換"})"><i class="bi bi-file-text-fill"></i> 交換銷售</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("MyProducts", "Seller", new {trade = "買賣"})"><i class="bi bi-bag-fill"></i> 買賣商品</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("MyProducts", "Seller", new {trade = "交換"})"><i class="bi bi-bag-fill"></i> 交換商品</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Create", "Seller", new {})"><i class="bi bi-plus-circle"></i> 新增商品</a>
     </li>
 }
 else if (controller == "Account" && (action != "Login" && action != "RegisterUserName" && action != "Register" && action != "Forbidden"))
 {
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Details", "Account", new {})"><i class="bi bi-info-circle-fill"></i> 我的資訊</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("ChangeUserInfo", "Account", new {})"><i class="bi bi-info-circle-fill"></i> 變更資訊</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("ChangePassword", "Account", new {})"><i class="bi bi-info-circle-fill"></i> 變更密碼</a>
     </li>
 }
 else if (controller == "Buyer")
 {
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Index", "Buyer", new {})"><i class="bi bi-file-text-fill"></i> 買家中心</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("MySales", "Buyer", new {trade = "買賣"})"><i class="bi bi-file-text-fill"></i> 買賣訂單紀錄</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("MySales", "Buyer", new {trade = "交換"})"><i class="bi bi-file-text-fill"></i> 交換訂單紀錄</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Shoppingcart", "Buyer", new {})"><i class="bi bi-cart4"></i> 購物車</a>
     </li>
-    <li class="nav-item px-2 aside-link">
+    <li class="nav-item px-2 aside-link btn-24">
         <a class="nav-link text-dark" href="@Url.Action("Wish", "Buyer", new {})"><i class="bi bi-star-half"></i> 我的願望清單</a>
     </li>
 }

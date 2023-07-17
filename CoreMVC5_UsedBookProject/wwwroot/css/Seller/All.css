@@ -1,4 +1,4 @@
-﻿body, main {
+﻿body, main, nav, footer {
     background-image: url('/adminimg/wood.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -35,12 +35,15 @@ h1 {
 .aside-link > a {
     color: black;
     font-size: 18px;
+    font-weight: bold;
 }
 .aside-link:hover {
-    background-color: #282B2E;
+    background-color: wheat;
+    border-radius: 15%;
+    transition: .5s;
 }
     .aside-link:hover > a {
-        color: white !important;
+        color: blue !important;
     }
 .account-p {
     border-bottom: 1px solid black;
