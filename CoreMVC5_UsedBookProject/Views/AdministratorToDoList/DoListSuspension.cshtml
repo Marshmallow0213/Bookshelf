@@ -1,6 +1,6 @@
 ﻿@model Adminlist
 @{
-    ViewData["Title"] = "管理員權限更改";
+    ViewData["Title"] = "代辦事項確認";
 }
 <style>
     .return {
@@ -76,15 +76,16 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Id)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.Id)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Date)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Date)</dd>
         <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Maintitle)</dt>
         <dd class="col-sm-9">@Html.DisplayFor(m => m.Maintitle)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.subtitle)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.subtitle)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Subtitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Subtitle)</dd>
     </dl>
 </div>
 <div>
     <a asp-controller="AdministratorToDoList" asp-action="done" asp-route-id="@Model.Id" class="common">確認完成</a>
+    <a asp-controller="AdministratorToDoList" asp-action="undone" asp-route-id="@Model.Id" class="Suspension">完成取消</a>
     <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
 </div>

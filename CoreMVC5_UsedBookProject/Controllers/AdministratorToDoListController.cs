@@ -32,7 +32,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         from u in _ctx.Adminlists
                         from r in _ctx.AdminRoles
                         where ur.ListId == u.Id && ur.RoleId == r.Id
-                        select new ToDoListViewModels { Id = u.Id, Maintitle = u.Maintitle, Subtitle = u.subtitle, RoleName = r.Name }).ToList();
+                        select new ToDoListViewModels { Id = u.Id, Date = u.Date, Maintitle = u.Maintitle, Subtitle = u.Subtitle, RoleName = r.Name }).ToList();
             foreach (var item in data)
             {
                 if (item.RoleName == "undone")
@@ -41,7 +41,15 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 else if (item.RoleName == "done")
                 {
-                    item.RoleName = "已完成";
+                    item.RoleName = "已完成待審核";
+                }
+                else if (item.RoleName == "checkF")
+                {
+                    item.RoleName = "審核失敗";
+                }
+                else if (item.RoleName == "checkT")
+                {
+                    item.RoleName = "審核成功";
                 }
             }
             return View(data);
@@ -53,10 +61,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         from u in _ctx.Adminlists
                         from r in _ctx.AdminRoles
                         where ur.ListId == u.Id && ur.RoleId == r.Id
-                        select new ToDoListViewModels { Id = u.Id, Maintitle = u.Maintitle, Subtitle = u.subtitle, RoleName = r.Name }).ToList();
+                        select new ToDoListViewModels { Id = u.Id, Date = u.Date, Maintitle = u.Maintitle, Subtitle = u.Subtitle, RoleName = r.Name }).ToList();
             foreach (var item in data)
             {
-                if (item.RoleName == "checkF")
+                if (item.RoleName == "undone")
+                {
+                    item.RoleName = "未完成";
+                }
+                else if (item.RoleName == "done")
+                {
+                    item.RoleName = "已完成待審核";
+                }
+                else if (item.RoleName == "checkF")
                 {
                     item.RoleName = "審核失敗";
                 }
@@ -73,7 +89,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DoListCreate([Bind("Id,Maintitle,subtitle")] Adminlist list)
+        public async Task<IActionResult> DoListCreate([Bind("Id,Date,Maintitle,Subtitle")] Adminlist list)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +99,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 var userRole = new AdminlistRole
                 {
                     ListId = list.Id,
-                    RoleId = "R001"
+                    RoleId = 1
                 };
 
                 _ctx.AdminlistRoles.Add(userRole);
@@ -95,13 +111,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(list);
         }
 
-        public async Task<IActionResult> DoListEdit(string id)
+        public async Task<IActionResult> DoListEdit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var list = await _ctx.Adminlists.Select(t => new ToDoListViewModels { Id = t.Id, Maintitle = t.Maintitle, Subtitle = t.subtitle }).FirstOrDefaultAsync(m => m.Id == id);
+            var list = await _ctx.Adminlists.Select(t => new ToDoListViewModels { Id = t.Id, Date = t.Date, Maintitle = t.Maintitle, Subtitle = t.Subtitle }).FirstOrDefaultAsync(m => m.Id == id);
             if (list == null)
             {
                 return NotFound();
@@ -110,7 +126,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DoListEdit(string id, [Bind("Id,Maintitle,Subtitle")] ToDoListViewModels List)
+        public async Task<IActionResult> DoListEdit(int id, ToDoListViewModels List)
         {
             if (id != List.Id)
             {
@@ -126,8 +142,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         return NotFound();
                     }
                     list.Id = List.Id;
+                    list.Date = List.Date;
                     list.Maintitle = List.Maintitle;
-                    list.subtitle = List.Subtitle;
+                    list.Subtitle = List.Subtitle;
 
                     await _ctx.SaveChangesAsync();
 
@@ -140,9 +157,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(List);
         }
-        public async Task<IActionResult> DoListDetail(string id)
+        public async Task<IActionResult> DoListDetail(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 var msgObject = new
                 {
@@ -161,9 +178,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(List);
         }
-        public async Task<IActionResult> DoListDelete(string id)
+        public async Task<IActionResult> DoListDelete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -176,16 +193,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost, ActionName("DoListDelete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var list = await _ctx.Adminlists.FindAsync(id);
             _ctx.Adminlists.Remove(list);
             await _ctx.SaveChangesAsync();
             return RedirectToAction("DoList");
         }
-        public async Task<IActionResult> DoListSuspension(string id)
+        public async Task<IActionResult> DoListSuspension(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 var msgObject = new
                 {
@@ -204,9 +221,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(List);
         }
-        public async Task<IActionResult> DoListSuspensionForCheck(string id)
+        public async Task<IActionResult> DoListSuspensionForCheck(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 var msgObject = new
                 {
@@ -225,9 +242,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return View(List);
         }
-        public IActionResult undone(string id)
+        public IActionResult undone(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -235,7 +252,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             try
             {
                 var data = _ctx.AdminlistRoles.Where(ur => ur.ListId == id).FirstOrDefault();
-                var role = _ctx.AdminRoles.Where(r => r.Name == "udone").FirstOrDefault();
+                var role = _ctx.AdminRoles.Where(r => r.Name == "undone").FirstOrDefault();
                 if (data != null && role != null)
                 {
                     var newUserRole = new AdminlistRole
@@ -255,9 +272,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return RedirectToAction("DoList");
         }
-        public IActionResult done(string id)
+        public IActionResult done(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -285,9 +302,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
             return RedirectToAction("DoList");
         }
-        public IActionResult checkF(string id)
+        public IActionResult checkF(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -313,11 +330,11 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return BadRequest(ex.Data);
             }
 
-            return RedirectToAction("DoList");
+            return RedirectToAction("DoListForCheck");
         }
-        public IActionResult checkT(string id)
+        public IActionResult checkT(int id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -343,7 +360,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return BadRequest(ex.Data);
             }
 
-            return RedirectToAction("DoList");
+            return RedirectToAction("DoListForCheck");
         }
     }
 }

@@ -58,23 +58,23 @@ namespace CoreMVC5_UsedBookProject.Data
 
 
             modelBuilder.Entity<Adminlist>().HasData(
-                new Adminlist { Id = "2023/07/16", Maintitle = "帶烏龜看醫生", subtitle = "帶烏龜到334桃園市八德區介壽路一段248-1號(丹尼爾動物醫院)看醫生，並且要確定身高體重以及服藥次數" },
-                new Adminlist { Id = "2023/07/18", Maintitle = "買便當回管理員室", subtitle = "因為平常樓下便當實在太難吃了，所以老闆希望可以買山下平常聚會地點的羊肉爐"},
-                new Adminlist { Id = "2023/07/20", Maintitle = "倒垃圾", subtitle = "管理員室的垃圾已經推積如山，所以要盡快完成"}
+                new Adminlist { Id = 1,Date = "2023/07/17", Maintitle = "帶烏龜看醫生", Subtitle = "帶烏龜到334桃園市八德區介壽路一段248-1號(丹尼爾動物醫院)看醫生，並且要確定身高體重以及服藥次數" },
+                new Adminlist { Id = 2, Date = "2023/07/18", Maintitle = "買便當回管理員室", Subtitle = "因為平常樓下便當實在太難吃了，所以老闆希望可以買山下平常聚會地點的羊肉爐"},
+                new Adminlist { Id = 3, Date = "2023/07/19", Maintitle = "倒垃圾", Subtitle = "管理員室的垃圾已經推積如山，所以要盡快完成"}
                 );
 
             modelBuilder.Entity<AdminRole>().HasData(
-                new AdminRole { Id = "R001", Name = "undone" },
-                new AdminRole { Id = "R002", Name = "done" },
-                new AdminRole { Id = "R003", Name = "checkF" },
-                new AdminRole { Id = "R004", Name = "checkT" }
+                new AdminRole { Id = 1, Name = "undone" },
+                new AdminRole { Id = 2, Name = "done" },
+                new AdminRole { Id = 3, Name = "checkF" },
+                new AdminRole { Id = 4, Name = "checkT" }
                 );
 
             modelBuilder.Entity<AdminlistRole>()
                 .HasData(
-                new AdminlistRole { ListId = "2023/07/16", RoleId = "R001" },
-                new AdminlistRole { ListId = "2023/07/18", RoleId = "R001" },
-                new AdminlistRole { ListId = "2023/07/20", RoleId = "R001" }
+                new AdminlistRole { ListId = 1, RoleId = 1 },
+                new AdminlistRole { ListId = 2, RoleId = 2 },
+                new AdminlistRole { ListId = 3, RoleId = 3 }
                 );
 
 

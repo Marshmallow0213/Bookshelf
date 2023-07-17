@@ -43,15 +43,15 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Id)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.Id)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Date)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Date)</dd>
         <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Maintitle)</dt>
         <dd class="col-sm-9">@Html.DisplayFor(m => m.Maintitle)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.subtitle)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(m => m.subtitle)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Subtitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Subtitle)</dd>
     </dl>
 </div>
 <div>
-    <a asp-controller="AdministratorToDoList" asp-action="DoListEdit" asp-route-id="@Model.Id" class="btnadmin" style="width:100px;height:40px;background-color:blue; text-decoration:none; color:white;">編輯</a>
+    <a href="/AdministratorToDoList/DoListEdit?id=@Model.Id" class="btnadmin" style="width:100px;height:40px;background-color:blue; text-decoration:none; color:white;">編輯</a>
     <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
 </div>

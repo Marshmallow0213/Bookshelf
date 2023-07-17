@@ -8,7 +8,7 @@ namespace CoreMVC5_UsedBookProject.Models
 {
     public class AdminRole
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }
