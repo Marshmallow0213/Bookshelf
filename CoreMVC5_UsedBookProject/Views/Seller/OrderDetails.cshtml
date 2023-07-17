@@ -27,7 +27,7 @@
             <p><span>@Html.DisplayNameFor(model => model.SellerAuthor) </span><span>@Model.SellerAuthor</span></p>
         </div>
         <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-            <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
+            <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
         </div>
     </div>
     <br />
@@ -37,8 +37,8 @@
             <form action="~/Seller/OrderDetails" method="post">
                 <input type="hidden" name="OrderId" value="@Model.OrderId">
                 <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-primary mr-2" name="submit" value="接受交易">接受交易</button>
-                <button type="submit" class="btn btn-danger mr-2" name="submit" value="拒絕交易">拒絕交易</button>
+                <button type="submit" class="btn btn-outline-primary mr-2" name="submit" value="接受交易">接受交易</button>
+                <button type="submit" class="btn btn-outline-danger mr-2" name="submit" value="拒絕交易">拒絕交易</button>
             </form>
         }
         @if (Model.Status == "待取消")
@@ -46,10 +46,10 @@
             <form action="~/Seller/OrderDetails" method="post">
                 <input type="hidden" name="OrderId" value="@Model.OrderId">
                 <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
+                <button type="submit" class="btn btn-outline-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
             </form>
         }
-        <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
+        <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">取消</button>
     </div>
 </div>
 @section topCSS{

@@ -11,8 +11,8 @@
     <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
     <p class="my-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
     <div class="d-flex my-3 gap-10px">
-        <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-secondary" : "btn-primary")" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
-        <a type="button" href="https://isbn.ncl.edu.tw/NEW_ISBNNet/H30_SearchBooks.php?&Pact=DisplayAll4Simple" value="library" target="_blank" class="btn btn-primary">前往國家圖書館</a>
+        <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-outline-secondary" : "btn-outline-primary")" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
+        <a type="button" href="https://isbn.ncl.edu.tw/NEW_ISBNNet/H30_SearchBooks.php?&Pact=DisplayAll4Simple" value="library" target="_blank" class="btn btn-outline-primary">前往國家圖書館</a>
     </div>
     <ul class="nav nav-pills my-3 gap-10px status">
         <li class="nav-item d-flex">
@@ -63,15 +63,15 @@
                     <p><span>@Html.DisplayNameFor(model => model.Product.Author) </span><span>@item.Author</span></p>
                 </div>
                 <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-info mt-2"><i class="bi bi-info-circle"></i> 詳情</a>
+                    <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-outline-info mt-2"><i class="bi bi-info-circle"></i> 詳情</a>
                     @if (item.Status == "已上架" || item.Status == "未上架")
                     {
-                        <a href="@Url.Action("Edit", "Seller", new {ProductId = item.ProductId})" class="btn btn-warning mt-2"><i class="bi bi-pencil-square"></i> 編輯</a>
+                        <a href="@Url.Action("Edit", "Seller", new {ProductId = item.ProductId})" class="btn btn-outline-warning mt-2"><i class="bi bi-pencil-square"></i> 編輯</a>
                     }
                     @if (item.Status == "未上架")
                     {
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#staticBackdrop">
+                        <button type="button" class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#staticBackdrop">
                             <i class="bi bi-trash"></i> 刪除
                         </button>
 
@@ -89,8 +89,8 @@
                                         確認移至刪除區?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                        <a href="@Url.Action("Delete", "Seller", new {ProductId = item.ProductId, Trade = item.Trade})" class="btn btn-danger"><i class="bi bi-trash"></i> 刪除</a>
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                                        <a href="@Url.Action("Delete", "Seller", new {ProductId = item.ProductId, Trade = item.Trade})" class="btn btn-outline-danger"><i class="bi bi-trash"></i> 刪除</a>
                                     </div>
                                 </div>
                             </div>

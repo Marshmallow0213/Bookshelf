@@ -10,10 +10,10 @@
     {
         @*已登入*@
         //顯示使用者名稱+登出按鈕
-        <li class="d-flex align-items-center justify-content-center order-sm-1">
-            <label for="switch-login" class="mb-0 px-2" id="login" onclick="loginMenuFull()">
+        <li class="d-flex align-items-center justify-content-center ml-auto">
+            <label for="switch-login" class="mb-0 px-2 d-flex align-items-center justify-content-center btn-custom" onclick="loginMenuFull()">
                 <img class="p-2" src="/Images/Users/@User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='/DeafultPictures/EmptyUserIcon.png';">
-                <a id="login-nickname" class="px-2">
+                <a id="login-nickname" class="px-2 text-dark">
                     @User.Identity.Name
                 </a>
             </label><!--漢堡按鈕圖示-->
@@ -31,9 +31,8 @@
         </li>
     }
 }
-else
-{
-    <li class="nav-item px-2 aside-link order-sm-1">
-        <a class="nav-link text-dark" href="@Url.Action("Login", "Account", new {})">登入</a>
+else {
+    <li class="nav-item px-2 ml-auto">
+        <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Login", "Account", new {})">登入</a>
     </li>
 }
