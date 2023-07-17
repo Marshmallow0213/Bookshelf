@@ -1,14 +1,4 @@
-﻿.btn-outline-green {
-    border: 1px solid green;
-    color: green;
-}
-
-.btn-outline-green:hover {
-    border: 1px solid green;
-    color: green;
-}
-
-tr > td:first-of-type {
+﻿tr > td:first-of-type {
     width: 125px;
 }
 

@@ -20,12 +20,12 @@
             <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Image1)</td>
             <td>
                 <input type="hidden" name="Image1" class="form-control" value="@(Model.Image1 == null ? "無圖片" : Model.Image1)" id="Image1" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image1-clear" disabled>X</button>
+                <button type="button" class="btn btn-outline-danger d-none" id="Image1-clear" disabled>X</button>
                 <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img1" id="img1" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file1" class="btn btn-primary">
+                    <label for="file1" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" asp-for="File1" class="d-none" accept="image/*" id="file1" />
@@ -38,12 +38,12 @@
             <td>@Html.DisplayNameFor(model => model.Image2)</td>
             <td>
                 <input type="hidden" name="Image2" class="form-control" value="@(Model.Image2 == null ? "無圖片" : Model.Image2)" id="Image2" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image2-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image2-clear">X</button>
                 <div id="img2Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img2" id="img2" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file2" class="btn btn-primary">
+                    <label for="file2" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file2" accept="image/*" id="file2" />
@@ -55,12 +55,12 @@
             <td>@Html.DisplayNameFor(model => model.Image3)</td>
             <td>
                 <input type="hidden" name="Image3" class="form-control" value="@(Model.Image3 == null ? "無圖片" : Model.Image3)" id="Image3" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image3-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image3-clear">X</button>
                 <div id="img3Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img3" id="img3" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file3" class="btn btn-primary">
+                    <label for="file3" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file3" accept="image/*" id="file3" />
@@ -72,12 +72,12 @@
             <td>@Html.DisplayNameFor(model => model.Image4)</td>
             <td>
                 <input type="hidden" name="Image4" class="form-control" value="@(Model.Image4 == null ? "無圖片" : Model.Image4)" id="Image4" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image4-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image4-clear">X</button>
                 <div id="img4Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img4" id="img4" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file4" class="btn btn-primary">
+                    <label for="file4" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file4" accept="image/*" id="file4" />
@@ -89,12 +89,12 @@
             <td>@Html.DisplayNameFor(model => model.Image5)</td>
             <td>
                 <input type="hidden" name="Image5" class="form-control" value="@(Model.Image5 == null ? "無圖片" : Model.Image5)" id="Image5" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image5-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image5-clear">X</button>
                 <div id="img5Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img5" id="img5" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file5" class="btn btn-primary">
+                    <label for="file5" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file5" accept="image/*" id="file5" />
@@ -106,12 +106,12 @@
             <td>@Html.DisplayNameFor(model => model.Image6)</td>
             <td>
                 <input type="hidden" name="Image6" class="form-control" value="@(Model.Image6 == null ? "無圖片" : Model.Image6)" id="Image6" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image6-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image6-clear">X</button>
                 <div id="img6Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img6" id="img6" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file6" class="btn btn-primary">
+                    <label for="file6" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file6" accept="image/*" id="file6" />
@@ -123,12 +123,12 @@
             <td>@Html.DisplayNameFor(model => model.Image7)</td>
             <td>
                 <input type="hidden" name="Image7" class="form-control" value="@(Model.Image7 == null ? "無圖片" : Model.Image7)" id="Image7" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image7-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image7-clear">X</button>
                 <div id="img7Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img7" id="img7" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file7" class="btn btn-primary">
+                    <label for="file7" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file7" accept="image/*" id="file7" />
@@ -140,12 +140,12 @@
             <td>@Html.DisplayNameFor(model => model.Image8)</td>
             <td>
                 <input type="hidden" name="Image8" class="form-control" value="@(Model.Image8 == null ? "無圖片" : Model.Image8)" id="Image8" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image8-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image8-clear">X</button>
                 <div id="img8Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img8" id="img8" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file8" class="btn btn-primary">
+                    <label for="file8" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file8" accept="image/*" id="file8" />
@@ -157,12 +157,12 @@
             <td>@Html.DisplayNameFor(model => model.Image9)</td>
             <td>
                 <input type="hidden" name="Image9" class="form-control" value="@(Model.Image9 == null ? "無圖片" : Model.Image9)" id="Image9" readonly />
-                <button type="button" class="btn btn-danger d-block" id="Image9-clear">X</button>
+                <button type="button" class="btn btn-outline-danger d-block" id="Image9-clear">X</button>
                 <div id="img9Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black;">
                     <img src="" alt="img9" id="img9" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
                 </div>
                 <div class="d-flex align-items-end mt-2">
-                    <label for="file9" class="btn btn-primary">
+                    <label for="file9" class="btn btn-outline-primary">
                         <i class="bi bi-upload"></i> 選擇檔案
                     </label>
                     <input type="file" class="d-none" name="file9" accept="image/*" id="file9" />

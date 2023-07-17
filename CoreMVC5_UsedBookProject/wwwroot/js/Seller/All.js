@@ -32,17 +32,6 @@ function scrollFunction() {
 function topFunction() {
     $("html, body").animate({ scrollTop: 0 }, "slow");
 }
-$('body').on('click', function (e) {
-    let menu = document.querySelector('.login-menu');
-    let classes = e.target.classList.contains('login-menu-full');
-    if (!menu.contains(e.target) && classes == true) {
-        $('#switch-login').prop("checked", false);
-    };
-});
-function loginMenuFull() {
-    let menu = document.querySelector('.login-menu-full');
-    menu.style.height = $(document).height() + 'px';
-}
 // Home Index Search
 function getPredictions() {
     var searchText = $('#searchInput').val();

@@ -9,29 +9,29 @@
 
 <div class="container-fluid gap-10px">
     <h1>@(ViewBag.trade == "交換" ? "交換" : "買賣")訂單紀錄</h1>
-    <ul class="nav nav-pills my-3 gap-10px status">
+    <ul class="nav nav-pills my-3 gap-10px">
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySales", "Buyer", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
+            <a href="@Url.Action("MySales", "Buyer", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none status" style="@(Model.StatusPage == "全部" ? "color: red; border-bottom: 2px solid red;" : "")">全部</a>
             <span style="color: red;">@Model.OrdersCount["全部"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySales", "Buyer", new {status = "待確認", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待確認" ? "color: red; border-bottom: 2px solid red;" : "")">待確認</a>
+            <a href="@Url.Action("MySales", "Buyer", new {status = "待確認", trade = ViewBag.trade})" class="text-decoration-none status" style="@(Model.StatusPage == "待確認" ? "color: red; border-bottom: 2px solid red;" : "")">待確認</a>
             <span style="color: red;">@Model.OrdersCount["待確認"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySales", "Buyer", new {status = "已成立", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已成立" ? "color: red; border-bottom: 2px solid red;" : "")">已成立</a>
+            <a href="@Url.Action("MySales", "Buyer", new {status = "已成立", trade = ViewBag.trade})" class="text-decoration-none status" style="@(Model.StatusPage == "已成立" ? "color: red; border-bottom: 2px solid red;" : "")">已成立</a>
             <span style="color: red;">@Model.OrdersCount["已成立"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySales", "Buyer", new {status = "不成立", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "不成立" ? "color: red; border-bottom: 2px solid red;" : "")">不成立</a>
+            <a href="@Url.Action("MySales", "Buyer", new {status = "不成立", trade = ViewBag.trade})" class="text-decoration-none status" style="@(Model.StatusPage == "不成立" ? "color: red; border-bottom: 2px solid red;" : "")">不成立</a>
             <span style="color: red;">@Model.OrdersCount["不成立"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySales", "Buyer", new {status = "已完成", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "已完成" ? "color: red; border-bottom: 2px solid red;" : "")">已完成</a>
+            <a href="@Url.Action("MySales", "Buyer", new {status = "已完成", trade = ViewBag.trade})" class="text-decoration-none status" style="@(Model.StatusPage == "已完成" ? "color: red; border-bottom: 2px solid red;" : "")">已完成</a>
             <span style="color: red;">@Model.OrdersCount["已完成"] </span>
         </li>
         <li class="nav-item d-flex">
-            <a href="@Url.Action("MySales", "Buyer", new {status = "待取消", trade = ViewBag.trade})" class="text-decoration-none" style="@(Model.StatusPage == "待取消" ? "color: red; border-bottom: 2px solid red;" : "")">待取消</a>
+            <a href="@Url.Action("MySales", "Buyer", new {status = "待取消", trade = ViewBag.trade})" class="text-decoration-none status" style="@(Model.StatusPage == "待取消" ? "color: red; border-bottom: 2px solid red;" : "")">待取消</a>
             <span style="color: red;">@Model.OrdersCount["待取消"] </span>
         </li>
     </ul>

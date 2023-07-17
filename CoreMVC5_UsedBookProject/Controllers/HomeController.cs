@@ -155,7 +155,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var predictions = _context.Products
                 .Where(p => p.Title.Contains(searchText) && p.Status == "已上架")
                 .Select(p => p.Title)
-                .ToList();
+                .Take(15).ToList();
             if (predictions.Count == 0)
             {
                 predictions = _context.Products.Where(p => p.ISBN.Contains(searchText))
