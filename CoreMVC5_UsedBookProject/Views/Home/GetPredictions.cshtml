@@ -13,13 +13,9 @@
     }
 </style>
 
-<ul class="list-unstyled " style="position:absolute; top:40px; left:10px ; background-color:black ;width:200px ;border-radius:10px" >
-    @foreach (var prediction in Model)
+<ul class="list-unstyled " style="position:absolute; top:40px; left:10px ; background-color:black ;width:200px ;border-radius:10px; z-index: 1;" >
+    @for (int i = 0; i < Model.Count; i++)
     {
-
-
-        <li  id="@prediction" class="lihover" onclick="clicksearch('@prediction')" style="color:white;padding-left:5px;border-bottom:1px solid white" >@prediction</li>
-       
-            
+        <li id="@i" class="lihover" onclick="clicksearch('@i')" style="color:white;padding-left:5px;border-bottom:1px solid white">@Model[i]</li>
     }
 </ul>
