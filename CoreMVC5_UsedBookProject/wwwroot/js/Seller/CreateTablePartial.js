@@ -143,3 +143,11 @@ if (fileMessage.innerText == "圖片封面不可為空!") {
         'error'
     )
 }
+let tradeMessage = document.querySelector("#tradeMessage");
+if (tradeMessage.innerText == "交易方式不可為空!") {
+    Swal.fire(
+        '交易方式不可為空!',
+        '',
+        'error'
+    )
+}
