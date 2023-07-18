@@ -113,7 +113,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public async Task<IActionResult> DoListEdit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }

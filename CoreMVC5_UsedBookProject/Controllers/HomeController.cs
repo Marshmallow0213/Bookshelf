@@ -2,6 +2,7 @@
 using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -171,7 +172,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var predictions = GetPredictionsFromData(searchText);
             return PartialView("GetPredictions", predictions);
         }
-
         public IActionResult Wish(int now_page)
         {
             now_page = now_page == 0 ? 1 : now_page;

@@ -135,3 +135,11 @@ function process(input) {
     input.value = numbers;
 }
 //end
+let fileMessage = document.querySelector("#fileMessage");
+if (fileMessage.innerText == "圖片封面不可為空!") {
+    Swal.fire(
+        '圖片封面不可為空!',
+        '',
+        'error'
+    )
+}
