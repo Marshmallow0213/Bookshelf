@@ -31,3 +31,15 @@
 }
 @media (min-width:1200px) {
 }
+.btn-outline-info {
+    background-color: white;
+    color: blue;
+}
+.btn-outline-warning {
+    background-color: white;
+    color: orangered;
+}
+.btn-outline-danger {
+    background-color: white;
+    color: red;
+}
