@@ -135,10 +135,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View();
         }
         [Authorize(Roles = "User")]
-        public IActionResult Details()
+        public IActionResult Details(string ReturnUrl)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var user = _accountService.GetUser(name);
+            if (ReturnUrl == "/Changed")
+            {
+                TempData["Message"] = "使用者資訊變更成功!";
+            }
             return View(user);
         }
 
@@ -198,9 +202,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 _ctx.SaveChanges();
                 _accountService.UploadImages(userViewModel.File1, user.Id);
-                TempData["Message"] = "使用者資訊變更成功!";
-                var _user = _accountService.GetUser(name);
-                return View(_user);
+                return RedirectToAction("Details", new { ReturnUrl = "/Changed" });
             }
             return View(userViewModel);
         }

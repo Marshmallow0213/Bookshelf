@@ -25,7 +25,7 @@
                 <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Index", "Seller", new {})"><i class="bi bi-shop"></i> 賣家中心</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Index", "Buyer", new {})"><i class="bi bi-shop"></i> 買家中心</a>
+                <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("MySales", "Buyer", new {trade = "買賣"})"><i class="bi bi-shop"></i> 買家中心</a>
             </li>
         }
     }
@@ -76,9 +76,6 @@ else if (controller == "Account" && (action != "Login" && action != "RegisterUse
 }
 else if (controller == "Buyer")
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Index", "Buyer", new {})"><i class="bi bi-file-text-fill"></i> 買家中心</a>
-    </li>
     <li class="nav-item">
         <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("MySales", "Buyer", new {trade = "買賣"})"><i class="bi bi-file-text-fill"></i> 買賣訂單紀錄</a>
     </li>

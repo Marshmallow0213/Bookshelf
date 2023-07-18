@@ -8,7 +8,7 @@
     string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
     string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
 }
-<nav aria-label="Page navigation example" class="my-5">
+<nav aria-label="Page navigation example" class="mt-2">
     <ul class="pagination justify-content-center">
         <li class="page-item">
             <a class="page-link" href="@Url.Action(action, controller, new {now_page = Model.PagesCount[0]-1, trade = ViewBag.trade})" aria-label="Previous" style="@(Model.PagesCount[0]-1 < 1 ? "pointer-events: none;" : "")">
