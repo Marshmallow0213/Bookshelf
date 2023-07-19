@@ -31,7 +31,7 @@
                                 確認要送出購買訂單?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
                                 <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade, Order = "買賣"})" class="btn btn-primary">確認</a>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                 確認要送出交換訂單?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
                                 <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade, Order = "交換"})" class="btn btn-primary">確認</a>
                             </div>
                         </div>
@@ -101,12 +101,12 @@ else if(controller == "Seller" && action == "Details"){
                         確認移至刪除區?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">返回</button>
                         <a href="@Url.Action("Delete", "Seller", new {ProductId = Model.ProductId, Trade = Model.Trade})" class="btn btn-outline-danger mt-2"><i class="bi bi-trash"></i> 刪除</a>
                     </div>
                 </div>
             </div>
         </div>
     }
-    <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">取消</button>
+    <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">返回</button>
 }

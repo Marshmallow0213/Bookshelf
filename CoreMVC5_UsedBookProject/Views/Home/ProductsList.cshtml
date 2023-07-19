@@ -5,18 +5,18 @@
 }
 <div class="container-fluid">
     <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")賣場</h1>
-    <div class="d-flex justify-content-between flex-wrap">
+    <div class="d-flex flex-wrap">
         @if (Model.Products.Count > 0)
         {
             @foreach (var item in Model.Products)
             {
-                <div class="p-2 product-shop-card my-1">
+                <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="p-2 product-shop-card my-1 text-decoration-none">
                     <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
                         <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                     </div>
                     <div class="container-fluid my-2">
-                        <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})"><h2 title="@item.Title">@item.Title</h2></a>
-                        @if (item.Trade.Contains("買賣"))
+                        <p title="@item.Title">@item.Title</p>
+                        @if (ViewBag.Trade == "買賣")
                         {
                             <h3>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</h3>
                         }
@@ -25,12 +25,12 @@
                             <h3>&nbsp;</h3>
                         }
                     </div>
-                </div>
+                </a>
             }
         }
         else
         {
-            <div class="p-2 product-card">
+            <div class="p-2 product-shop-card d-flex justify-content-center align-items-center">
                 <h2 class="my-5">沒有上架的商品</h2>
             </div>
         }
@@ -39,5 +39,5 @@
 <partial name="_NowPageMyProductsPartial" />
 
 @section topCSS{
-    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/css/home/myproducts.css" asp-append-version="true" rel="stylesheet" />
 }

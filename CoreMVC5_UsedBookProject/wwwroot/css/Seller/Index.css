@@ -1,29 +1,4 @@
-﻿.product-card {
-    border: 2px solid #ffd700;
-    border-radius: 15px;
-    background-color: #232323;
-    width: 300px;
-    height: 575px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-    .product-card > div > h2 {
-        color: white;
-        height: 76.8px;
-        overflow: hidden;
-    }
-
-    .product-card > div > p:nth-of-type(2) {
-        overflow: hidden;
-        height: 48px;
-    }
-
-    .product-card > div > h3, .product-card > div > p > span, .product-card > h2 {
-        color: white;
-        overflow: hidden;
-    }
-@media (min-width:576px) {
+﻿@media (min-width:576px) {
 }
 @media (min-width:768px) {
 }
@@ -35,12 +10,10 @@
     background-color: white;
     color: blue;
 }
-
 .btn-outline-warning {
     background-color: white;
     color: orangered;
 }
-
 .btn-outline-danger {
     background-color: white;
     color: red;
@@ -162,6 +135,7 @@
     .headerrow td {
         color: #ffffff;
         text-align: center;
+        height: 75px;
     }
 
 .fancytable > tbody:nth-child(odd) {
@@ -174,12 +148,16 @@
 
 .fancytable > tbody:nth-child(odd) td {
     background-color: #ffffff;
+    height: 75px;
 }
 
 .fancytable > tbody:nth-child(even) td {
     background-color: #efefef;
+    height: 75px;
 }
-
+.fancytable > tbody > tr > td > p, .fancytable > thead > tr > td {
+    font-size: 24px;
+}
 .sexyborder {
     border: 1px solid #0066cc;
     padding: 5px;

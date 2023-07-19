@@ -8,45 +8,48 @@
 <div class="container-fluid">
     <h1>賣家中心</h1>
     <h2><strong>買賣</strong>待處理事項</h2>
-    <div class="row">
-        <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[0]["待確認"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
-                <p class="text-center" style="@(@Model[0]["待確認"] > 0 ? "color: red;" : "")">@Model[0]["待確認"]</p>
-                <p class="text-center">待確認訂單</p>
-            </div>
-        </div>
-        <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[0]["已成立"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
-                <p class="text-center" style="@(@Model[0]["已成立"] > 0 ? "color: red;" : "")">@Model[0]["已成立"]</p>
-                <p class="text-center">已成立訂單</p>
-            </div>
-        </div>
-        <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[0]["待取消"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
-                <p class="text-center" style="@(@Model[0]["待取消"] > 0 ? "color: red;" : "")">@Model[0]["待取消"]</p>
-                <p class="text-center">待取消訂單</p>
-            </div>
-        </div>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 33%;">待確認訂單</td><td style="width: 33%;">已成立訂單</td><td style="width: 33%;">待取消訂單</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-center" style="@(@Model[0]["待確認"] > 0 ? "color: red;" : "")">@Model[0]["待確認"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[0]["已成立"] > 0 ? "color: red;" : "")">@Model[0]["已成立"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[0]["待取消"] > 0 ? "color: red;" : "")">@Model[0]["待取消"]</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <h2><strong>交換</strong>待處理事項</h2>
-    <div class="row">
-        <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[1]["待確認"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
-                <p class="text-center" style="@(@Model[1]["待確認"] > 0 ? "color: red;" : "")">@Model[1]["待確認"]</p>
-                <p class="text-center">待確認訂單</p>
-            </div>
-        </div>
-        <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[1]["已成立"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
-                <p class="text-center" style="@(@Model[1]["已成立"] > 0 ? "color: red;" : "")">@Model[1]["已成立"]</p>
-                <p class="text-center">已成立訂單</p>
-            </div>
-        </div>
-        <div class="col-4 px-1 my-1">
-            <div class="py-2" style="@(Model[1]["待取消"] > 0 ? "border: 1px solid red;" : "border: 1px solid black;") background-color: #80808025;">
-                <p class="text-center" style="@(@Model[1]["待取消"] > 0 ? "color: red;" : "")">@Model[1]["待取消"]</p>
-                <p class="text-center">待取消訂單</p>
-            </div>
-        </div>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 33%;">待確認訂單</td><td style="width: 33%;">已成立訂單</td><td style="width: 33%;">待取消訂單</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-center" style="@(@Model[1]["待確認"] > 0 ? "color: red;" : "")">@Model[1]["待確認"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[1]["已成立"] > 0 ? "color: red;" : "")">@Model[1]["已成立"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[1]["待取消"] > 0 ? "color: red;" : "")">@Model[1]["待取消"]</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+@section topCSS{
+    <link href="~/css/seller/index.css" asp-append-version="true" rel="stylesheet" />
+}
