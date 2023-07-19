@@ -73,7 +73,7 @@
             }
         }
     }
-    <button type="button" class="btn btn-outline-secondary my-2 p-3" id="shoppingcart" value="@Model.ProductId">增加至購物車</button>
+    <button type="button" class="btn btn-outline-success my-2 p-3" id="shoppingcart" value="@Model.ProductId"><i class="bi bi-cart4"></i> 增加至購物車</button>
 }
 else if(controller == "Seller" && action == "Details"){
     @if (Model.Status == "已上架" || Model.Status == "未上架")

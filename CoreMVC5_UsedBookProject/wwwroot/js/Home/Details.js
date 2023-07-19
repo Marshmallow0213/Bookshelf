@@ -36,12 +36,7 @@ shoppingcart.addEventListener("click", () => {
     var id = document.getElementById("shoppingcart").value;
     var myCookie = getCookie("Login");
     if (myCookie == null) {
-        Swal.fire({
-            icon: 'error',
-            title: '請先登入後再操作',
-            text: '',
-            footer: '<a href="/Account/Login">登入</a>'
-        })
+        window.location.href = `/Account/Login?ReturnUrl=ProductId-${id}`;
     }
     else {
         AddToShoppingcart(id);
@@ -71,12 +66,8 @@ function checklogin() {
     let createby = document.getElementById("CreateBy");
     let meid = document.getElementById("MeId");
     if (myCookie == null) {
-        Swal.fire({
-            icon: 'error',
-            title: '請先登入後再操作',
-            text: '',
-            footer: '<a href="/Account/Login">登入</a>'
-        })
+        var id = document.getElementById("shoppingcart").value;
+        window.location.href = `/Account/Login?ReturnUrl=ProductId-${id}`;
     }
     else if (createby.value == meid.value) {
         Swal.fire(

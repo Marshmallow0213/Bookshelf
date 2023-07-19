@@ -117,7 +117,18 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     return LocalRedirect("~/Seller/Index");
                 }
-                return LocalRedirect("~/Home/Index");
+                try
+                {
+                    var ProductId = ReturnUrl.Split('-');
+                    if (ProductId[0] == "ProductId")
+                    {
+                        return LocalRedirect($"~/Home/Details?ProductId={ProductId[1]}");
+                    }
+                }
+                catch
+                {
+                    return LocalRedirect("~/Home/Index");
+                }
             }
 
             return View(loginVM);
