@@ -119,10 +119,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 try
                 {
-                    var ProductId = ReturnUrl.Split('-');
-                    if (ProductId[0] == "ProductId")
+                    if(ReturnUrl != null)
                     {
-                        return LocalRedirect($"~/Home/Details?ProductId={ProductId[1]}");
+                        var ProductId = ReturnUrl.Split('-');
+                        if (ProductId[0] == "ProductId")
+                        {
+                            return LocalRedirect($"~/Home/Details?ProductId={ProductId[1]}");
+                        }
+                    }
+                    else
+                    {
+                        return LocalRedirect("~/Home/Index");
                     }
                 }
                 catch
