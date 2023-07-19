@@ -14,6 +14,7 @@
         <partial name="~/Views/Seller/EditTablePartial/ProductImage.cshtml" />
         <partial name="~/Views/Seller/EditTablePartial/SaleInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
+        <div id="resultContainer" class="d-none"></div>
         <br />
         <div>
             <button type="submit" name="Status" class="btn btn-outline-success disable-onbeforeunload" value="已上架"><i class="bi bi-save"></i> 儲存並上架</button>
@@ -29,6 +30,6 @@
 
 @section endJS{
     <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
-    <script src="~/js/seller/createtablepartial.js" asp-append-version="true"></script>
+    <script src="~/js/seller/edittablepartial.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
 }

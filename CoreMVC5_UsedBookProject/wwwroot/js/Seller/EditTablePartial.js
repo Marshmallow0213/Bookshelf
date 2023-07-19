@@ -52,7 +52,7 @@ function ShowLength(element) {
 }
 //end
 //start check img value valid
-for (let i = 1; i <= 9; i++) {
+for (let i = 2; i <= 9; i++) {
     let preImg = document.getElementById(`Image${i}`).value;
     let preId = document.getElementById(`ProductId`).value;
     let preUserId = document.getElementById(`CreateBy`).value;

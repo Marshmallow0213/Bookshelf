@@ -179,17 +179,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     )
                     .ToList();
             List<string> Titleproducts = new();
-            Titleproducts = _context.Products
-                .Where(p => p.Status == "已上架")
-                .OrderByDescending(p => p.CreateDate)
-                .Select(p => p.Title
-                )
-                .ToList();
             WishsViewModel wishs = new()
             {
                 Wishs = wishlist,
                 ISBNproducts = ISBNproducts,
-                Titleproducts = Titleproducts,
                 PagesCount = new int[] { now_page, all_pages }
             };
             return View(wishs);
@@ -201,13 +194,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (ModelState.IsValid)
             {
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
-                _context.Wishes.Add(bookWish);
-                _context.SaveChanges();
+                var wish = _context.Wishes.Where(w => w.Id == name && w.ISBN == book.ISBN).FirstOrDefault();
+                if (wish == null)
+                {
+                    Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
+                    _context.Wishes.Add(bookWish);
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("Wish", new {});
             }
             else {
-                return RedirectToAction("Wish", new {});
+                return View(book);
             }
         }
 

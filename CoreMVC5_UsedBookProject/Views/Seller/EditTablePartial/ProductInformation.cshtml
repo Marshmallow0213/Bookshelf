@@ -24,6 +24,16 @@
             </tr>
         }
         <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ISBN)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="ISBN" class="form-control show-length" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
+                    <p id="ISBN_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
             <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Title)</td>
             <td>
                 <div class="d-flex">
@@ -61,16 +71,6 @@
                     <p id="Degree_length" class="text-right ml-4"></p>
                 </div>
                 <span asp-validation-for="Degree" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ISBN)</td>
-            <td>
-                <div class="d-flex">
-                    <textarea asp-for="ISBN" class="form-control show-length" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
-                    <p id="ISBN_length" class="text-right ml-4"></p>
-                </div>
-                <span asp-validation-for="ISBN" class="text-danger"></span>
             </td>
         </tr>
         <tr>

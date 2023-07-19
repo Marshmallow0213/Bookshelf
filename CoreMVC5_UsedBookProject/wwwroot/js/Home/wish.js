@@ -3,10 +3,21 @@
     const isbn = document.getElementById("ISBN").value;
 
     if (!isbn) {
-        alert("ISBN 號碼不能為空");
+        Swal.fire(
+            'ISBN 號碼不能為空',
+            '',
+            'error'
+        )
         return;
     }
-
+    if (isbn.length != 13) {
+        Swal.fire(
+            'ISBN須為13碼',
+            '',
+            'error'
+        )
+        return;
+    }
     const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`;
 
     fetch(apiUrl)
@@ -37,7 +48,7 @@ function displayResult(data) {
         resultContainer.innerHTML = bookDetails;
         Swal.fire(
             '找到書籍',
-            '',
+            '已自動填入',
             'success'
         )
     } else {
