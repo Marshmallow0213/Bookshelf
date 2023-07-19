@@ -1,8 +1,9 @@
 ﻿.page-link {
-    background-color: #282B2E05;
+    background-color: white;
+    color: black;
 }
     .page-link:hover {
-        background-color: #282B2E !important;
+        background-color: black !important;
         color: white;
     }
 

@@ -16,7 +16,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <h2 class="text-left">@Model.BuyerName</h2>
+                        <p class="text-left">@Model.BuyerName</p>
                     </td>
                     <td>
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
@@ -24,10 +24,10 @@
                         </div>
                     </td>
                     <td>
-                        <h2 title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</h2>
+                        <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
                     </td>
                     <td>
-                        <h3>&nbsp;</h3>
+                        <p>&nbsp;</p>
                     </td>
                     <td>
                         <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
@@ -44,10 +44,10 @@
             <tbody>
                 <tr>
                     <td>
-                        <h2 class="text-left">@Model.Status</h2>
+                        <p class="text-left">@Model.Status</p>
                     </td>
                     <td>
-                        @Model.DenyReason
+                        <p>@Model.DenyReason</p>
                     </td>
                     <td>
                         @if (Model.Status == "待確認")

@@ -73,8 +73,6 @@ namespace CoreMVC5_UsedBookProject.Services
                     return true;
                 case "已售完":
                     return true;
-                case "封禁":
-                    return true;
                 case "刪除":
                     return true;
                 case null:
@@ -236,7 +234,6 @@ namespace CoreMVC5_UsedBookProject.Services
                 { "已上架", 0 },
                 { "待確認", 0 },
                 { "已售完", 0 },
-                { "封禁", 0 },
                 { "刪除", 0 }
             };
             foreach (var item in countList.Keys)

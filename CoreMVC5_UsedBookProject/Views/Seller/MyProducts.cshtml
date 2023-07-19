@@ -8,11 +8,11 @@
 }
 
 <div class="container-fluid">
-    <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
     <div class="d-flex my-3">
-        <p class="mb-0">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
-        <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-outline-secondary" : "btn-outline-primary") ml-2" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
-        <a type="button" href="https://isbn.ncl.edu.tw/NEW_ISBNNet/H30_SearchBooks.php?&Pact=DisplayAll4Simple" value="library" target="_blank" class="btn btn-outline-primary ml-2">前往國家圖書館</a>
+        <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
+        <p class="mb-0 ml-2 p-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
+        <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-outline-secondary" : "btn-outline-primary") ml-2 p-3" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
+        <a type="button" href="https://isbn.ncl.edu.tw/NEW_ISBNNet/H30_SearchBooks.php?&Pact=DisplayAll4Simple" value="library" target="_blank" class="btn btn-outline-primary ml-2 p-3">前往國家圖書館</a>
     </div>
     <div class="d-flex justify-content-between my-3">
         <a href="@Url.Action("MyProducts", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "全部" ? "border: 2px solid red;" : "")">
@@ -45,12 +45,6 @@
                 <span>已售完 @Model.ProductsCount["已售完"]</span>
             </div>
         </a>
-        <a href="@Url.Action("MyProducts", "Seller", new {status = "封禁", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "封禁" ? "border: 2px solid red;" : "")">
-            <div>
-                <span>違規</span>
-                <span>違規 @Model.ProductsCount["封禁"]</span>
-            </div>
-        </a>
         <a href="@Url.Action("MyProducts", "Seller", new {status = "刪除", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "刪除" ? "border: 2px solid red;" : "")">
             <div>
                 <span>
@@ -63,7 +57,15 @@
     <div class="sexyborder">
         <table class="fancytable">
             <thead>
-                <tr class="headerrow"><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">價格</td><td style="width: 100px;">操作</td></tr>
+                <tr class="headerrow">
+                    <td style="width: 150px;">圖片封面</td>
+                    <td>書名</td>
+                    @if (ViewBag.Trade == "買賣")
+                    {
+                        <td style="width: 150px;">價格</td>
+                    }
+                    <td style="width: 100px;">操作</td>
+                </tr>
             </thead>
             <tbody>
                 @if (Model.Products.Count > 0)
@@ -77,18 +79,14 @@
                                 </div>
                             </td>
                             <td>
-                                <h2 title="@item.Title" class="text-left">@item.Title</h2>
+                                <p title="@item.Title" class="text-left">@item.Title</p>
                             </td>
-                            <td>
-                                @if (item.Trade.Contains("買賣"))
-                                {
-                                    <h3>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</h3>
-                                }
-                                else
-                                {
-                                    <h3>&nbsp;</h3>
-                                }
-                            </td>
+                            @if (ViewBag.Trade == "買賣")
+                            {
+                                <td>
+                                    <p>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</p>
+                                </td>
+                            }
                             <td>
                                 <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 詳情</a>
                                 @if (item.Status == "已上架" || item.Status == "未上架")
@@ -136,10 +134,13 @@
                             </div>
                         </td>
                         <td>
-                            <h2 title="沒有商品在列表中" class="text-left">沒有商品在列表中</h2>
+                            <p title="沒有商品在列表中" class="text-left">沒有商品在列表中</p>
                         </td>
-                        <td>
-                        </td>
+                        @if (ViewBag.Trade == "買賣")
+                        {
+                            <td>
+                            </td>
+                        }
                         <td>
                         </td>
                     </tr>

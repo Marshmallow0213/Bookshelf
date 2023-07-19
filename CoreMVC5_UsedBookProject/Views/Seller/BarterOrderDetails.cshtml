@@ -11,12 +11,12 @@
     <div class="sexyborder">
         <table class="fancytable">
             <thead>
-                <tr class="headerrow"><td style="width: 170px;">使用者名稱</td><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">價格</td><td style="width: 150px;">操作</td></tr>
+                <tr class="headerrow"><td style="width: 170px;">使用者名稱</td><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">操作</td></tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        <h2 class="text-left">我的商品 @Model.SellerName</h2>
+                        <p class="text-left">我的商品<br>@Model.SellerName</p>
                     </td>
                     <td>
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
@@ -24,10 +24,7 @@
                         </div>
                     </td>
                     <td>
-                        <h2 title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</h2>
-                    </td>
-                    <td>
-                        <h3>&nbsp;</h3>
+                        <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
                     </td>
                     <td>
                         <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
@@ -35,7 +32,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <h2 class="text-left">對方的商品 @Model.BuyerName</h2>
+                        <p class="text-left">對方的商品<br>@Model.BuyerName</p>
                     </td>
                     <td>
                         @if (Model.BuyerISBN != "1234567891234")
@@ -52,10 +49,7 @@
                         }
                     </td>
                     <td>
-                        <h2 title="@Model.BuyerTitle" class="text-left">@Model.BuyerTitle</h2>
-                    </td>
-                    <td>
-                        <h3>&nbsp;</h3>
+                        <p title="@Model.BuyerTitle" class="text-left">@Model.BuyerTitle</p>
                     </td>
                     <td>
                         @if (Model.BuyerISBN != "1234567891234")
@@ -75,10 +69,10 @@
             <tbody>
                 <tr>
                     <td>
-                        <h2 class="text-left">@Model.Status</h2>
+                        <p class="text-left">@Model.Status</p>
                     </td>
                     <td>
-                        @Model.DenyReason
+                        <p>@Model.DenyReason</p>
                     </td>
                     <td>
                         @if (Model.Status == "待確認")
@@ -122,7 +116,7 @@
                                 </div>
                             </td>
                             <td>
-                                <h2 title="@item.Title" class="text-left">@item.Title</h2>
+                                <p title="@item.Title" class="text-left">@item.Title</p>
                             </td>
                             <td>
                                 <a href="@Url.Action("Details", "Buyer", new {ProductId = item.ProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 詳情</a>

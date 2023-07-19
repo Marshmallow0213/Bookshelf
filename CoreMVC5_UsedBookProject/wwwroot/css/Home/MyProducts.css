@@ -2,9 +2,8 @@
     border: 2px solid white;
     border-radius: 15px;
     background-color: white;
-    width: 150px;
-    height: 300px;
-    margin: 0 10px;
+    width: 100%;
+    height: 360px;
     -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -12,20 +11,20 @@
     .product-shop-card:hover {
         transform: scale(1.1);
         transition: .5s;
-        border: 2px solid blue;
+        border: 2px solid #8B451350;
     }
-    .product-shop-card > div > p {
+    .product-shop-card > a > div > p {
         color: black;
         height: 76.8px;
         overflow: hidden;
     }
 
-    .product-shop-card > div > p:nth-of-type(2) {
+    .product-shop-card > a > div > p:nth-of-type(2) {
         overflow: hidden;
         height: 48px;
     }
 
-    .product-shop-card > div > h3, .product-shop-card > div > p > span, .product-shop-card > h2 {
+    .product-shop-card > a > div > h3, .product-shop-card > a > div > p > span, .product-shop-card > a > h2 {
         color: black;
         overflow: hidden;
     }
@@ -36,4 +35,10 @@
 @media (min-width:992px) {
 }
 @media (min-width:1200px) {
+}
+main, body {
+    background-color: #5B3D25 !important;
+}
+h1 {
+    color: white;
 }

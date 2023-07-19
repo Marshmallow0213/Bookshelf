@@ -122,7 +122,6 @@ namespace CoreMVC5_UsedBookProject.Services
                 { "已上架", 0 },
                 { "待確認", 0 },
                 { "已售完", 0 },
-                { "封禁", 0 },
                 { "刪除", 0 }
             };
             foreach (var item in countList.Keys)

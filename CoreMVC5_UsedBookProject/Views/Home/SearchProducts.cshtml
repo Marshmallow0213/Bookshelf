@@ -4,9 +4,9 @@
     ViewData["Title"] = "搜尋商品";
 }
 <div class="container-fluid">
-    <h1>搜尋商品</h1>
-    <h2>@ViewBag.Count</h2>
-    <div class="d-flex flex-wrap">
+    <h1 class="mt-4" style="background-color: #92705A; border-radius: 15px 15px 0 0; width: 170px; margin-bottom: 0; text-align: center;">搜尋商品</h1>
+    <h2 style="background-color: #92705A; margin-bottom: 0; color:white;">@ViewBag.Count</h2>
+    <div class="d-flex flex-wrap" style="background-color: #92705A; border-radius: 0 0 15px 15px;">
         @if (Model.Products.Count > 0)
         {
             @foreach (var item in Model.Products)
@@ -19,11 +19,11 @@
                         <p title="@item.Title">@item.Title</p>
                         @if (item.Trade.Contains("買賣"))
                         {
-                            <h3>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</h3>
+                            <p>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</p>
                         }
                         else
                         {
-                            <h3>&nbsp;</h3>
+                            <p>&nbsp;</p>
                         }
                     </div>
                 </a>
@@ -31,9 +31,7 @@
         }
         else
         {
-            <div class="p-2 product-shop-card d-flex justify-content-center align-items-center">
-                <h2 class="my-5">沒有符合的商品</h2>
-            </div>
+            <h2 class="my-5 text-center w-100" style="color:white;">沒有符合的商品</h2>
         }
     </div>
 </div>
