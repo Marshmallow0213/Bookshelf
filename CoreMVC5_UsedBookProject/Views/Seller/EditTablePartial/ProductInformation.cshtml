@@ -1,5 +1,5 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
-@model ProductEditViewModel
+@model ProductViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -34,16 +34,6 @@
             </td>
         </tr>
         <tr>
-            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ISBN)</td>
-            <td>
-                <div class="d-flex">
-                    <textarea asp-for="ISBN" class="form-control show-length" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
-                    <p id="ISBN_length" class="text-right ml-4"></p>
-                </div>
-                <span asp-validation-for="ISBN" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
             <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Author)</td>
             <td>
                 <div class="d-flex">
@@ -64,16 +54,6 @@
             </td>
         </tr>
         <tr>
-            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.PublicationDate)</td>
-            <td>
-                <div class="d-flex">
-                    <input type="date" asp-for="PublicationDate" class="form-control" />
-                    <p class="text-right ml-4"></p>
-                </div>
-                <span asp-validation-for="PublicationDate" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
             <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Degree)</td>
             <td>
                 <div class="d-flex">
@@ -81,6 +61,16 @@
                     <p id="Degree_length" class="text-right ml-4"></p>
                 </div>
                 <span asp-validation-for="Degree" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ISBN)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="ISBN" class="form-control show-length" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
+                    <p id="ISBN_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="ISBN" class="text-danger"></span>
             </td>
         </tr>
         <tr>

@@ -57,7 +57,7 @@ namespace CoreMVC5_UsedBookProject.Services
                     return false;
             }
         }
-        public ProductEditViewModel GetProduct(string id)
+        public ProductViewModel GetProduct(string id)
         {
             var product = _context.Products
             .Where(p=>p.ProductId == id)
@@ -68,17 +68,15 @@ namespace CoreMVC5_UsedBookProject.Services
                 ISBN = p.ISBN,
                 Author = p.Author,
                 Publisher = p.Publisher,
-                PublicationDate = p.PublicationDate,
                 Degree = p.Degree,
                 ContentText = p.ContentText,
-                Image1 = p.Image1,
-                Image2 = p.Image2,
+                ImageList = p.ImageList,
                 Status = p.Status,
                 Trade = p.Trade,
                 UnitPrice = p.UnitPrice,
                 CreateDate = p.CreateDate,
                 EditDate = p.EditDate,
-                TradingPlaceAndTime = p.TradingPlaceAndTime,
+                TradingRemarque = p.TradingRemarque,
                 CreateBy = p.CreateBy
             })
            .FirstOrDefault();
@@ -101,8 +99,6 @@ namespace CoreMVC5_UsedBookProject.Services
                 Title = p.Title,
                 ISBN = p.ISBN,
                 Author = p.Author,
-                ContentText = p.ContentText,
-                Image1 = p.Image1,
                 Trade = p.Trade,
                 UnitPrice = p.UnitPrice,
                 CreateBy = p.CreateBy
@@ -154,7 +150,7 @@ namespace CoreMVC5_UsedBookProject.Services
                       from p in _context.Products
                       where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}" && o.Trade.Contains(trade)
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, SellerUnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerImage1 = p.Image1 }).Skip((now_page - 1) * 30).Take(30).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, SellerUnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -178,7 +174,7 @@ namespace CoreMVC5_UsedBookProject.Services
                       from p in _context.Products
                       where o.SellerProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.BuyerId == $"{name}" && o.Trade.Contains(trade)
                       orderby o.CreateDate descending
-                            select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, SellerImage1 = p.Image1, BuyerProductId = o.BuyerProductId }).Skip((now_page - 1) * 30).Take(30).ToList();
+                            select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, BuyerProductId = o.BuyerProductId }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = new List<OrderViewModel>() { },
@@ -311,19 +307,17 @@ namespace CoreMVC5_UsedBookProject.Services
                     ProductId = "Empty",
                     Title = "Empty",
                     ContentText = "Empty",
-                    Image1 = "Empty",
-                    Image2 = String.Join(",", "Empty"),
-                    ISBN = "Empty",
+                    ImageList = "Empty",
+                    ISBN = "1234567891234",
                     Author = "Empty",
                     Publisher = "Empty",
-                    PublicationDate = "Empty",
                     Degree = "Empty",
                     Status = "Empty",
                     Trade = "Empty",
                     UnitPrice = -1000,
                     CreateDate = DateTime.Now,
                     EditDate = DateTime.Now,
-                    TradingPlaceAndTime = "Empty",
+                    TradingRemarque = "Empty",
                     CreateBy = "Empty"
                 };
                 _context.Add(productEmpty);
@@ -361,7 +355,7 @@ namespace CoreMVC5_UsedBookProject.Services
                      from p in _context.Products
                      where o.ProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerUnitPrice = o.UnitPrice, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerImage1 = p.Image1, SellerISBN = p.ISBN, SellerAuthor = p.Author }).FirstOrDefault();
+                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerUnitPrice = o.UnitPrice, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author }).FirstOrDefault();
             return order;
         }
         public BarterOrderViewModel GetBarterOrder(string OrderId)
@@ -373,12 +367,12 @@ namespace CoreMVC5_UsedBookProject.Services
                                 from p in _context.Products
                                 where o.BuyerProductId == p.ProductId && o.OrderId == OrderId
                                 orderby o.CreateDate descending
-                                select new BarterOrderViewModel { BuyerTitle = p.Title, BuyerISBN = p.ISBN, BuyerAuthor = p.Author, BuyerImage1 = p.Image1 }).FirstOrDefault();
+                                select new BarterOrderViewModel { BuyerTitle = p.Title, BuyerISBN = p.ISBN, BuyerAuthor = p.Author }).FirstOrDefault();
             order = (from o in _context.BarterOrders
                      from p in _context.Products
                      where o.SellerProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, SellerImage1 = p.Image1, BuyerProductId = o.BuyerProductId, BuyerTitle = buyerproduct.BuyerTitle, BuyerISBN = buyerproduct.BuyerISBN, BuyerAuthor = buyerproduct.BuyerAuthor, BuyerImage1 = buyerproduct.BuyerImage1 }).FirstOrDefault();
+                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, BuyerProductId = o.BuyerProductId, BuyerTitle = buyerproduct.BuyerTitle, BuyerISBN = buyerproduct.BuyerISBN, BuyerAuthor = buyerproduct.BuyerAuthor }).FirstOrDefault();
             return order;
         }
         public void FinishOrder(string orderId)

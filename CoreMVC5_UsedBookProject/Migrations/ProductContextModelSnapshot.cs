@@ -135,15 +135,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PublicationDate")
+                    b.Property<string>("ImageList")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -163,7 +155,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TradingPlaceAndTime")
+                    b.Property<string>("TradingRemarque")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

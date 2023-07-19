@@ -133,5 +133,25 @@ function process(input) {
     let value = input.value;
     let numbers = value.replace(/[^0-9]/g, "");
     input.value = numbers;
+    if (value.length == 13) {
+        let url = `https://cdnec.sanmin.com.tw/product_images/${value.substring(3, 6)}/${value.substring(3, 9)}.jpg`;
+        document.getElementById(`img1Div`).innerHTML = `<img src='${url}' alt='img1' id='img1' onload='testLoad(1)' onerror='testError(1)'>`;
+    }
 }
 //end
+let fileMessage = document.querySelector("#fileMessage");
+if (fileMessage.innerText == "圖片封面不可為空!") {
+    Swal.fire(
+        '圖片封面不可為空!',
+        '',
+        'error'
+    )
+}
+let tradeMessage = document.querySelector("#tradeMessage");
+if (tradeMessage.innerText == "交易方式不可為空!") {
+    Swal.fire(
+        '交易方式不可為空!',
+        '',
+        'error'
+    )
+}

@@ -1,28 +1,31 @@
 ﻿.product-card {
-    border: 2px solid orange;
+    border: 2px solid #ffd700;
     border-radius: 15px;
-    background-color: #80808025;
+    background-color: #232323;
+    width: 300px;
+    height: 575px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.action{
-    width: 100%;
-}
-.gap-5px {
-    gap: 5px;
-}
-.status {
-    font-size: 18px;
-    color: black;
-}
-    .status:hover {
-        color: blue;
+
+    .product-card > div > h2 {
+        color: white;
+        height: 76.8px;
+        overflow: hidden;
+    }
+
+    .product-card > div > p:nth-of-type(2) {
+        overflow: hidden;
+        height: 48px;
+    }
+
+    .product-card > div > h3, .product-card > div > p > span, .product-card > h2 {
+        color: white;
+        overflow: hidden;
     }
 @media (min-width:576px) {
 }
 @media (min-width:768px) {
-    .action {
-        min-width: 150px;
-        max-width: 150px;
-    }
 }
 @media (min-width:992px) {
 }
@@ -42,3 +45,99 @@
     background-color: white;
     color: red;
 }
+/**/
+.btn-status-custom {
+    position: relative;
+    min-width: 200px;
+    background: #FFFFFF;
+    border: 2px solid #3AD2D0;
+    transform: translate3d(0px, 0%, 0px);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition-delay: 0.6s;
+    overflow: hidden;
+    padding: 10px 20px;
+}
+
+    .btn-status-custom:before,
+    .btn-status-custom:after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        transition: all 0.6s ease;
+    }
+
+    .btn-status-custom:before {
+        background: #3AD2D0;
+        border-radius: 50% 50% 0 0;
+        transform: translateY(100%) scaleY(0.5);
+    }
+
+    .btn-status-custom:after {
+        background: #FFFFFF;
+        border-radius: 0;
+        transform: translateY(0) scaleY(1);
+    }
+
+    .btn-status-custom div {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 32px;
+        text-transform: uppercase;
+        overflow: hidden;
+    }
+
+    .btn-status-custom span {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        z-index: 1;
+        text-align: center;
+        transition: transform 0.5s ease;
+    }
+
+        .btn-status-custom span:first-child {
+            color: #FFFFFF;
+            transform: translateY(24px);
+        }
+
+        .btn-status-custom span:last-child {
+            color: #1E0F21;
+            transform: translateY(0);
+        }
+
+    .btn-status-custom:hover {
+        background: #3AD2D0;
+        transition: background 0.2s linear;
+        transition-delay: 0.6s;
+        color: #FFFFFF;
+    }
+
+        .btn-status-custom:hover:after {
+            border-radius: 0 0 50% 50%;
+            transform: translateY(-100%) scaleY(0.5);
+            transition-delay: 0;
+        }
+
+        .btn-status-custom:hover:before {
+            border-radius: 0;
+            transform: translateY(0) scaleY(1);
+            transition-delay: 0;
+        }
+
+        .btn-status-custom:hover span:first-child {
+            transform: translateY(0);
+        }
+
+        .btn-status-custom:hover span:last-child {
+            transform: translateY(-32px);
+        }
+/**/

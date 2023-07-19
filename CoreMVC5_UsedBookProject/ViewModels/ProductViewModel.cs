@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreMVC5_UsedBookProject.ViewModels
 {
@@ -17,7 +18,9 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         //
         [Required(ErrorMessage = "{0}不可為空!")]
         [Display(Name = "ISBN")]
-        [MaxLength(200)]
+        [MaxLength(13, ErrorMessage = "{0}至多13個字。")]
+        [MinLength(13, ErrorMessage = "{0}至少13個字。")]
+        [RegularExpression(@"^\d{13}$", ErrorMessage = "ISBN必須是13位數字。")]
         public string ISBN { get; set; }
         //
         [Required(ErrorMessage = "{0}不可為空!")]
@@ -29,11 +32,6 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "出版社")]
         [MaxLength(200)]
         public string Publisher { get; set; }
-        //
-        [Required(ErrorMessage = "{0}不可為空!")]
-        [Display(Name = "出版日期")]
-        [MaxLength(200)]
-        public string PublicationDate { get; set; }
         //
         [Required(ErrorMessage = "{0}不可為空!")]
         [Display(Name = "新舊程度")]
@@ -100,10 +98,23 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "最後編輯日期")]
         public DateTime EditDate { get; set; }
         //
-        [Display(Name = "交易地點與時間")]
-        public string TradingPlaceAndTime { get; set; }
+        [Required(ErrorMessage = "{0}不可為空!")]
+        [Display(Name = "交易備註")]
+        [MaxLength(200)]
+        public string TradingRemarque { get; set; }
         //
         [MaxLength(200)]
         public string CreateBy { get; set; }
+        [Display(Name = "擁有者")]
+        [MaxLength(200)]
+        public string CreateByName { get; set; }
+        public IFormFile File2 { get; set; }
+        public IFormFile File3 { get; set; }
+        public IFormFile File4 { get; set; }
+        public IFormFile File5 { get; set; }
+        public IFormFile File6 { get; set; }
+        public IFormFile File7 { get; set; }
+        public IFormFile File8 { get; set; }
+        public IFormFile File9 { get; set; }
     }
 }

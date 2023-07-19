@@ -79,34 +79,34 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             else
             {
-                ProductCreateViewModel product = new() { ProductId = "Create_Product"};
+                ProductViewModel product = new() { ProductId = "Create_Product"};
                 return View(product);
             }
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Create(ProductCreateViewModel productCreateViewModel)
+        public IActionResult Create(ProductViewModel ProductViewModel)
         {
-            if (ModelState.IsValid && (productCreateViewModel.Status == "已上架" || productCreateViewModel.Status == "未上架"))
+            if (ModelState.IsValid && (ProductViewModel.Status == "已上架" || ProductViewModel.Status == "未上架"))
             {
-                if (productCreateViewModel.Trade != "買賣" && productCreateViewModel.Trade != "交換" && productCreateViewModel.Trade != "買賣與交換")
+                if (ProductViewModel.Trade != "買賣" && ProductViewModel.Trade != "交換" && ProductViewModel.Trade != "買賣與交換")
                 {
-                    return View(productCreateViewModel);
+                    return View(ProductViewModel);
                 }
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                _sellerService.CreateProduct(productCreateViewModel, name);
-                if (productCreateViewModel.Trade == "買賣" || productCreateViewModel.Trade == "買賣與交換")
+                _sellerService.CreateProduct(ProductViewModel, name);
+                if (ProductViewModel.Trade == "買賣" || ProductViewModel.Trade == "買賣與交換")
                 {
-                    return RedirectToAction("MyProducts", new { trade = "買賣", status = productCreateViewModel.Status });
+                    return RedirectToAction("MyProducts", new { trade = "買賣", status = ProductViewModel.Status });
                 }
                 else
                 {
-                    return RedirectToAction("MyProducts", new { trade = "交換", status = productCreateViewModel.Status });
+                    return RedirectToAction("MyProducts", new { trade = "交換", status = ProductViewModel.Status });
                 }
             }
             else
             {
-                return View(productCreateViewModel);
+                return View(ProductViewModel);
             }
         }
 
@@ -126,34 +126,41 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 else
                 {
-                    return View(product);
+                    if(product.Status == "已上架" ||  product.Status == "未上架")
+                    {
+                        return View(product);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
             }
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Edit(ProductEditViewModel productEditViewModel)
+        public IActionResult Edit(ProductViewModel ProductViewModel)
         {
             if (ModelState.IsValid)
             {
-                if (productEditViewModel.Trade != "買賣" && productEditViewModel.Trade != "交換" && productEditViewModel.Trade != "買賣與交換")
+                if (ProductViewModel.Trade != "買賣" && ProductViewModel.Trade != "交換" && ProductViewModel.Trade != "買賣與交換")
                 {
                     return NotFound();
                 }
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                _sellerService.EditProduct(productEditViewModel, name);
-                if (productEditViewModel.Trade == "買賣" || productEditViewModel.Trade == "買賣與交換")
+                _sellerService.EditProduct(ProductViewModel, name);
+                if (ProductViewModel.Trade == "買賣" || ProductViewModel.Trade == "買賣與交換")
                 {
-                    return RedirectToAction("MyProducts", new { trade = "買賣", status = productEditViewModel.Status });
+                    return RedirectToAction("MyProducts", new { trade = "買賣", status = ProductViewModel.Status });
                 }
                 else
                 {
-                    return RedirectToAction("MyProducts", new { trade = "交換", status = productEditViewModel.Status });
+                    return RedirectToAction("MyProducts", new { trade = "交換", status = ProductViewModel.Status });
                 }
             }
             else
             {
-                return View(productEditViewModel);
+                return View(ProductViewModel);
             }
         }
         

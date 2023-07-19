@@ -17,15 +17,11 @@ namespace CoreMVC5_UsedBookProject.Models
         [Required]
         public string Publisher { get; set; }
         [Required]
-        public string PublicationDate { get; set; }
-        [Required]
         public string Degree { get; set; }
         [Required]
         public string ContentText { get; set; }
         [Required]
-        public string Image1 { get; set; }
-        [Required]
-        public string Image2 { get; set; }
+        public string ImageList { get; set; }
         [Required]
         public string Status { get; set; }
         [Required]
@@ -38,7 +34,7 @@ namespace CoreMVC5_UsedBookProject.Models
         [Required]
         public DateTime EditDate { get; set; }
         [Required]
-        public string TradingPlaceAndTime { get; set; }
+        public string TradingRemarque { get; set; }
         [Required]
         public string CreateBy { get; set; }
         public User User { get; set; }

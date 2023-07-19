@@ -33,8 +33,6 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string SellerISBN { get; set; }
         [Display(Name = "作者")]
         public string SellerAuthor { get; set; }
-        [Display(Name = "圖片封面")]
-        public string SellerImage1 { get; set; }
         [Display(Name = "商品Id")]
         public string BuyerProductId { get; set; }
         [Display(Name = "書名")]
@@ -43,8 +41,6 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string BuyerISBN { get; set; }
         [Display(Name = "作者")]
         public string BuyerAuthor { get; set; }
-        [Display(Name = "圖片封面")]
-        public string BuyerImage1 { get; set; }
         public List<ProductViewModel> Products { get; set; }
     }
 }

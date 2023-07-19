@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC5_UsedBookProject.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230717084819_init")]
+    [Migration("20230718112442_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,15 +137,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PublicationDate")
+                    b.Property<string>("ImageList")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -165,7 +157,7 @@ namespace CoreMVC5_UsedBookProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TradingPlaceAndTime")
+                    b.Property<string>("TradingRemarque")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

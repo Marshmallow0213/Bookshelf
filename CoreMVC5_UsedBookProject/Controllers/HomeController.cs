@@ -2,6 +2,7 @@
 using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -59,17 +60,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         Title = p.Title,
                         ISBN = p.ISBN,
                         Author = p.Author,
-                        Publisher = p.Publisher,
-                        PublicationDate = p.PublicationDate,
-                        Degree = p.Degree,
-                        ContentText = p.ContentText,
-                        Image1 = p.Image1,
-                        Image2 = p.Image2,
-                        Status = p.Status,
                         Trade = p.Trade,
                         UnitPrice = p.UnitPrice,
-                        CreateDate = p.CreateDate,
-                        EditDate = p.EditDate,
                         CreateBy = p.CreateBy
                     })
                     .ToList();
@@ -85,11 +77,9 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     ISBN = p.ISBN,
                     Author = p.Author,
                     Publisher = p.Publisher,
-                    PublicationDate = p.PublicationDate,
                     Degree = p.Degree,
                     ContentText = p.ContentText,
-                    Image1 = p.Image1,
-                    Image2 = p.Image2,
+                    Image2 = p.ImageList,
                     Status = p.Status,
                     Trade = p.Trade,
                     UnitPrice = p.UnitPrice,
@@ -171,7 +161,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var predictions = GetPredictionsFromData(searchText);
             return PartialView("GetPredictions", predictions);
         }
-
         public IActionResult Wish(int now_page)
         {
             now_page = now_page == 0 ? 1 : now_page;

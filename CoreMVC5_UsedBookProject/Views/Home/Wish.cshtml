@@ -4,36 +4,31 @@
     ViewBag.Title = $"願望清單";
 }
 <div class="container-fluid">
-    <h1 style ="margin-top:15px;">願望清單</h1>
-    @if (Model.Wishs.Count > 0)
-    {
-        @foreach (var item in Model.Wishs)
+    <h1>願望清單</h1>
+    <div class="d-flex justify-content-between flex-wrap">
+        @if (Model.Wishs.Count > 0)
         {
-            <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
-                    @if (item.ISBN.Length == 10)
-                    {
-                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(2,3)}/{item.ISBN.Substring(3,7)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-                    }
-                    @if (item.ISBN.Length == 13)
-                    {
+            @foreach (var item in Model.Wishs)
+            {
+                <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1">
+                    <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
                         <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3,3)}/{item.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-                    }
+                    </div>
+                    <table class="container-fluid">
+                        <tr><td>@Html.DisplayNameFor(model => model.Title)</td><td>@item.Title</td></tr>
+                        <tr><td>@Html.DisplayNameFor(model => model.ISBN)</td><td>@item.ISBN</td></tr>
+                        <tr><td>@Html.DisplayNameFor(model => model.UserName)</td><td>@item.UserName</td></tr>
+                    </table>
                 </div>
-                <table class="container-fluid">
-                    <tr><td>@Html.DisplayNameFor(model => model.Title)</td><td>@item.Title</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.ISBN)</td><td>@item.ISBN</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.UserName)</td><td>@item.UserName</td></tr>
-                </table>
+            }
+        }
+        else
+        {
+            <div class="p-2 product-card">
+                <h2 class="my-5">願望清單是空的</h2>
             </div>
         }
-    }
-    else
-    {
-        <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-            <h2 class="my-5">願望清單是空的</h2>
-        </div>
-    }
+    </div>
     <partial name="_NowPageWishsPartial" />
 </div>
 @section topCSS{
