@@ -178,10 +178,10 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "undone" },
-                    { 2, "done" },
-                    { 3, "checkF" },
-                    { 4, "checkT" }
+                    { 1, "checkT" },
+                    { 2, "checkF" },
+                    { 3, "done" },
+                    { 4, "undone" }
                 });
 
             migrationBuilder.InsertData(
@@ -189,9 +189,16 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "Id", "Date", "Maintitle", "Subtitle" },
                 values: new object[,]
                 {
-                    { 1, "2023/07/17", "帶烏龜看醫生", "帶烏龜到334桃園市八德區介壽路一段248-1號(丹尼爾動物醫院)看醫生，並且要確定身高體重以及服藥次數" },
-                    { 2, "2023/07/18", "買便當回管理員室", "因為平常樓下便當實在太難吃了，所以老闆希望可以買山下平常聚會地點的羊肉爐" },
-                    { 3, "2023/07/19", "倒垃圾", "管理員室的垃圾已經推積如山，所以要盡快完成" }
+                    { 9, "2023/07/19", "購物車介面", "購物車介面想要做更換，請聯絡開發人員做修改" },
+                    { 8, "2023/07/18", "管理員登入介面公告", "對於新進管理人員許多人不知道隱藏登入位置，要在LINE群做公告" },
+                    { 7, "2023/07/17", "主頁介面更改", "首頁登入與搜尋框位置做調換" },
+                    { 6, "2023/07/17", "首頁資訊", "首頁東西太多，我們的目的是需要將買賣與交換的物品放在專屬賣場，原本的主頁面要維持簡潔，請各位討論好後聯絡開發人員做修改" },
+                    { 5, "2023/07/16", "管理員介面測試", "管理員介面做優化，測試開啟速度" },
+                    { 4, "2023/07/15", "買賣書籍跑版", "買賣書籍頁面跑版，聯絡開發人員做修改" },
+                    { 3, "2023/07/14", "介面設計", "介面太醜需要調整，聯絡開發人員做修改" },
+                    { 1, "2023/07/13", "頁面修改", "聯絡開發人員將登入做修改後請他也做介面優化" },
+                    { 10, "2023/07/19", "按鈕樣式", "找尋不同按鈕以做為以後界面更新時的備選方案" },
+                    { 2, "2023/07/14", "交換書籍測試", "交換書籍部分測試部分已釋出，所有管理人員測試完後在LINE群回復使用心得" }
                 });
 
             migrationBuilder.InsertData(
@@ -199,9 +206,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "R001", "Top Administrator" },
+                    { "R003", "Suspended Administrator" },
                     { "R002", "common Administrator" },
-                    { "R003", "Suspended Administrator" }
+                    { "R001", "Top Administrator" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,9 +221,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "Id", "Email", "Name", "Nickname", "Password", "PhoneNo" },
                 values: new object[,]
                 {
-                    { "B001", "Potatodog@bookshelf.com", "Potatodog@bookshelf.com", "馬鈴薯狗", "d5e10bd206b5f1aca583f37be2566e70", "0900-951-456" },
+                    { "B003", "Neverloses@bookshelf.com", "Neverloses@bookshelf.com", "甲甲志", "b70d01e0fac31e93a760021e7cf970d4", "0987-587-587" },
                     { "B002", "Tony@bookshelf.com", "Tony@bookshelf.com", "Tony", "213ffb90868d8b9c58aae64988f642f1", "0933-941-941" },
-                    { "B003", "Neverloses@bookshelf.com", "Neverloses@bookshelf.com", "甲甲志", "b70d01e0fac31e93a760021e7cf970d4", "0987-587-587" }
+                    { "B001", "Potatodog@bookshelf.com", "Potatodog@bookshelf.com", "馬鈴薯狗", "d5e10bd206b5f1aca583f37be2566e70", "0900-951-456" }
                 });
 
             migrationBuilder.InsertData(
@@ -224,9 +231,16 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "ListId", "RoleId", "AdminlistId", "ToDoListViewModelsId" },
                 values: new object[,]
                 {
-                    { 1, 1, null, null },
-                    { 2, 2, null, null },
-                    { 3, 3, null, null }
+                    { 1, 4, null, null },
+                    { 2, 4, null, null },
+                    { 3, 4, null, null },
+                    { 4, 4, null, null },
+                    { 5, 4, null, null },
+                    { 6, 4, null, null },
+                    { 7, 4, null, null },
+                    { 8, 4, null, null },
+                    { 9, 4, null, null },
+                    { 10, 4, null, null }
                 });
 
             migrationBuilder.InsertData(
