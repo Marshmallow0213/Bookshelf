@@ -18,8 +18,14 @@
                             </div>
                             <div class="container-fluid my-2">
                                 <p title="@item.Title">@item.Title</p>
-                                <p title="@item.ISBN">@item.ISBN</p>
-                                <p title="@item.UserName">@item.UserName</p>
+                                <p>
+                                    <span>@Html.DisplayNameFor(model => model.ISBN):</span>
+                                    <span title="@item.ISBN">@item.ISBN</span>
+                                </p>
+                                <p>
+                                    <span>@Html.DisplayNameFor(model => model.UserName):</span>
+                                    <span title="@item.UserName">@item.UserName</span>
+                                </p>
                             </div>
                         </div>
                     </div>
