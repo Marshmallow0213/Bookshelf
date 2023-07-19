@@ -147,3 +147,11 @@ function process(input) {
     input.value = numbers;
 }
 //end
+let tradeMessage = document.querySelector("#tradeMessage");
+if (tradeMessage.innerText == "交易方式不可為空!") {
+    Swal.fire(
+        '交易方式不可為空!',
+        '',
+        'error'
+    )
+}

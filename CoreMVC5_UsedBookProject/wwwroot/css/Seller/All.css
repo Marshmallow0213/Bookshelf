@@ -41,10 +41,6 @@ img {
     -webkit-user-select: none;
     -ms-user-select: none;
 }
-
-.gap-10px {
-    gap: 10px;
-}
 #topBtn {
     display: none;
     position: fixed; 

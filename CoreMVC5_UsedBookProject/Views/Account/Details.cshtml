@@ -7,11 +7,11 @@
 @{
     ViewData["Title"] = "我的資訊";
 }
-<div class="container-fluid pb-5 gap-10px">
+<div class="container-fluid pb-5">
     <h1>我的資訊</h1>
     <h3 class="text-primary">@TempData["Message"]</h3>
-    <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-        <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background: white; border: 1px solid black; overflow: hidden;">
+    <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1">
+        <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white; background: white; border: 1px solid black; overflow: hidden;">
             <img src="/Images/Users/@Model.Id/@Model.UserIcon" asp-append-version="true" alt="img1" id="img1" onerror="this.src='/DeafultPictures/EmptyUserIcon.png'">
         </div>
         <div class="container-fluid">

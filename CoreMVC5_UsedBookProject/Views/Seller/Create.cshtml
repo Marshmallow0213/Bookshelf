@@ -1,5 +1,5 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
-@model ProductCreateViewModel
+@model ProductViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -10,9 +10,9 @@
 <div class="container-fluid">
     <h1>新增商品</h1>
     <form action="~/Seller/Create" method="post" enctype="multipart/form-data">
-        <partial name="~/Views/Seller/CreateTablePartial/ProductInformation.cshtml" />
-        <partial name="~/Views/Seller/CreateTablePartial/ProductImage.cshtml" />
-        <partial name="~/Views/Seller/CreateTablePartial/SaleInformation.cshtml" />
+        <partial name="~/Views/Seller/EditTablePartial/ProductInformation.cshtml" />
+        <partial name="~/Views/Seller/EditTablePartial/ProductImage.cshtml" />
+        <partial name="~/Views/Seller/EditTablePartial/SaleInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
         <br />
         <div>

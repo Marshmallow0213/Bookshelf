@@ -8,48 +8,53 @@
 }
 <div class="container-fluid">
     <h1>買賣訂單詳情</h1>
-    <div class="container-fluid my-2">
-        <h2>@Model.Trade</h2>
-        <h2>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h2>
-        <p><span>@Html.DisplayNameFor(model => model.DenyReason) </span><span>@Model.DenyReason</span></p>
-        <p><span>@Html.DisplayNameFor(model => model.Status) </span><span>@Model.Status</span></p>
-    </div>
-    <h2>賣家的商品 @Model.SellerName</h2>
-    <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1 gap-5px">
-        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px;">
-            <img src="/Images/Users/@Model.SellerId/Products/@Model.SellerProductId/@Model.SellerImage1" asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-        </div>
-        <div class="container-fluid my-2">
-            <h2>@Model.SellerTitle</h2>
-            <h2>@Model.Trade</h2>
-            <h2>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h2>
-            <p><span>@Html.DisplayNameFor(model => model.SellerISBN) </span><span>@Model.SellerISBN</span></p>
-            <p><span>@Html.DisplayNameFor(model => model.SellerAuthor) </span><span>@Model.SellerAuthor</span></p>
-        </div>
-        <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-            <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info mt-2"><i class="bi bi-info-circle"></i> 商品詳情</a>
-        </div>
-    </div>
-    <br />
     <div class="d-flex">
-        @if (Model.Status == "待確認")
-        {
-            <form action="~/Seller/OrderDetails" method="post">
-                <input type="hidden" name="OrderId" value="@Model.OrderId">
-                <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-outline-primary mr-2" name="submit" value="接受交易">接受交易</button>
-                <button type="submit" class="btn btn-outline-danger mr-2" name="submit" value="拒絕交易">拒絕交易</button>
-            </form>
-        }
-        @if (Model.Status == "待取消")
-        {
-            <form action="~/Seller/OrderDetails" method="post">
-                <input type="hidden" name="OrderId" value="@Model.OrderId">
-                <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-outline-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
-            </form>
-        }
-        <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">取消</button>
+        <div class="w-50">
+            <h2 class="text-center">賣家的商品 @Model.SellerName</h2>
+            <div class="p-2 product-card my-1">
+                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
+                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                </div>
+                <div class="container-fluid my-2">
+                    <h2>@Model.SellerTitle</h2>
+                    <h3>@Model.Trade</h3>
+                    <h3>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h3>
+                    <p><span>@Html.DisplayNameFor(model => model.SellerISBN) </span><span>@Model.SellerISBN</span></p>
+                    <p><span>@Html.DisplayNameFor(model => model.SellerAuthor) </span><span>@Model.SellerAuthor</span></p>
+                </div>
+                <div class="action d-flex justify-content-around align-items-center">
+                    <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                </div>
+            </div>
+        </div>
+        <div class="w-50">
+            <h2>@Model.Trade - <span>@Model.Status</span></h2>
+            <h2>購買者 - <span>@Model.BuyerName</span></h2>
+            <h2>@Html.DisplayNameFor(model => model.DenyReason)</h2>
+            <div class="p-2 d-flex flex-column flex-md-row align-items-center my-1">
+                <p>@Model.DenyReason</p>
+            </div>
+            <div class="d-flex">
+                @if (Model.Status == "待確認")
+                {
+                    <form action="~/Seller/OrderDetails" method="post">
+                        <input type="hidden" name="OrderId" value="@Model.OrderId">
+                        <input type="hidden" name="trade" value="@Model.Trade">
+                        <button type="submit" class="btn btn-outline-primary mr-2" name="submit" value="接受交易">接受交易</button>
+                        <button type="submit" class="btn btn-outline-danger mr-2" name="submit" value="拒絕交易">拒絕交易</button>
+                    </form>
+                }
+                @if (Model.Status == "待取消")
+                {
+                    <form action="~/Seller/OrderDetails" method="post">
+                        <input type="hidden" name="OrderId" value="@Model.OrderId">
+                        <input type="hidden" name="trade" value="@Model.Trade">
+                        <button type="submit" class="btn btn-outline-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
+                    </form>
+                }
+                <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">取消</button>
+            </div>
+        </div>
     </div>
 </div>
 @section topCSS{

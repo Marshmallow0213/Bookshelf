@@ -120,7 +120,7 @@ namespace CoreMVC5_UsedBookProject.Services
             from p in _context.Products
             where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade.Contains(trade)
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, SellerUnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerImage1 = p.Image1 }).Skip((now_page - 1) * 30).Take(30).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, SellerUnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -144,7 +144,7 @@ namespace CoreMVC5_UsedBookProject.Services
                       from p in _context.Products
                       where o.SellerProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade.Contains(trade)
                       orderby o.CreateDate descending
-                      select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, SellerImage1 = p.Image1, BuyerProductId = o.BuyerProductId }).Skip((now_page - 1) * 30).Take(30).ToList();
+                      select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, BuyerProductId = o.BuyerProductId }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = new List<OrderViewModel>() { },
@@ -214,7 +214,7 @@ namespace CoreMVC5_UsedBookProject.Services
             var products = (from p in _context.Products
                            where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade.Contains(trade)
                            orderby p.CreateDate descending
-                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).Skip((now_page - 1) * 30).Take(30).ToList();
+                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, Trade = p.Trade, Status = p.Status, UnitPrice = p.UnitPrice, CreateBy = p.CreateBy }).Skip((now_page - 1) * 30).Take(30).ToList();
             MyProductsViewModel mymodel = new()
             {
                 Products = products,
@@ -269,7 +269,7 @@ namespace CoreMVC5_UsedBookProject.Services
             int[] productNewLimit = { all, _limit };
             return productNewLimit;
         }
-        public void CreateProduct(ProductCreateViewModel productCreateViewModel, string name)
+        public void CreateProduct(ProductViewModel ProductViewModel, string name)
         {
             List<string> randomstrings = new();
             for (int i = 1; i <= 9; i++)
@@ -278,28 +278,26 @@ namespace CoreMVC5_UsedBookProject.Services
             }
             List<IFormFile> filenames = new()
                 {
-                    productCreateViewModel.File1 ?? null,
-                    productCreateViewModel.File2 ?? null,
-                    productCreateViewModel.File3 ?? null,
-                    productCreateViewModel.File4 ?? null,
-                    productCreateViewModel.File5 ?? null,
-                    productCreateViewModel.File6 ?? null,
-                    productCreateViewModel.File7 ?? null,
-                    productCreateViewModel.File8 ?? null,
-                    productCreateViewModel.File9 ?? null
+                    ProductViewModel.File2 ?? null,
+                    ProductViewModel.File3 ?? null,
+                    ProductViewModel.File4 ?? null,
+                    ProductViewModel.File5 ?? null,
+                    ProductViewModel.File6 ?? null,
+                    ProductViewModel.File7 ?? null,
+                    ProductViewModel.File8 ?? null,
+                    ProductViewModel.File9 ?? null
                 };
 
             List<string> Images = new()
                 {
-                    productCreateViewModel.Image1,
-                    productCreateViewModel.Image2,
-                    productCreateViewModel.Image3,
-                    productCreateViewModel.Image4,
-                    productCreateViewModel.Image5,
-                    productCreateViewModel.Image6,
-                    productCreateViewModel.Image7,
-                    productCreateViewModel.Image8,
-                    productCreateViewModel.Image9
+                    ProductViewModel.Image2,
+                    ProductViewModel.Image3,
+                    ProductViewModel.Image4,
+                    ProductViewModel.Image5,
+                    ProductViewModel.Image6,
+                    ProductViewModel.Image7,
+                    ProductViewModel.Image8,
+                    ProductViewModel.Image9
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
             string Id = $"{_hashService.RandomString(16)}";
@@ -316,28 +314,26 @@ namespace CoreMVC5_UsedBookProject.Services
                                      select new { p.ProductId }).FirstOrDefault();
             };
             decimal checkUnitPrice = -1000;
-            if (productCreateViewModel.Trade.Contains("買賣"))
+            if (ProductViewModel.Trade.Contains("買賣"))
             {
-                checkUnitPrice = productCreateViewModel.UnitPrice;
+                checkUnitPrice = ProductViewModel.UnitPrice;
             }
             Product product = new()
             {
                 ProductId = Id,
-                Title = productCreateViewModel.Title,
-                ContentText = productCreateViewModel.ContentText,
-                Image1 = checkImage[0],
-                Image2 = String.Join(",", checkImage[1..]),
-                ISBN = productCreateViewModel.ISBN,
-                Author = productCreateViewModel.Author,
-                Publisher = productCreateViewModel.Publisher,
-                PublicationDate = productCreateViewModel.PublicationDate,
-                Degree = productCreateViewModel.Degree,
-                Status = productCreateViewModel.Status,
-                Trade = productCreateViewModel.Trade,
+                Title = ProductViewModel.Title,
+                ContentText = ProductViewModel.ContentText,
+                ImageList = String.Join(",", checkImage),
+                ISBN = ProductViewModel.ISBN,
+                Author = ProductViewModel.Author,
+                Publisher = ProductViewModel.Publisher,
+                Degree = ProductViewModel.Degree,
+                Status = ProductViewModel.Status,
+                Trade = ProductViewModel.Trade,
                 UnitPrice = checkUnitPrice,
                 CreateDate = DateTime.Now,
                 EditDate = DateTime.Now,
-                TradingPlaceAndTime = productCreateViewModel.TradingPlaceAndTime,
+                TradingRemarque = ProductViewModel.TradingRemarque,
                 CreateBy = name
             };
             _context.Add(product);
@@ -346,10 +342,10 @@ namespace CoreMVC5_UsedBookProject.Services
         }
         public string[] CheckImageName(List<IFormFile> filenames, List<string> Images, List<string> randomstrings)
         {
-            string[] checkImage = { "", "", "", "", "", "", "", "", "" };
-            for (int i = 0; i <= 8; i++)
+            string[] checkImage = { "", "", "", "", "", "", "", "" };
+            for (int i = 0; i <= 7; i++)
             {
-                checkImage[i] = filenames[i] == null ? Images[i] : String.Concat($"{randomstrings[i]}{i + 1}", Path.GetExtension(Convert.ToString(filenames[i].FileName)));
+                checkImage[i] = filenames[i] == null ? Images[i] : String.Concat($"{randomstrings[i]}{i + 2}", Path.GetExtension(Convert.ToString(filenames[i].FileName)));
             }
             return checkImage;
         }
@@ -396,7 +392,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 }
             }
         }
-        public ProductEditViewModel GetProduct(string ProductId, string name)
+        public ProductViewModel GetProduct(string ProductId, string name)
         {
             var product = _sellerRepository.GetProductRaw(ProductId);
             if (product == null)
@@ -417,7 +413,7 @@ namespace CoreMVC5_UsedBookProject.Services
                      from p in _context.Products
                      where o.ProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerUnitPrice = o.UnitPrice, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerImage1 = p.Image1, SellerISBN = p.ISBN, SellerAuthor = p.Author }).FirstOrDefault();
+                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerUnitPrice = o.UnitPrice, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author }).FirstOrDefault();
             return order;
         }
         public BarterOrderViewModel GetBarterOrder(string OrderId)
@@ -429,20 +425,20 @@ namespace CoreMVC5_UsedBookProject.Services
             var products = (from p in _context.Products
                             where p.Status == "已上架" && p.CreateBy == $"{buyerid}" && p.Trade.Contains("交換")
                             orderby p.CreateDate descending
-                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, PublicationDate = p.PublicationDate, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.Image1, Image2 = p.Image2, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
+                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, Degree = p.Degree, ContentText = p.ContentText, Image2 = p.ImageList, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
             var buyerproduct = (from o in _context.BarterOrders
                          from p in _context.Products
                          where o.BuyerProductId == p.ProductId && o.OrderId == OrderId
                          orderby o.CreateDate descending
-                         select new BarterOrderViewModel { BuyerTitle = p.Title, BuyerISBN = p.ISBN, BuyerAuthor = p.Author, BuyerImage1 = p.Image1 }).FirstOrDefault();
+                         select new BarterOrderViewModel { BuyerTitle = p.Title, BuyerISBN = p.ISBN, BuyerAuthor = p.Author }).FirstOrDefault();
             order = (from o in _context.BarterOrders
                      from p in _context.Products
                      where o.SellerProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, SellerImage1 = p.Image1, BuyerProductId = o.BuyerProductId, BuyerTitle = buyerproduct.BuyerTitle, BuyerISBN = buyerproduct.BuyerISBN, BuyerAuthor = buyerproduct.BuyerAuthor, BuyerImage1 = buyerproduct.BuyerImage1, Products = products }).FirstOrDefault();
+                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, BuyerProductId = o.BuyerProductId, BuyerTitle = buyerproduct.BuyerTitle, BuyerISBN = buyerproduct.BuyerISBN, BuyerAuthor = buyerproduct.BuyerAuthor, Products = products }).FirstOrDefault();
             return order;
         }
-        public void EditProduct(ProductEditViewModel productEditViewModel, string name)
+        public void EditProduct(ProductViewModel ProductViewModel, string name)
         {
             List<string> randomstrings = new List<string>();
             for (int i = 1; i <= 9; i++)
@@ -451,59 +447,59 @@ namespace CoreMVC5_UsedBookProject.Services
             }
             List<IFormFile> filenames = new()
                 {
-                    productEditViewModel.File1 ?? null,
-                    productEditViewModel.File2 ?? null,
-                    productEditViewModel.File3 ?? null,
-                    productEditViewModel.File4 ?? null,
-                    productEditViewModel.File5 ?? null,
-                    productEditViewModel.File6 ?? null,
-                    productEditViewModel.File7 ?? null,
-                    productEditViewModel.File8 ?? null,
-                    productEditViewModel.File9 ?? null
+                    ProductViewModel.File2 ?? null,
+                    ProductViewModel.File3 ?? null,
+                    ProductViewModel.File4 ?? null,
+                    ProductViewModel.File5 ?? null,
+                    ProductViewModel.File6 ?? null,
+                    ProductViewModel.File7 ?? null,
+                    ProductViewModel.File8 ?? null,
+                    ProductViewModel.File9 ?? null
                 };
 
             List<string> Images = new()
                 {
-                    productEditViewModel.Image1,
-                    productEditViewModel.Image2,
-                    productEditViewModel.Image3,
-                    productEditViewModel.Image4,
-                    productEditViewModel.Image5,
-                    productEditViewModel.Image6,
-                    productEditViewModel.Image7,
-                    productEditViewModel.Image8,
-                    productEditViewModel.Image9
+                    ProductViewModel.Image2,
+                    ProductViewModel.Image3,
+                    ProductViewModel.Image4,
+                    ProductViewModel.Image5,
+                    ProductViewModel.Image6,
+                    ProductViewModel.Image7,
+                    ProductViewModel.Image8,
+                    ProductViewModel.Image9
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
-            var product = _sellerRepository.GetProductRaw(productEditViewModel.ProductId);
+            var product = _sellerRepository.GetProductRaw(ProductViewModel.ProductId);
             decimal checkUnitPrice = -1000;
-            if (productEditViewModel.Trade.Contains("買賣"))
+            if (ProductViewModel.Trade.Contains("買賣"))
             {
-                checkUnitPrice = productEditViewModel.UnitPrice;
+                checkUnitPrice = ProductViewModel.UnitPrice;
             }
             _context.Entry(product).State = EntityState.Modified;
-            product.ProductId = productEditViewModel.ProductId;
-            product.Title = productEditViewModel.Title;
-            product.ContentText = productEditViewModel.ContentText;
-            product.Image1 = checkImage[0];
-            product.Image2 = String.Join(",", checkImage[1..]);
-            product.ISBN = productEditViewModel.ISBN;
-            product.Author = productEditViewModel.Author;
-            product.Publisher = productEditViewModel.Publisher;
-            product.PublicationDate = productEditViewModel.PublicationDate;
-            product.Degree = productEditViewModel.Degree;
-            product.Status = productEditViewModel.Status;
-            product.Trade = productEditViewModel.Trade;
+            product.ProductId = ProductViewModel.ProductId;
+            product.Title = ProductViewModel.Title;
+            product.ContentText = ProductViewModel.ContentText;
+            product.ImageList = String.Join(",", checkImage);
+            product.ISBN = ProductViewModel.ISBN;
+            product.Author = ProductViewModel.Author;
+            product.Publisher = ProductViewModel.Publisher;
+            product.Degree = ProductViewModel.Degree;
+            product.Status = ProductViewModel.Status;
+            product.Trade = ProductViewModel.Trade;
             product.UnitPrice = checkUnitPrice;
             product.EditDate = DateTime.Now;
-            product.TradingPlaceAndTime = productEditViewModel.TradingPlaceAndTime;
+            product.TradingRemarque = ProductViewModel.TradingRemarque;
             _context.SaveChanges();
-            UploadImages(filenames, Images, productEditViewModel.ProductId, randomstrings, name);
+            UploadImages(filenames, Images, ProductViewModel.ProductId, randomstrings, name);
         }
         public bool DeleteProduct(string ProductId, string name)
         {
             var product = _sellerRepository.GetProductRaw(ProductId);
             if (product == null || product.CreateBy != name)
+            {
+                return false;
+            }
+            if (product.Status != "未上架")
             {
                 return false;
             }

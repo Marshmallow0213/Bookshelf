@@ -1,5 +1,5 @@
 ﻿@using CoreMVC5_UsedBookProject.ViewModels;
-@model ProductEditViewModel
+@model ProductViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -8,17 +8,17 @@
 }
 <div class="container-fluid flex-row">
     <h1>商品詳情</h1>
-    <partial name="~/Views/Seller/DetailTablePartial/Swiper.cshtml" />
+    <partial name="~/Views/Seller/DetailsTablePartial/Swiper.cshtml" />
     <form action="~/Buyer/Details" method="post">
-        <partial name="~/Views/Seller/DetailTablePartial/ProductInformation.cshtml" />
-        <partial name="~/Views/Seller/DetailTablePartial/SaleInformation.cshtml" />
-        <partial name="~/Views/Seller/DetailTablePartial/OtherInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailsTablePartial/ProductInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailsTablePartial/SaleInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailsTablePartial/OtherInformation.cshtml" />
         <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
         <br />
     </form>
 </div>
 @section topCSS{
-    <link href="~/css/seller/detailtablepartial.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/css/Seller/DetailsTablePartial.css" asp-append-version="true" rel="stylesheet" />
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
@@ -30,5 +30,5 @@
     <script src="~/lib//Swiper/swiper-bundle.min.js"></script>
     <!-- Initialize Swiper -->
     <script src="~/js/Swiper/Swiper.js"></script>
-    <script src="~/js/seller/detailtablepartial.js" asp-append-version="true"></script>
+    <script src="~/js/Seller/DetailsTablePartial.js" asp-append-version="true"></script>
 }
