@@ -40,6 +40,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var model = await _ctx.TextValue.Select(g => new TextboxViewModel { Image1 = g.Image1, Image2 = g.Image2, Image3 = g.Image3 }).FirstOrDefaultAsync();
             string[] imgs = { model.Image1, model.Image2, model.Image3 };
             ViewBag.Imgs = imgs;
+            var data = _ctx.announcements.Select(s => s.Message).ToList();
+            ViewBag.Announcements = data;
             return View(textbox);
         }
         public IActionResult Privacy()
