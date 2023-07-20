@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CoreMVC5_UsedBookProject.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize]
     public class BuyerController : Controller
     {
         private readonly BuyerService _buyerService;

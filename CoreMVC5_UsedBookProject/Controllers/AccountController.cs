@@ -75,8 +75,8 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 //成功,通過帳比對,以下開始建授權
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Name, user.Nickname),
+                    new Claim(ClaimTypes.Name, user.Id),
+                    new Claim(ClaimTypes.NameIdentifier, user.Nickname),
                     new Claim(ClaimTypes.GivenName, user.UserIcon),
                     //new Claim(ClaimTypes.Role, user.Role) // 如果要有「群組、角色、權限」，可以加入這一段
                 };
@@ -154,10 +154,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "User")]
+        [Authorize]
         public IActionResult Details(string ReturnUrl)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             var user = _accountService.GetUser(name);
             if (ReturnUrl == "/Changed")
             {
@@ -166,19 +166,19 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
         }
-        [Authorize(Roles = "User")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangePassword(UserPasswordChangeViewModel userPasswordChangeViewModel)
         {
             if (ModelState.IsValid)
             {
-                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                var name = User.Identity.Name;;
                 string password = _hashService.HashPassword(userPasswordChangeViewModel.Password);
                 var user = (from p in _ctx.Users
                             where p.Id == $"{name}"
@@ -196,21 +196,21 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(userPasswordChangeViewModel);
         }
-        [Authorize(Roles = "User")]
+        [Authorize]
         public IActionResult ChangeUserInfo()
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;;
             var user = _accountService.GetUser(name);
             return View(user);
         }
-        [Authorize(Roles = "User")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ChangeUserInfo(UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
-                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                var name = User.Identity.Name;;
                 var user = _accountService.GetUserRaw(name);
                 _ctx.Entry(user).State = EntityState.Modified;
                 user.Nickname = userViewModel.Nickname;
@@ -344,7 +344,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         public IActionResult DeleteUser(string Id)
         {
             
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;;
             if (name != Id || Id == null)
             {
                 TempData["Message"] = "你只能刪除自己的帳號!";
