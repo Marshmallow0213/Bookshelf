@@ -22,13 +22,13 @@
                         @if (Model.BuyerISBN == "1234567891234")
                         {
                             <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
-                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                             </div>
                         }
                         else
                         {
                             <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
-                                <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                             </div>
                         }
                     </td>
@@ -48,7 +48,7 @@
                     </td>
                     <td>
                         <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                         </div>
                     </td>
                     <td>
