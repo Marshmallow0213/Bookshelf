@@ -1,51 +1,4 @@
-﻿.product-card {
-    border: 2px solid #ffd700;
-    border-radius: 15px;
-    background-color: #232323;
-    width: 300px;
-    height: 575px;
-    margin-left: auto;
-    margin-right: auto;
-}
-    .product-card > div > h2 {
-        color: white;
-        height: 76.8px;
-        overflow: hidden;
-    }
-    .product-card > div > p:nth-of-type(2) {
-        overflow: hidden;
-        height: 48px;
-    }
-    .product-card > div > h3, .product-card > div > p > span, .product-card > h2 {
-        color: white;
-        overflow: hidden;
-    }
-.product-shop-card {
-    border: 2px solid #ffd700;
-    border-radius: 15px;
-    background-color: #232323;
-    width: 300px;
-    height: 320px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-    .product-shop-card > div > h2 {
-        color: white;
-        height: 76.8px;
-        overflow: hidden;
-    }
-
-    .product-shop-card > div > p:nth-of-type(2) {
-        overflow: hidden;
-        height: 48px;
-    }
-
-    .product-shop-card > div > h3, .product-shop-card > div > p > span, .product-shop-card > h2 {
-        color: white;
-        overflow: hidden;
-    }
-@media (min-width:576px) {
+﻿@media (min-width:576px) {
 }
 @media (min-width:768px) {
 }
@@ -65,12 +18,25 @@
     background-color: white;
     color: red;
 }
+.btn-outline-secondary {
+    background-color: white;
+    color: gray;
+}
+.btn-outline-primary {
+    background-color: white;
+    color: blue;
+}
+
+.btn-outline-success {
+    background-color: white;
+    color: green;
+}
 /**/
 .btn-status-custom {
     position: relative;
     min-width: 200px;
     background: #FFFFFF;
-    border: 2px solid #3AD2D0;
+    border: 2px solid #8B451350;
     transform: translate3d(0px, 0%, 0px);
     font-size: 1rem;
     font-weight: bold;
@@ -93,7 +59,7 @@
     }
 
     .btn-status-custom:before {
-        background: #3AD2D0;
+        background: #8B451350;
         border-radius: 50% 50% 0 0;
         transform: translateY(100%) scaleY(0.5);
     }
@@ -135,7 +101,7 @@
         }
 
     .btn-status-custom:hover {
-        background: #3AD2D0;
+        background: #8B451350;
         transition: background 0.2s linear;
         transition-delay: 0.6s;
         color: #FFFFFF;
@@ -160,4 +126,56 @@
         .btn-status-custom:hover span:last-child {
             transform: translateY(-32px);
         }
+        .btn-status-custom:hover span:first-child {
+            color: black;
+        }
+/**/
+/**/
+.fancytable {
+    border: 1px solid #8B451350;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .fancytable td {
+        border: 1px solid #8B451350;
+        color: #555555;
+        text-align: center;
+        line-height: 28px;
+    }
+
+.headerrow {
+    background-color: #8B451350;
+}
+
+    .headerrow td {
+        color: black;
+        text-align: center;
+    }
+
+.fancytable > tbody:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.fancytable > tbody:nth-child(even) {
+    background-color: #efefef;
+}
+
+.fancytable > tbody:nth-child(odd) td {
+    background-color: #ffffff;
+}
+
+    .fancytable > tbody:nth-child(even) td {
+        background-color: #efefef;
+    }
+.fancytable > tbody > tr > td > p {
+    font-size: 16px;
+}
+.sexyborder {
+    border: 1px solid #8B451350;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 /**/

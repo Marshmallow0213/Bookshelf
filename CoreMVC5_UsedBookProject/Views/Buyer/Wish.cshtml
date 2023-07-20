@@ -6,65 +6,92 @@
 <div class="container-fluid">
     <h1>願望清單</h1>
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-6">
             <form method="post" enctype="multipart/form-data" action="/Buyer/Wish">
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
                 <div class="form-group">
                     <label asp-for="ISBN" class="control-label"></label>
                     <input asp-for="ISBN" class="form-control" />
                     <span asp-validation-for="ISBN" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-outline-primary mb-2">增至許願井</button>
+                <button class="btn btn-outline-success my-1" onclick="searchByISBN()" type="button">api查詢書籍</button>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-outline-primary my-1">增至許願井</button>
             </form>
         </div>
-        <div class="col-12 col-md-6">
+        <div id="resultContainer" class="d-none"></div>
+        <div class="col-6">
             <p>進入願望清單後，</p>
             <p>若賣場中有此商品將顯示<span class="text-success">賣場有此商品</span>，</p>
             <p>否則顯示<span class="text-danger">賣場尚無此商品</span>。</p>
         </div>
-        @if (Model.Wishs.Count > 0)
-        {
-            @foreach (var item in Model.Wishs)
-            {
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1">
-                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3,3)}/{item.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-                        </div>
-                        <table class="container-fluid">
-                            <tr><td>@Html.DisplayNameFor(model => model.Title)</td><td>@item.Title</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.ISBN)</td><td>@item.ISBN</td></tr>
-                            <tr><td>@Html.DisplayNameFor(model => model.UserName)</td><td>@item.UserName</td></tr>
-                        </table>
-                        <div class="action d-flex flex-row flex-md-column justify-content-between align-items-center">
-                            <p class="mb-0 @(Model.Titleproducts.Contains(item.Title) == true ? "text-success" : "text-danger")">@(Model.Titleproducts.Contains(item.Title) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
-                            <a href="@Url.Action("SearchProducts", "Home", new {name = item.Title})" class="btn btn-primary mt-2">以書名搜尋</a>
-                            <p class="mb-0 @(Model.ISBNproducts.Contains(item.ISBN) == true ? "text-success" : "text-danger")">@(Model.ISBNproducts.Contains(item.ISBN) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
-                            <a href="@Url.Action("SearchProducts", "Home", new {name = item.ISBN})" class="btn btn-primary mt-2">以ISBN搜尋</a>
-                            <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-danger mt-2">刪除</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            <div class="col-12 col-md-6 col-xl-3">
-                <div class="p-2 product-card">
-                    <h2 class="my-5">願望清單是空的</h2>
-                </div>
-            </div>
-        }
+    </div>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow">
+                    <td style="width: 150px;">圖片封面</td>
+                    <td>書名</td>
+                    <td style="width: 120px;">ISBN</td>
+                    <td style="width: 120px;">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Wishs.Count > 0)
+                {
+                    @foreach (var item in Model.Wishs)
+                    {
+                        <tr>
+                            <td>
+                                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                </div>
+                            </td>
+                            <td>
+                                <p title="@item.Title" class="text-left">@item.Title</p>
+                            </td>
+                            <td>
+                                <p class="text-left">@item.ISBN</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 @(Model.ISBNproducts.Contains(item.ISBN) == true ? "text-success" : "text-danger")">@(Model.ISBNproducts.Contains(item.ISBN) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
+                                <a href="@Url.Action("SearchProducts", "Home", new {name = item.ISBN})" class="btn btn-primary mt-2">以ISBN搜尋</a>
+                                <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-danger mt-2">刪除</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="Empty" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            </div>
+                        </td>
+                        <td>
+                            <p title="願望清單是空的" class="text-left">願望清單是空的</p>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <partial name="_NowPageWishsPartial" />
 </div>
 @section topCSS{
     <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 }
 @section endJS{
+    <script src="~/js/home/wish.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
 }

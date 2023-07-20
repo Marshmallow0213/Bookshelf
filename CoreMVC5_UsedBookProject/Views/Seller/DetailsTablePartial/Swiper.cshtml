@@ -17,7 +17,17 @@
     <div class="col-6">
         <div class="mb-3" style="padding: 10px 75px;">
             <!-- Swiper -->
-            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff; position: relative;" class="swiper mySwiper2">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("User"))
+                    {
+                        @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value == Model.CreateBy)
+                        {
+                            <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px; z-index: 2;">My</p>
+                        }
+                    }
+                }
                 <div class="swiper-wrapper">
                     <div class="swiper-slide p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
                         <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.ISBN.Substring(3,3)}/{Model.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
@@ -37,14 +47,14 @@
             </div>
             <div thumbsSlider="" class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide d-flex align-items-center">
+                    <div class="swiper-slide d-flex align-items-center" style="width: 130.5px; aspect-ratio: 1 / 1;">
                         <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.ISBN.Substring(3,3)}/{Model.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                     </div>
                     @if (list.Length > 0)
                     {
                         @foreach (var item in list)
                         {
-                            <div class="swiper-slide d-flex align-items-center">
+                            <div class="swiper-slide d-flex align-items-center" style="width: 130.5px; aspect-ratio: 1 / 1;">
                                 <img src="/Images/Users/@Model.CreateBy/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
                             </div>
                         }

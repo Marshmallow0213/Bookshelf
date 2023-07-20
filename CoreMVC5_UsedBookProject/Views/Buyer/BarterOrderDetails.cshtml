@@ -8,77 +8,100 @@
 }
 <div class="container-fluid">
     <h1>交換訂單詳情</h1>
-    <form action="~/Buyer/BarterOrderDetails" method="post">
-        <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1">
-            <h2>@Model.Trade - </h2>
-            <h3>@Model.Status</h3>
-        </div>
-        <h2>@Html.DisplayNameFor(model => model.DenyReason)</h2>
-        <div class="p-2 d-flex flex-column flex-md-row align-items-center product-card my-1">
-            <p>@Model.DenyReason</p>
-            @if (Model.Status == "待確認" || Model.Status == "已成立")
-            {
-                <div class="d-flex w-100">
-                    <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
-                    <p id="DenyReason_length" class="text-right ml-4"></p>
-                </div>
-                <span asp-validation-for="DenyReason" class="text-danger"></span>
-            }
-            else
-            {
-                <p>@Model.DenyReason</p>
-            }
-        </div>
-        <div class="d-flex">
-            <div class="w-50">
-                <h2>對方的商品 @Model.BuyerName</h2>
-                <div class="p-2 product-card my-1">
-                    <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
-                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-                    </div>
-                    <div class="container-fluid my-2">
-                        <h2>@Model.BuyerTitle</h2>
-                        <h3>@Model.Trade</h3>
-                        <p><span>@Html.DisplayNameFor(model => model.BuyerISBN) </span><span>@Model.BuyerISBN</span></p>
-                        <p><span>@Html.DisplayNameFor(model => model.BuyerAuthor) </span><span>@Model.BuyerAuthor</span></p>
-                    </div>
-                    <div class="action d-flex justify-content-around align-items-center">
-                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.BuyerProductId})" class="btn btn-info p-3"><i class="bi bi-info-circle"></i> 商品詳情</a>
-                    </div>
-                </div>
-            </div>
-            <div class="w-50">
-                <h2>我的商品 @Model.SellerName</h2>
-                <div class="p-2 product-card my-1">
-                    <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-                    </div>
-                    <div class="container-fluid my-2">
-                        <h2>@Model.SellerTitle</h2>
-                        <h3>@Model.Trade</h3>
-                        <p><span>@Html.DisplayNameFor(model => model.SellerISBN) </span><span>@Model.SellerISBN</span></p>
-                        <p><span>@Html.DisplayNameFor(model => model.SellerAuthor) </span><span>@Model.SellerAuthor</span></p>
-                    </div>
-                    <div class="action d-flex justify-content-around align-items-center">
-                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-info p-3"><i class="bi bi-info-circle"></i> 商品詳情</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex">
-            @if (Model.Status == "已成立")
-            {
-                <input type="hidden" name="OrderId" value="@Model.OrderId">
-                <input type="hidden" name="trade" value="@Model.Trade">
-                <button type="submit" class="btn btn-primary mr-2" name="submit" value="完成訂單">完成訂單</button>
-            }
-            @if (Model.Status == "待確認" || Model.Status == "已成立")
-            {
-                <button type="submit" class="btn btn-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
-            }
-            <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
-        </div>
-    </form>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 170px;">使用者名稱</td><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">操作</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-left">我的商品<br>@Model.BuyerName</p>
+                    </td>
+                    <td>
+                        @if (Model.BuyerISBN != "1234567891234")
+                        {
+                            <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
+                                <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <p title="@Model.BuyerTitle" class="text-left">@Model.BuyerTitle</p>
+                    </td>
+                    <td>
+                        @if (Model.BuyerISBN != "1234567891234")
+                        {
+                            <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.BuyerProductId})" class="btn btn-outline-info p-3"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="text-left">對方的商品<br>@Model.SellerName</p>
+                    </td>
+                    <td>
+                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                        </div>
+                    </td>
+                    <td>
+                        <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sexyborder">
+        <form action="~/Buyer/BarterOrderDetails" method="post">
+            <table class="fancytable">
+                <thead>
+                    <tr class="headerrow"><td style="width: 150px;">訂單狀態</td><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td style="width: 150px;">操作</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p class="text-left">@Model.Status</p>
+                        </td>
+                        <td>
+                            @if (Model.Status == "待確認" || Model.Status == "已成立")
+                            {
+                                <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
+                                <span asp-validation-for="DenyReason" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                <p>@Model.DenyReason</p>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.Status == "已成立")
+                            {
+                                <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                <input type="hidden" name="trade" value="@Model.Trade">
+                                <button type="submit" class="btn btn-outline-primary p-3 my-1" name="submit" value="完成訂單">完成訂單</button>
+                            }
+                            @if (Model.Status == "待確認" || Model.Status == "已成立")
+                            {
+                                <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                <button type="submit" class="btn btn-outline-danger p-3 my-1" name="submit" value="取消訂單">取消訂單</button>
+                            }
+                            <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload p-3 my-1">返回</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
 </div>
 @section topCSS{
     <link href="~/css/seller/mysales.css" asp-append-version="true" rel="stylesheet" />

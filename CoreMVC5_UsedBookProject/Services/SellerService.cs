@@ -73,8 +73,6 @@ namespace CoreMVC5_UsedBookProject.Services
                     return true;
                 case "已售完":
                     return true;
-                case "封禁":
-                    return true;
                 case "刪除":
                     return true;
                 case null:
@@ -236,7 +234,6 @@ namespace CoreMVC5_UsedBookProject.Services
                 { "已上架", 0 },
                 { "待確認", 0 },
                 { "已售完", 0 },
-                { "封禁", 0 },
                 { "刪除", 0 }
             };
             foreach (var item in countList.Keys)
@@ -345,7 +342,7 @@ namespace CoreMVC5_UsedBookProject.Services
             string[] checkImage = { "", "", "", "", "", "", "", "" };
             for (int i = 0; i <= 7; i++)
             {
-                checkImage[i] = filenames[i] == null ? Images[i] : String.Concat($"{randomstrings[i]}{i + 2}", Path.GetExtension(Convert.ToString(filenames[i].FileName)));
+                checkImage[i] = filenames[i] == null ? Images[i] : String.Concat($"{randomstrings[i]}{i + 1}", Path.GetExtension(Convert.ToString(filenames[i].FileName)));
             }
             return checkImage;
         }
@@ -441,7 +438,7 @@ namespace CoreMVC5_UsedBookProject.Services
         public void EditProduct(ProductViewModel ProductViewModel, string name)
         {
             List<string> randomstrings = new List<string>();
-            for (int i = 1; i <= 9; i++)
+            for (int i = 1; i <= 8; i++)
             {
                 randomstrings.Add(_hashService.RandomString(7));
             }

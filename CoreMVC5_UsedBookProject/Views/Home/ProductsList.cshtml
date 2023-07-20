@@ -4,40 +4,54 @@
     ViewData["Title"] = $"{(ViewBag.Trade == "交換" ? "交換" : "買賣")}賣場";
 }
 <div class="container-fluid">
-    <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")賣場</h1>
-    <div class="d-flex justify-content-between flex-wrap">
-        @if (Model.Products.Count > 0)
-        {
-            @foreach (var item in Model.Products)
+    <h1 style="background-color: #92705A; border-radius: 15px 15px 0 0; width: 170px; margin-bottom: 0; text-align: center;">@(ViewBag.Trade == "交換" ? "交換" : "買賣")賣場</h1>
+    <div class="p-2" style="background-color: #92705A; border-radius: 0 15px 15px 15px;">
+        <div class="row">
+            @if (Model.Products.Count > 0)
             {
-                <div class="p-2 product-shop-card my-1">
-                    <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-3 col-xl-2 mt-4">
+                        <div class="product-shop-card m-auto">
+                            <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="p-2 text-decoration-none" style="position: relative;">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @if (User.IsInRole("User"))
+                                    {
+                                        @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value == item.CreateBy)
+                                        {
+                                            <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px;">My</p>
+                                        }
+                                    }
+                                }
+                                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: #A0522D50;">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                </div>
+                                <div class="container-fluid my-2">
+                                    <p title="@item.Title">@item.Title</p>
+                                    @if (ViewBag.Trade == "買賣")
+                                    {
+                                        <p>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</p>
+                                    }
+                                    else
+                                    {
+                                        <p>&nbsp;</p>
+                                    }
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="container-fluid my-2">
-                        <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})"><h2 title="@item.Title">@item.Title</h2></a>
-                        @if (item.Trade.Contains("買賣"))
-                        {
-                            <h3>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</h3>
-                        }
-                        else
-                        {
-                            <h3>&nbsp;</h3>
-                        }
-                    </div>
-                </div>
+                }
             }
-        }
-        else
-        {
-            <div class="p-2 product-card">
-                <h2 class="my-5">沒有上架的商品</h2>
-            </div>
-        }
+            else
+            {
+                <h2 class="my-5 text-center w-100" style="color:white;">沒有上架的商品</h2>
+            }
+        </div>
     </div>
 </div>
 <partial name="_NowPageMyProductsPartial" />
 
 @section topCSS{
-    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/css/home/myproducts.css" asp-append-version="true" rel="stylesheet" />
 }

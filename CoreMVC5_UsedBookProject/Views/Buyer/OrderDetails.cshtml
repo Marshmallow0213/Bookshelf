@@ -8,66 +8,79 @@
 }
 <div class="container-fluid">
     <h1>買賣訂單詳情</h1>
-    <form action="~/Buyer/OrderDetails" method="post">
-        <div class="container-fluid my-2">
-            <h2>@Model.Trade</h2>
-            <h2>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h2>
-            @if (Model.Status == "待確認" || Model.Status == "已成立")
-            {
-                <p>
-                    <span>@Html.DisplayNameFor(model => model.DenyReason) </span>
-                    <span>
-                        <div class="d-flex">
-                            <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
-                            <p id="DenyReason_length" class="text-right ml-4"></p>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 150px;">上架者</td><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">價格</td><td style="width: 150px;">操作</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-left">@Model.SellerName</p>
+                    </td>
+                    <td>
+                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                         </div>
-                        <span asp-validation-for="DenyReason" class="text-danger"></span>
-                    </span>
-                </p>
-            }
-            else
-            {
-                <p><span>@Html.DisplayNameFor(model => model.DenyReason) </span><span>@Model.DenyReason</span></p>
-            }
-            <p><span>@Html.DisplayNameFor(model => model.Status) </span><span>@Model.Status</span></p>
-        </div>
-        <div class="d-flex">
-            <div class="w-50">
-                <h2>賣家的商品 @Model.SellerName</h2>
-                <div class="p-2 product-card my-1">
-                    <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
-                    </div>
-                    <div class="container-fluid my-2">
-                        <h2>@Model.SellerTitle</h2>
-                        <h3>@Model.Trade</h3>
-                        <h3>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</h3>
-                        <p><span>@Html.DisplayNameFor(model => model.SellerISBN) </span><span>@Model.SellerISBN</span></p>
-                        <p><span>@Html.DisplayNameFor(model => model.SellerAuthor) </span><span>@Model.SellerAuthor</span></p>
-                    </div>
-                    <div class="action d-flex justify-content-around align-items-center">
-                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-info p-3"><i class="bi bi-info-circle"></i> 商品詳情</a>
-                    </div>
-                </div>
-            </div>
-            <div class="w-50">
-                <div class="d-flex">
-                    @if (Model.Status == "已成立")
-                    {
-                        <input type="hidden" name="OrderId" value="@Model.OrderId">
-                        <input type="hidden" name="trade" value="@Model.Trade">
-                        <button type="submit" class="btn btn-primary mr-2" name="submit" value="完成訂單">完成訂單</button>
-                    }
-                    @if (Model.Status == "待確認" || Model.Status == "已成立")
-                    {
-                        <button type="submit" class="btn btn-danger mr-2" name="submit" value="取消訂單">取消訂單</button>
-                    }
-                    <button type="button" onclick="history.go(-1)" class="btn btn-secondary disable-onbeforeunload">取消</button>
-                </div>
-            </div>
-        </div>
-    </form>
+                    </td>
+                    <td>
+                        <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
+                    </td>
+                    <td>
+                        <p>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</p>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sexyborder">
+        <form action="~/Buyer/OrderDetails" method="post">
+            <table class="fancytable">
+                <thead>
+                    <tr class="headerrow"><td style="width: 150px;">訂單狀態</td><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td style="width: 150px;">操作</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p class="text-left">@Model.Status</p>
+                        </td>
+                        <td>
+                            @if (Model.Status == "待確認" || Model.Status == "已成立")
+                            {
+                                <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
+                                <span asp-validation-for="DenyReason" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                <p>@Model.DenyReason</p>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.Status == "已成立")
+                            {
+                                    <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                    <input type="hidden" name="trade" value="@Model.Trade">
+                                    <button type="submit" class="btn btn-outline-primary p-3 my-1" name="submit" value="完成訂單">完成訂單</button>
+                            }
+                            @if (Model.Status == "待確認" || Model.Status == "已成立")
+                            {
+                                    <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                    <button type="submit" class="btn btn-outline-danger p-3 my-1" name="submit" value="取消訂單">取消訂單</button>
+                            }
+                            <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload p-3 my-1">返回</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
 </div>
 @section topCSS{
     <link href="~/css/seller/mysales.css" asp-append-version="true" rel="stylesheet" />
+}
+@section endJS{
+    <partial name="_ValidationScriptsPartial" />
 }

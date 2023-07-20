@@ -67,24 +67,22 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             return View(mymodel);
         }
-        public IActionResult CreateOrder(string ProductId, string Sellername, string trade, string Order)
+        public string CreateOrder(string ProductId, string Sellername, string trade, string Order)
         {
             if(Order != "買賣" && Order != "交換")
             {
-                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
+                return "false";
             }
             var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
             var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade.Contains("交換")).FirstOrDefault();
             if (buyername == product.CreateBy)
             {
-                TempData["Message"] = "你不能購買自己的商品!";
-                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
+                return "false";
             }
             if (checkselfproducts == null && Order == "交換")
             {
-                TempData["Message"] = "你需要先上架自己的交換商品!";
-                return RedirectToAction("Details", "Home", new { ProductId = ProductId });
+                return "needselfporducts";
             }
             if (ProductId != null && Sellername != null)
             {
@@ -97,7 +95,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     _buyerService.CreateBarterOrder(trade, Sellername, buyername, ProductId);
                 }
             }
-            return RedirectToAction("MySales", new { Trade = Order });
+            return "true";
         }
         private List<ProductViewModel> GetCartItems(string name)
         {
@@ -170,7 +168,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             now_page = now_page == 0 ? 1 : now_page;
             var countWish = _context.Wishes.Where(w => w.Id == name).Select(g => new { g.WishId }).ToList();
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(countWish.Count) / 30));
-            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).Skip((now_page - 1) * 30).Take(30).ToList();
+            var wishlist = (from w in _context.Wishes from u in _context.Users where w.Id == u.Id && w.Id == name select new WishViewModel { Title = w.Title, ISBN = w.ISBN, WishId = w.WishId, UserName = u.Name }).Skip((now_page - 1) * 30).Take(30).ToList();
             List<string> ISBNproducts = new();
             ISBNproducts = _context.Products
                     .Where(p => p.Status == "已上架")
@@ -179,17 +177,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     )
                     .ToList();
             List<string> Titleproducts = new();
-            Titleproducts = _context.Products
-                .Where(p => p.Status == "已上架")
-                .OrderByDescending(p => p.CreateDate)
-                .Select(p => p.Title
-                )
-                .ToList();
             WishsViewModel wishs = new()
             {
                 Wishs = wishlist,
                 ISBNproducts = ISBNproducts,
-                Titleproducts = Titleproducts,
                 PagesCount = new int[] { now_page, all_pages }
             };
             return View(wishs);
@@ -201,13 +192,17 @@ namespace CoreMVC5_UsedBookProject.Controllers
             if (ModelState.IsValid)
             {
                 var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
-                Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
-                _context.Wishes.Add(bookWish);
-                _context.SaveChanges();
+                var wish = _context.Wishes.Where(w => w.Id == name && w.ISBN == book.ISBN).FirstOrDefault();
+                if (wish == null)
+                {
+                    Wish bookWish = new Wish { Title = book.Title, ISBN = book.ISBN, Id = name };
+                    _context.Wishes.Add(bookWish);
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("Wish", new {});
             }
             else {
-                return RedirectToAction("Wish", new {});
+                return View(book);
             }
         }
 

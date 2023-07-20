@@ -262,27 +262,15 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 return NotFound();
             }
         }
-        public IActionResult Delete(string ProductId, string Trade)
+        public bool Delete(string ProductId)
         {
             var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
             var product = _sellerService.DeleteProduct(ProductId, name);
-            if(product == false)
-            {
-                return RedirectToAction("Index", new {});
-            }
-            if (Trade.Contains("買賣"))
-            {
-                return RedirectToAction("MyProducts", new { trade = "買賣", status = "刪除" });
-            }
-            else
-            {
-                return RedirectToAction("MyProducts", new { trade = "交換", status = "刪除" });
-            }
+            return product;
         }
         public IActionResult Error()
         {
             return View();
         }
-        
     }
 }

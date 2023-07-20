@@ -1,0 +1,60 @@
+﻿@media (min-width:576px) {
+}
+@media (min-width:768px) {
+}
+@media (min-width:992px) {
+}
+@media (min-width:1200px) {
+}
+/**/
+.fancytable {
+    border: 1px solid #8B451350;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .fancytable td {
+        border: 1px solid #8B451350;
+        color: #555555;
+        text-align: center;
+        line-height: 28px;
+    }
+
+.headerrow {
+    background-color: #8B451350;
+}
+
+    .headerrow td {
+        color: black;
+        text-align: center;
+        height: 75px;
+    }
+
+.fancytable > tbody:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.fancytable > tbody:nth-child(even) {
+    background-color: #efefef;
+}
+
+.fancytable > tbody:nth-child(odd) td {
+    background-color: #ffffff;
+    height: 75px;
+}
+
+.fancytable > tbody:nth-child(even) td {
+    background-color: #efefef;
+    height: 75px;
+}
+.fancytable > tbody > tr > td > p, .fancytable > thead > tr > td {
+    font-size: 24px;
+}
+.sexyborder {
+    border: 1px solid #8B451350;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+/**/
