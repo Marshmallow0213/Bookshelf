@@ -90,14 +90,18 @@ namespace CoreMVC5_UsedBookProject.Data
                 new Role { Id = "R002", Name = "Suspension" }
                 );
             modelBuilder.Entity<User>().HasData(
-                new User { Id = "U001", Name = "B10802001", Password = _hashService.HashPassword("12345678"), Nickname = "B10802001", PhoneNo = "0900-951-456", Email = "B10802001@g.chu.edu.tw", UserIcon = "UserIcon.png" },
-                new User { Id = "U002", Name = "B10802002", Password = _hashService.HashPassword("12345678"), Nickname = "B10802002", PhoneNo = "0933-941-941", Email = "B10802002@g.chu.edu.tw", UserIcon = "UserIcon.png" },
-                new User { Id = "U003", Name = "B10802003", Password = _hashService.HashPassword("12345678"), Nickname = "B10802003", PhoneNo = "0987-587-587", Email = "B10802003@g.chu.edu.tw", UserIcon = "UserIcon.png" }
+                new User { Id = "U001", Name = "B10802001", Password = _hashService.HashPassword("12345678"), Nickname = "B10802001", PhoneNo = "0978-042-241", Email = "B10802001@g.chu.edu.tw", UserIcon = "UserIcon.png" },
+                new User { Id = "U002", Name = "B10802002", Password = _hashService.HashPassword("12345678"), Nickname = "B10802002", PhoneNo = "0978-042-242", Email = "B10802002@g.chu.edu.tw", UserIcon = "UserIcon.png" },
+                new User { Id = "U003", Name = "B10802003", Password = _hashService.HashPassword("12345678"), Nickname = "B10802003", PhoneNo = "0978-042-243", Email = "B10802003@g.chu.edu.tw", UserIcon = "UserIcon.png" },
+                new User { Id = "U004", Name = "B10802004", Password = _hashService.HashPassword("12345678"), Nickname = "B10802004", PhoneNo = "0978-042-244", Email = "B10802004@g.chu.edu.tw", UserIcon = "UserIcon.png" },
+                new User { Id = "U005", Name = "B10802005", Password = _hashService.HashPassword("12345678"), Nickname = "B10802005", PhoneNo = "0978-042-245", Email = "B10802005@g.chu.edu.tw", UserIcon = "UserIcon.png" }
                 );
             modelBuilder.Entity<UserRoles>().HasData(
                 new UserRoles { UserId = "U001", RoleId = "R001" },
                 new UserRoles { UserId = "U002", RoleId = "R001" },
-                new UserRoles { UserId = "U003", RoleId = "R001" }
+                new UserRoles { UserId = "U003", RoleId = "R001" },
+                new UserRoles { UserId = "U004", RoleId = "R001" },
+                new UserRoles { UserId = "U005", RoleId = "R001" }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product
@@ -424,6 +428,17 @@ namespace CoreMVC5_UsedBookProject.Data
                     TradingRemarque = "中華大學第一餐廳",
                     CreateBy = "U003"
                 }
+                );
+            modelBuilder.Entity<Wish>().HasData(
+                new Wish { WishId = 1, Id = "U001", Title = "Systems Analysis and Design with UML 3rd", ISBN = "9780470074787" },
+                new Wish { WishId = 2, Id = "U001", Title = "科技英文導讀(第五版)(附課文朗讀CD)", ISBN = "9789864632961" },
+                new Wish { WishId = 3, Id = "U001", Title = "App Inventor 2程式設計與應用：開發Android App一學就上手（第五版）（附範例光碟）", ISBN = "9786263281790" },
+                new Wish { WishId = 4, Id = "U002", Title = "Discrete and Combinatorial Mathematics: An Applied Introduction, 5/e (IE-Paperback)", ISBN = "9781292022796" },
+                new Wish { WishId = 5, Id = "U002", Title = "Python零基礎入門班(第三版)：一次打好程式設計、運算思維與邏輯訓練基本功(附160分鐘入門影音教學/範例程式)", ISBN = "9789865028190" },
+                new Wish { WishId = 6, Id = "U002", Title = "Computer Science Illuminated, 7/e (Paperback)", ISBN = "9781284155617" },
+                new Wish { WishId = 7, Id = "U003", Title = "科學運算：Python程式理論與應用", ISBN = "9789863756262" },
+                new Wish { WishId = 8, Id = "U003", Title = "Fundamentals of Data Structures in C, 2/e (Paperback)", ISBN = "9780929306407" },
+                new Wish { WishId = 9, Id = "U003", Title = "數位多媒體概論", ISBN = "9789862016855" }
                 );
         }
     }

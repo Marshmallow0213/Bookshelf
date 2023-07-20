@@ -13,7 +13,8 @@
         <partial name="~/Views/Seller/EditTablePartial/ProductInformation.cshtml" />
         <partial name="~/Views/Seller/EditTablePartial/ProductImage.cshtml" />
         <partial name="~/Views/Seller/EditTablePartial/SaleInformation.cshtml" />
-        <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
+        <input type="hidden" name="ProductId" class="form-control" id="ProductId" value="@Model.ProductId" readonly />
+        <input type="hidden" class="form-control" id="CreateBy" value="@Model.CreateBy" readonly />
         <div id="resultContainer" class="d-none"></div>
         <br />
         <div>

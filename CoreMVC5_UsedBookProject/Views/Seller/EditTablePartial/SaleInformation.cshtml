@@ -33,7 +33,7 @@
                     <input type="checkbox" id="bartertradecheckbox" value="交換" @(Trade == "交換" || Trade == "買賣與交換" ? "checked" : "") onclick="TradeCheck()">
                     <label for="bartertradecheckbox"> 交換</label>
                 </div>
-                <span asp-validation-for="Trade" class="text-danger"></span>
+                <span asp-validation-for="Trade" class="text-danger" id="tradeMessage"></span>
             </td>
         </tr>
         <tr id="UnitPrice_div" class="@(Model.Trade == "交換" ? "d-none" : "")">

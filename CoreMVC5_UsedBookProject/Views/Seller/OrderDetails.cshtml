@@ -27,7 +27,7 @@
                         <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
                     </td>
                     <td>
-                        <p>&nbsp;</p>
+                        <p>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</p>
                     </td>
                     <td>
                         <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>

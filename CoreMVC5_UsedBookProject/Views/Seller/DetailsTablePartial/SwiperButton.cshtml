@@ -9,69 +9,15 @@
 @if (controller == "Home" && action == "Details"){
     @if (Model.Trade.Contains("買賣"))
     {
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary p-3" data-toggle="modal" data-target="#staticBackdrop" onclick="checklogin()">
+        <button type="button" class="btn btn-outline-primary p-3" onclick="checklogin('@Model.ProductId','@Model.CreateBy','@Model.Trade','買賣')">
             購買
         </button>
-        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
-        {
-            @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value != Model.CreateBy)
-            {
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                確認要送出購買訂單?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
-                                <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade, Order = "買賣"})" class="btn btn-primary">確認</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
     }
     @if (Model.Trade.Contains("交換"))
     {
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary p-3" data-toggle="modal" data-target="#staticBackdrop2" onclick="checklogin()">
+        <button type="button" class="btn btn-outline-primary p-3" onclick="checklogin('@Model.ProductId','@Model.CreateBy','@Model.Trade','交換')">
             交換
         </button>
-        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
-        {
-            @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value != Model.CreateBy)
-            {
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel" style="color:red">確認一下!!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                確認要送出交換訂單?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
-                                <a href="@Url.Action("CreateOrder", "Buyer", new {ProductId=Model.ProductId, Sellername = Model.CreateBy, trade = Model.Trade, Order = "交換"})" class="btn btn-primary">確認</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
     }
     <button type="button" class="btn btn-outline-success my-2 p-3" id="shoppingcart" value="@Model.ProductId"><i class="bi bi-cart4"></i> 增加至購物車</button>
 }
@@ -82,31 +28,9 @@ else if(controller == "Seller" && action == "Details"){
     }
     @if (Model.Status == "未上架")
     {
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop">
+        <button type="button" class="btn btn-outline-danger p-3 my-1" onclick="checkDeleteProduct('@Model.ProductId')">
             <i class="bi bi-trash"></i> 刪除
         </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">確認刪除?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        確認移至刪除區?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">返回</button>
-                        <a href="@Url.Action("Delete", "Seller", new {ProductId = Model.ProductId, Trade = Model.Trade})" class="btn btn-outline-danger mt-2"><i class="bi bi-trash"></i> 刪除</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     }
     <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">返回</button>
 }

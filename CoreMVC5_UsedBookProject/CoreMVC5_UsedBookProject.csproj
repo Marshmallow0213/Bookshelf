@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Seller\ImagePartial.cshtml" />
     <Content Remove="wwwroot\css\fixbgc.css" />
     <Content Remove="wwwroot\Pictures\Carousel.jpg" />
     <Content Remove="wwwroot\Pictures\EmptyUserIcon.png" />

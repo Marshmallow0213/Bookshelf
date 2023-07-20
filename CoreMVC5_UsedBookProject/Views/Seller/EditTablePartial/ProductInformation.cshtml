@@ -31,6 +31,17 @@
                     <p id="ISBN_length" class="text-right ml-4"></p>
                 </div>
                 <span asp-validation-for="ISBN" class="text-danger"></span>
+                <button class="btn btn-outline-success mt-3" onclick="searchByISBN()" type="button">api查詢書籍</button>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Image1)</td>
+            <td>
+                <input type="hidden" name="Image1" class="form-control" value="@(Model.Image1 == null ? "無圖片" : Model.Image1)" id="Image1" readonly />
+                <button type="button" class="btn btn-outline-danger d-none" id="Image1-clear" disabled>X</button>
+                <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white; background: white; border: 1px solid black;">
+                    <img src="/DeafultPictures/DeafultBookPicture.jpg" alt="img1" id="img1" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'">
+                </div>
             </td>
         </tr>
         <tr>
