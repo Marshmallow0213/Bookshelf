@@ -113,10 +113,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
                     authProperties
                     );
                 HttpContext.Response.Cookies.Append("Login", "Now");
-                if(ReturnUrl == "/Seller")
-                {
-                    return LocalRedirect("~/Seller/Index");
-                }
                 try
                 {
                     if(ReturnUrl != null)
@@ -125,6 +121,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         if (ProductId[0] == "ProductId")
                         {
                             return LocalRedirect($"~/Home/Details?ProductId={ProductId[1]}");
+                        }
+                        else
+                        {
+                            return LocalRedirect("~/Home/Index");
                         }
                     }
                     else
