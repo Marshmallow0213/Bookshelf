@@ -63,11 +63,13 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 if (user.Id == "noExist")
                 {
                     ModelState.AddModelError(string.Empty, "帳號不存在!!!");
+                    TempData["Error"] = "帳號不存在";
                     return View(loginVM);
                 }
                 if (user.Id == "error")
                 {
                     ModelState.AddModelError(string.Empty, "帳號密碼有錯!!!");
+                    TempData["Error"] = "帳號密碼有錯";
                     return View(loginVM);
                 }
                 //成功,通過帳比對,以下開始建授權
