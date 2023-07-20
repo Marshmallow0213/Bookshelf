@@ -1,3 +1,16 @@
 ﻿@model Textbox
+<div class="marqee">
+ <ul>
+        @foreach (var Announcement in ViewBag.Announcements)
+        {
+            <li>
+                @Announcement
+            </li>
+        }
+ </ul>
+</div>
+@section topCSS{
+    <link href="~/css/home/index.css" asp-append-version="true" rel="stylesheet" />
+}
 <partial name="~/Views/shared/AdminIndexPartial.cshtml" />
 
