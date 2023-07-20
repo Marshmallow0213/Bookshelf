@@ -387,6 +387,44 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         });
                 });
 
+            modelBuilder.Entity("CoreMVC5_UsedBookProject.Models.announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("announcements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Message = "系統將於2023/08/16中午12:00開放主頁面圖片徵選，各位想要更換自己喜愛圖片的機會就在這次!有興趣者私訊Potatodog@bookshelf.com，最高票的3張圖片將獲得獎金2000,1000,500元的獎勵"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Message = "本平台舉辦按鈕繪畫比賽，獲勝者可以獲取高達總金額8000元比賽獎金!有興趣者致電0900-951-456"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 7, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Message = "系統將在2023/09/29中午12:00到17:00進行維護更新，屆時將暫時停止伺服器運營。"
+                        });
+                });
+
             modelBuilder.Entity("CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage", b =>
                 {
                     b.Property<string>("Id")

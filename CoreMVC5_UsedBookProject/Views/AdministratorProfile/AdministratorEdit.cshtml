@@ -4,21 +4,44 @@
     ViewData["Title"] = "管理員資料編輯";
 }
 <style>
+    body {
+        background-image: url('/adminimg/mail1.jpg');
+    }
+
     .return {
         padding: 10px;
         text-decoration: none;
-        color: white;
-        background-color: blue;
+        color: black;
+        background-color: #D1F0D4;
         transition: 0.7s;
         border-radius: 5px;
         border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
     }
 
         .return:hover {
+            color: black;
             text-decoration: none;
-            color: blue;
-            background-color: white;
-            border: 1px blue solid;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #DAD1F0;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .edit:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
         }
 </style>
 <h1>管理員資料編輯</h1>
@@ -30,7 +53,7 @@
         <form asp-action="AdministratorEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group" style="display:flex; flex-direction:column;  gap:10px;">
-                <div style="display:flex;">
+                <div style="display:flex; display:none;">
                 <label asp-for="Id" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
                 <input asp-for="Id" readonly class="form-control"/>
                 <span asp-validation-for="Id" class="text-danger"></span>
@@ -64,7 +87,7 @@
 </div>
 
 <div style="margin-top:10px">
-    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="return">返回管理員資料列表</a>
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="edit">返回管理員資料列表</a>
 </div>
 
 @section Scripts {

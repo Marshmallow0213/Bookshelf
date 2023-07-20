@@ -5,30 +5,40 @@
 }
 <link href="~/css/buttons.css" rel="stylesheet" />
 <style>
-    .field-error {
-        color: red;
-        font-size: 12px;
-    }
-
-    .input-error {
-        border: 1px solid red;
-    }
-
     .return {
         padding: 10px;
         text-decoration: none;
-        color: white;
-        background-color: blue;
+        color: black;
+        background-color: #D1F0D4;
         transition: 0.7s;
         border-radius: 5px;
         border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
     }
 
         .return:hover {
+            color: black;
             text-decoration: none;
-            color: blue;
-            background-color: white;
-            border: 1px blue solid;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #DAD1F0;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .edit:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
         }
 </style>
 
@@ -65,5 +75,5 @@
 </div>
 
 <div style="margin-top:10px">
-    <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
+    <a asp-controller="AdministratorToDoList" asp-action="DoList" class="edit">返回待辦事項清單</a>
 </div>

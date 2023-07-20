@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
 {
@@ -48,6 +49,20 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AdminRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "announcements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_announcements", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,6 +204,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                 columns: new[] { "Id", "Date", "Maintitle", "Subtitle" },
                 values: new object[,]
                 {
+                    { 10, "2023/07/19", "按鈕樣式", "找尋不同按鈕以做為以後界面更新時的備選方案" },
                     { 9, "2023/07/19", "購物車介面", "購物車介面想要做更換，請聯絡開發人員做修改" },
                     { 8, "2023/07/18", "管理員登入介面公告", "對於新進管理人員許多人不知道隱藏登入位置，要在LINE群做公告" },
                     { 7, "2023/07/17", "主頁介面更改", "首頁登入與搜尋框位置做調換" },
@@ -196,9 +212,8 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                     { 5, "2023/07/16", "管理員介面測試", "管理員介面做優化，測試開啟速度" },
                     { 4, "2023/07/15", "買賣書籍跑版", "買賣書籍頁面跑版，聯絡開發人員做修改" },
                     { 3, "2023/07/14", "介面設計", "介面太醜需要調整，聯絡開發人員做修改" },
-                    { 1, "2023/07/13", "頁面修改", "聯絡開發人員將登入做修改後請他也做介面優化" },
-                    { 10, "2023/07/19", "按鈕樣式", "找尋不同按鈕以做為以後界面更新時的備選方案" },
-                    { 2, "2023/07/14", "交換書籍測試", "交換書籍部分測試部分已釋出，所有管理人員測試完後在LINE群回復使用心得" }
+                    { 2, "2023/07/14", "交換書籍測試", "交換書籍部分測試部分已釋出，所有管理人員測試完後在LINE群回復使用心得" },
+                    { 1, "2023/07/13", "頁面修改", "聯絡開發人員將登入做修改後請他也做介面優化" }
                 });
 
             migrationBuilder.InsertData(
@@ -224,6 +239,16 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                     { "B003", "Neverloses@bookshelf.com", "Neverloses@bookshelf.com", "甲甲志", "b70d01e0fac31e93a760021e7cf970d4", "0987-587-587" },
                     { "B002", "Tony@bookshelf.com", "Tony@bookshelf.com", "Tony", "213ffb90868d8b9c58aae64988f642f1", "0933-941-941" },
                     { "B001", "Potatodog@bookshelf.com", "Potatodog@bookshelf.com", "馬鈴薯狗", "d5e10bd206b5f1aca583f37be2566e70", "0900-951-456" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "announcements",
+                columns: new[] { "Id", "CreatedAt", "Message" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "系統將於2023/08/16中午12:00開放主頁面圖片徵選，各位想要更換自己喜愛圖片的機會就在這次!有興趣者私訊Potatodog@bookshelf.com，最高票的3張圖片將獲得獎金2000,1000,500元的獎勵" },
+                    { 2, new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "本平台舉辦按鈕繪畫比賽，獲勝者可以獲取高達總金額8000元比賽獎金!有興趣者致電0900-951-456" },
+                    { 3, new DateTime(2023, 7, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "系統將在2023/09/29中午12:00到17:00進行維護更新，屆時將暫時停止伺服器運營。" }
                 });
 
             migrationBuilder.InsertData(
@@ -283,6 +308,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
         {
             migrationBuilder.DropTable(
                 name: "AdminlistRoles");
+
+            migrationBuilder.DropTable(
+                name: "announcements");
 
             migrationBuilder.DropTable(
                 name: "TextValue");

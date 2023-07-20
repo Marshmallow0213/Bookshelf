@@ -99,7 +99,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 var userRole = new AdminlistRole
                 {
                     ListId = list.Id,
-                    RoleId = 1
+                    RoleId = 4
                 };
 
                 _ctx.AdminlistRoles.Add(userRole);

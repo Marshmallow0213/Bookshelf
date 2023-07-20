@@ -3,7 +3,7 @@ using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.Interfaces;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
-
+using System;
 
 namespace CoreMVC5_UsedBookProject.Data
 {
@@ -22,6 +22,7 @@ namespace CoreMVC5_UsedBookProject.Data
         public DbSet<Adminlist> Adminlists { get; set; }
         public DbSet<AdminRole> AdminRoles { get; set; }
         public DbSet<AdminlistRole> AdminlistRoles { get; set; }
+        public DbSet<announcement> announcements { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //使用Entity Framework的Fluent API，通過使用HasKey方法將UserId和RoleId屬性標記為複合主鍵
@@ -90,7 +91,11 @@ namespace CoreMVC5_UsedBookProject.Data
                 new AdminlistRole { ListId = 9, RoleId = 4 },
                 new AdminlistRole { ListId = 10,RoleId = 4 }
                 );
-
+            modelBuilder.Entity<announcement>().HasData(
+                new announcement { Id = 1, Message = "系統將於2023/08/16中午12:00開放主頁面圖片徵選，各位想要更換自己喜愛圖片的機會就在這次!有興趣者私訊Potatodog@bookshelf.com，最高票的3張圖片將獲得獎金2000,1000,500元的獎勵", CreatedAt = new DateTime(2023, 7, 19) },
+                new announcement { Id = 2, Message = "本平台舉辦按鈕繪畫比賽，獲勝者可以獲取高達總金額8000元比賽獎金!有興趣者致電0900-951-456", CreatedAt = new DateTime(2023, 7, 20) },
+                new announcement { Id = 3, Message = "系統將在2023/09/29中午12:00到17:00進行維護更新，屆時將暫時停止伺服器運營。", CreatedAt = new DateTime(2023, 7, 21) }
+                );
 
 
 

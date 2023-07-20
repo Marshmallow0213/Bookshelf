@@ -1,0 +1,67 @@
+﻿@model CoreMVC5_UsedBookProject.Models.announcement
+
+@{
+    ViewData["Title"] = "公告建立";
+}
+<link href="~/css/buttons.css" rel="stylesheet" />
+<style>
+    .field-error {
+        color: red;
+        font-size: 12px;
+    }
+
+    .input-error {
+        border: 1px solid red;
+    }
+
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+</style>
+
+<h1>新增公告</h1>
+<hr />
+<div class="row" style="flex-direction:column;">
+    <div class="col-md-4">
+        <form asp-action="enterCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:flex; flex-direction:column;  gap:10px;">
+                <div style="display:flex; display:none;">
+                    <label asp-for="Id" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Id" class="form-control"/>
+                    <span asp-validation-for="Id" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="Message" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="Message" class="form-control" required />
+                    <span asp-validation-for="Message" class="field-error"></span>
+                </div>
+                <div style="display:flex;">
+                    <label asp-for="CreatedAt" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                    <input asp-for="CreatedAt" class="form-control" required />
+                    <span asp-validation-for="CreatedAt" class="field-error"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="建立" class="return">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-top:10px">
+    <a asp-controller="Messenger" asp-action="enter" class="return">返回公告設定</a>
+</div>

@@ -7,44 +7,59 @@
     .return {
         padding: 10px;
         text-decoration: none;
-        color: white;
-        background-color: blue;
+        color: black;
+        background-color: #D1F0D4;
         transition: 0.7s;
         border-radius: 5px;
         border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
     }
 
         .return:hover {
+            color: black;
             text-decoration: none;
-            color: blue;
-            background-color: white;
-            border: 1px blue solid;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
         }
 
     .delete {
         padding: 10px;
         text-decoration: none;
-        color: white;
-        background-color: red;
+        color: black;
+        background-color: #F5D0D0;
         transition: 0.7s;
         border-radius: 5px;
         border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
     }
 
         .delete:hover {
+            color: black;
             text-decoration: none;
-            color: red;
-            background-color: white;
-            border: 1px red solid;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .list {
+        background-color: #FADFB7;
+        padding: 1.3rem 0.75rem;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .list:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
         }
 </style>
 <h1>待辦事項清單刪除</h1>
 
 <h3>你確定要刪除這筆清單嗎</h3>
+
 <div>
-    <h4 class="alert alert-danger">待辦事項清單</h4>
+    <h4 colspan="5" class="text-center btn-info list" style="background-color:#A3998E; color:white;">待辦事項清單</h4>
+
     <hr />
-    <dl class="row">
+    <dl class="row" style="font-size:25px;">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
         </dt>
@@ -67,7 +82,7 @@
     
     <form asp-action="DoListDelete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="刪除" class="delete" /> |
+        <input type="submit" value="刪除" class="delete" />
         <a asp-controller="AdministratorToDoList" asp-action="DolistForCheck" class="return">回待辦事項審核</a>
     </form>
 </div>

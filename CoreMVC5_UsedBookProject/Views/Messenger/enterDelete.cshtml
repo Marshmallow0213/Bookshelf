@@ -1,7 +1,7 @@
-﻿@model CoreMVC5_UsedBookProject.Models.AdministratorUser
+﻿@model CoreMVC5_UsedBookProject.Models.announcement
 
 @{
-    ViewData["Title"] = "管理員資料刪除";
+    ViewData["Title"] = "待辦事項清單刪除";
 }
 <style>
     .return {
@@ -51,11 +51,11 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
         }
 </style>
-<h1>管理員資料刪除</h1>
+<h1>待辦事項清單刪除</h1>
 
-<h3>你確定要刪除這筆資料嗎</h3>
+<h3>你確定要刪除這筆清單嗎</h3>
 <div>
-    <h4 colspan="5" class="text-center btn-info list" style="background-color:#A3998E; color:white;">管理員個人資料</h4>
+    <h4 colspan="5" class="text-center btn-info list" style="background-color:#A3998E; color:white;">待辦事項清單</h4>
     <hr />
     <dl class="row" style="font-size:25px;">
         <dt class="col-sm-2" style="display:none;">
@@ -64,34 +64,23 @@
         <dd class="col-sm-10" style="display:none;">
             @Html.DisplayFor(model => model.Id)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Message)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Message)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nickname)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nickname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNo)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
         </dd>
     </dl>
-    
-    <form asp-action="AdministratorDelete">
-        <input type="submit" value="刪除" class="delete" /> |
-        <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="return">返回管理員資料列表</a>
+
+    <form asp-action="enterDelete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="刪除" class="delete" />
+        <a asp-controller="Messenger" asp-action="enter" class="return">返回公告設定</a>
     </form>
 </div>

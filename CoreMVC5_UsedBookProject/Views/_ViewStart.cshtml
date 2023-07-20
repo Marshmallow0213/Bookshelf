@@ -12,9 +12,9 @@
     }
     else if (controller == "AdministratorProfile")
     {
-        Layout = "_LayoutAdministratorProfile";
+        Layout = "_LayoutDoList";
     }
-    else if (controller == "Administratorlist" || controller == "AdministratorToDoList")
+    else if (controller == "Administratorlist"/* || controller == "AdministratorToDoList"*/)
     {
         Layout = "_LayoutAdministratorlist";
     }
@@ -32,11 +32,19 @@
     }
     else if (controller == "AdminToUser")
     {
-        Layout = "_LayoutAdminToUser";
+        Layout = "_LayoutDoList";
     }
     else if (controller == "Account" && action == "RegisterFromCSV")
     {
         Layout = "_LayoutAccount";
+    }
+    else if (controller == "AdministratorToDoList")
+    {
+        Layout = "_LayoutDoList";
+    }
+    else if (controller == "Messenger")
+    {
+        Layout = "_LayoutDoList";
     }
     //else if (controller == "AdministratorToDoList")
     //{

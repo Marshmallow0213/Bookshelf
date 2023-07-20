@@ -14,6 +14,7 @@ using CoreMVC5_UsedBookProject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.CookiePolicy;
+using CoreMVC5_UsedBookProject.Models;
 
 namespace CoreMVC5_UsedBookProject
 {
@@ -29,6 +30,7 @@ namespace CoreMVC5_UsedBookProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddCookiePolicy(options =>
             {
@@ -88,6 +90,7 @@ namespace CoreMVC5_UsedBookProject
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chatHub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

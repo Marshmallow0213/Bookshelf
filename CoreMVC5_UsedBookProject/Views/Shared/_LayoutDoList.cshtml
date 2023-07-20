@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>管理員控制中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/icon/booktitle.ico" type="image/x-icon">
+    <title>二手書交換平台</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/seller/all.css" asp-append-version="true" rel="stylesheet" />
     <link href="~/css/buttons.css" rel="stylesheet" />
-    <link href="~/css/adminhome.css" rel="stylesheet" />
     @RenderSection("topCSS",required:false)
     @RenderSection("topJS", required: false)
 </head>
-<body>
+<body style="background-image:url('/adminimg/mail1.jpg');">
     <div style="position:fixed; top:0; width:100VW;">
         <div style="display:flex;">
             <div style="min-width:244px; min-height:75px; width: 30%;background-color: #292929; padding: 10px; cursor:default;box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); text-align: center; font-size:26px; color:#87cefa ">
@@ -19,8 +24,7 @@
                 </svg>管理員控制中心
             </div>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow  margin:0;" style=" width: 100%; background-color: #4e4e4e; padding: 10px; cursor:default;box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); text-align: center; font-size:26px;">
-                <div class="container">
-                    <a class="navbar-brand" style="color:white;" asp-area="" asp-controller="Home" asp-action="Index">二手書交換平台</a>
+                <div class="container" style="margin:0;">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -28,10 +32,8 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link " style="color:white; background-color: #4e4e4e;border: 0 solid;" asp-area="" asp-controller="Home" asp-action="Index">主頁面</a>
-                            </li>
-                            <li class="nav-item">
-                                
+                                <a class="nav-link " style="color:white; background-color: #4e4e4e;border: 0 solid;" asp-controller="AdminCharts" asp-action="ChartsView">回圖表占比</a>
+
                             </li>
                         </ul>
                     </div>
@@ -40,28 +42,14 @@
         </div>
     </div>
 
-    <div class="container" style="max-width:2000px; margin-top:98px;">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <footer class="border-top footer text-muted" style="background-color:white; position:fixed;">
-        <div class="container-footer d-flex justify-content-between">
-            <div>
-                &copy; 2023 - CoreMVC5_UsedBookProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">隱私中心</a>
-            </div>
-            <div>
-                <partial name="_AdminLoginStatusPartial" />
-            </div>
-        </div>
-    </footer>
+    <main role="main" style="margin-top:85px;">
+        @RenderBody()
+    </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/buttons.js"></script>
-    <script src="~/lib/chart.js/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="~/js/seller/all.js" asp-append-version="true"></script>
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)
