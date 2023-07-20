@@ -22,7 +22,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Index()
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             var count = _sellerService.OrdersAllCountList(name);
             return View(count);
         }
@@ -38,7 +38,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
             if(trade == "買賣")
@@ -63,7 +63,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             MyProductsViewModel mymodel = new();
             ViewBag.trade = trade;
             mymodel = _sellerService.GetProducts(status, now_page, name, trade);
@@ -71,7 +71,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Create()
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             int[] checkLimit = _sellerService.ProductNewLimit(name);
             if (checkLimit[0] >= checkLimit[1])
             {
@@ -93,7 +93,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     return View(ProductViewModel);
                 }
-                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                var name = User.Identity.Name;
                 _sellerService.CreateProduct(ProductViewModel, name);
                 if (ProductViewModel.Trade == "買賣" || ProductViewModel.Trade == "買賣與交換")
                 {
@@ -112,7 +112,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public IActionResult Edit(string ProductId)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             if (ProductId == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     return NotFound();
                 }
-                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                var name = User.Identity.Name;
                 _sellerService.EditProduct(ProductViewModel, name);
                 if (ProductViewModel.Trade == "買賣" || ProductViewModel.Trade == "買賣與交換")
                 {
@@ -166,7 +166,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         
         public IActionResult Details(string ProductId)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             if (ProductId == null)
             {
                 return NotFound();
@@ -186,7 +186,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult OrderDetails(string OrderId, string trade)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade != "買賣" && trade != "交換")
@@ -225,7 +225,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult BarterOrderDetails(string OrderId, string trade)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade != "買賣" && trade != "交換")
@@ -264,7 +264,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public bool Delete(string ProductId)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             var product = _sellerService.DeleteProduct(ProductId, name);
             return product;
         }

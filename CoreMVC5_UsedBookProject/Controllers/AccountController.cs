@@ -157,6 +157,10 @@ namespace CoreMVC5_UsedBookProject.Controllers
         [Authorize]
         public IActionResult Details(string ReturnUrl)
         {
+            if(HttpContext.Request.Cookies["Login"] == null)
+            {
+                return LocalRedirect("~/Administratorlist/Adminlist");
+            }
             var name = User.Identity.Name;
             var user = _accountService.GetUser(name);
             if (ReturnUrl == "/Changed")

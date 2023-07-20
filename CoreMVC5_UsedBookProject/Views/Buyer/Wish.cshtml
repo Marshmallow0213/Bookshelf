@@ -13,13 +13,13 @@
                     <input asp-for="ISBN" class="form-control" />
                     <span asp-validation-for="ISBN" class="text-danger"></span>
                 </div>
-                <button class="btn btn-outline-success my-1" onclick="searchByISBN()" type="button">查詢書籍</button>
+                <button class="btn btn-outline-success p-3 my-1" onclick="searchByISBN()" type="button">查詢書籍</button>
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"></label>
                     <input asp-for="Title" class="form-control" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-outline-primary my-1">增至許願井</button>
+                <button type="submit" class="btn btn-outline-primary p-3 my-1">增至許願井</button>
             </form>
         </div>
         <div id="resultContainer" class="d-none"></div>
@@ -58,8 +58,8 @@
                             </td>
                             <td>
                                 <p class="mb-0 @(Model.ISBNproducts.Contains(item.ISBN) == true ? "text-success" : "text-danger")">@(Model.ISBNproducts.Contains(item.ISBN) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
-                                <a href="@Url.Action("SearchProducts", "Home", new {name = item.ISBN})" class="btn btn-primary mt-2">以ISBN搜尋</a>
-                                <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-danger mt-2">刪除</a>
+                                <a href="@Url.Action("SearchProducts", "Home", new {name = item.ISBN})" class="btn btn-outline-primary p-3 my-1">以ISBN搜尋</a>
+                                <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-outline-danger p-3 my-1">刪除</a>
                             </td>
                         </tr>
                     }

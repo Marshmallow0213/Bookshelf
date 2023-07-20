@@ -59,7 +59,7 @@
         <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Create", "Seller", new {})"><i class="bi bi-plus-circle"></i> 新增商品</a>
     </li>
 }
-else if (controller == "Account" && (action != "Login" && action != "RegisterUserName" && action != "Register" && action != "Forbidden"))
+else if (controller == "Account" && (action != "Login" && action != "Forbidden"))
 {
     <li class="nav-item">
         <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Details", "Account", new {})"><i class="bi bi-info-circle-fill"></i> 我的資訊</a>

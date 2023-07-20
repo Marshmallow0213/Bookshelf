@@ -54,7 +54,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return NotFound();
             }
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             MySalesViewModel mymodel = new();
             ViewBag.trade = trade;
             if (trade == "買賣")
@@ -73,7 +73,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 return "false";
             }
-            var buyername = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var buyername = User.Identity.Name;
             var product = _context.Products.Where(w => w.ProductId == ProductId).FirstOrDefault();
             var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade.Contains("交換")).FirstOrDefault();
             if (buyername == product.CreateBy)
@@ -123,7 +123,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Shoppingcart()
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             List<ProductViewModel> cartItems = GetCartItems(name);
 
             MyProductsViewModel mymodel = new()
@@ -134,7 +134,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public string AddToShoppingcart(string id)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             var exist = _context.Shoppingcarts.Where(w=>w.ProductId == id && w.Id == name).FirstOrDefault();
             var product = _context.Products.Where(w => w.ProductId == id).FirstOrDefault();
             if (name == product.CreateBy)
@@ -156,7 +156,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult DeleteFromShoppingcart(string ProductId)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             var exist = _context.Shoppingcarts.Where(w => w.ProductId == ProductId && w.Id == name).FirstOrDefault();
             _context.Shoppingcarts.Remove(exist);
             _context.SaveChanges();
@@ -164,7 +164,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult Wish(int now_page)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             now_page = now_page == 0 ? 1 : now_page;
             var countWish = _context.Wishes.Where(w => w.Id == name).Select(g => new { g.WishId }).ToList();
             int all_pages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(countWish.Count) / 30));
@@ -191,7 +191,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+                var name = User.Identity.Name;
                 var wish = _context.Wishes.Where(w => w.Id == name && w.ISBN == book.ISBN).FirstOrDefault();
                 if (wish == null)
                 {
@@ -208,7 +208,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
 
         public IActionResult DeleteBook(int Id)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             var wish = _context.Wishes.Where(w => w.WishId == Id && w.Id == name).FirstOrDefault();
             _context.Wishes.Remove(wish);
             _context.SaveChanges();
@@ -216,7 +216,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult OrderDetails(string OrderId, string trade)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             OrderViewModel mymodel = new();
             ViewBag.trade = trade;
             mymodel = _buyerService.GetOrder(OrderId);
@@ -239,7 +239,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 _buyerService.CancelOrder(orderViewModel.OrderId, orderViewModel.DenyReason);
                 return RedirectToAction("MySales", new { status = "待取消", trade = "買賣" });
             }
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             OrderViewModel mymodel = new();
             ViewBag.trade = orderViewModel.Trade;
             mymodel = _buyerService.GetOrder(orderViewModel.OrderId);
@@ -247,7 +247,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         public IActionResult BarterOrderDetails(string OrderId, string trade)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = trade;
             mymodel = _buyerService.GetBarterOrder(OrderId);
@@ -270,7 +270,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 _buyerService.CancelBarterOrder(orderViewModel.OrderId, orderViewModel.DenyReason);
                 return RedirectToAction("MySales", new { status = "待取消", trade = "交換" });
             }
-            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value;
+            var name = User.Identity.Name;
             BarterOrderViewModel mymodel = new();
             ViewBag.trade = orderViewModel.Trade;
             mymodel = _buyerService.GetBarterOrder(orderViewModel.OrderId);
