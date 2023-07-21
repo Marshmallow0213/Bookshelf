@@ -21,10 +21,8 @@ function scrollFunction() {
     let main = document.querySelector("main");
     if (document.body.scrollTop > 75 || document.documentElement.scrollTop > 75) {
         topbutton.style.display = "block";
-        main.style.marginTop = "60px";
     } else {
         topbutton.style.display = "none";
-        main.style.marginTop = "0px";
     }
 }
 

@@ -32,3 +32,12 @@
         transform: translateX(-100%);
     }
 }
+main, body, .nav-item-custom {
+    background-image: url('/adminimg/wood.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#carouselExampleIndicators {
+    height: 400px;
+    overflow: hidden;
+}

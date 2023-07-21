@@ -229,7 +229,7 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
             migrationBuilder.InsertData(
                 table: "TextValue",
                 columns: new[] { "Id", "Image1", "Image2", "Image3", "TextValue" },
-                values: new object[] { "T001", "Deafult.jpg", "Deafult.jpg", "Deafult.jpg", "二手書交換平台" });
+                values: new object[] { "T001", "Carousel.jpg", "CarouselSecond.jpg", "CarouselThird.jpg", "二手書交換平台" });
 
             migrationBuilder.InsertData(
                 table: "Users",

@@ -380,9 +380,9 @@ namespace CoreMVC5_UsedBookProject.Migrations.AdminAccount
                         new
                         {
                             Id = "T001",
-                            Image1 = "Deafult.jpg",
-                            Image2 = "Deafult.jpg",
-                            Image3 = "Deafult.jpg",
+                            Image1 = "Carousel.jpg",
+                            Image2 = "CarouselSecond.jpg",
+                            Image3 = "CarouselThird.jpg",
                             TextValue = "二手書交換平台"
                         });
                 });

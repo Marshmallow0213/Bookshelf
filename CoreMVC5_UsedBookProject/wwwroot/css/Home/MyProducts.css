@@ -32,7 +32,7 @@
 }
 @media (min-width:1200px) {
 }
-main, body {
+main, body, .nav-item-custom {
     background-color: #5B3D25 !important;
 }
 h1 {

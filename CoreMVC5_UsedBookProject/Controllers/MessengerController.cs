@@ -44,6 +44,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                list.CreatedAt = DateTime.Now;
                 _ctx.announcements.Add(list);
                 await _ctx.SaveChangesAsync();
 
@@ -70,7 +71,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> enterEdit(int id, announcement List)
+        public IActionResult enterEdit(int id, announcement List)
         {
             if (id != List.Id)
             {
@@ -80,16 +81,16 @@ namespace CoreMVC5_UsedBookProject.Controllers
             {
                 try
                 {
-                    var list = await _ctx.announcements.FindAsync(id);
+                    var list = _ctx.announcements.Where(w=>w.Id == id).FirstOrDefault();
                     if (list == null)
                     {
                         return NotFound();
                     }
-                    list.Id = List.Id;
+                    _ctx.Entry(list).State = EntityState.Modified;
                     list.Message = List.Message;
-                    list.CreatedAt = List.CreatedAt;
+                    list.CreatedAt = DateTime.Now;
 
-                    await _ctx.SaveChangesAsync();
+                    _ctx.SaveChanges();
 
                     return RedirectToAction("enter");
                 }

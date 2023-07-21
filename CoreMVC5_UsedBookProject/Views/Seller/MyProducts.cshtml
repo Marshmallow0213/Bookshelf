@@ -7,7 +7,7 @@
     ViewBag.Title = $"{(ViewBag.Trade == "交換" ? "交換" : "買賣")}商品";
 }
 
-<div class="container-fluid">
+<div class="container mt-2">
     <div class="d-flex my-3">
         <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
         <p class="mb-0 ml-2 p-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>

@@ -7,7 +7,7 @@
     ViewBag.Title = $"{(ViewBag.Trade == "交換" ? "交換" : "買賣")}銷售";
 }
 
-<div class="container-fluid">
+<div class="container mt-2">
     <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")銷售</h1>
     <div class="d-flex justify-content-between my-3">
         <a href="@Url.Action("MySales", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "全部" ? "border: 2px solid red;" : "")">

@@ -54,7 +54,7 @@ namespace CoreMVC5_UsedBookProject.Data
                 new AdministratorUserRoles { UserId = "B003", RoleId = "R001" }
                 );
             modelBuilder.Entity<Textbox>().HasData(
-                new Textbox { Id = "T001", TextValue = "二手書交換平台", Image1 = "Deafult.jpg", Image2 = "Deafult.jpg", Image3 = "Deafult.jpg" }
+                new Textbox { Id = "T001", TextValue = "二手書交換平台", Image1 = "Carousel.jpg", Image2 = "CarouselSecond.jpg", Image3 = "CarouselThird.jpg" }
                 );
 
 
