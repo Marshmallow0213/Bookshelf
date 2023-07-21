@@ -155,7 +155,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult Details(string ReturnUrl)
+        public IActionResult Details()
         {
             if(HttpContext.Request.Cookies["Login"] == null)
             {
@@ -163,10 +163,6 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             var name = User.Identity.Name;
             var user = _accountService.GetUser(name);
-            if (ReturnUrl == "/Changed")
-            {
-                TempData["Message"] = "使用者資訊變更成功!";
-            }
             return View(user);
         }
 
@@ -201,10 +197,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
             return View(userPasswordChangeViewModel);
         }
         [Authorize]
-        public IActionResult ChangeUserInfo()
+        public IActionResult ChangeUserInfo(string ReturnUrl)
         {
             var name = User.Identity.Name;;
             var user = _accountService.GetUser(name);
+            if (ReturnUrl == "/Changed")
+            {
+                TempData["Message"] = "使用者資訊變更成功!";
+            }
             return View(user);
         }
         [Authorize]
@@ -226,7 +226,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 }
                 _ctx.SaveChanges();
                 _accountService.UploadImages(userViewModel.File1, user.Id);
-                return RedirectToAction("Details", new { ReturnUrl = "/Changed" });
+                return RedirectToAction("ChangeUserInfo", new { ReturnUrl = "/Changed" });
             }
             return View(userViewModel);
         }

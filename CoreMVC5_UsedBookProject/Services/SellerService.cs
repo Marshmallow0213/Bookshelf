@@ -118,7 +118,7 @@ namespace CoreMVC5_UsedBookProject.Services
             from p in _context.Products
             where o.ProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade.Contains(trade)
                       orderby o.CreateDate descending
-                      select new OrderViewModel { OrderId = o.OrderId, SellerUnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN }).Skip((now_page - 1) * 30).Take(30).ToList();
+                      select new OrderViewModel { OrderId = o.OrderId, SellerUnitPrice = o.UnitPrice, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerImage = p.ImageList }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = orders,
@@ -142,7 +142,7 @@ namespace CoreMVC5_UsedBookProject.Services
                       from p in _context.Products
                       where o.SellerProductId == p.ProductId && o.Status == (status == "全部" ? o.Status : $"{status}") && o.SellerId == $"{name}" && o.Trade.Contains(trade)
                       orderby o.CreateDate descending
-                      select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, BuyerProductId = o.BuyerProductId }).Skip((now_page - 1) * 30).Take(30).ToList();
+                      select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerImage = p.ImageList, BuyerProductId = o.BuyerProductId }).Skip((now_page - 1) * 30).Take(30).ToList();
             MySalesViewModel mymodel = new()
             {
                 Orders = new List<OrderViewModel>() { },
@@ -212,7 +212,7 @@ namespace CoreMVC5_UsedBookProject.Services
             var products = (from p in _context.Products
                            where p.Status == (status == "全部" ? p.Status : $"{status}") && p.CreateBy == $"{name}" && p.Trade.Contains(trade)
                            orderby p.CreateDate descending
-                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, Trade = p.Trade, Status = p.Status, UnitPrice = p.UnitPrice, CreateBy = p.CreateBy }).Skip((now_page - 1) * 30).Take(30).ToList();
+                           select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Image1 = p.ImageList, Trade = p.Trade, Status = p.Status, UnitPrice = p.UnitPrice, CreateBy = p.CreateBy }).Skip((now_page - 1) * 30).Take(30).ToList();
             MyProductsViewModel mymodel = new()
             {
                 Products = products,
@@ -410,7 +410,7 @@ namespace CoreMVC5_UsedBookProject.Services
                      from p in _context.Products
                      where o.ProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerUnitPrice = o.UnitPrice, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author }).FirstOrDefault();
+                     select new OrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerUnitPrice = o.UnitPrice, SellerProductId = p.ProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerImage = p.ImageList }).FirstOrDefault();
             return order;
         }
         public BarterOrderViewModel GetBarterOrder(string OrderId)
@@ -422,17 +422,17 @@ namespace CoreMVC5_UsedBookProject.Services
             var products = (from p in _context.Products
                             where p.Status == "已上架" && p.CreateBy == $"{buyerid}" && p.Trade.Contains("交換")
                             orderby p.CreateDate descending
-                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, Degree = p.Degree, ContentText = p.ContentText, Image2 = p.ImageList, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
+                            select new ProductViewModel { ProductId = p.ProductId, Title = p.Title, ISBN = p.ISBN, Author = p.Author, Publisher = p.Publisher, Degree = p.Degree, ContentText = p.ContentText, Image1 = p.ImageList, Status = p.Status, Trade = p.Trade, UnitPrice = p.UnitPrice, CreateDate = p.CreateDate, EditDate = p.EditDate, CreateBy = p.CreateBy }).ToList();
             var buyerproduct = (from o in _context.BarterOrders
                          from p in _context.Products
                          where o.BuyerProductId == p.ProductId && o.OrderId == OrderId
                          orderby o.CreateDate descending
-                         select new BarterOrderViewModel { BuyerTitle = p.Title, BuyerISBN = p.ISBN, BuyerAuthor = p.Author }).FirstOrDefault();
+                         select new BarterOrderViewModel { BuyerTitle = p.Title, BuyerISBN = p.ISBN, BuyerImage = p.ImageList }).FirstOrDefault();
             order = (from o in _context.BarterOrders
                      from p in _context.Products
                      where o.SellerProductId == p.ProductId && o.OrderId == OrderId
                      orderby o.CreateDate descending
-                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerAuthor = p.Author, BuyerProductId = o.BuyerProductId, BuyerTitle = buyerproduct.BuyerTitle, BuyerISBN = buyerproduct.BuyerISBN, BuyerAuthor = buyerproduct.BuyerAuthor, Products = products }).FirstOrDefault();
+                     select new BarterOrderViewModel { OrderId = o.OrderId, SellerId = o.SellerId, BuyerId = o.BuyerId, SellerName = sellername, BuyerName = buyername, DenyReason = o.DenyReason, Status = o.Status, Trade = o.Trade, SellerProductId = o.SellerProductId, SellerTitle = p.Title, SellerISBN = p.ISBN, SellerImage = p.ImageList, BuyerProductId = o.BuyerProductId, BuyerTitle = buyerproduct.BuyerTitle, BuyerISBN = buyerproduct.BuyerISBN, BuyerImage = buyerproduct.BuyerImage, Products = products }).FirstOrDefault();
             return order;
         }
         public void EditProduct(ProductViewModel ProductViewModel, string name)

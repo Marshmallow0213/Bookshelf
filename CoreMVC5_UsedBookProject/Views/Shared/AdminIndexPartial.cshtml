@@ -12,13 +12,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/Images/Home/@ViewBag.Imgs[0]" asp-append-version="true" class="d-block w-100" alt="..." onerror="this.onerror='';this.src='/DeafultPictures/Carousel.jpg'">
+            <img src="/Images/Home/@ViewBag.Imgs[0]" asp-append-version="true" class="d-block w-100" alt="..." onerror="carouselImageError(this);">
         </div>
         <div class="carousel-item">
-            <img src="/Images/Home/@ViewBag.Imgs[1]" asp-append-version="true" class="d-block w-100" alt="..." onerror="this.onerror='';this.src='/DeafultPictures/CarouselSecond.jpg'">
+            <img src="/Images/Home/@ViewBag.Imgs[1]" asp-append-version="true" class="d-block w-100" alt="..." onerror="carouselImageErrorSecond(this);">
         </div>
         <div class="carousel-item">
-            <img src="/Images/Home/@ViewBag.Imgs[2]" asp-append-version="true" class="d-block w-100" alt="..." onerror="this.onerror='';this.src='/DeafultPictures/CarouselThird.jpg'">
+            <img src="/Images/Home/@ViewBag.Imgs[2]" asp-append-version="true" class="d-block w-100" alt="..." onerror="carouselImageErrorThird(this);">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev" style="background-color: transparent; border: 0px;">

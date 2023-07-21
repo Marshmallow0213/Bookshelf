@@ -30,7 +30,7 @@
                     <textarea asp-for="ISBN" class="form-control show-length" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
                     <p id="ISBN_length" class="text-right ml-4"></p>
                 </div>
-                <span asp-validation-for="ISBN" class="text-danger"></span>
+                <span asp-validation-for="ISBN" class="text-danger d-block"></span>
                 <button class="btn btn-outline-success mt-3" onclick="searchByISBN()" type="button">查詢書籍</button>
             </td>
         </tr>

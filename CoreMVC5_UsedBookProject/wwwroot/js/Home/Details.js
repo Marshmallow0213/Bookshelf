@@ -193,18 +193,3 @@ function checklogin(ProductId, CreateBy, Trade, Order) {
         }
     }
 }
-let error = document.getElementById("error");
-if (error.innerText == "你不能購買自己的商品!") {
-    Swal.fire(
-        '你不能購買自己的商品',
-        '',
-        'error'
-    )
-}
-else if (error.innerText == "你需要先上架自己的交換商品!") {
-    Swal.fire(
-        '你需要先上架自己的交換商品',
-        '',
-        'error'
-    )
-}

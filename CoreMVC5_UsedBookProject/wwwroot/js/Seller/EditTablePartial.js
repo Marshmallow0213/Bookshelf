@@ -99,7 +99,7 @@ for (let i = 2; i <= 9; i++) {
         document.getElementById(`Image${i}`).value = '無圖片';
         document.getElementById(`file${i}`).value = '';
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
-        document.getElementById(`img${i}Div`).innerHTML = `<div class="m-auto"><i class="bi bi-images text-center m-auto d-block" style="font-size: 50px;"></i><p>No image</p></div>`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'`;
     });
 }
 function testLoad(i) {
@@ -107,13 +107,13 @@ function testLoad(i) {
     if (_img.height > 1280 || _img.width > 1280) {
         document.getElementById(`file${i}`).value = "";
         document.getElementById(`p-file${i}`).innerText = "寬或高大於 1280px!";
-        document.getElementById(`img${i}Div`).innerHTML = `<div class="m-auto"><i class="bi bi-images text-center m-auto d-block" style="font-size: 50px;"></i><p>No image</p></div>`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'`;
     }
 }
 function testError(i) {
     document.getElementById(`file${i}`).value = "";
     document.getElementById(`p-file${i}`).innerText = "無法取得圖片訊息!";
-    document.getElementById(`img${i}Div`).innerHTML = `<div class="m-auto"><i class="bi bi-images text-center m-auto d-block" style="font-size: 50px;"></i><p>No image</p></div>`;
+    document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'`;
 }
 //end
 //start detect leave page
@@ -146,7 +146,7 @@ function process(input) {
     let numbers = value.replace(/[^0-9]/g, "");
     input.value = numbers;
     url = `https://cdnec.sanmin.com.tw/product_images/${input.value.substring(3, 6)}/${input.value.substring(3, 12)}.jpg`;
-    document.getElementById(`img1Div`).innerHTML = `<img src='${url}' alt='img1' id='img1' onload='testLoad(1)' onerror='testError(1)'>`;
+    document.getElementById(`img1Div`).innerHTML = `<img src='${url}' alt='img1' id='img1' onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg';this.onerror='';">`;
 }
 //end
 let tradeMessage = document.querySelector("#tradeMessage");
@@ -204,7 +204,9 @@ function displayResult(data) {
         let descriptionInput = document.getElementById("ContentText");
         descriptionInput.value = description;
         const thumbnail = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : "";
-
+        showLength.forEach(element => {
+            ShowLength(element);
+        });
         const bookDetails = `
                     <h2>${title}</h2>
                     <p><strong>作者:</strong> ${authors}</p>

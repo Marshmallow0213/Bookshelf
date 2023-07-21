@@ -32,7 +32,6 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string SellerTitle { get; set; }
         [Display(Name = "ISBN")]
         public string SellerISBN { get; set; }
-        [Display(Name = "作者")]
-        public string SellerAuthor { get; set; }
+        public string SellerImage { get; set; }
     }
 }

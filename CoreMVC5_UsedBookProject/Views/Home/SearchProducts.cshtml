@@ -22,8 +22,8 @@
                                         <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px;">My</p>
                                     }
                                 }
-                                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: #A0522D50;">
-                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                <div class="img200px">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="productImageError(this, '@(item.CreateBy)', '@(item.ProductId)', '@(item.Image1.Split(',')[0])');" />
                                 </div>
                                 <div class="container-fluid my-2">
                                     <p title="@item.Title">@item.Title</p>

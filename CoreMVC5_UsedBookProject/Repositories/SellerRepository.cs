@@ -39,6 +39,7 @@ namespace CoreMVC5_UsedBookProject.Repositories
                 Publisher = product.Publisher,
                 Degree = product.Degree,
                 ContentText = product.ContentText,
+                Image1 = product.ImageList,
                 Image2 = result[0],
                 Image3 = result[1],
                 Image4 = result[2],

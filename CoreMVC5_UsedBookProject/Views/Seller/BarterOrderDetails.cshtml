@@ -19,8 +19,8 @@
                         <p class="text-left">我的商品<br>@Model.SellerName</p>
                     </td>
                     <td>
-                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                        <div class="img200px">
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="productImageError(this, '@(Model.SellerId)', '@(Model.SellerProductId)', '@(Model.SellerImage.Split(',')[0])');" />
                         </div>
                     </td>
                     <td>
@@ -35,16 +35,16 @@
                         <p class="text-left">對方的商品<br>@Model.BuyerName</p>
                     </td>
                     <td>
-                        @if (Model.BuyerISBN != "1234567891234")
+                        @if (Model.BuyerISBN == "1234567891234")
                         {
-                            <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
-                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            <div class="img200px">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" />
                             </div>
                         }
                         else
                         {
                             <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; background-color: white; max-width: 200px; background-color: white;">
-                                <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="productImageError(this, '@(Model.BuyerId)', '@(Model.BuyerProductId)', '@(Model.BuyerImage.Split(',')[0])');" />
                             </div>
                         }
                     </td>
@@ -113,8 +113,8 @@
                         {
                             <tr>
                                 <td>
-                                    <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                    <div class="img200px">
+                                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="productImageError(this, '@(item.CreateBy)', '@(item.ProductId)', '@(item.Image1.Split(',')[0])');" />
                                     </div>
                                 </td>
                                 <td>
@@ -139,7 +139,7 @@
                     {
                         <tr>
                             <td>
-                                <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
+                                <div class="img200px">
                                     <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="Empty" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
                                 </div>
                             </td>

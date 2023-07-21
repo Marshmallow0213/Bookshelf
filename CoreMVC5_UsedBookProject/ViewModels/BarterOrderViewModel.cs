@@ -32,7 +32,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "ISBN")]
         public string SellerISBN { get; set; }
         [Display(Name = "作者")]
-        public string SellerAuthor { get; set; }
+        public string SellerImage { get; set; }
         [Display(Name = "商品Id")]
         public string BuyerProductId { get; set; }
         [Display(Name = "書名")]
@@ -40,7 +40,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         [Display(Name = "ISBN")]
         public string BuyerISBN { get; set; }
         [Display(Name = "作者")]
-        public string BuyerAuthor { get; set; }
+        public string BuyerImage { get; set; }
         public List<ProductViewModel> Products { get; set; }
     }
 }

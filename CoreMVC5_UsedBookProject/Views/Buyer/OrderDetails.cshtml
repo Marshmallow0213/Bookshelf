@@ -19,8 +19,8 @@
                         <p class="text-left">@Model.SellerName</p>
                     </td>
                     <td>
-                        <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white;">
-                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                        <div class="img200px">
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="productImageError(this, '@(Model.SellerId)', '@(Model.SellerProductId)', '@(Model.SellerImage.Split(',')[0])');" />
                         </div>
                     </td>
                     <td>

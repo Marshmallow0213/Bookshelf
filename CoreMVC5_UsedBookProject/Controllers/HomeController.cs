@@ -3,8 +3,10 @@ using CoreMVC5_UsedBookProject.Models;
 using CoreMVC5_UsedBookProject.Services;
 using CoreMVC5_UsedBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -26,13 +28,14 @@ namespace CoreMVC5_UsedBookProject.Controllers
         private readonly ProductContext _context;
         private readonly BuyerService _buyerService;
         private readonly AdminAccountContext _ctx;
-
-        public HomeController(ILogger<HomeController> logger, ProductContext productContext, BuyerService buyerService, AdminAccountContext ctx)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public HomeController(ILogger<HomeController> logger, ProductContext productContext, BuyerService buyerService, AdminAccountContext ctx, IWebHostEnvironment hostingEnvironment)
         {
             _logger = logger;
             _context = productContext;
             _buyerService = buyerService;
             _ctx = ctx;
+            _hostingEnvironment = hostingEnvironment;
         }
         public async Task<IActionResult> Index()
         {
@@ -61,7 +64,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                         ProductId = p.ProductId,
                         Title = p.Title,
                         ISBN = p.ISBN,
-                        Author = p.Author,
+                        Image1 = p.ImageList,
                         Trade = p.Trade,
                         UnitPrice = p.UnitPrice,
                         CreateBy = p.CreateBy
@@ -70,26 +73,19 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 if (products.Count == 0)
                 {
                     products = _context.Products
-                .Where(p => p.Status == "已上架" && p.Title.Contains(name))
-                .OrderByDescending(p => p.CreateDate)
-                .Select(p => new ProductViewModel
-                {
-                    ProductId = p.ProductId,
-                    Title = p.Title,
-                    ISBN = p.ISBN,
-                    Author = p.Author,
-                    Publisher = p.Publisher,
-                    Degree = p.Degree,
-                    ContentText = p.ContentText,
-                    Image2 = p.ImageList,
-                    Status = p.Status,
-                    Trade = p.Trade,
-                    UnitPrice = p.UnitPrice,
-                    CreateDate = p.CreateDate,
-                    EditDate = p.EditDate,
-                    CreateBy = p.CreateBy
-                })
-                .ToList();
+                        .Where(p => p.Status == "已上架" && p.Title.Contains(name))
+                        .OrderByDescending(p => p.CreateDate)
+                        .Select(p => new ProductViewModel
+                        {
+                            ProductId = p.ProductId,
+                            Title = p.Title,
+                            ISBN = p.ISBN,
+                            Image1 = p.ImageList,
+                            Trade = p.Trade,
+                            UnitPrice = p.UnitPrice,
+                            CreateBy = p.CreateBy
+                        })
+                        .ToList();
                 }
             }
             ViewBag.Count = $"找到 {products.Count} 項商品";
@@ -175,6 +171,34 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 PagesCount = new int[] { now_page, all_pages }
             };
             return View(wishs);
+        }
+        [HttpPost]
+        public IActionResult ErrorUserImages(string id)
+        {
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{id}";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            FileInfo fi = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\EmptyUserIcon.png");
+            fi.CopyTo($@"{folderPath}\UserIcon.png", true);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ErrorCarouselImages()
+        {
+            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Home";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            FileInfo fi = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\Carousel.jpg");
+            fi.CopyTo($@"{folderPath}\Carousel.jpg", true);
+            FileInfo fiSecond = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\CarouselSecond.jpg");
+            fi.CopyTo($@"{folderPath}\CarouselSecond.jpg", true);
+            FileInfo fiThird = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\CarouselThird.jpg");
+            fi.CopyTo($@"{folderPath}\CarouselThird.jpg", true);
+            return View();
         }
     }
 }
