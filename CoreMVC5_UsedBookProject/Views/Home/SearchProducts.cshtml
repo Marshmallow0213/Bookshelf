@@ -17,12 +17,9 @@
                             <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="p-2 text-decoration-none" style="position: relative;">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    @if (User.IsInRole("User"))
+                                    @if (User.Identity.Name == item.CreateBy)
                                     {
-                                        @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value == item.CreateBy)
-                                        {
-                                            <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px;">My</p>
-                                        }
+                                        <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px;">My</p>
                                     }
                                 }
                                 <div class="m-auto d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: #A0522D50;">

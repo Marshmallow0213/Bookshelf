@@ -104,6 +104,13 @@ function checklogin(ProductId, CreateBy, Trade, Order) {
                                     location.replace('/Buyer/MySales?trade=買賣');
                                 }, 1000);
                             }
+                            else if (data == "selfporducts") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '這是自己的商品',
+                                    text: ''
+                                })
+                            }
                             else if (data == "false") {
                                 Swal.fire({
                                     icon: 'error',
@@ -154,6 +161,13 @@ function checklogin(ProductId, CreateBy, Trade, Order) {
                                 setTimeout(function () {
                                     location.replace('/Buyer/MySales?trade=交換');
                                 }, 1000);
+                            }
+                            else if (data == "selfporducts") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '這是自己的商品',
+                                    text: ''
+                                })
                             }
                             else if (data == "false") {
                                 Swal.fire({

@@ -17,10 +17,7 @@
         <input type="hidden" id="CreateBy" class="form-control" value="@Model.CreateBy" readonly />
         @if (User.Identity.IsAuthenticated)
         {
-            @if (User.IsInRole("User"))
-            {
-                <input type="hidden" id="MeId" class="form-control" value="@User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value" readonly />
-            }
+            <input type="hidden" id="MeId" class="form-control" value="@User.Identity.Name" readonly />
         }
     </form>
 

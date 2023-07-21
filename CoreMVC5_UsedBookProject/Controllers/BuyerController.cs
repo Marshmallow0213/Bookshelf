@@ -78,7 +78,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             var checkselfproducts = _context.Products.Where(w => w.CreateBy == buyername && w.Status == "已上架" && w.Trade.Contains("交換")).FirstOrDefault();
             if (buyername == product.CreateBy)
             {
-                return "false";
+                return "selfporducts";
             }
             if (checkselfproducts == null && Order == "交換")
             {
