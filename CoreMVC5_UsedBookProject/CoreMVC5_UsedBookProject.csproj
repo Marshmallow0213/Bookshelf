@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Images\**" />
+    <Content Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Seller\ImagePartial.cshtml" />
     <Content Remove="wwwroot\css\fixbgc.css" />
     <Content Remove="wwwroot\Pictures\Carousel.jpg" />
@@ -25,10 +32,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\Products\" />
   </ItemGroup>
 
   <ItemGroup>
