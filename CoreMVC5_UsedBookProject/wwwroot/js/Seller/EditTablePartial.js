@@ -57,7 +57,7 @@ for (let i = 2; i <= 9; i++) {
     let preId = document.getElementById(`ProductId`).value;
     let preUserId = document.getElementById(`CreateBy`).value;
     if (preImg != "無圖片") {
-        document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload="testLoad('${i}')" onerror="testError('${i}')">`;
     }
     document.getElementById(`file${i}`).addEventListener("click", () => {
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
@@ -65,7 +65,7 @@ for (let i = 2; i <= 9; i++) {
         let preId = document.getElementById(`ProductId`).value;
         let preUserId = document.getElementById(`CreateBy`).value;
         if (preImg != "無圖片") {
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload="testLoad('${i}')" onerror="testError('${i}')">`;
         }
     });
     document.getElementById(`file${i}`).addEventListener("input", () => {
@@ -78,7 +78,7 @@ for (let i = 2; i <= 9; i++) {
             let preImg = document.getElementById(`Image${i}`).value;
             let preId = document.getElementById(`ProductId`).value;
             let preUserId = document.getElementById(`CreateBy`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload="testLoad('${i}')" onerror="testError('${i}')">`;
         }
         else if (!file.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) {
             alert('不是正確圖檔!');
@@ -87,19 +87,19 @@ for (let i = 2; i <= 9; i++) {
             let preImg = document.getElementById(`Image${i}`).value;
             let preId = document.getElementById(`ProductId`).value;
             let preUserId = document.getElementById(`CreateBy`).value;
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='/Images/Users/${preUserId}/Products/${preId}/${preImg}' alt='img${i}' id='img${i}' onload="testLoad('${i}')" onerror="testError('${i}')">`;
         }
         else {
             p_file.innerText = file.files[0].name;
             let url = URL.createObjectURL(file.files[0]);
-            document.getElementById(`img${i}Div`).innerHTML = `<img src='${url}' alt='img${i}' id='img${i}' onload='testLoad(${i})' onerror='testError(${i})'>`;
+            document.getElementById(`img${i}Div`).innerHTML = `<img src='${url}' alt='img${i}' id='img${i}' onload="testLoad('${i}')" onerror="testError('${i}')">`;
         };
     });
     document.getElementById(`Image${i}-clear`).addEventListener("click", () => {
         document.getElementById(`Image${i}`).value = '無圖片';
         document.getElementById(`file${i}`).value = '';
         document.getElementById(`p-file${i}`).innerText = "未選擇任何檔案";
-        document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'>`;
     });
 }
 function testLoad(i) {
@@ -107,13 +107,13 @@ function testLoad(i) {
     if (_img.height > 1280 || _img.width > 1280) {
         document.getElementById(`file${i}`).value = "";
         document.getElementById(`p-file${i}`).innerText = "寬或高大於 1280px!";
-        document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'`;
+        document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'>`;
     }
 }
 function testError(i) {
     document.getElementById(`file${i}`).value = "";
     document.getElementById(`p-file${i}`).innerText = "無法取得圖片訊息!";
-    document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'`;
+    document.getElementById(`img${i}Div`).innerHTML = `<img src='/DeafultPictures/DeafultBookPicture.jpg' alt='img${i}' id='img${i}'>`;
 }
 //end
 //start detect leave page
@@ -223,7 +223,7 @@ function displayResult(data) {
     } else {
         resultContainer.innerHTML = "找不到符合的書籍";
         Swal.fire(
-            '查無此書，請手動輸入',
+            '查無此書，請手動輸入商品資訊',
             '',
             'error'
         )

@@ -1,16 +1,16 @@
 ﻿function productImageError(element, id, productId, image) {
     if (image == "無圖片") {
+        element.setAttribute('onerror', 'this.classList.add("img200pxEmpty");');
         element.src = `/deafultpictures/deafultbookpicture.jpg`;
-        element.error = "";
     }
     else {
+        element.setAttribute('onerror', 'this.classList.add("img200pxEmpty");');
         element.src = `/Images/Users/${id}/Products/${productId}/${image}`;
-        element.error = "";
     }
 }
 function userImageError(element) {
     element.src = `/deafultpictures/emptyusericon.png`;
-    element.error = "";
+    element.setAttribute('onerror', '');
     let id = document.getElementById('userId');
     var url = `/Home/ErrorUserImages?id=${id.value}`;
     $.ajax({
@@ -23,7 +23,7 @@ function userImageError(element) {
 }
 function carouselImageError(element) {
     element.src = '/DeafultPictures/Carousel.jpg';
-    element.onerror = '';
+    element.setAttribute('onerror', '');
     var url = `/Home/ErrorCarouselImages`;
     $.ajax({
         type: "POST",
@@ -35,7 +35,7 @@ function carouselImageError(element) {
 }
 function carouselImageErrorSecond(element) {
     element.src = '/DeafultPictures/CarouselSecond.jpg';
-    element.onerror = '';
+    element.setAttribute('onerror', '');
     var url = `/Home/ErrorCarouselImages`;
     $.ajax({
         type: "POST",
@@ -47,7 +47,7 @@ function carouselImageErrorSecond(element) {
 }
 function carouselImageErrorThird(element) {
     element.src = '/DeafultPictures/CarouselThird.jpg';
-    element.onerror = '';
+    element.setAttribute('onerror', '');
     var url = `/Home/ErrorCarouselImages`;
     $.ajax({
         type: "POST",

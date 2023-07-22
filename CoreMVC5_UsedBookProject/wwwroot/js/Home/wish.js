@@ -54,7 +54,7 @@ function displayResult(data) {
     } else {
         resultContainer.innerHTML = "找不到符合的書籍";
         Swal.fire(
-            '查無此書，請手動輸入',
+            '查無此書，請手動輸入書名',
             '',
             'error'
         )

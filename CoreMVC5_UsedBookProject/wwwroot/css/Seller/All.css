@@ -47,12 +47,15 @@ img {
     aspect-ratio: 1 / 1;
     max-width: 200px;
     background-color: white;
-    margin: auto;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #A0522D50;
 }
 .img200pxEmpty {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
     background-image: url('/deafultPictures/deafultbookpicture.jpg');
     background-repeat: no-repeat;
     background-size: cover;
