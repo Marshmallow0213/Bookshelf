@@ -79,7 +79,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
             }
             else
             {
-                ProductViewModel product = new() { ProductId = "Create_Product"};
+                ProductViewModel product = new() { ProductId = "Create_Product", Image1 = "無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片,無圖片", CreateBy = name};
                 return View(product);
             }
         }

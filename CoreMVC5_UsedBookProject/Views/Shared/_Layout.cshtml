@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,7 +24,14 @@
     <header>
         <nav class="d-flex bg-white border-bottom box-shadow">
             <div class="container-fluid d-flex">
-                <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index"><span class="fa fa-book"></span> <strong>二手書交換平台</strong></a>
+                @if (controller == "Buyer")
+                {
+                    <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index"><span class="fa fa-book"></span> <strong>二手書交換平台-買家</strong></a>
+                }
+                else
+                {
+                    <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index"><span class="fa fa-book"></span> <strong>二手書交換平台</strong></a>
+                }
                 <div class="flex-grow-1">
                     <ul class="navbar-nav flex-grow-1 d-flex flex-row">
                         <partial name="_NavItemPartial"></partial>

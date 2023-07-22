@@ -89,6 +89,7 @@ namespace CoreMVC5_UsedBookProject.ViewModels
         public string Trade { get; set; }
         //
         [Required(ErrorMessage = "{0}不可為空!")]
+        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "價格不可為0。")]
         [Display(Name = "價格")]
         public decimal UnitPrice { get; set; }
         //
