@@ -206,6 +206,7 @@ function displayResult(data) {
         const thumbnail = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : "";
         showLength.forEach(element => {
             ShowLength(element);
+            autoresizing(element);
         });
         const bookDetails = `
                     <h2>${title}</h2>
