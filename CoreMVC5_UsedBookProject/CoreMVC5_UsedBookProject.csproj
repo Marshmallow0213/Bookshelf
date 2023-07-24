@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Images\**" />
-    <Content Remove="Images\**" />
-    <EmbeddedResource Remove="Images\**" />
-    <None Remove="Images\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="Views\Seller\ImagePartial.cshtml" />
     <Content Remove="wwwroot\css\fixbgc.css" />
     <Content Remove="wwwroot\Pictures\Carousel.jpg" />
