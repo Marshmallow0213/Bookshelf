@@ -11,13 +11,16 @@
 function userImageError(element) {
     element.src = `/deafultpictures/emptyusericon.png`;
     element.setAttribute('onerror', '');
-    let id = document.getElementById('userId');
-    var url = `/Home/ErrorUserImages?id=${id.value}`;
-    $.ajax({
-        type: "POST",
-        url: url,
-        error: function (xhr, status, error) { },
-        success: function (data) {
-        }
-    });
+}
+function carouselImageError(element) {
+    element.src = '/DeafultPictures/Carousel.jpg';
+    element.setAttribute('onerror', '');
+}
+function carouselImageErrorSecond(element) {
+    element.src = '/DeafultPictures/CarouselSecond.jpg';
+    element.setAttribute('onerror', '');
+}
+function carouselImageErrorThird(element) {
+    element.src = '/DeafultPictures/CarouselThird.jpg';
+    element.setAttribute('onerror', '');
 }
