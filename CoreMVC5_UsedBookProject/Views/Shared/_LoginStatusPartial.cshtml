@@ -10,7 +10,7 @@
     {
         <li class="nav-item px-2 ml-auto">
             <a href="@Url.Action("Details", "Account")" class="nav-link text-dark h-100 btn-custom pr-2">
-                <img class="p-2" src="/Images/Users/@User.Identity.Name/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="userImageError(this);">
+                <img class="p-2" src="/Images/Users/@User.Identity.Name/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='/deafultpictures/emptyusericon.png';this.onerror='';">
                 @User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value
             </a>
         </li>
