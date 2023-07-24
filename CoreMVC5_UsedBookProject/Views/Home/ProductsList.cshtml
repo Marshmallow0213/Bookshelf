@@ -11,7 +11,7 @@
             {
                 @foreach (var item in Model.Products)
                 {
-                    <div class="col-3 col-xl-2 mt-4">
+                    <div class="col-4 col-xl-3 mt-4">
                         <div class="product-shop-card m-auto">
                             <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="p-2 text-decoration-none" style="position: relative;">
                                 @if (User.Identity.IsAuthenticated)
@@ -21,7 +21,7 @@
                                         <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px;">My</p>
                                     }
                                 }
-                                <div class="img200px">
+                                <div class="img200px m-auto">
                                     <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="productImageError(this, '@(item.CreateBy)', '@(item.ProductId)', '@(item.Image1.Split(',')[0])');" />
                                 </div>
                                 <div class="container-fluid my-2">
