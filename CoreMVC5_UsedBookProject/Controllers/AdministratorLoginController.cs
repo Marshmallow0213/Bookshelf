@@ -118,7 +118,7 @@ namespace CoreMVC5_UsedBookProject.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Name),
                     new Claim(ClaimTypes.NameIdentifier, user.Nickname),
-                    new Claim(ClaimTypes.GivenName, user.UserIcon ?? ""),
+                    new Claim(ClaimTypes.GivenName, user.UserIcon ?? "UserIcon.png"),
                     new Claim(ClaimTypes.Role, user.Role) // 如果要有「群組、角色、權限」，可以加入這一段  
                 };
 

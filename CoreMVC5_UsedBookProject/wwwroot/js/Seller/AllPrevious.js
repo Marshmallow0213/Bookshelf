@@ -8,19 +8,3 @@
         element.src = `/Images/Users/${id}/Products/${productId}/${image}`;
     }
 }
-function userImageError(element) {
-    element.src = '/DeafultPictures/EmptyUserIcon.png';
-    element.setAttribute('onerror', '');
-}
-function carouselImageError(element) {
-    element.src = '/DeafultPictures/Carousel.jpg';
-    element.setAttribute('onerror', '');
-}
-function carouselImageErrorSecond(element) {
-    element.src = '/DeafultPictures/CarouselSecond.jpg';
-    element.setAttribute('onerror', '');
-}
-function carouselImageErrorThird(element) {
-    element.src = '/DeafultPictures/CarouselThird.jpg';
-    element.setAttribute('onerror', '');
-}
