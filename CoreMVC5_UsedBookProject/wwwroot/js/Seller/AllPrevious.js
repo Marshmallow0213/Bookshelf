@@ -9,7 +9,7 @@
     }
 }
 function userImageError(element) {
-    element.src = `/deafultpictures/emptyusericon.png`;
+    element.src = '/DeafultPictures/EmptyUserIcon.png';
     element.setAttribute('onerror', '');
 }
 function carouselImageError(element) {
