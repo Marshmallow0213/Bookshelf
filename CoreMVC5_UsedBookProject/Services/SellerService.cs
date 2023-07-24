@@ -310,7 +310,7 @@ namespace CoreMVC5_UsedBookProject.Services
                                      orderby p.CreateDate descending
                                      select new { p.ProductId }).FirstOrDefault();
             };
-            decimal checkUnitPrice = -1000;
+            decimal checkUnitPrice = 999999999;
             if (ProductViewModel.Trade.Contains("買賣"))
             {
                 checkUnitPrice = ProductViewModel.UnitPrice;
@@ -467,7 +467,7 @@ namespace CoreMVC5_UsedBookProject.Services
                 };
             string[] checkImage = CheckImageName(filenames, Images, randomstrings);
             var product = _sellerRepository.GetProductRaw(ProductViewModel.ProductId);
-            decimal checkUnitPrice = -1000;
+            decimal checkUnitPrice = 999999999;
             if (ProductViewModel.Trade.Contains("買賣"))
             {
                 checkUnitPrice = ProductViewModel.UnitPrice;

@@ -12,8 +12,4 @@
 @section topCSS{
     <link href="~/css/home/index.css" asp-append-version="true" rel="stylesheet" />
 }
-@if (User.Identity.IsAuthenticated)
-{
-    <input type="hidden" class="form-control" id="userId" value="@User.Identity.Name" readonly />
-}
 <partial name="~/Views/shared/AdminIndexPartial.cshtml" />

@@ -12,24 +12,24 @@ function TradeCheck() {
     let check2 = document.getElementById('bartertradecheckbox');
     if (check1.checked && check2.checked) {
         document.getElementById('Trade').value = "買賣與交換";
-        document.getElementById('UnitPrice_div').classList.remove("d-none");
-        if (document.getElementById('UnitPrice').value == "-1000") {
+        if (document.getElementById('UnitPrice').value == "999999999") {
             document.getElementById('UnitPrice').value = "";
         }
+        document.getElementById('UnitPrice_div').classList.remove("d-none");
     }
     if (check1.checked && !check2.checked) {
         document.getElementById('Trade').value = "買賣";
-        document.getElementById('UnitPrice_div').classList.remove("d-none");
-        if (document.getElementById('UnitPrice').value == "-1000") {
+        if (document.getElementById('UnitPrice').value == "999999999") {
             document.getElementById('UnitPrice').value = "";
         }
+        document.getElementById('UnitPrice_div').classList.remove("d-none");
     }
     if (!check1.checked && check2.checked) {
         document.getElementById('Trade').value = "交換";
-        document.getElementById('UnitPrice_div').classList.add("d-none");
         if (document.getElementById('UnitPrice').value == "") {
-            document.getElementById('UnitPrice').value = "-1000";
+            document.getElementById('UnitPrice').value = "999999999";
         }
+        document.getElementById('UnitPrice_div').classList.add("d-none");
     }
     if (!check1.checked && !check2.checked) {
         document.getElementById('Trade').value = "";

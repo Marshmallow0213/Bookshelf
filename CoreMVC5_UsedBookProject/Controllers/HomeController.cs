@@ -172,33 +172,5 @@ namespace CoreMVC5_UsedBookProject.Controllers
             };
             return View(wishs);
         }
-        [HttpPost]
-        public IActionResult ErrorUserImages(string id)
-        {
-            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Users\{id}";
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-            FileInfo fi = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\EmptyUserIcon.png");
-            fi.CopyTo($@"{folderPath}\UserIcon.png", true);
-            return View();
-        }
-        [HttpPost]
-        public IActionResult ErrorCarouselImages()
-        {
-            string folderPath = $@"{_hostingEnvironment.WebRootPath}\Images\Home";
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-            FileInfo fi = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\Carousel.jpg");
-            fi.CopyTo($@"{folderPath}\Carousel.jpg", true);
-            FileInfo fiSecond = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\CarouselSecond.jpg");
-            fi.CopyTo($@"{folderPath}\CarouselSecond.jpg", true);
-            FileInfo fiThird = new FileInfo($@"{_hostingEnvironment.WebRootPath}\DeafultPictures\CarouselThird.jpg");
-            fi.CopyTo($@"{folderPath}\CarouselThird.jpg", true);
-            return View();
-        }
     }
 }
