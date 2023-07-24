@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/coremvc5-usedbookprojectdbserver/databases/CoreMVC5_UsedBookProject_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:ProductContext",
+      "dynamicId": null
+    },
+    "mssql2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/coremvc5-usedbookproject-admindbserver/databases/CoreMVC5_UsedBookProject_db_Admin",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AdminAccountContext",
+      "dynamicId": null
+    }
+  }
+}
