@@ -44,8 +44,8 @@
 
         <a href="@Url.Action("MySales", "Buyer", new {status = "已完成", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "已完成" ? "border: 2px solid red;" : "")">
             <div>
-                <span>不成立</span>
-                <span>不成立 @Model.OrdersCount["不成立"]</span>
+                <span>已完成</span>
+                <span>已完成 @Model.OrdersCount["已完成"]</span>
             </div>
         </a>
         <a href="@Url.Action("MySales", "Buyer", new {status = "待取消", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "待取消" ? "border: 2px solid red;" : "")">
