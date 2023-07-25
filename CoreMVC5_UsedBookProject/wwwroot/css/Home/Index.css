@@ -1,9 +1,11 @@
 ﻿.marqee {
-    height: 2em;
+    height: 3em;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
     background: #A3998E;
+    display: flex;
+    align-items: center;
 }
 
     .marqee > ul {
@@ -12,6 +14,7 @@
         list-style-type: none;
         animation: marqee 30s linear infinite;
         position: absolute;
+        margin-bottom: 0;
     }
 
         .marqee > ul > li {
@@ -19,6 +22,7 @@
             margin-right: 2em;
             font-weight: bold;
             color: white;
+            font-size: 24px;
         }
 
 @keyframes marqee {
