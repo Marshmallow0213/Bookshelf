@@ -15,14 +15,14 @@
             }
             else if (data == "成功") {
                 Swal.fire(
-                    '加入購物車了',
+                    '加入至追蹤清單了',
                     '',
                     'success'
                 )
             }
             else if (data == "失敗") {
                 Swal.fire(
-                    '已經在購物車囉',
+                    '已經在追蹤清單囉',
                     '',
                     'error'
                 )

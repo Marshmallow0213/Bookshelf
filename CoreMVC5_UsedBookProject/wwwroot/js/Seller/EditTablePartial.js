@@ -159,7 +159,7 @@ if (tradeMessage.innerText == "交易方式不可為空!") {
 }
 /**/
 function searchByISBN() {
-    const apiKey = "AIzaSyAeJpJzP9zX-Bz7P-qwFIwybZ7A92MIa0k"; // 替換為你的 Google Books API 金鑰
+    const apiKey = "AIzaSyAeJpJzP9zX-Bz7P-qwFIwybZ7A92MIa0k";
     const isbn = document.getElementById("ISBN").value;
 
     if (!isbn) {
@@ -217,12 +217,12 @@ function displayResult(data) {
 
         resultContainer.innerHTML = bookDetails;
         Swal.fire(
-            '找到書籍',
+            '查到書籍內容資訊',
             '已自動填入',
             'success'
         )
     } else {
-        resultContainer.innerHTML = "找不到符合的書籍";
+        resultContainer.innerHTML = "查不到符合的書籍內容資訊";
         Swal.fire(
             '查無此書，請手動輸入商品資訊',
             '',
