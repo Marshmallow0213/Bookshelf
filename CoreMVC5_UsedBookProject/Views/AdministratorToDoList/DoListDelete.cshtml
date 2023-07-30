@@ -1,0 +1,88 @@
+﻿@model CoreMVC5_UsedBookProject.Models.Adminlist
+
+@{
+    ViewData["Title"] = "待辦事項清單刪除";
+}
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #D1F0D4;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .return:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .delete {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #F5D0D0;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .delete:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .list {
+        background-color: #FADFB7;
+        padding: 1.3rem 0.75rem;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .list:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+</style>
+<h1>待辦事項清單刪除</h1>
+
+<h3>你確定要刪除這筆清單嗎</h3>
+
+<div>
+    <h4 colspan="5" class="text-center btn-info list" style="background-color:#A3998E; color:white;">待辦事項清單</h4>
+
+    <hr />
+    <dl class="row" style="font-size:25px;">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Maintitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Maintitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Subtitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Subtitle)
+        </dd>
+    </dl>
+    
+    <form asp-action="DoListDelete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="刪除" class="delete" />
+        <a asp-controller="AdministratorToDoList" asp-action="DolistForCheck" class="return">回待辦事項審核</a>
+    </form>
+</div>

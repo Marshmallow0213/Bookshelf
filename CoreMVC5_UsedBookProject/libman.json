@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "Swiper@9.3.2",
+      "destination": "wwwroot/lib/Swiper/"
+    },
+    {
+      "library": "bootstrap-icons@1.10.5",
+      "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
+      "library": "sweetalert2@11.7.12",
+      "destination": "wwwroot/lib/sweetalert2/"
+    }
+  ]
+}

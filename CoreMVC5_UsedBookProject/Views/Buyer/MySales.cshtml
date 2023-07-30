@@ -1,0 +1,142 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model MySalesViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = $"{(ViewBag.trade == "交換" ? "交換" : "買賣")}訂單紀錄";
+}
+
+<div class="container mt-2">
+    <h1>@(ViewBag.trade == "交換" ? "交換" : "買賣")訂單紀錄</h1>
+    <div class="d-flex justify-content-between my-3">
+        <a href="@Url.Action("MySales", "Buyer", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "全部" ? "border: 2px solid red;" : "")">
+            <div>
+             <span>全部</span>
+                <span>全部 @Model.OrdersCount["全部"]</span>
+            </div>
+        </a>
+
+
+        <a href="@Url.Action("MySales", "Buyer", new {status = "待確認", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "待確認" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>待確認</span>
+                <span>待確認 @Model.OrdersCount["待確認"]</span>
+            </div>
+        </a>
+
+
+        <a href="@Url.Action("MySales", "Buyer", new {status = "已成立", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "已成立" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>已成立</span>
+                <span>已成立 @Model.OrdersCount["已成立"]</span>
+            </div>
+        </a>
+
+
+        <a href="@Url.Action("MySales", "Buyer", new {status = "不成立", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "不成立" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>不成立</span>
+                <span>不成立 @Model.OrdersCount["不成立"]</span>
+            </div>
+        </a>
+
+
+        <a href="@Url.Action("MySales", "Buyer", new {status = "已完成", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "已完成" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>已完成</span>
+                <span>已完成 @Model.OrdersCount["已完成"]</span>
+            </div>
+        </a>
+        <a href="@Url.Action("MySales", "Buyer", new {status = "待取消", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "待取消" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>待取消</span>
+                <span>待取消 @Model.OrdersCount["待取消"]</span>
+            </div>
+        </a>
+    </div>
+    <div class="sexyborder">
+                    <table class="fancytable">
+                        <thead>
+                            <tr class="headerrow">
+                                <td style="width: 150px;">圖片封面</td>
+                                <td>書名</td>
+                                @if (ViewBag.Trade == "買賣")
+                                {
+                                    <td style="width: 150px;">價格</td>
+                                }
+                                <td style="width: 150px;">操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Orders.Count > 0 && ViewBag.Trade == "買賣")
+                            {
+                                @foreach (var item in Model.Orders)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="img200px">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.SellerISBN.Substring(3, 3)}/{item.SellerISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="productImageError(this, '@(item.SellerId)', '@(item.SellerProductId)', '@(item.SellerImage.Split(',')[0])');" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p title="@item.SellerTitle" class="text-left">@item.SellerTitle</p>
+                                        </td>
+                                        <td>
+                                            <p>NT$@(decimal.Round(item.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(item.SellerUnitPrice, 0))</p>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Buyer", new {ProductId = item.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                                            <a href="@Url.Action("OrderDetails", "Buyer", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 訂單詳情</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else if (Model.BarterOrders.Count > 0 && ViewBag.Trade == "交換")
+                            {
+                                @foreach (var item in Model.BarterOrders)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="img200px">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.SellerISBN.Substring(3, 3)}/{item.SellerISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.SellerTitle" onerror="productImageError(this, '@(item.SellerId)', '@(item.SellerProductId)', '@(item.SellerImage.Split(',')[0])');" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p title="@item.SellerTitle" class="text-left">@item.SellerTitle</p>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Buyer", new {ProductId = item.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                                            <a href="@Url.Action("BarterOrderDetails", "Buyer", new {OrderId = item.OrderId, trade = ViewBag.trade})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 訂單詳情</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="img200px">
+                                            <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="Empty" onerror="this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p title="沒有訂單在列表中" class="text-left">沒有訂單在列表中</p>
+                                    </td>
+                                    @if (ViewBag.Trade == "買賣")
+                                    {
+                                        <td>
+                                        </td>
+                                    }
+                                    <td>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+    <partial name="_NowPageMySalesPartial" />
+</div>
+@section topCSS{
+    <link href="~/css/seller/mysales.css" asp-append-version="true" rel="stylesheet" />
+}

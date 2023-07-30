@@ -1,0 +1,42 @@
+﻿@model CoreMVC5_UsedBookProject.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "登入";
+}
+
+<div class="container px-5 pt-5">
+    <h1 class="text-center">登入</h1>
+    <hr />
+    <div class="m-auto p-3" style="width: 300px; height: 350px; background-color: white; border: 2px solid orange; border-radius: 15px;">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <p id="ErrorMessage" class="d-none">@TempData["Error"]</p>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+            <div class="form-group mt-2">
+                <button type="submit" class="btn-login-custom m-auto d-block">
+                    登入
+                    <span></span><span></span><span></span><span></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@section topCss{
+    <link href="~/css/account/login.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+}
+@section endJS{
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/account/login.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

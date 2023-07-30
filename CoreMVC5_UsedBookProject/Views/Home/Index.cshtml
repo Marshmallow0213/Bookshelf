@@ -1,8 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+﻿@model Textbox
+<div class="marqee">
+ <ul>
+        @foreach (var Announcement in ViewBag.Announcements)
+        {
+            <li>
+                @Announcement
+            </li>
+        }
+ </ul>
 </div>
+@section topCSS{
+    <link href="~/css/home/index.css" asp-append-version="true" rel="stylesheet" />
+}
+<partial name="~/Views/shared/AdminIndexPartial.cshtml" />

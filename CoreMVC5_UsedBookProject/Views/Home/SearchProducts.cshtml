@@ -1,0 +1,55 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model MyProductsViewModel
+@{
+    ViewData["Title"] = "搜尋商品";
+}
+<div class="container">
+    <h1 class="mt-4" style="background-color: #92705A; border-radius: 15px 15px 0 0; width: 170px; margin-bottom: 0; text-align: center;">搜尋商品</h1>
+    <h2 style="background-color: #92705A; margin-bottom: 0; color:white; border-radius: 0 15px 0 0;">@ViewBag.Count</h2>
+    <div class="p-2" style="background-color: #92705A; border-radius: 0 0 15px 15px;">
+        <div class="row">
+            @if (Model.Products.Count > 0)
+            {
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-4 col-xl-3 mt-4">
+                        <div class="product-shop-card m-auto">
+                            <a href="@Url.Action("Details", "Home", new {ProductId=@item.ProductId})" class="p-2 text-decoration-none" style="position: relative;">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @if (User.Identity.Name == item.CreateBy)
+                                    {
+                                        <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px;">My</p>
+                                    }
+                                }
+                                <div class="img200px m-auto">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="productImageError(this, '@(item.CreateBy)', '@(item.ProductId)', '@(item.Image1.Split(',')[0])');" />
+                                </div>
+                                <div class="container-fluid my-2">
+                                    <p title="@item.Title">@item.Title</p>
+                                    @if (ViewBag.Trade == "買賣")
+                                    {
+                                        <p>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</p>
+                                    }
+                                    else
+                                    {
+                                        <p>&nbsp;</p>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h2 class="my-5 text-center w-100" style="color:white;">沒有符合的商品</h2>
+            }
+        </div>
+    </div>
+</div>
+   
+    
+@section topCSS{
+    <link href="~/css/home/myproducts.css" asp-append-version="true" rel="stylesheet" />
+}

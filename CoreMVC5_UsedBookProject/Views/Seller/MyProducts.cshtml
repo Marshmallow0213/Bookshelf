@@ -1,0 +1,137 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model MyProductsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = $"{(ViewBag.Trade == "交換" ? "交換" : "買賣")}商品";
+}
+
+<div class="container mt-2">
+    <div class="d-flex my-3">
+        <h1>@(ViewBag.Trade == "交換" ? "交換" : "買賣")商品</h1>
+        <p class="mb-0 ml-2 p-3">新增商品上限 <span style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "color: red;" : "color: black;")">@(Model.ProductNewLimit[0]) / @(Model.ProductNewLimit[1])</span></p>
+        <a href="@Url.Action("Create", "Seller", new {})" class="btn @(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "btn-outline-secondary" : "btn-outline-primary") ml-2 p-3" style="@(Model.ProductNewLimit[0] >= Model.ProductNewLimit[1] ? "pointer-events: none;" : "")"><i class="bi bi-plus-circle"></i> 新增商品</a>
+        <a type="button" href="https://isbn.ncl.edu.tw/NEW_ISBNNet/H30_SearchBooks.php?&Pact=DisplayAll4Simple" value="library" target="_blank" class="btn btn-outline-primary ml-2 p-3">前往國家圖書館</a>
+    </div>
+    <div class="d-flex justify-content-between my-3">
+        <a href="@Url.Action("MyProducts", "Seller", new {status = "全部", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "全部" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>全部</span>
+                <span>全部 @Model.ProductsCount["全部"]</span>
+            </div>
+        </a>
+        <a href="@Url.Action("MyProducts", "Seller", new {status = "未上架", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "未上架" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>未上架</span>
+                <span>未上架 @Model.ProductsCount["未上架"]</span>
+            </div>
+        </a>
+        <a href="@Url.Action("MyProducts", "Seller", new {status = "已上架", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "已上架" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>架上商品</span>
+                <span>架上商品 @Model.ProductsCount["已上架"]</span>
+            </div>
+        </a>
+        <a href="@Url.Action("MyProducts", "Seller", new {status = "待確認", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "待確認" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>待確認</span>
+                <span>待確認 @Model.ProductsCount["待確認"]</span>
+            </div>
+        </a>
+        <a href="@Url.Action("MyProducts", "Seller", new {status = "已售完", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "已售完" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>已售完</span>
+                <span>已售完 @Model.ProductsCount["已售完"]</span>
+            </div>
+        </a>
+        <a href="@Url.Action("MyProducts", "Seller", new {status = "刪除", trade = ViewBag.trade})" class="text-decoration-none btn-status-custom" style="@(Model.StatusPage == "刪除" ? "border: 2px solid red;" : "")">
+            <div>
+                <span>
+                    刪除
+                </span>
+                <span>刪除 @Model.ProductsCount["刪除"]</span>
+            </div>
+        </a>
+    </div>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow">
+                    <td style="width: 150px;">圖片封面</td>
+                    <td>書名</td>
+                    @if (ViewBag.Trade == "買賣")
+                    {
+                        <td style="width: 150px;">價格</td>
+                    }
+                    <td style="width: 100px;">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Products.Count > 0)
+                {
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                <div class="img200px">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="productImageError(this, '@(item.CreateBy)', '@(item.ProductId)', '@(item.Image1.Split(',')[0])');" />
+                                </div>
+                            </td>
+                            <td>
+                                <p title="@item.Title" class="text-left">@item.Title</p>
+                            </td>
+                            @if (ViewBag.Trade == "買賣")
+                            {
+                                <td>
+                                    <p>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</p>
+                                </td>
+                            }
+                            <td>
+                                <a href="@Url.Action("Details", "Seller", new {ProductId = item.ProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 詳情</a>
+                                @if (item.Status == "已上架" || item.Status == "未上架")
+                                {
+                                    <a href="@Url.Action("Edit", "Seller", new {ProductId = item.ProductId})" class="btn btn-outline-warning p-3 my-1"><i class="bi bi-pencil-square"></i> 編輯</a>
+                                }
+                                @if (item.Status == "未上架")
+                                {
+                                    <button type="button" class="btn btn-outline-danger p-3 my-1" onclick="checkDeleteProduct('@item.ProductId')">
+                                        <i class="bi bi-trash"></i> 刪除
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <div class="img200px">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="Empty" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            </div>
+                        </td>
+                        <td>
+                            <p title="沒有商品在列表中" class="text-left">沒有商品在列表中</p>
+                        </td>
+                        @if (ViewBag.Trade == "買賣")
+                        {
+                            <td>
+                            </td>
+                        }
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <partial name="_NowPageMyProductsPartial" />
+</div>
+@section topCSS{
+    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+}
+@section endJS{
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+}

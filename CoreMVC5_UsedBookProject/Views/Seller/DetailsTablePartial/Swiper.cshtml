@@ -1,0 +1,111 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model ProductViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string[] list = { Model.Image2, Model.Image3, Model.Image4, Model.Image5, Model.Image6, Model.Image7, Model.Image8, Model.Image9 };
+    list = list.Where(w => w != "無圖片").ToArray();
+}
+@functions {
+    public string price()
+    {
+        return Model.UnitPrice.ToString("N0");
+    }
+}
+<div class="row">
+    <div class="col-6">
+        <div class="mb-3" style="padding: 10px 75px;">
+            <!-- Swiper -->
+            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff; position: relative;" class="swiper mySwiper2">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("User"))
+                    {
+                        @if (User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value == Model.CreateBy)
+                        {
+                            <p style="position: absolute; top: 0; left: 0; background-color: green; width: 24px; color: white; border-radius: 15px; z-index: 2;">My</p>
+                        }
+                    }
+                }
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
+                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.ISBN.Substring(3,3)}/{Model.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="productImageError(this, '@(Model.CreateBy)', '@(Model.ProductId)', '@(Model.Image1.Split(',')[0])');" />
+                    </div>
+                    @if (list.Length > 0)
+                    {
+                        @foreach (string item in list)
+                        {
+                            <div class="swiper-slide d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; min-width: 100px; border: 1px solid black;">
+                                <img src="/Images/Users/@Model.CreateBy/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="swiper-button-next" style="color: black;"></div>
+                <div class="swiper-button-prev" style="color: black;"></div>
+            </div>
+            <div thumbsSlider="" class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide d-flex align-items-center" style="width: 130.5px; aspect-ratio: 1 / 1;">
+                        <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.ISBN.Substring(3,3)}/{Model.ISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.Title" onerror="productImageError(this, '@(Model.CreateBy)', '@(Model.ProductId)', '@(Model.Image1.Split(',')[0])');" />
+                    </div>
+                    @if (list.Length > 0)
+                    {
+                        @foreach (var item in list)
+                        {
+                            <div class="swiper-slide d-flex align-items-center" style="width: 130.5px; aspect-ratio: 1 / 1;">
+                                <img src="/Images/Users/@Model.CreateBy/Products/@Model.ProductId/@item" asp-append-version="true" class="m-auto" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" alt="@Model.Title" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2"><h2>@Model.Title</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2"><h2>@Html.DisplayFor(model => model.Trade)</h2></td>
+                </tr>
+                @if (Model.Trade.Contains("買賣"))
+                {
+                    <tr>
+                        <td colspan="2"><h2>NT$@price()</h2></td>
+                    </tr>
+                }
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ISBN)</td>
+                    <td>
+                        <p>@Model.ISBN</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Author)</td>
+                    <td>
+                        <p>@Model.Author</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Publisher)</td>
+                    <td>
+                        <p>@Model.Publisher</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Degree)</td>
+                    <td>
+                        <p>@Model.Degree</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <partial name="~/Views/Seller/DetailsTablePartial/SwiperButton.cshtml" />
+    </div>
+</div>

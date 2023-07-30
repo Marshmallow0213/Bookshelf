@@ -1,0 +1,108 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model BarterOrderViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "交換訂單詳情";
+}
+<div class="container mt-2">
+    <h1>交換訂單詳情</h1>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 170px;">使用者名稱</td><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">操作</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-left">我的商品<br>@Model.BuyerName</p>
+                    </td>
+                    <td>
+                        @if (Model.BuyerISBN == "1234567891234")
+                        {
+                            <div class="img200px">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="img200px">
+                                <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.BuyerISBN.Substring(3,3)}/{Model.BuyerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.BuyerTitle" onerror="productImageError(this, '@(Model.BuyerId)', '@(Model.BuyerProductId)', '@(Model.BuyerImage.Split(',')[0])');" />
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <p title="@Model.BuyerTitle" class="text-left">@Model.BuyerTitle</p>
+                    </td>
+                    <td>
+                        @if (Model.BuyerISBN != "1234567891234")
+                        {
+                            <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.BuyerProductId})" class="btn btn-outline-info p-3"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="text-left">對方的商品<br>@Model.SellerName</p>
+                    </td>
+                    <td>
+                        <div class="img200px">
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="productImageError(this, '@(Model.SellerId)', '@(Model.SellerProductId)', '@(Model.SellerImage.Split(',')[0])');" />
+                        </div>
+                    </td>
+                    <td>
+                        <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sexyborder">
+        <form action="~/Buyer/BarterOrderDetails" method="post">
+            <table class="fancytable">
+                <thead>
+                    <tr class="headerrow"><td style="width: 150px;">訂單狀態</td><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td style="width: 150px;">操作</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p class="text-left">@Model.Status</p>
+                        </td>
+                        <td>
+                            @if (Model.Status == "待確認" || Model.Status == "已成立")
+                            {
+                                <textarea asp-for="DenyReason" class="form-control show-length" placeholder="輸入取消原因"></textarea>
+                                <span asp-validation-for="DenyReason" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                <p>@Model.DenyReason</p>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.Status == "已成立")
+                            {
+                                <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                <input type="hidden" name="trade" value="@Model.Trade">
+                                <button type="submit" class="btn btn-outline-primary p-3 my-1" name="submit" value="完成訂單">完成訂單</button>
+                            }
+                            @if (Model.Status == "待確認" || Model.Status == "已成立")
+                            {
+                                <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                <button type="submit" class="btn btn-outline-danger p-3 my-1" name="submit" value="取消訂單">取消訂單</button>
+                            }
+                            <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload p-3 my-1">返回</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+@section topCSS{
+    <link href="~/css/seller/mysales.css" asp-append-version="true" rel="stylesheet" />
+}

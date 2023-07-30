@@ -1,0 +1,143 @@
+﻿.page-link {
+    background-color: white;
+    color: black;
+}
+    .page-link:hover {
+        background-color: black !important;
+        color: white;
+    }
+
+h1 {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+img {
+    width: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+body {
+    min-width: 992px;
+}
+
+main, footer {
+    overflow: hidden;
+}
+
+main {
+    padding-bottom: 25px;
+}
+@media (min-width:576px) {
+}
+@media (min-width:768px) {
+}
+@media (min-width:992px) {
+}
+@media (min-width:1200px) {
+}
+img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.img200px {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #A0522D50;
+}
+.img200pxEmpty {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
+    background-image: url('/deafultPictures/deafultbookpicture.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#topBtn {
+    display: none;
+    position: fixed; 
+    bottom: 80px; 
+    right: 20px;
+    z-index: 99; 
+    border: none; 
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer; 
+    padding: 15px; 
+    border-radius: 10px; 
+    font-size: 16px; 
+}
+
+    #topBtn:hover {
+        background-color: #555; 
+    }
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/**/
+.btn-custom,
+.btn-custom:focus {
+    position: relative;
+    z-index: 1;
+    min-width: 100px;
+    border: 0px solid #D24D57;
+    border-radius: 0;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+    padding: 10px 0px;
+}
+
+    .btn-custom:after {
+        content: "";
+        position: absolute;
+        height: 0%;
+        left: 50%;
+        top: 50%;
+        width: 150%;
+        z-index: -1;
+        background: #8B451350;
+        -moz-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+        -ms-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+        -webkit-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+        transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+        -webkit-transition: all 0.75s ease 0s;
+        -moz-transition: all 0.75s ease 0s;
+        -o-transition: all 0.75s ease 0s;
+        transition: all 0.75s ease 0s;
+    }
+
+    .btn-custom:hover {
+        color: #FFFFFF;
+        text-shadow: none;
+    }
+
+        .btn-custom:hover:after {
+            height: 450%;
+        }
+/**/

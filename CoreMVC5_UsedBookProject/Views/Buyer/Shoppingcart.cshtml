@@ -1,0 +1,74 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model MyProductsViewModel
+@{
+    ViewBag.Title = $"追蹤清單";
+}
+<div class="container mt-2">
+    <h1>追蹤清單</h1>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow">
+                    <td style="width: 150px;">圖片封面</td>
+                    <td>書名</td>
+                    @if (ViewBag.Trade == "買賣")
+                    {
+                        <td style="width: 150px;">價格</td>
+                    }
+                    <td style="width: 100px;">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Products.Count > 0)
+                {
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                <div class="img200px">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                </div>
+                            </td>
+                            <td>
+                                <p title="@item.Title" class="text-left">@item.Title</p>
+                            </td>
+                            @if (ViewBag.Trade == "買賣")
+                            {
+                                <td>
+                                    <p>NT$@(decimal.Round(item.UnitPrice, 0) == 0 ? "" : decimal.Round(item.UnitPrice, 0))</p>
+                                </td>
+                            }
+                            <td>
+                                <a href="@Url.Action("Details", "Home", new {ProductId = item.ProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 詳情</a>
+                                <a href="@Url.Action("DeleteFromShoppingcart", "Buyer", new {ProductId = item.ProductId})" class="btn btn-outline-danger p-3 my-1"><i class="bi bi-trash"></i> 刪除</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <div class="img200px">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="Empty" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            </div>
+                        </td>
+                        <td>
+                            <p title="追蹤清單是空的" class="text-left">追蹤清單是空的</p>
+                        </td>
+                        @if (ViewBag.Trade == "買賣")
+                        {
+                            <td>
+                            </td>
+                        }
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section topCSS{
+    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
+}

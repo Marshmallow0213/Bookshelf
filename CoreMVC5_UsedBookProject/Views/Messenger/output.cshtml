@@ -1,0 +1,35 @@
+﻿@using CoreMVC5_UsedBookProject.Models;
+@model IEnumerable<announcement>
+
+<h2>Received Messages</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList">
+                @foreach (var item in Model)
+                {
+                    <li>@item.Message: @item.CreatedAt</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.0/signalr.min.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        connection.on("ReceiveMessage", function (user, content) {
+            var li = document.createElement("li");
+            li.textContent = user + ": " + content;
+            document.getElementById("messagesList").appendChild(li);
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
+}

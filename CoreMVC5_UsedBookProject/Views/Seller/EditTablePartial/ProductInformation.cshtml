@@ -1,0 +1,98 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model ProductViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"].ToString();
+    string action = route.Values["action"].ToString();
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2"><h2>商品資訊</h2></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (controller == "Seller" && action == "Edit")
+        {
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.ProductId)</td>
+                <td>@Html.DisplayFor(model => model.ProductId)</td>
+            </tr>
+        }
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ISBN)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="ISBN" class="form-control show-length" placeholder="輸入ISBN" pattern="\d*" oninput="process(this)"></textarea>
+                    <p id="ISBN_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="ISBN" class="text-danger d-block"></span>
+                <button class="btn btn-outline-success mt-3" onclick="searchByISBN()" type="button">查詢書籍</button>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Image1)</td>
+            <td>
+                <input type="hidden" name="Image1" class="form-control" value="@(Model.Image1 == null ? "無圖片" : Model.Image1)" id="Image1" readonly />
+                <button type="button" class="btn btn-outline-danger d-none" id="Image1-clear" disabled>X</button>
+                <div id="img1Div" class="mb-3 p-2 d-flex align-items-center" style="width: 100%; aspect-ratio: 1 / 1; max-width: 200px; background-color: white; background: white; border: 1px solid black;">
+                    <img src="/DeafultPictures/DeafultBookPicture.jpg" alt="img1" id="img1" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Title)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Title" class="form-control show-length" placeholder="輸入書名"></textarea>
+                    <p id="Title_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Author)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Author" class="form-control show-length" placeholder="輸入作者"></textarea>
+                    <p id="Author_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Publisher)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Publisher" class="form-control show-length" placeholder="輸入出版商"></textarea>
+                    <p id="Publisher_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.Degree)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="Degree" class="form-control show-length" placeholder="輸入新舊程度"></textarea>
+                    <p id="Degree_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="Degree" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-danger">*</span>@Html.DisplayNameFor(model => model.ContentText)</td>
+            <td>
+                <div class="d-flex">
+                    <textarea asp-for="ContentText" class="form-control show-length" placeholder="輸入內文"></textarea>
+                    <p id="ContentText_length" class="text-right ml-4"></p>
+                </div>
+                <span asp-validation-for="ContentText" class="text-danger"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

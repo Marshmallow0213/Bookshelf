@@ -1,0 +1,16 @@
+﻿@{
+    string title = ViewData["Title"].ToString();
+}
+
+<div class="container-fluid">
+    @if (!String.IsNullOrEmpty(ViewData["Title"].ToString()))
+    {
+        <h1 class="text-bg-danger">@ViewData["Title"]</h1>
+    }
+
+    @if (!String.IsNullOrEmpty(ViewData["Message"].ToString()))
+    {
+        <p>@ViewData["Message"]</p>
+        <a asp-controller="AdminToUser" asp-action="UserData" class="navtext btn btn-primary">回到使用者控管</a>
+    }
+</div>

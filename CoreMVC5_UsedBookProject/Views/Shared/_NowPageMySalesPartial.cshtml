@@ -1,0 +1,51 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model MySalesViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+}
+<nav aria-label="Page navigation example" class="mt-2">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="@Url.Action(action, controller, new {status = Model.StatusPage, now_page = Model.PagesCount[0]-1, trade = ViewBag.trade})" aria-label="Previous" style="@(Model.PagesCount[0]-1 < 1 ? "pointer-events: none;" : "")">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @if (Model.PagesCount[0] - 2 > 1)
+        {
+            <li class="page-item">
+                <a href="@Url.Action(action, controller, new {status = Model.StatusPage, now_page = Model.PagesCount[0]-2, trade = ViewBag.trade})" class="page-link" style="@(Model.PagesCount[0]-2 < 1 ? "pointer-events: none;" : "")">@(Model.PagesCount[0] - 2)</a>
+            </li>
+        }
+        @if (Model.PagesCount[0] - 1 > 1)
+        {
+            <li class="page-item">
+                <a href="@Url.Action(action, controller, new {status = Model.StatusPage, now_page = Model.PagesCount[0]-1, trade = ViewBag.trade})" class="page-link" style="@(Model.PagesCount[0]-1 < 1 ? "pointer-events: none;" : "")">@(Model.PagesCount[0] - 1)</a>
+            </li>
+        }
+        <li class="page-item">
+            <a href="@Url.Action(action, controller, new {status = Model.StatusPage, now_page = Model.PagesCount[0], trade = ViewBag.trade})" class="page-link" style="border-bottom: 1px solid blue;">@Model.PagesCount[0]</a>
+        </li>
+        @if (Model.PagesCount[0] + 1 <= Model.PagesCount[1])
+        {
+            <li class="page-item">
+                <a href="@Url.Action(action, controller, new {status = Model.StatusPage, now_page = Model.PagesCount[0]+1, trade = ViewBag.trade})" class="page-link" style="@(Model.PagesCount[0]+1 > Model.PagesCount[1] ? "pointer-events: none;" : "")">@(Model.PagesCount[0] + 1)</a>
+            </li>
+        }
+        @if (Model.PagesCount[0] + 2 <= Model.PagesCount[1])
+        {
+            <li class="page-item">
+                <a href="@Url.Action(action, controller, new {status = Model.StatusPage, now_page = Model.PagesCount[0]+2, trade = ViewBag.trade})" class="page-link" style="@(Model.PagesCount[0]+2 > Model.PagesCount[1] ? "pointer-events: none;" : "")">@(Model.PagesCount[0] + 2)</a>
+            </li>
+        }
+        <li class="page-item">
+            <a class="page-link" href="@Url.Action(action, controller, new {status = Model.StatusPage, page = Model.PagesCount[0]+1, trade = ViewBag.trade})" aria-label="Next" style="@(Model.PagesCount[0]+1 > Model.PagesCount[1] ? "pointer-events: none;" : "")">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

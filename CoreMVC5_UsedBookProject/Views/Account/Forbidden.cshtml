@@ -1,0 +1,23 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Forbidden";
+}
+
+<div class="container mt-2">
+    <h1>拒絕存取</h1>
+
+    <h2>@(User.Identity.Name)雖通過帳密驗證</h2>
+    但你所屬群組是
+    <ul>
+        @foreach (var roleClaim in User.Claims.Where(c => c.Type == ClaimTypes.Role))
+        {
+            <li>@roleClaim.Value</li>
+        }
+    </ul>
+
+    <div class="d-flex">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">回首頁</a>
+        <a asp-action="SignOut" asp-controller="Account" class="ml-5 btn btn-outline-danger">登出</a>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@model User
+@{
+    ViewData["Title"] = "使用者資料明細";
+}
+<style>
+    body {
+        background-image: url('/adminimg/mail1.jpg');
+    }
+
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #D1F0D4;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .return:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #DAD1F0;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .edit:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .list {
+        background-color: #FADFB7;
+        padding: 1.3rem 0.75rem;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .list:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+</style>
+<h4 colspan="5" class="text-center btn-info list" style="background-color:#A3998E; color:white;">使用者資料明細</h4>
+
+
+<div>
+    <hr />
+    <dl class="row" style="font-size:25px;">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Name)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Nickname)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Nickname)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Email)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PhoneNo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.PhoneNo)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="UserEdit" asp-route-id="@Model.Id" class="edit" style="margin-right:10px;">編輯</a>
+    <a asp-controller="AdminToUser" asp-action="UserData" class="return">返回使用者資料列表</a>
+</div>

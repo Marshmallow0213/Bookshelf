@@ -1,0 +1,79 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model OrderViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "買賣訂單詳情";
+}
+<div class="container mt-2">
+    <h1>買賣訂單詳情</h1>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 150px;">購買者</td><td style="width: 150px;">圖片封面</td><td>書名</td><td style="width: 150px;">價格</td><td style="width: 150px;">操作</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-left">@Model.BuyerName</p>
+                    </td>
+                    <td>
+                        <div class="img200px">
+                            <img src=@($"https://cdnec.sanmin.com.tw/product_images/{Model.SellerISBN.Substring(3,3)}/{Model.SellerISBN.Substring(3,9)}.jpg") asp-append-version="true" class="m-auto" alt="@Model.SellerTitle" onerror="productImageError(this, '@(Model.SellerId)', '@(Model.SellerProductId)', '@(Model.SellerImage.Split(',')[0])');" />
+                        </div>
+                    </td>
+                    <td>
+                        <p title="@Model.SellerTitle" class="text-left">@Model.SellerTitle</p>
+                    </td>
+                    <td>
+                        <p>NT$@(decimal.Round(Model.SellerUnitPrice, 0) == 0 ? "" : decimal.Round(Model.SellerUnitPrice, 0))</p>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Buyer", new {ProductId = Model.SellerProductId})" class="btn btn-outline-info p-3 my-1"><i class="bi bi-info-circle"></i> 商品詳情</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 150px;">訂單狀態</td><td>@Html.DisplayNameFor(model => model.DenyReason)</td><td style="width: 150px;">操作</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-left">@Model.Status</p>
+                    </td>
+                    <td>
+                        <p>@Model.DenyReason</p>
+                    </td>
+                    <td>
+                        @if (Model.Status == "待確認")
+                        {
+                            <form action="~/Seller/OrderDetails" method="post">
+                                <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                <input type="hidden" name="trade" value="@Model.Trade">
+                                <button type="submit" class="btn btn-outline-primary p-3 my-1" name="submit" value="接受交易">接受交易</button>
+                                <button type="submit" class="btn btn-outline-danger p-3 my-1" name="submit" value="拒絕交易">拒絕交易</button>
+                            </form>
+                        }
+                        @if (Model.Status == "待取消")
+                        {
+                            <form action="~/Seller/OrderDetails" method="post">
+                                <input type="hidden" name="OrderId" value="@Model.OrderId">
+                                <input type="hidden" name="trade" value="@Model.Trade">
+                                <button type="submit" class="btn btn-outline-danger p-3 my-1" name="submit" value="取消訂單">取消訂單</button>
+                            </form>
+                        }
+                        <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload p-3 my-1">返回</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section topCSS{
+    <link href="~/css/seller/mysales.css" asp-append-version="true" rel="stylesheet" />
+}

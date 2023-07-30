@@ -1,0 +1,309 @@
+﻿.nav-item-custom,
+.nav-item-custom *,
+.nav-item-custom :after,
+.nav-item-custom :before,
+.nav-item-custom:after,
+.nav-item-custom:before {
+    border: 0 solid;
+    box-sizing: border-box;
+}
+
+.nav-item-custom {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: button;
+    -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+    box-shadow: inset 0 0 0 2px #fff;
+    box-sizing: border-box;
+    display: inline-block;
+    font-weight: 900;
+    position: relative;
+    transition: color 0.1s linear;
+    background-color: white;
+    color: black;
+    margin: 0px 5px;
+    padding: 10px 20px;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+}
+
+    .nav-item-custom:after,
+    .nav-item-custom:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+    }
+
+    .nav-item-custom:before {
+        border-bottom: var(--border);
+        border-top: var(--border);
+        height: 100%;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+    }
+
+    .nav-item-custom:hover:before,
+    .nav-item-custom.clicked:before {
+        --border: 1.5px solid #a0cfff;
+        width: 100%;
+        z-index: 0;
+        animation: border-top-and-bottom 1s forwards;
+    }
+
+    .nav-item-custom:after {
+        border-left: var(--border);
+        border-right: var(--border);
+        bottom: 50%;
+        right: 0;
+        transform: translateY(50%);
+        width: 100%;
+    }
+
+    .nav-item-custom:hover:after,
+    .nav-item-custom.clicked:after {
+        --border: 1.5px solid #a0cfff;
+        height: 100%;
+        animation: border-right-and-left 1s forwards;
+    }
+
+@keyframes border-top-and-bottom {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes border-right-and-left {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 100%;
+    }
+}
+
+.btn-login-view {
+    color: white;
+    background-color:#00ff00;
+    transition: background-color 0.3s, color 0.3s;
+}
+.btn-logout-view {
+    color: white;
+    background-color: red;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-logout-view:hover {
+        border: 1px solid red;
+        background-color: transparent;
+        color: red;
+    }
+
+.btn-hide {
+    border-color: blue;
+    background-color: white;
+    color: blue;
+    opacity:0;
+    cursor:default;
+}
+    .btn-hide:hover {
+        border-color: blue;
+        background-color: white;
+        transition: background-color 1.5s, color 1.5s, border-color 1.5s;
+        color: blue;
+        opacity: 1;
+    }
+.btn-login {
+    border: 0;
+    color: white;
+    background-color: #3cb371;
+    transition: background-color 0.3s, color 0.3s;
+}
+    .btn-login:hover {
+        border: 1px solid;
+        border-color: #3cb371;
+        background-color: white;
+        color: #3cb371;
+        transition: background-color 1.5s, color 1.5s, border-color 1.5s;
+    }
+.login-info {
+    display: flex;
+    align-items: center;
+}
+
+.login-name {
+    margin-right: 5px;
+}
+
+.spacer {
+    width: 5px;
+}
+
+.btn-logout {
+    color: white;
+    background-color: red;
+    border: 1px solid transparent;
+    transition: background-color 1.5s, color 1.5s, border-color 1.5s;
+    opacity: 0;
+}
+
+    .btn-logout.show {
+        opacity: 1;
+        background-color: white;
+        color: red;
+        border-color: red;
+    }
+
+.logintext {
+    font-size: 24px;
+}
+
+.button-cover,
+.button-cover-nav {
+    position: relative;
+}
+
+.buttonpartial .btn-login,
+.buttonpartial .btn-logout {
+    transition-delay: 1.5s;
+    cursor: default;
+}
+
+.nav-item-custom-btn {
+    display: inline-block;
+    margin-left: auto;
+    cursor: default;
+}
+
+.nav-item-custom {
+    position: relative;
+}
+
+    .nav-item-custom .btn-login,
+    .nav-item-custom .btn-logout {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .nav-item-custom.hovered,
+    .nav-item-custom.hovered .btn-logout {
+        opacity: 0;
+    }
+
+        .nav-item-custom.hovered .btn-login.show {
+            opacity: 1;
+            transition-delay: 0s;
+        }
+
+        .nav-item-custom.hovered .btn-logout.show {
+            opacity: 1;
+            transition-delay: 0s;
+        }
+
+    .nav-item-custom:hover,
+    .nav-item-custom:hover .btn-logout {
+        opacity: 1;
+        transition-delay: 1.5s;
+    }
+.container-footer{
+    display:flex;
+    padding-right:0.3%;
+}
+.error-message {
+    color: red;
+    border: 1px solid red;
+    width:130px;
+    border-radius:5rem;
+    text-align:center;
+    cursor:default;
+    margin:5px 0px;
+}
+.login-bg {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: gray;
+}
+
+    .login-bg img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(50%) blur(3px);
+        opacity: 0.7;
+    }
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    border-radius: 10px;
+    color: black;
+}
+
+    .login-container form {
+        margin-bottom: 20px;
+    }
+
+    .login-container .form-group {
+        margin-bottom: 10px;
+    }
+
+        .login-container .form-group label {
+            display: none;
+        }
+
+    .login-container .form-control {
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        border-radius: 5px;
+        color: black;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+        .login-container .form-control:focus {
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+    .login-container .btn-login-view {
+        width: 100%;
+    }
+
+    .login-container .separation-line {
+        border-top: 1px solid #ccc;
+        margin: 10px 0;
+    }
+
+    .login-container .back-to-home {
+        text-align: center;
+    }
+.top-administrator {
+    background-color: red;
+}
+
+.common-administrator {
+    background-color: yellow;
+}
+
+.suspended-administrator {
+    background-color: green;
+}
+.card {
+    transition: transform 0.7s;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    }

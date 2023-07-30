@@ -1,0 +1,97 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model WishsViewModel
+@{
+    ViewBag.Title = $"願望清單";
+}
+<div class="container mt-2">
+    <h1>願望清單</h1>
+    <div class="row">
+        <div class="col-6">
+            <form method="post" enctype="multipart/form-data" action="/Buyer/Wish">
+                <div class="form-group">
+                    <label asp-for="ISBN" class="control-label"></label>
+                    <input asp-for="ISBN" class="form-control" />
+                    <span asp-validation-for="ISBN" class="text-danger"></span>
+                </div>
+                <button class="btn btn-outline-success p-3 my-1" onclick="searchByISBN()" type="button">查詢書籍</button>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-outline-primary p-3 my-1">增至許願井</button>
+            </form>
+        </div>
+        <div id="resultContainer" class="d-none"></div>
+        <div class="col-6">
+            <p>進入願望清單後，</p>
+            <p>若賣場中有此商品將顯示<span class="text-success">賣場有此商品</span>，</p>
+            <p>否則顯示<span class="text-danger">賣場尚無此商品</span>。</p>
+        </div>
+    </div>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow">
+                    <td style="width: 150px;">圖片封面</td>
+                    <td>書名</td>
+                    <td style="width: 120px;">ISBN</td>
+                    <td style="width: 120px;">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Wishs.Count > 0)
+                {
+                    @foreach (var item in Model.Wishs)
+                    {
+                        <tr>
+                            <td>
+                                <div class="img200px">
+                                    <img src=@($"https://cdnec.sanmin.com.tw/product_images/{item.ISBN.Substring(3, 3)}/{item.ISBN.Substring(3, 9)}.jpg") asp-append-version="true" class="m-auto" alt="@item.Title" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                                </div>
+                            </td>
+                            <td>
+                                <p title="@item.Title" class="text-left">@item.Title</p>
+                            </td>
+                            <td>
+                                <p class="text-left">@item.ISBN</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 @(Model.ISBNproducts.Contains(item.ISBN) == true ? "text-success" : "text-danger")">@(Model.ISBNproducts.Contains(item.ISBN) == true ? "賣場有此商品" : "賣場尚無此商品")</p>
+                                <a href="@Url.Action("SearchProducts", "Home", new {name = item.ISBN})" class="btn btn-outline-primary p-3 my-1">以ISBN搜尋</a>
+                                <a href="@Url.Action("DeleteBook", "Buyer", new {Id = item.WishId})" class="btn btn-outline-danger p-3 my-1">刪除</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <div class="img200px">
+                                <img src=@($"/DeafultPictures/DeafultBookPicture.jpg") asp-append-version="true" class="m-auto" alt="Empty" onerror="this.onerror='';this.src='/DeafultPictures/DeafultBookPicture.jpg'" />
+                            </div>
+                        </td>
+                        <td>
+                            <p title="願望清單是空的" class="text-left">願望清單是空的</p>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <partial name="_NowPageWishsPartial" />
+</div>
+@section topCSS{
+    <link href="~/css/seller/myproducts.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+}
+@section endJS{
+    <script src="~/js/home/wish.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

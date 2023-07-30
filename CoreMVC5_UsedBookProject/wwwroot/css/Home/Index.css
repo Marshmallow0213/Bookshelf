@@ -1,0 +1,47 @@
+﻿.marqee {
+    height: 3em;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    background: #A3998E;
+    display: flex;
+    align-items: center;
+}
+
+    .marqee > ul {
+        padding-left: 0;
+        display: flex;
+        list-style-type: none;
+        animation: marqee 30s linear infinite;
+        position: absolute;
+        margin-bottom: 0;
+    }
+
+        .marqee > ul > li {
+            white-space: nowrap;
+            margin-right: 2em;
+            font-weight: bold;
+            color: white;
+            font-size: 24px;
+        }
+
+@keyframes marqee {
+    0% {
+        left: 100%;
+        transform: translateX(0%);
+    }
+
+    100% {
+        left: 0;
+        transform: translateX(-100%);
+    }
+}
+main, body, .nav-item-custom {
+    background-image: url('/adminimg/wood.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#carouselExampleIndicators {
+    height: 400px;
+    overflow: hidden;
+}

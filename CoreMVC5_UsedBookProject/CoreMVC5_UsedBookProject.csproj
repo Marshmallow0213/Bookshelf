@@ -4,4 +4,32 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Seller\ImagePartial.cshtml" />
+    <Content Remove="wwwroot\css\fixbgc.css" />
+    <Content Remove="wwwroot\Pictures\Carousel.jpg" />
+    <Content Remove="wwwroot\Pictures\EmptyUserIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Pictures\EmptyUserIcon.png" />
+    <None Include="wwwroot\Pictures\Carousel.jpg" />
+  </ItemGroup>
+
 </Project>

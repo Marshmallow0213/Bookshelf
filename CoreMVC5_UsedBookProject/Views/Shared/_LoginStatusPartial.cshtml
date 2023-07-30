@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    @if (controller != "Account")
+    {
+        <li class="nav-item px-2 ml-auto">
+            <a href="@Url.Action("Details", "Account")" class="nav-link text-dark h-100 btn-custom pr-2">
+                <img class="p-2" src="/Images/Users/@User.Identity.Name/@User.Claims.FirstOrDefault(c => c.Type.Contains("givenname")).Value" asp-append-version="true" alt="img" style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1; max-width: 50px; overflow: hidden; object-fit: cover;" onerror="this.src='/DeafultPictures/EmptyUserIcon.png';this.onerror='';">
+                @User.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier")).Value
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item px-2 ml-auto">
+            <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("SignOut", "Account", new {})">登出</a>
+        </li>
+    }
+}
+else {
+    <li class="nav-item px-2 ml-auto">
+        <a class="nav-link text-dark h-100 btn-custom" href="@Url.Action("Login", "Account", new {})">登入</a>
+    </li>
+}

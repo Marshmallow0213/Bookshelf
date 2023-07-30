@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "賣家中心";
+}
+
+<div class="container mt-2">
+    <h1>賣家中心</h1>
+    <h2><strong>買賣</strong>待處理事項</h2>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 33%;">待確認訂單</td><td style="width: 33%;">已成立訂單</td><td style="width: 33%;">待取消訂單</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-center" style="@(@Model[0]["待確認"] > 0 ? "color: red;" : "")">@Model[0]["待確認"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[0]["已成立"] > 0 ? "color: red;" : "")">@Model[0]["已成立"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[0]["待取消"] > 0 ? "color: red;" : "")">@Model[0]["待取消"]</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h2><strong>交換</strong>待處理事項</h2>
+    <div class="sexyborder">
+        <table class="fancytable">
+            <thead>
+                <tr class="headerrow"><td style="width: 33%;">待確認訂單</td><td style="width: 33%;">已成立訂單</td><td style="width: 33%;">待取消訂單</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="text-center" style="@(@Model[1]["待確認"] > 0 ? "color: red;" : "")">@Model[1]["待確認"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[1]["已成立"] > 0 ? "color: red;" : "")">@Model[1]["已成立"]</p>
+                    </td>
+                    <td>
+                        <p class="text-center" style="@(@Model[1]["待取消"] > 0 ? "color: red;" : "")">@Model[1]["待取消"]</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section topCSS{
+    <link href="~/css/seller/index.css" asp-append-version="true" rel="stylesheet" />
+}

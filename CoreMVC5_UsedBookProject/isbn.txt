@@ -1,0 +1,4 @@
+Maschinelles Lernen - Grundlagen Und Anwendungen: Mit Beispielen in Python:9783662672761
+Head First Python: A Learner's Guide to the Fundamentals of Python Programming, a Brain-Friendly Guide:9781492051299
+Machine Learning for Earth Sciences: Using Python to Solve Geological Problems:9783031351136
+統計學：使用Python語言:9789865222666

@@ -1,0 +1,46 @@
+﻿@using CoreMVC5_UsedBookProject.ViewModels;
+@model ProductViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "商品詳情";
+}
+<div class="container mt-2">
+    <h1>商品詳情</h1>
+    <partial name="~/Views/Seller/DetailsTablePartial/Swiper.cshtml" />
+    <form action="~/Buyer/Details" method="post">
+        <partial name="~/Views/Seller/DetailsTablePartial/ProductInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailsTablePartial/SaleInformation.cshtml" />
+        <partial name="~/Views/Seller/DetailsTablePartial/OtherInformation.cshtml" />
+        <input type="hidden" name="ProductId" class="form-control" value="@Model.ProductId" readonly />
+        <input type="hidden" id="CreateBy" class="form-control" value="@Model.CreateBy" readonly />
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="hidden" id="MeId" class="form-control" value="@User.Identity.Name" readonly />
+        }
+        else
+        {
+            <input type="hidden" id="MeId" class="form-control" value="" readonly />
+        }
+    </form>
+
+</div>
+@section topCSS{
+    <link href="~/css/Seller/DetailsTablePartial.css" asp-append-version="true" rel="stylesheet" />
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+    <!-- Demo styles -->
+    <link rel="stylesheet" href="~/css/Swiper/Swiper.css" />
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+}
+@section endJS{
+    <!-- Swiper JS -->
+    <script src="~/lib//Swiper/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script src="~/js/Swiper/Swiper.js"></script>
+    <script src="~/js/Seller/DetailsTablePartial.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/home/details.js" asp-append-version="true"></script>
+}

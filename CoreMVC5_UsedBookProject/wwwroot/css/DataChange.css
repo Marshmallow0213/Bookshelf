@@ -1,0 +1,55 @@
+﻿.btnadmin,
+.btnadmin *,
+.btnadmin :after,
+.btnadmin :before,
+.btnadmin:after,
+.btnadmin:before {
+    border: 0 solid;
+    box-sizing: border-box;
+}
+
+.btnadmin {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: button;
+    background-image: none;
+    font-family: Andale Mono, monospace;
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    border-radius: 999px;
+    box-sizing: border-box;
+    display: block;
+    font-weight: 900;
+    -webkit-mask-image: none;
+    overflow: hidden;
+    padding: 0.3rem 2rem;
+    position: relative;
+    text-transform: uppercase;
+    transition: 0.2s;
+    box-shadow: 0 3px 0 -4px #a9a9a9, 0 6px 0 -4px #a9a9a9, 0 9px 0 -4px #a9a9a9;
+    transform: translateY(0);
+}
+
+    .btnadmin:disabled {
+        cursor: default;
+    }
+
+    .btnadmin:-moz-focusring {
+        outline: auto;
+    }
+
+    .btnadmin svg {
+        display: block;
+        vertical-align: middle;
+    }
+
+    .btnadmin [hidden] {
+        display: none;
+    }
+
+    .btnadmin:hover {
+        box-shadow: none;
+        transform: translateY(5px);
+        transition: box-shadow 0.2s, transform 0.2s;
+    }

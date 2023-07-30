@@ -1,3 +1,57 @@
 ﻿@{
-    Layout = "_Layout";
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+    if (controller == "Seller")
+    {
+        Layout = "_LayoutSeller";
+    }
+    else if (controller == "AdministratorLogin")
+    {
+        Layout = "_LayoutAdminLogin";
+    }
+    else if (controller == "AdministratorProfile")
+    {
+        Layout = "_LayoutDoList";
+    }
+    else if (controller == "Administratorlist"/* || controller == "AdministratorToDoList"*/)
+    {
+        Layout = "_LayoutAdministratorlist";
+    }
+    else if (controller == "AdminCharts")
+    {
+        Layout = "_LayoutAdministratorCharts";
+    }
+    else if (controller == "GetCpuController")
+    {
+        Layout = "_LayoutGetCpu";
+    }
+    else if (controller == "AdministratorHomePage")
+    {
+        Layout = "_LayoutAdministratorHomePage";
+    }
+    else if (controller == "AdminToUser")
+    {
+        Layout = "_LayoutDoList";
+    }
+    else if (controller == "Account" && action == "RegisterFromCSV")
+    {
+        Layout = "_LayoutAccount";
+    }
+    else if (controller == "AdministratorToDoList")
+    {
+        Layout = "_LayoutDoList";
+    }
+    else if (controller == "Messenger")
+    {
+        Layout = "_LayoutDoList";
+    }
+    //else if (controller == "AdministratorToDoList")
+    //{
+    //    Layout = "_LayoutDoList";
+    //}
+    else
+    {
+        Layout = "_Layout"; 
+    }
 }

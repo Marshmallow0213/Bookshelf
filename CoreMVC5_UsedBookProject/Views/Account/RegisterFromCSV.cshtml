@@ -1,0 +1,174 @@
+﻿@model CoreMVC5_UsedBookProject.ViewModels.RegisterFromCSVViewModel
+
+@{
+    ViewData["Title"] = "使用者批量註冊";
+}
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: blue;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .return:hover {
+            text-decoration: none;
+            color: blue;
+            background-color: white;
+            border: 1px blue solid;
+        }
+
+    .delete {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        background-color: red;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+    }
+
+        .delete:hover {
+            text-decoration: none;
+            color: red;
+            background-color: white;
+            border: 1px red solid;
+        }
+</style>
+<div class="sidebar">
+    <div class="menu">
+        <p class="navtextbg whfora" style="font-weight:bold; cursor:default;height:10%; min-width:368px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="margin-right:10px;">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+            </svg>主頁與人員
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="Administratorlist" asp-action="Adminlist" class="navtext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                </svg>管理員人員名單
+            </a>
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="AdministratorHomePage" asp-action="AdminIndex" class="navtext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16 " style="margin-right:10px;">
+                    <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+                </svg>主頁面更新
+            </a>
+        </p>
+        <p class="navtextbg whfora" style="font-weight:bold; cursor:default;height:10%; min-width:368px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin-right:10px;">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+            </svg>權限與資料編輯
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="navtext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                </svg>管理人員控管
+            </a>
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="AdminToUser" asp-action="UserData" class="navtext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                </svg>使用者控管
+            </a>
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="Account" asp-action="RegisterFromCSV" class="no-hover" style="color:white;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
+                </svg>使用者批量管理
+            </a>
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="Messenger" asp-action="enter" class="navtext" style="min-width:368px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-megaphone" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c.18.01.359.022.537.036 2.568.189 5.093.744 7.463 1.993V3.85zm-9 6.215v-4.13a95.09 95.09 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A60.49 60.49 0 0 1 4 10.065zm-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68.019 68.019 0 0 0-1.722-.082z" />
+                </svg>公告發布
+            </a>
+        </p>
+        <p class="navtextbg whfora" style="font-weight:bold; cursor:default;height:10%; min-width:368px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16" style="margin-right:10px;">
+                <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z" />
+            </svg>圖表與待辦事項
+        </p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="AdminCharts" asp-action="ChartsView" class="navtext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-pie-chart-fill" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778l-5.5 5.5zM8.5.015V7.5h7.485A8.001 8.001 0 0 0 8.5.015z" />
+                </svg>管理員與使用者占比
+            </a>
+        <p>
+        <p class="menu-item whfora" style="height:10%;">
+            <a asp-controller="AdministratorToDoList" asp-action="Dolist" class="navtext" style="min-width:368px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16" style="margin-right:10px;">
+                    <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z" />
+                    <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z" />
+                    <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z" />
+                </svg>待辦事項清單
+            </a>
+        </p>
+        @if (User.IsInRole("Top Administrator"))
+          {
+            <p class="menu-item whfora" style="height:10%;">
+                <a asp-controller="AdministratorToDoList" asp-action="DolistForCheck" class="navtext" style="min-width:368px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="auto" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16" style="margin-right:10px;">
+                        <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z" />
+                        <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z" />
+                    </svg>待辦事項審核
+                </a>
+            </p>
+          }
+    </div>
+</div>
+
+
+    
+<div style="display:flex;">
+    <div style="width: 35%;">
+    </div>
+    <div class="content">
+        <h1>從CSV批量註冊(若資料量較龐大請稍作等待)</h1>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <form asp-action="RegisterFromCSV" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <p>@Html.DisplayNameFor(model => model.File) 限2MB以內</p>
+                    <div class="d-flex align-items-end">
+                        <label for="file1" style="cursor:pointer;padding:10px;border-radius: 5px; background-color:#0000cd;color:white;">
+                            選擇檔案
+                        </label>
+                        <input type="file" asp-for="File" class="d-none return" accept=".csv" id="file1" />
+                        <p id="p-file1" class="d-block ml-3">未選擇任何檔案</p>
+                    </div>
+                    <span asp-validation-for="File" class="text-danger"></span>
+                    <div class="form-group mt-3">
+                        <input type="submit" name="submit" value="批量註冊" class="return" />
+                        <input type="submit" name="submit" value="批量刪除" class="delete" />
+                    </div>
+                </form>
+                <pre id="out"><p>文件內容將出現在這裡</p></pre>
+            </div>
+            <div class="col-12">
+                <p>CSV格式範例:</p>
+                <p>UserName,Password</p>
+                <p>B10802001,12345678</p>
+                <p>B10802002,12345678</p>
+            </div>
+        </div>
+    </div>
+</div>
+@section endJS{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/account/registerfromcsv.js" asp-append-version="true"></script>
+}

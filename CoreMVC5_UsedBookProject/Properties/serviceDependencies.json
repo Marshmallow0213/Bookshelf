@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:ProductContext",
+      "dynamicId": null
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:AdminAccountContext",
+      "dynamicId": null
+    }
+  }
+}

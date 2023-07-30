@@ -1,0 +1,95 @@
+﻿@model CoreMVC5_UsedBookProject.ViewModels.AdministratorUserHomePage
+
+@{
+    ViewData["Title"] = "管理員資料編輯";
+}
+<style>
+    body {
+        background-image: url('/adminimg/mail1.jpg');
+    }
+
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #D1F0D4;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .return:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #DAD1F0;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .edit:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+</style>
+<h1>管理員資料編輯</h1>
+
+<h4>管理員個人資料</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AdministratorEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:flex; flex-direction:column;  gap:10px;">
+                <div style="display:flex; display:none;">
+                <label asp-for="Id" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                <input asp-for="Id" readonly class="form-control"/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+                <div style="display:flex;">
+                <label asp-for="Name" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+                <div style="display:flex;">
+                <label asp-for="Nickname" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                <input asp-for="Nickname" class="form-control" />
+                <span asp-validation-for="Nickname" class="text-danger"></span>
+            </div>
+                <div style="display:flex;">
+                <label asp-for="Email" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+                <div style="display:flex;">
+                <label asp-for="PhoneNo" class="control-label" style="width:30%; text-align:center; font-weight:bold; font-size:25px;"></label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="保存" class="return" />
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-top:10px">
+    <a asp-controller="AdministratorProfile" asp-action="AdministratorData" class="edit">返回管理員資料列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,21 @@
+﻿@model List<string>
+<script>
+    function clicksearch(element){
+        
+        let searchInput = document.getElementById("searchInput");
+        let li=document.getElementById(element);
+        searchInput.value=li.innerText;
+    }
+</script>
+<style>
+    .lihover:hover{
+      cursor:pointer;
+    }
+</style>
+
+<ul class="list-unstyled " style="position:absolute; top:40px; left:10px ; background-color:black ;width:200px ;border-radius:10px; z-index: 1;" >
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <li id="@i" class="lihover" onclick="clicksearch('@i')" style="color:white;padding-left:5px;border-bottom:1px solid white">@Model[i]</li>
+    }
+</ul>

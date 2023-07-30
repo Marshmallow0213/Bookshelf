@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var route = ViewContext.RouteData;
+    string controller = route.Values["controller"] != null ? route.Values["controller"].ToString() : "";
+    string action = route.Values["action"] != null ? route.Values["action"].ToString() : "";
+}
+<div class="my-2">
+    @if (controller == "Home" && action == "Details")
+    {
+        @if (Model.Trade.Contains("買賣"))
+        {
+            <button type="button" class="btn btn-outline-primary p-3" onclick="checklogin('@Model.ProductId','@Model.CreateBy','@Model.Trade','買賣')">
+                購買
+            </button>
+        }
+        @if (Model.Trade.Contains("交換"))
+        {
+            <button type="button" class="btn btn-outline-primary p-3" onclick="checklogin('@Model.ProductId','@Model.CreateBy','@Model.Trade','交換')">
+                交換
+            </button>
+        }
+        <button type="button" class="btn btn-outline-success my-2 p-3" id="shoppingcart" value="@Model.ProductId"><i class="bi bi-bookmark-heart-fill"></i> 增加至追蹤清單</button>
+    }
+    else if (controller == "Seller" && action == "Details")
+    {
+        @if (Model.Status == "已上架" || Model.Status == "未上架")
+        {
+            <a href="@Url.Action("Edit", "Seller", new {ProductId = Model.ProductId})" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i> 編輯</a>
+        }
+        @if (Model.Status == "未上架")
+        {
+            <button type="button" class="btn btn-outline-danger p-3 my-1" onclick="checkDeleteProduct('@Model.ProductId')">
+                <i class="bi bi-trash"></i> 刪除
+            </button>
+        }
+        <button type="button" onclick="history.go(-1)" class="btn btn-outline-secondary disable-onbeforeunload">返回</button>
+    }
+</div>

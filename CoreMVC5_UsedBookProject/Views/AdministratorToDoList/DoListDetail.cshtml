@@ -1,0 +1,69 @@
+﻿@model Adminlist
+@{
+    ViewData["Title"] = "待辦清單明細";
+}
+<style>
+    .return {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #D1F0D4;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .return:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .edit {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        background-color: #DAD1F0;
+        transition: 0.7s;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .edit:hover {
+            color: black;
+            text-decoration: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+    .list {
+        background-color: #FADFB7;
+        padding: 1.3rem 0.75rem;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 25px;
+    }
+
+        .list:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+</style>
+<h4 colspan="5" class="text-center btn-info list" style="background-color:#A3998E; color:white;">待辦清單明細</h4>
+
+
+<div>
+    <hr />
+    <dl class="row" style="font-size:25px;">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Date)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Date)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Maintitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Maintitle)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Subtitle)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(m => m.Subtitle)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="AdministratorToDoList" asp-action="DoList" class="return">返回待辦事項清單</a>
+</div>
